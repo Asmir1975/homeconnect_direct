@@ -66,14 +66,14 @@ After setup, no cloud is involved.
 - a **debug log** (see below)
 - the **diagnostics** of the appliance: Settings → Devices & Services → Home Connect Local → your appliance → **Download diagnostics**. The file contains the appliance profile and current values. Keys, serial number and MAC address are removed.
 
-  <img src="assets/diagnostics_button.png" alt="Download diagnostics" width="300">
+  <img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/diagnostics_button.png" alt="Download diagnostics" width="300">
 - your **model number**
 
 ## 🪵 Debug logging
 
 **In the UI**: Settings → Devices & Services → Home Connect Local → ⋮ → **Enable debug logging**. Reproduce the problem and disable it again. The log downloads automatically.
 
-<img src="assets/debug_menu.png" alt="Enable debug logging" width="220">
+<img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/debug_menu.png" alt="Enable debug logging" width="220">
 
 To include startup, add this to `configuration.yaml`, restart Home Assistant and download the full log:
 
