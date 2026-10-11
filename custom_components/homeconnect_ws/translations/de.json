@@ -128,6 +128,9 @@
       "switch_half_load": {
         "name": "Halbe Ladung"
       },
+      "switch_allow_backend_connection": {
+        "name": "Cloud-Verbindung erlauben"
+      },
       "switch_child_lock": {
         "name": "Kindersicherung"
       },
@@ -160,6 +163,12 @@
       },
       "switch_laundry_hygiene": {
         "name": "Hygiene"
+      },
+      "switch_freezer_auto_super": {
+        "name": "Automatische Superfrost-Einstellung"
+      },
+      "switch_dishwasher_gap_illumination": {
+        "name": "Gap Illumination"
       },
       "switch_super_freezer": {
         "name": "Super Modus Gefrierschrank"
@@ -567,6 +576,15 @@
       }
     },
     "sensor": {
+      "sensor_oven_steam_assist_level": {
+        "name": "Dampfzugabe",
+        "state": {
+          "off": "Aus",
+          "low": "Gering",
+          "medium": "Mittel",
+          "high": "Stark"
+        }
+      },
       "sensor_silence_on_demand_remaining_time": {
         "name": "Jetzt Leise Restzeit"
       },
@@ -3701,6 +3719,23 @@
           "business": "Business"
         }
       },
+      "select_oven_water_hardness": {
+        "name": "Wasserhärte",
+        "state": {
+          "softened": "Enthärtet",
+          "soft": "Weich",
+          "medium": "Mittel",
+          "hard": "Hart",
+          "veryhard": "Sehr hart"
+        }
+      },
+      "select_dishwasher_interior_light_mode": {
+        "name": "Emotion Light Modus",
+        "state": {
+          "applianceondooropen": "Gerät an und Türe auf",
+          "alwaysondooropen": "Türe geöffnet"
+        }
+      },
       "select_oven_level": {
         "name": "Stufe",
         "state": {
@@ -4590,6 +4625,24 @@
     }
   },
   "services": {
+    "start_program_with_options": {
+      "name": "Programm mit Optionen starten",
+      "description": "Startet ein Programm mit expliziten Optionen in einer lokalen Anfrage, ohne automatische Wiederholungen.",
+      "fields": {
+        "device_id": {
+          "name": "Gerät",
+          "description": "Gerät"
+        },
+        "program": {
+          "name": "Programm",
+          "description": "Vollständiger Programmschlüssel aus dem Gerätekatalog."
+        },
+        "options": {
+          "name": "Optionen",
+          "description": "Optionsschlüssel und typisierte Werte; nur unterstützte Optionen."
+        }
+      }
+    },
     "start_program": {
       "name": "Programm starten",
       "description": "Startet das ausgewählte Programm",

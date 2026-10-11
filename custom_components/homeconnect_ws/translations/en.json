@@ -131,6 +131,9 @@
       "switch_half_load": {
         "name": "Half load"
       },
+      "switch_allow_backend_connection": {
+        "name": "Allow cloud connection"
+      },
       "switch_child_lock": {
         "name": "Child lock"
       },
@@ -166,6 +169,12 @@
       },
       "switch_laundry_hygiene": {
         "name": "Hygiene"
+      },
+      "switch_freezer_auto_super": {
+        "name": "Automatic super freeze setting"
+      },
+      "switch_dishwasher_gap_illumination": {
+        "name": "Gap Illumination"
       },
       "switch_super_freezer": {
         "name": "Super mode Freezer"
@@ -567,6 +576,15 @@
       }
     },
     "sensor": {
+      "sensor_oven_steam_assist_level": {
+        "name": "Add steam",
+        "state": {
+          "off": "Off",
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        }
+      },
       "sensor_silence_on_demand_remaining_time": {
         "name": "Silence on Demand remaining"
       },
@@ -3941,6 +3959,23 @@
           "plus3": "Plus 3"
         }
       },
+      "select_oven_water_hardness": {
+        "name": "Water hardness",
+        "state": {
+          "softened": "Softened",
+          "soft": "Soft",
+          "medium": "Medium",
+          "hard": "Hard",
+          "veryhard": "Very hard"
+        }
+      },
+      "select_dishwasher_interior_light_mode": {
+        "name": "Emotion Light Mode",
+        "state": {
+          "applianceondooropen": "Appliance on and door open",
+          "alwaysondooropen": "Door open"
+        }
+      },
       "select_oven_level": {
         "name": "Level",
         "state": {
@@ -4590,6 +4625,24 @@
     }
   },
   "services": {
+    "start_program_with_options": {
+      "name": "Start program with options",
+      "description": "Start a program with explicit options in one local request, without automatic retries.",
+      "fields": {
+        "device_id": {
+          "name": "Appliance",
+          "description": "Appliance"
+        },
+        "program": {
+          "name": "Program",
+          "description": "Full program key from the appliance catalog."
+        },
+        "options": {
+          "name": "Options",
+          "description": "Option keys and typed values; only supported options."
+        }
+      }
+    },
     "start_program": {
       "name": "Start Program",
       "description": "Start the selected Program",
