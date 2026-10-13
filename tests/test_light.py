@@ -247,6 +247,33 @@ async def test_set_brightness(
     mock_appliance.session.send_sync.reset_mock()
 
 
+async def test_set_brightness_every_percent(
+    hass: HomeAssistant,
+    mock_appliance: MockAppliance,
+    patch_entity_description: None,  # noqa: ARG001
+) -> None:
+    """Test every brightness percentage reaches the appliance unchanged."""
+    assert await setup_config_entry(hass, MOCK_CONFIG_DATA)
+    await mock_appliance.entities["Test.Lighting"].update({"value": True})
+    await mock_appliance.entities["Test.LightingBrightness"].update({"value": 50})
+    await hass.async_block_till_done()
+
+    sent = []
+    for percent in range(1, 101):
+        await hass.services.async_call(
+            LIGHT_DOMAIN,
+            SERVICE_TURN_ON,
+            {
+                ATTR_ENTITY_ID: "light.fake_brand_homeappliance_light_2",
+                ATTR_BRIGHTNESS_PCT: percent,
+            },
+            blocking=True,
+        )
+        sent.append(mock_appliance.session.send_sync.await_args.args[0].data[0]["value"])
+    # The fixture's minimum is 2.
+    assert sent == [max(percent, 2) for percent in range(1, 101)]
+
+
 async def test_update_color_temp(
     hass: HomeAssistant,
     mock_appliance: MockAppliance,

@@ -282,7 +282,8 @@ class HCLight(HCEntity, LightEntity):
             self._attr_color_mode in (ColorMode.BRIGHTNESS, ColorMode.COLOR_TEMP)
             and ATTR_BRIGHTNESS in kwargs
         ):
-            value_in_range = int(
+            # Round, truncating sent 23 for 24 % (LC91KLT60).
+            value_in_range = round(
                 max(
                     brightness_to_value((1, 100), brightness),
                     self._brightness_entity.min,
