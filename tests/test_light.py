@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from unittest.mock import DEFAULT, call
 
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
@@ -246,6 +247,33 @@ async def test_set_brightness(
     mock_appliance.session.send_sync.reset_mock()
 
 
+async def test_set_brightness_every_percent(
+    hass: HomeAssistant,
+    mock_appliance: MockAppliance,
+    patch_entity_description: None,  # noqa: ARG001
+) -> None:
+    """Test every brightness percentage reaches the appliance unchanged."""
+    assert await setup_config_entry(hass, MOCK_CONFIG_DATA)
+    await mock_appliance.entities["Test.Lighting"].update({"value": True})
+    await mock_appliance.entities["Test.LightingBrightness"].update({"value": 50})
+    await hass.async_block_till_done()
+
+    sent = []
+    for percent in range(1, 101):
+        await hass.services.async_call(
+            LIGHT_DOMAIN,
+            SERVICE_TURN_ON,
+            {
+                ATTR_ENTITY_ID: "light.fake_brand_homeappliance_light_2",
+                ATTR_BRIGHTNESS_PCT: percent,
+            },
+            blocking=True,
+        )
+        sent.append(mock_appliance.session.send_sync.await_args.args[0].data[0]["value"])
+    # The fixture's minimum is 2.
+    assert sent == [max(percent, 2) for percent in range(1, 101)]
+
+
 async def test_update_color_temp(
     hass: HomeAssistant,
     mock_appliance: MockAppliance,
@@ -371,17 +399,16 @@ async def test_set_brightness_color_temp(
         blocking=True,
     )
 
-    mock_appliance.session.send_sync.assert_awaited_once_with(
-        Message(
-            resource="/ro/values",
-            action=Action.POST,
-            data=[
-                {"uid": 109, "value": 100},
-                {"uid": 110, "value": 100},
-                {"uid": 108, "value": True},
-            ],
-        )
-    )
+    assert mock_appliance.session.send_sync.await_args_list == [
+        call(Message(resource="/ro/values", action=Action.POST, data={"uid": 108, "value": True})),
+        call(
+            Message(
+                resource="/ro/values",
+                action=Action.POST,
+                data=[{"uid": 109, "value": 100}, {"uid": 110, "value": 100}],
+            )
+        ),
+    ]
     mock_appliance.session.send_sync.reset_mock()
 
     await mock_appliance.entities["Test.Lighting"].update({"value": True})
@@ -572,17 +599,16 @@ async def test_set_brightness_color_temp_inverted(
         blocking=True,
     )
 
-    mock_appliance.session.send_sync.assert_awaited_once_with(
-        Message(
-            resource="/ro/values",
-            action=Action.POST,
-            data=[
-                {"uid": 109, "value": 100},
-                {"uid": 110, "value": 0},
-                {"uid": 108, "value": True},
-            ],
-        )
-    )
+    assert mock_appliance.session.send_sync.await_args_list == [
+        call(Message(resource="/ro/values", action=Action.POST, data={"uid": 108, "value": True})),
+        call(
+            Message(
+                resource="/ro/values",
+                action=Action.POST,
+                data=[{"uid": 109, "value": 100}, {"uid": 110, "value": 0}],
+            )
+        ),
+    ]
     mock_appliance.session.send_sync.reset_mock()
 
     await mock_appliance.entities["Test.Lighting"].update({"value": True})
@@ -867,7 +893,7 @@ async def test_turn_on_when_brightness_is_unavailable(
     mock_appliance: MockAppliance,
     patch_entity_description: None,  # noqa: ARG001
 ) -> None:
-    """Test an unavailable brightness value does not disable the light."""
+    """Test the brightness is written after switching on, once it is available."""
     assert await setup_config_entry(hass, MOCK_CONFIG_DATA)
     await mock_appliance.entities["Test.Lighting"].update({"value": False})
     brightness = mock_appliance.entities["Test.LightingBrightness"]
@@ -880,22 +906,26 @@ async def test_turn_on_when_brightness_is_unavailable(
     assert state.state == STATE_OFF
     assert state.attributes[ATTR_BRIGHTNESS] is None
 
+    async def release_brightness(message: Message) -> object:
+        # LC91KLT60 releases the brightness Setting after switching on.
+        if message.data == {"uid": 108, "value": True}:
+            await brightness.update({"available": True, "value": 100})
+        return DEFAULT
+
+    mock_appliance.session.send_sync.side_effect = release_brightness
     await hass.services.async_call(
         LIGHT_DOMAIN,
         SERVICE_TURN_ON,
         {
             ATTR_ENTITY_ID: "light.fake_brand_homeappliance_light_2",
-            ATTR_BRIGHTNESS_PCT: 100,
+            ATTR_BRIGHTNESS_PCT: 10,
         },
         blocking=True,
     )
-    mock_appliance.session.send_sync.assert_awaited_once_with(
-        Message(
-            resource="/ro/values",
-            action=Action.POST,
-            data=[{"uid": 109, "value": 100}, {"uid": 108, "value": True}],
-        )
-    )
+    assert mock_appliance.session.send_sync.await_args_list == [
+        call(Message(resource="/ro/values", action=Action.POST, data={"uid": 108, "value": True})),
+        call(Message(resource="/ro/values", action=Action.POST, data=[{"uid": 109, "value": 10}])),
+    ]
 
 
 async def test_turn_on_when_rgb_is_unavailable(

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components.light import (
@@ -35,6 +36,10 @@ if TYPE_CHECKING:
     from .entity_descriptions.descriptions_definitions import HCLightEntityDescription
 
 PARALLEL_UPDATES = 0
+
+# LC91KLT60 released its brightness Setting about 0.2 s after the switch-on response.
+_BRIGHTNESS_WAIT_STEPS = 20
+_BRIGHTNESS_WAIT_INTERVAL = 0.1
 
 
 async def async_setup_entry(
@@ -196,8 +201,33 @@ class HCLight(HCEntity, LightEntity):
             return match_max_scale((255,), rgb)
         return None
 
+    async def _switch_on_before_attributes(self, kwargs: dict[str, Any]) -> bool:
+        """
+        Switch the light on alone when it is off and a brightness is requested.
+
+        LC91KLT60 accepts a brightness sent together with switching on, but
+        restores 100 % once it is on. Its brightness Setting turns available
+        only after switching on, so wait for that before writing it.
+        """
+        if (
+            self._entity.value is True
+            or self._brightness_entity is None
+            or self._attr_color_mode not in (ColorMode.BRIGHTNESS, ColorMode.COLOR_TEMP)
+            or not {ATTR_BRIGHTNESS, ATTR_COLOR_TEMP_KELVIN} & kwargs.keys()
+        ):
+            return False
+        await self._entity.set_value(True)
+        for _ in range(_BRIGHTNESS_WAIT_STEPS):
+            if entity_is_available(
+                self._brightness_entity, self.entity_description.available_access
+            ):
+                break
+            await asyncio.sleep(_BRIGHTNESS_WAIT_INTERVAL)
+        return True
+
     @error_decorator
     async def async_turn_on(self, **kwargs: Any) -> None:
+        switched_on = await self._switch_on_before_attributes(kwargs)
         message = HC_Message(
             resource="/ro/values",
             action=Action.POST,
@@ -252,7 +282,8 @@ class HCLight(HCEntity, LightEntity):
             self._attr_color_mode in (ColorMode.BRIGHTNESS, ColorMode.COLOR_TEMP)
             and ATTR_BRIGHTNESS in kwargs
         ):
-            value_in_range = int(
+            # Round, truncating sent 23 for 24 % (LC91KLT60).
+            value_in_range = round(
                 max(
                     brightness_to_value((1, 100), brightness),
                     self._brightness_entity.min,
@@ -283,7 +314,7 @@ class HCLight(HCEntity, LightEntity):
                 {"uid": self._color_temperature_entity.uid, "value": value_in_range}
             )
 
-        if self._entity.value is not True:
+        if self._entity.value is not True and not switched_on:
             message.data.append({"uid": self._entity.uid, "value": True})
         if message.data:
             await self._runtime_data.appliance.session.send_sync(message)
