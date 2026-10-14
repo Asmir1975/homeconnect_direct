@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from homeassistant.components.number import DEFAULT_MAX_VALUE, DEFAULT_MIN_VALUE, NumberEntity
 from homeassistant.exceptions import ServiceValidationError
+from homeconnect_websocket.errors import CodeResponsError
 
 from .const import DOMAIN
 from .entity import HCEntity
@@ -105,4 +106,17 @@ class HCNumber(HCEntity, NumberEntity):
         ensure_writable(self._entity)
         if self.entity_description.enforce_step:
             self._ensure_valid_step(value)
-        await self._entity.set_value(int(value))
+        try:
+            await self._entity.set_value(int(value))
+        except CodeResponsError as exc:
+            if exc.code != 400 or self._entity.name != "BSH.Common.Option.StartInRelative":
+                raise
+            # HB774G1B1 answers 400 without a program and for programs without delayed start.
+            raise ServiceValidationError(
+                translation_domain=DOMAIN,
+                translation_key=(
+                    "start_in_needs_program"
+                    if self._runtime_data.appliance.selected_program is None
+                    else "start_in_not_supported"
+                ),
+            ) from None
