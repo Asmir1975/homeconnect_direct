@@ -538,6 +538,19 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity_category=EntityCategory.CONFIG,
             force_disabled_default=True,
         ),
+        HCSwitchEntityDescription(
+            key="switch_auto_smart_start",
+            entity="BSH.Common.Setting.SmartEnergyService.AutoSmartStartEnabled",
+            device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
+            force_disabled_default=True,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_smart_start",
+            entity="BSH.Common.Option.SmartEnergyService.SmartStartEnabled",
+            device_class=SwitchDeviceClass.SWITCH,
+            force_disabled_default=True,
+        ),
     ],
     "number": [
         HCNumberEntityDescription(

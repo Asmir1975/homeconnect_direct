@@ -1226,6 +1226,43 @@ async def test_oven_settings_follow_the_app(
     }
 
 
+# UIDs and names from the SX63HX52BE profile.
+SMART_START_PROFILE = DeviceDescription(
+    setting=[
+        EntityDescription(
+            uid=631,
+            name="BSH.Common.Setting.SmartEnergyService.AutoSmartStartEnabled",
+            available=True,
+            access=Access.READ_WRITE,
+        ),
+    ],
+    option=[
+        OptionDescription(
+            uid=632,
+            name="BSH.Common.Option.SmartEnergyService.SmartStartEnabled",
+            available=True,
+            access=Access.READ_WRITE,
+        ),
+    ],
+)
+
+
+async def test_smart_start_switches_disabled_by_default(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the Smart Start switches, disabled by default."""
+    appliance = await mock_homeconnect_appliance(description=SMART_START_PROFILE)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    by_key = {item.key: item for item in entities["switch"]}
+    auto = by_key["switch_auto_smart_start"]
+    smart_start = by_key["switch_smart_start"]
+    assert auto.entity_category is EntityCategory.CONFIG
+    assert smart_start.entity_category is None
+    assert auto.force_disabled_default is True
+    assert smart_start.force_disabled_default is True
+
+
 async def test_child_lock_switch_without_child_lock_select(
     mock_homeconnect_appliance: MockApplianceType,
 ) -> None:
