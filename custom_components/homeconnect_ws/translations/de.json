@@ -4748,6 +4748,12 @@
     "favorite_not_saved": {
       "message": "Favorit {slot} ist am Gerät noch nicht angelegt. Bitte zuerst in der Home-Connect-App oder am Gerät speichern."
     },
+    "start_in_needs_program": {
+      "message": "Bitte zuerst ein Programm wählen, dann die Startverzögerung setzen."
+    },
+    "start_in_not_supported": {
+      "message": "Dieses Programm unterstützt keine Startverzögerung."
+    },
     "invalid_step": {
       "message": "Wert nicht erlaubt: bitte ein Vielfaches von {step} {unit} von {min} bis {max} {unit} wählen"
     }

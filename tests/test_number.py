@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from unittest.mock import AsyncMock, MagicMock, PropertyMock, patch
 
 import pytest
+from custom_components.homeconnect_ws import HCData, entity_descriptions
+from custom_components.homeconnect_ws.number import HCNumber
 from homeassistant.components.number import (
     ATTR_MAX,
     ATTR_MIN,
@@ -14,8 +17,10 @@ from homeassistant.components.number import (
 )
 from homeassistant.components.number import DOMAIN as NUMBER_DOMAIN
 from homeassistant.const import ATTR_ENTITY_ID, ATTR_FRIENDLY_NAME, CONF_UNIT_OF_MEASUREMENT
-from homeassistant.exceptions import ServiceValidationError
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers import entity_registry as er
+from homeconnect_websocket.entities import Access, DeviceDescription, OptionDescription
+from homeconnect_websocket.errors import CodeResponsError
 from homeconnect_websocket.message import Action, Message
 
 from . import setup_config_entry
@@ -23,7 +28,7 @@ from .const import MOCK_CONFIG_DATA
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
-    from homeconnect_websocket.testutils import MockAppliance
+    from homeconnect_websocket.testutils import MockAppliance, MockApplianceType
 
 
 async def test_setup(
@@ -202,3 +207,76 @@ async def test_number_without_enforce_step_is_unchanged(
     mock_appliance.session.send_sync.assert_awaited_once_with(
         Message(resource="/ro/values", action=Action.POST, data={"uid": 204, "value": 3})
     )
+
+
+# UID, name and range from the HB774G1B1 profile.
+START_IN_PROFILE = DeviceDescription(
+    option=[
+        OptionDescription(
+            uid=558,
+            name="BSH.Common.Option.StartInRelative",
+            available=True,
+            access=Access.READ_WRITE,
+            min=0,
+            max=86340,
+        ),
+    ],
+)
+
+
+async def _start_in_number(mock_homeconnect_appliance: MockApplianceType) -> HCNumber:
+    appliance = await mock_homeconnect_appliance(description=START_IN_PROFILE)
+    appliance.info = {"deviceID": "test_device_id"}
+    available = entity_descriptions.get_available_entities(appliance)
+    description = next(item for item in available["number"] if item.key == "number_start_in")
+    runtime_data = HCData(
+        appliance=appliance,
+        device_info=MagicMock(),
+        available_entity_descriptions=available,
+        coordinator=MagicMock(),
+    )
+    return HCNumber(description, runtime_data)
+
+
+@pytest.mark.parametrize(
+    ("selected_program", "translation_key"),
+    [(None, "start_in_needs_program"), (MagicMock(), "start_in_not_supported")],
+)
+async def test_start_in_bad_request_is_explained(
+    mock_homeconnect_appliance: MockApplianceType,
+    selected_program: MagicMock | None,
+    translation_key: str,
+) -> None:
+    """Test the oven's 400 on delayed start says why (no program, or not supported)."""
+    number = await _start_in_number(mock_homeconnect_appliance)
+    appliance = number._runtime_data.appliance
+    entity = appliance.entities["BSH.Common.Option.StartInRelative"]
+    error = CodeResponsError(400, "/ro/values")
+    with (
+        patch.object(
+            type(appliance),
+            "selected_program",
+            new_callable=PropertyMock,
+            return_value=selected_program,
+        ),
+        patch.object(entity, "set_value", AsyncMock(side_effect=error)),
+        pytest.raises(ServiceValidationError) as err,
+    ):
+        await number.async_set_native_value(900)
+    assert err.value.translation_key == translation_key
+
+
+async def test_start_in_other_error_keeps_generic_message(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test other error codes on delayed start keep the generic message."""
+    number = await _start_in_number(mock_homeconnect_appliance)
+    entity = number._runtime_data.appliance.entities["BSH.Common.Option.StartInRelative"]
+    with (
+        patch.object(
+            entity, "set_value", AsyncMock(side_effect=CodeResponsError(500, "/ro/values"))
+        ),
+        pytest.raises(HomeAssistantError) as err,
+    ):
+        await number.async_set_native_value(900)
+    assert err.value.translation_key == "code_respons"
