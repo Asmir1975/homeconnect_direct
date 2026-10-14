@@ -131,6 +131,12 @@
       "switch_allow_backend_connection": {
         "name": "Cloud-Verbindung erlauben"
       },
+      "switch_auto_smart_start": {
+        "name": "Automatischer Smart Start"
+      },
+      "switch_smart_start": {
+        "name": "Smart Start"
+      },
       "switch_child_lock": {
         "name": "Kindersicherung"
       },
