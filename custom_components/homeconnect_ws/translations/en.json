@@ -123,7 +123,7 @@
         "name": "infoLight"
       },
       "switch_multiple_beverages": {
-        "name": "Multiple Beverages"
+        "name": "Double cup"
       },
       "switch_cup_warmer": {
         "name": "Cup warmer"
@@ -293,17 +293,11 @@
       "switch_eq700_skip_rinse_on": {
         "name": "Skip rinse on startup"
       },
-      "switch_eq700_playlist_running": {
-        "name": "Run playlist"
-      },
       "switch_eq700_maintenance_tone": {
         "name": "Maintenance tone"
       },
       "switch_eq700_key_tones": {
         "name": "Key tones"
-      },
-      "switch_eq700_playlist_mode": {
-        "name": "Playlist"
       }
     },
     "binary_sensor": {
@@ -393,6 +387,9 @@
       },
       "binary_sensor_bean_container_empty": {
         "name": "Bean Container Empty"
+      },
+      "binary_sensor_child_lock_active": {
+        "name": "Child lock active"
       },
       "binary_sensor_refresher_level": {
         "name": "Refresher fill level",
@@ -508,7 +505,7 @@
         "name": "Temperature alarm Freezer"
       },
       "binary_sensor_interior_illumination": {
-        "name": "Interior Light Status"
+        "name": "Light Status"
       },
       "binary_sensor_refrigerator_defrost": {
         "name": "Defrost"
@@ -527,12 +524,6 @@
       },
       "binary_sensor_alarm_clock_elapsed": {
         "name": "Alarm Clock Elapsed"
-      },
-      "binary_sensor_eq700_playlist_running": {
-        "name": "Playlist running"
-      },
-      "binary_sensor_eq700_playlist_mode": {
-        "name": "Playlist enabled"
       }
     },
     "sensor": {
@@ -1474,13 +1465,13 @@
           "consumerproducts_coffeemaker_program_cleaningmodes_applianceonrinsing": "Rinse while turn on",
           "consumerproducts_coffeemaker_program_cleaningmodes_calcnclean": "Calc'n'clean",
           "consumerproducts_coffeemaker_program_cleaningmodes_clean": "Clean",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean Brewing Unit",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean Brewing Unit (detailed)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean brewing unit (short)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean brewing unit (thorough)",
           "consumerproducts_coffeemaker_program_cleaningmodes_cleanoutletmanually": "Clean Beverage Dispenser",
           "consumerproducts_coffeemaker_program_cleaningmodes_descale": "Descale",
-          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Frost Protection",
-          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove Water Filter",
-          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace Water Filter",
+          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Drain residual water",
+          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove INTENZA filter",
+          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace INTENZA filter",
           "consumerproducts_coffeemaker_program_cleaningmodes_rinsemilksystem": "Rinse Milk System",
           "consumerproducts_coffeemaker_program_cleaningmodes_rinsewaterfilter": "Rinse Water Filter",
           "consumerproducts_coffeemaker_program_cleaningmodes_specialrinsing": "Special Rinsing",
@@ -1713,7 +1704,13 @@
           "cooking_oven_program_microcombimodes_hotair": "Micro-Combi: Hot Air",
           "cooking_oven_program_microcombimodes_hotairgrilling": "Micro-Combi: Fan Grilling",
           "cooking_oven_program_microcombimodes_topbottomheating": "Micro-Combi: Top/Bottom Heat",
-          "cooking_oven_program_heatingmode_3dhotair": "3D Hot Air"
+          "cooking_oven_program_heatingmode_3dhotair": "3D Hot Air",
+          "consumerproducts_coffeemaker_program_beverage_babyccino": "Babyccino",
+          "consumerproducts_coffeemaker_program_beverage_coffeepot": "Coffee Pot",
+          "consumerproducts_coffeemaker_program_beverage_xlamericano": "XL Americano",
+          "consumerproducts_coffeemaker_program_beverage_xlcappuccino": "XL Cappuccino",
+          "consumerproducts_coffeemaker_program_beverage_xlhotwater": "XL Hot Water",
+          "consumerproducts_coffeemaker_program_beverage_xllattemacchiato": "XL Latte Macchiato"
         }
       },
       "sensor_hood_filter_message": {
@@ -2182,7 +2179,7 @@
         "name": "Descaling required"
       },
       "sensor_countdown_water_filter": {
-        "name": "Water Filter replacement"
+        "name": "Replace water filter"
       },
       "sensor_coffeemaker_process_phase": {
         "name": "Process Phase",
@@ -2285,7 +2282,6 @@
           "water_tank_empty": "Water tank empty",
           "water_tank_not_inserted": "Water tank not inserted",
           "software_download_available": "Software download available",
-          "deactivate_playlist": "Deactivate playlist",
           "throw_cleaning_disc_in_the_drawer": "Throw cleaning disc in the drawer",
           "empty_drip_tray": "Empty drip tray",
           "fill_descaler": "Fill descaler",
@@ -2358,7 +2354,12 @@
           "insert_water_filter_successfully": "Insert water filter successfully",
           "remove_water_filter_successfully": "Remove water filter successfully",
           "replace_water_filter_successfully": "Replace water filter successfully",
-          "none": "No message"
+          "none": "No message",
+          "bean_container_nearly_empty": "Bean container nearly empty",
+          "bean_container_not_present": "Bean container not present",
+          "bean_container_not_fully_inserted": "Bean container not fully inserted",
+          "pomace_container_missing": "Grounds container missing",
+          "drip_tray_over_full": "Drip tray overfull"
         }
       },
       "sensor_eq700_last_selected_beverage": {
@@ -2421,13 +2422,26 @@
           "consumerproducts_coffeemaker_program_cleaningmodes_descale": "Descale",
           "consumerproducts_coffeemaker_program_cleaningmodes_calcnclean": "Calc'n'clean",
           "consumerproducts_coffeemaker_program_cleaningmodes_specialrinsing": "Special Rinsing",
-          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Frost Protection",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean Brewing Unit",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean Brewing Unit (detailed)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Drain residual water",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean brewing unit (short)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean brewing unit (thorough)",
           "consumerproducts_coffeemaker_program_cleaningmodes_cleanoutletmanually": "Clean Beverage Dispenser",
           "consumerproducts_coffeemaker_program_cleaningmodes_rinsewaterfilter": "Rinse Water Filter",
-          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove Water Filter",
-          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace Water Filter"
+          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove INTENZA filter",
+          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace INTENZA filter",
+          "consumerproducts_coffeemaker_program_beverage_babyccino": "Babyccino",
+          "consumerproducts_coffeemaker_program_beverage_coffeepot": "Coffee Pot",
+          "consumerproducts_coffeemaker_program_beverage_xlamericano": "XL Americano",
+          "consumerproducts_coffeemaker_program_beverage_xlcappuccino": "XL Cappuccino",
+          "consumerproducts_coffeemaker_program_beverage_xlhotwater": "XL Hot Water",
+          "consumerproducts_coffeemaker_program_beverage_xllattemacchiato": "XL Latte Macchiato"
+        }
+      },
+      "sensor_shot_count": {
+        "name": "Shot count",
+        "state": {
+          "double": "Double",
+          "triple": "Triple"
         }
       },
       "sensor_eq700_water_hardness": {
@@ -2499,13 +2513,19 @@
           "consumerproducts_coffeemaker_program_cleaningmodes_descale": "Descale",
           "consumerproducts_coffeemaker_program_cleaningmodes_calcnclean": "Calc'n'clean",
           "consumerproducts_coffeemaker_program_cleaningmodes_specialrinsing": "Special Rinsing",
-          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Frost Protection",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean Brewing Unit",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean Brewing Unit (detailed)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Drain residual water",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean brewing unit (short)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean brewing unit (thorough)",
           "consumerproducts_coffeemaker_program_cleaningmodes_cleanoutletmanually": "Clean Beverage Dispenser",
           "consumerproducts_coffeemaker_program_cleaningmodes_rinsewaterfilter": "Rinse Water Filter",
-          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove Water Filter",
-          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace Water Filter"
+          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove INTENZA filter",
+          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace INTENZA filter",
+          "consumerproducts_coffeemaker_program_beverage_babyccino": "Babyccino",
+          "consumerproducts_coffeemaker_program_beverage_coffeepot": "Coffee Pot",
+          "consumerproducts_coffeemaker_program_beverage_xlamericano": "XL Americano",
+          "consumerproducts_coffeemaker_program_beverage_xlcappuccino": "XL Cappuccino",
+          "consumerproducts_coffeemaker_program_beverage_xlhotwater": "XL Hot Water",
+          "consumerproducts_coffeemaker_program_beverage_xllattemacchiato": "XL Latte Macchiato"
         }
       },
       "sensor_eq700_beverage_counter_milk": {
@@ -3609,13 +3629,13 @@
           "consumerproducts_coffeemaker_program_cleaningmodes_applianceonrinsing": "Rinse while turn on",
           "consumerproducts_coffeemaker_program_cleaningmodes_calcnclean": "Calc'n'clean",
           "consumerproducts_coffeemaker_program_cleaningmodes_clean": "Clean",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean Brewing Unit",
-          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean Brewing Unit (detailed)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Clean brewing unit (short)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Clean brewing unit (thorough)",
           "consumerproducts_coffeemaker_program_cleaningmodes_cleanoutletmanually": "Clean Beverage Dispenser",
           "consumerproducts_coffeemaker_program_cleaningmodes_descale": "Descale",
-          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Frost Protection",
-          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove Water Filter",
-          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace Water Filter",
+          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Drain residual water",
+          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Remove INTENZA filter",
+          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Replace INTENZA filter",
           "consumerproducts_coffeemaker_program_cleaningmodes_rinsemilksystem": "Rinse Milk System",
           "consumerproducts_coffeemaker_program_cleaningmodes_rinsewaterfilter": "Rinse Water Filter",
           "consumerproducts_coffeemaker_program_cleaningmodes_specialrinsing": "Special Rinsing",
@@ -3851,7 +3871,13 @@
           "cooking_oven_program_microcombimodes_hotair": "Micro-Combi: Hot Air",
           "cooking_oven_program_microcombimodes_hotairgrilling": "Micro-Combi: Fan Grilling",
           "cooking_oven_program_microcombimodes_topbottomheating": "Micro-Combi: Top/Bottom Heat",
-          "cooking_oven_program_heatingmode_3dhotair": "3D Hot Air"
+          "cooking_oven_program_heatingmode_3dhotair": "3D Hot Air",
+          "consumerproducts_coffeemaker_program_beverage_babyccino": "Babyccino",
+          "consumerproducts_coffeemaker_program_beverage_coffeepot": "Coffee Pot",
+          "consumerproducts_coffeemaker_program_beverage_xlamericano": "XL Americano",
+          "consumerproducts_coffeemaker_program_beverage_xlcappuccino": "XL Cappuccino",
+          "consumerproducts_coffeemaker_program_beverage_xlhotwater": "XL Hot Water",
+          "consumerproducts_coffeemaker_program_beverage_xllattemacchiato": "XL Latte Macchiato"
         }
       },
       "select_sensitivity_turbidity": {
@@ -3878,6 +3904,9 @@
           "standby": "Standby"
         }
       },
+      "select_coffee_fill_quantity": {
+        "name": "Amount"
+      },
       "select_coffee_temperature": {
         "name": "Coffee temperature",
         "state": {
@@ -3891,7 +3920,7 @@
         }
       },
       "select_bean_amount": {
-        "name": "Bean Amount",
+        "name": "Strength",
         "state": {
           "verymild": "Very Mild",
           "mild": "Mild",
@@ -3987,9 +4016,9 @@
         }
       },
       "select_aroma_select": {
-        "name": "Aroma select",
+        "name": "aromaSelect",
         "state": {
-          "fine": "Fine",
+          "fine": "Mild",
           "balanced": "Balanced",
           "distinctive": "Distinctive"
         }
@@ -4001,19 +4030,21 @@
           "left": "Left"
         }
       },
-      "select_shot_count": {
-        "name": "Shot count",
-        "state": {
-          "double": "Double",
-          "triple": "Triple"
-        }
-      },
       "select_cups": {
         "name": "Cups",
         "state": {
           "two": "Two",
           "four": "Four",
           "six": "Six"
+        }
+      },
+      "select_favorite_order": {
+        "name": "Favorite order",
+        "state": {
+          "numberofuses": "By number of uses",
+          "newestfirst": "Newest first",
+          "oldestfirst": "Oldest first",
+          "color": "By color"
         }
       },
       "select_auto_power_off": {
@@ -4922,7 +4953,7 @@
         "name": "Finish in"
       },
       "number_fill_quantity": {
-        "name": "Fill quantity"
+        "name": "Amount"
       },
       "number_laundry_brightness": {
         "name": "Brightness"
@@ -5146,6 +5177,12 @@
     },
     "start_in_not_supported": {
       "message": "This program does not support delayed start."
+    },
+    "invalid_coffee_quantity": {
+      "message": "This amount is not available for the selected beverage."
+    },
+    "coffee_quantity_rejected": {
+      "message": "The appliance rejected this amount for the selected drink. Check the allowed steps in the Home Connect app."
     },
     "invalid_step": {
       "message": "Value not allowed: use a multiple of {step} {unit} from {min} to {max} {unit}"

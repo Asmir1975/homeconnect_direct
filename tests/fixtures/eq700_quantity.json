@@ -1,0 +1,209 @@
+{
+  "info": {
+    "brand": "SIEMENS",
+    "type": "CoffeeMaker",
+    "model": "TQ703D07",
+    "eNumber": "TQ703D07/02",
+    "deviceID": "eq700-test-device"
+  },
+  "selectedProgram": {
+    "access": "readwrite",
+    "fullOptionSet": false,
+    "name": "BSH.Common.Root.SelectedProgram",
+    "uid": 257,
+    "validate": true
+  },
+  "activeProgram": {
+    "access": "read",
+    "fullOptionSet": true,
+    "name": "BSH.Common.Root.ActiveProgram",
+    "uid": 256,
+    "validate": true
+  },
+  "option": [
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "liquidVolume",
+      "default": "100",
+      "max": "750",
+      "min": "20",
+      "name": "ConsumerProducts.CoffeeMaker.Option.FillQuantity",
+      "protocolType": "Integer",
+      "refCID": 20,
+      "refDID": 129,
+      "stepSize": "5",
+      "uid": 5122
+    }
+  ],
+  "program": [
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "40",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8209
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoDoppio",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "65",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8219
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Coffee",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "120",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8211
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeGrande",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "200",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8225
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.XLCoffee",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "320",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8224
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Cappuccino",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "180",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8212
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.LatteMacchiato",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "300",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8213
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeLatte",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "200",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8214
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.MilkFroth",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "150",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8215
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.WarmMilk",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "150",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8216
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.HotWater",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "150",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8217
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Ristretto",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "25",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8208
+    }
+  ]
+}

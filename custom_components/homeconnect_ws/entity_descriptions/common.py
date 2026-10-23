@@ -50,6 +50,10 @@ POWER_SWITCH_VALUE_MAPINGS = (
 
 POWER_OFF_STATE_NAMES = ("Off", "MainsOff")
 
+# Care programs the appliance reports as unavailable are not offered for selection, but it
+# still runs some of them itself (rinsing at switch-on), so the active program sensor keeps them.
+_COFFEE_CARE_PREFIX = "ConsumerProducts.CoffeeMaker.Program.CleaningModes."
+
 
 def generate_start_button(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Start Button description."""
@@ -207,8 +211,15 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
     pattern = re.compile(r"^BSH\.Common\.Program\.Favorite\.(.*)$")
 
     programs = {}
+    selectable = set()
 
-    for program in appliance.programs:
+    for program, program_entity in appliance.programs.items():
+        if not (
+            appliance.info.get("type") == "CoffeeMaker"
+            and program.startswith(_COFFEE_CARE_PREFIX)
+            and program_entity.available is False
+        ):
+            selectable.add(program)
         if match := pattern.match(program):
             favorite_name_entity = appliance.settings.get(
                 f"BSH.Common.Setting.Favorite.{match.groups()[0]}.Name"
@@ -226,6 +237,7 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
     programs_keys = list(programs.keys())
     programs_keys.sort()
     sorted_programs = {i: programs[i] for i in programs_keys}
+    selectable_programs = {i: name for i, name in sorted_programs.items() if i in selectable}
 
     descriptions = EntityDescriptions()
     if programs:
@@ -243,7 +255,7 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
                 key="select_program",
                 entity="BSH.Common.Root.SelectedProgram",
                 has_state_translation=False,
-                mapping=sorted_programs,
+                mapping=selectable_programs,
             )
         ]
 

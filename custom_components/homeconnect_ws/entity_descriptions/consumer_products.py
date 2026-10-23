@@ -11,6 +11,8 @@ from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import EntityCategory, UnitOfVolume
 from homeconnect_websocket.entities import Access
 
+from custom_components.homeconnect_ws.coffee_quantity import FILL_QUANTITY
+
 from .descriptions_definitions import (
     EntityDescriptions,
     HCBinarySensorEntityDescription,
@@ -34,6 +36,12 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=BinarySensorDeviceClass.PROBLEM,
             value_on={"Present"},
             value_off={"Off", "Confirmed"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_child_lock_active",
+            entity="ConsumerProducts.CoffeeMaker.Status.ChildLockActive",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            force_disabled_default=True,
         ),
     ],
     "event_sensor": [
@@ -119,15 +127,16 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             has_state_translation=True,
         ),
         HCSelectEntityDescription(
-            key="select_shot_count",
-            entity="ConsumerProducts.CoffeeMaker.Option.Shot.Count",
+            key="select_cups",
+            entity="ConsumerProducts.CoffeeMaker.Option.Cups",
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
         ),
         HCSelectEntityDescription(
-            key="select_cups",
-            entity="ConsumerProducts.CoffeeMaker.Option.Cups",
+            key="select_favorite_order",
+            entity="ConsumerProducts.CoffeeMaker.Setting.FavoriteOrder",
             device_class=SensorDeviceClass.ENUM,
+            entity_category=EntityCategory.CONFIG,
             has_state_translation=True,
         ),
     ],
@@ -242,30 +251,17 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("switch", []).extend(
         HCSwitchEntityDescription(
             key="switch_eq700_skip_rinse_on",
             entity="ConsumerProducts.CoffeeMaker.Setting.SkipRinseOn",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
         ),
         HCSwitchEntityDescription(
             key="switch_eq700_key_tones",
             entity="ConsumerProducts.CoffeeMaker.Setting.KeyTones",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
         ),
         HCSwitchEntityDescription(
             key="switch_eq700_maintenance_tone",
             entity="ConsumerProducts.CoffeeMaker.Setting.MaintenanceTone",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
-        ),
-        HCSwitchEntityDescription(
-            key="switch_eq700_playlist_mode",
-            entity="ConsumerProducts.CoffeeMaker.Setting.PlaylistMode",
-            force_disabled_default=True,
-        ),
-        HCSwitchEntityDescription(
-            key="switch_eq700_playlist_running",
-            entity="ConsumerProducts.CoffeeMaker.Setting.PlaylistRunning",
-            force_disabled_default=True,
         ),
     ]
 )
@@ -275,7 +271,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
         HCSelectEntityDescription(
             key="select_eq700_switch_off_after",
             entity="ConsumerProducts.CoffeeMaker.Setting.SwitchOffAfter",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -283,7 +278,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
         HCSelectEntityDescription(
             key="select_eq700_coffee_milk_order",
             entity="ConsumerProducts.CoffeeMaker.Setting.CoffeeMilkOrder",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -291,7 +285,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
         HCSelectEntityDescription(
             key="select_eq700_macchiato_pause",
             entity="ConsumerProducts.CoffeeMaker.Setting.MacchiatoPause",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -299,7 +292,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
         HCSelectEntityDescription(
             key="select_eq700_coffee_milk_order_mac",
             entity="ConsumerProducts.CoffeeMaker.Setting.CoffeeMilkOrderMac",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -307,7 +299,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
         HCSelectEntityDescription(
             key="select_eq700_brewing_temperature",
             entity="ConsumerProducts.CoffeeMaker.Setting.BrewingTemperature",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -315,7 +306,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
         HCSelectEntityDescription(
             key="select_eq700_start_up_category",
             entity="ConsumerProducts.CoffeeMaker.Setting.StartUpCategory",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -328,14 +318,12 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("number", []).extend(
         HCNumberEntityDescription(
             key="number_eq700_brightness_display",
             entity="ConsumerProducts.CoffeeMaker.Setting.BrightnessDisplay",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             mode=NumberMode.SLIDER,
         ),
         HCNumberEntityDescription(
             key="number_eq700_touch_screen_sound_volume",
             entity="ConsumerProducts.CoffeeMaker.Setting.TouchScreenSoundVolume",
-            force_disabled_default=True,
             entity_category=EntityCategory.CONFIG,
             mode=NumberMode.SLIDER,
         ),
@@ -345,9 +333,15 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("number", []).extend(
 CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("sensor", []).extend(
     [
         HCSensorEntityDescription(
+            key="sensor_shot_count",
+            entity="ConsumerProducts.CoffeeMaker.Option.Shot.Count",
+            available_access=(Access.READ, Access.READ_WRITE, Access.READ_STATIC),
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
+        ),
+        HCSensorEntityDescription(
             key="sensor_eq700_water_hardness",
             entity="ConsumerProducts.CoffeeMaker.Setting.WaterHardness",
-            force_disabled_default=True,
             available_access=(Access.READ, Access.READ_WRITE, Access.READ_STATIC),
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
@@ -355,32 +349,24 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("sensor", []).extend(
         HCSensorEntityDescription(
             key="sensor_eq700_beverage_counter_milk",
             entity="ConsumerProducts.CoffeeMaker.Status.BeverageCounterMilk",
-            force_disabled_default=True,
             available_access=(Access.READ, Access.READ_WRITE, Access.READ_STATIC),
             state_class=SensorStateClass.TOTAL_INCREASING,
         ),
     ]
 )
 
-CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("binary_sensor", []).extend(
-    [
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_eq700_playlist_mode",
-            entity="ConsumerProducts.CoffeeMaker.Setting.PlaylistMode",
-            force_disabled_default=True,
-            available_access=(Access.READ, Access.READ_WRITE, Access.READ_STATIC),
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_eq700_playlist_running",
-            entity="ConsumerProducts.CoffeeMaker.Setting.PlaylistRunning",
-            force_disabled_default=True,
-            available_access=(Access.READ, Access.READ_WRITE, Access.READ_STATIC),
-        ),
-    ]
-)
+CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("binary_sensor", []).extend([])
 
 
 COFFEE_MAXIMUM_MESSAGES = (
+    ("ConsumerProducts.CoffeeMaker.Event.BeanContainerNearlyEmpty", "bean_container_nearly_empty"),
+    ("ConsumerProducts.CoffeeMaker.Event.BeanContainerIsNotPresent", "bean_container_not_present"),
+    (
+        "ConsumerProducts.CoffeeMaker.Event.BeanContainerNotFullyInserted",
+        "bean_container_not_fully_inserted",
+    ),
+    ("ConsumerProducts.CoffeeMaker.Event.PomaceContainerMissing", "pomace_container_missing"),
+    ("ConsumerProducts.CoffeeMaker.Event.DripTrayOverFull", "drip_tray_over_full"),
     ("ConsumerProducts.CoffeeMaker.Event.HeaterError", "heater_error"),
     ("ConsumerProducts.CoffeeMaker.Event.TemperatureError", "temperature_error"),
     ("ConsumerProducts.CoffeeMaker.Event.WaterDistribError", "water_distrib_error"),
@@ -442,7 +428,6 @@ COFFEE_MAXIMUM_MESSAGES = (
     ("ConsumerProducts.CoffeeMaker.Event.WaterTankEmpty", "water_tank_empty"),
     ("ConsumerProducts.CoffeeMaker.Event.WaterTankNotInserted", "water_tank_not_inserted"),
     ("BSH.Common.Event.SoftwareDownloadAvailable", "software_download_available"),
-    ("ConsumerProducts.CoffeeMaker.Event.DeactivatePlaylist", "deactivate_playlist"),
     (
         "ConsumerProducts.CoffeeMaker.Event.ThrowCleaningDiscInTheDrawer",
         "throw_cleaning_disc_in_the_drawer",
@@ -579,7 +564,6 @@ def generate_coffee_maximum(appliance: HomeAppliance) -> EntityDescriptions:
                 extra_attributes=[
                     {"name": name.split(".Event.")[-1], "entity": name} for name, _ in messages
                 ],
-                force_disabled_default=True,
             )
         )
     # Resolve the profile's program UID; do not present an unexplained number.
@@ -603,10 +587,32 @@ def generate_coffee_maximum(appliance: HomeAppliance) -> EntityDescriptions:
                     options=list(mapping.values()),
                     value_fn=program_value,
                     extra_attributes=[{"name": "program_uid", "entity": name}],
-                    force_disabled_default=True,
                 )
             )
     return result
 
 
 CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("dynamic", []).append(generate_coffee_maximum)
+
+
+def generate_coffee_quantity_select(appliance: HomeAppliance) -> EntityDescriptions:
+    """Create a quantity Select only when a beverage uses FillQuantity."""
+    descriptions = EntityDescriptions(coffee_quantity=[])
+    if (
+        appliance.info.get("type") == "CoffeeMaker"
+        and FILL_QUANTITY in appliance.entities
+        and any(
+            option.uid == appliance.entities[FILL_QUANTITY].uid
+            for program in appliance.programs.values()
+            for option in program.options
+        )
+    ):
+        descriptions["coffee_quantity"].append(
+            HCSelectEntityDescription(key="select_coffee_fill_quantity", entity=FILL_QUANTITY)
+        )
+    return descriptions
+
+
+CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("dynamic", []).append(
+    generate_coffee_quantity_select
+)

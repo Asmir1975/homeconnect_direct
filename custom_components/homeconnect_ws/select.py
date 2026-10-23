@@ -7,8 +7,10 @@ from typing import TYPE_CHECKING
 from homeassistant.components.select import SelectEntity
 from homeassistant.exceptions import ServiceValidationError
 from homeconnect_websocket.entities import Access, Execution
+from homeconnect_websocket.errors import CodeResponsError
 from homeconnect_websocket.message import Action, Message
 
+from .coffee_quantity import selected_quantity_options
 from .const import CONF_FILTER_UNSAVED_FAVORITES, DOMAIN
 from .entity import HCEntity
 from .entity_descriptions.common import POWER_OFF_STATE_NAMES
@@ -89,7 +91,12 @@ async def async_setup_entry(
 ) -> None:
     """Set up select platform."""
     entities = create_entities(
-        {"select": HCSelect, "program": HCProgram, "hood_level": HCHoodLevelSelect},
+        {
+            "select": HCSelect,
+            "coffee_quantity": HCCoffeeQuantitySelect,
+            "program": HCProgram,
+            "hood_level": HCHoodLevelSelect,
+        },
         config_entry.runtime_data,
     )
     async_add_entites(entities)
@@ -157,6 +164,51 @@ class HCSelect(HCEntity, SelectEntity):
         if self._rev_options:
             option = self._rev_options[option]
         await self._entity.set_value(option)
+
+
+class HCCoffeeQuantitySelect(HCEntity, SelectEntity):
+    """CoffeeMaker quantity options follow the selected beverage and profile."""
+
+    entity_description: HCSelectEntityDescription
+
+    def __init__(self, entity_description: HCSelectEntityDescription, runtime_data: HCData) -> None:
+        super().__init__(entity_description, runtime_data)
+        for name in ("BSH.Common.Root.SelectedProgram", "BSH.Common.Root.ActiveProgram"):
+            entity = runtime_data.appliance.entities.get(name)
+            if entity is not None:
+                self._entities.append(entity)
+
+    @property
+    def options(self) -> list[str]:
+        return [f"{value} ml" for value in selected_quantity_options(self._runtime_data)]
+
+    @property
+    def current_option(self) -> str | None:
+        if self._entity.value is None:
+            return None
+        option = f"{int(self._entity.value)} ml"
+        return option if option in self.options else None
+
+    @property
+    def available(self) -> bool:
+        return super().available and bool(self.options)
+
+    @error_decorator
+    async def async_select_option(self, option: str) -> None:
+        # A program change can invalidate an option while the HA dropdown is open.
+        if option not in self.options:
+            raise ServiceValidationError(
+                translation_domain=DOMAIN, translation_key="invalid_coffee_quantity"
+            )
+        ensure_writable(self._entity)
+        try:
+            await self._entity.set_value(int(option.removesuffix(" ml")))
+        except CodeResponsError as exc:
+            if exc.code != 400:
+                raise
+            raise ServiceValidationError(
+                translation_domain=DOMAIN, translation_key="coffee_quantity_rejected"
+            ) from None
 
 
 class HCProgram(HCSelect):

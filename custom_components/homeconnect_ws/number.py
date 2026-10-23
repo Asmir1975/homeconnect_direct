@@ -8,6 +8,7 @@ from homeassistant.components.number import DEFAULT_MAX_VALUE, DEFAULT_MIN_VALUE
 from homeassistant.exceptions import ServiceValidationError
 from homeconnect_websocket.errors import CodeResponsError
 
+from .coffee_quantity import FILL_QUANTITY, selected_quantity_options
 from .const import DOMAIN
 from .entity import HCEntity
 from .helpers import create_entities, ensure_writable, error_decorator
@@ -106,9 +107,21 @@ class HCNumber(HCEntity, NumberEntity):
         ensure_writable(self._entity)
         if self.entity_description.enforce_step:
             self._ensure_valid_step(value)
+        if (
+            self._entity.name == FILL_QUANTITY
+            and (choices := selected_quantity_options(self._runtime_data))
+            and value not in choices
+        ):
+            raise ServiceValidationError(
+                translation_domain=DOMAIN, translation_key="invalid_coffee_quantity"
+            )
         try:
             await self._entity.set_value(int(value))
         except CodeResponsError as exc:
+            if exc.code == 400 and self._entity.name == FILL_QUANTITY:
+                raise ServiceValidationError(
+                    translation_domain=DOMAIN, translation_key="coffee_quantity_rejected"
+                ) from None
             if exc.code != 400 or self._entity.name != "BSH.Common.Option.StartInRelative":
                 raise
             # HB774G1B1 answers 400 without a program and for programs without delayed start.

@@ -55,6 +55,7 @@ def get_available_entities(appliance: HomeAppliance) -> EntityDescriptions:
         "active_program": [],
         "binary_sensor": [],
         "event_sensor": [],
+        "coffee_quantity": [],
         "number": [],
         "program": [],
         "select": [],

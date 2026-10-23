@@ -317,6 +317,9 @@
             }
         },
         "sensor": {
+          "sensor_shot_count": {
+            "default": "mdi:coffee"
+          },
           "sensor_water_filter_saturation": {
             "default": "mdi:water-percent"
           },
@@ -533,9 +536,6 @@
             },
             "select_water_hardness": {
                 "default": "mdi:water-opacity"
-            },
-            "select_shot_count": {
-                "default": "mdi:coffee"
             },
             "select_cups": {
                 "default": "mdi:coffee"

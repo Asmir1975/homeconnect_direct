@@ -135,6 +135,7 @@ class EntityDescriptions(TypedDict):
     active_program: list[HCSensorEntityDescription]
     binary_sensor: list[HCBinarySensorEntityDescription]
     event_sensor: list[HCSensorEntityDescription]
+    coffee_quantity: list[HCSelectEntityDescription]
     number: list[HCNumberEntityDescription]
     program: list[HCSelectEntityDescription]
     select: list[HCSelectEntityDescription]
@@ -154,6 +155,7 @@ _EntityDescriptionsDefinitionsType = dict[
         "active_program",
         "binary_sensor",
         "event_sensor",
+        "coffee_quantity",
         "number",
         "program",
         "select",
@@ -179,6 +181,7 @@ _EntityDescriptionsType = dict[
         "active_program",
         "binary_sensor",
         "event_sensor",
+        "coffee_quantity",
         "number",
         "program",
         "select",

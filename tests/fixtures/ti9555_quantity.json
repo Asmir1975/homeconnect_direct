@@ -1,0 +1,69 @@
+{
+  "info": {
+    "brand": "SIEMENS",
+    "type": "CoffeeMaker",
+    "model": "TI9555X1DE",
+    "eNumber": "TI9555X1DE/10",
+    "deviceID": "ti-test-device"
+  },
+  "selectedProgram": {
+    "access": "readwrite",
+    "fullOptionSet": false,
+    "name": "BSH.Common.Root.SelectedProgram",
+    "uid": 257,
+    "validate": false
+  },
+  "activeProgram": {
+    "access": "read",
+    "fullOptionSet": true,
+    "name": "BSH.Common.Root.ActiveProgram",
+    "uid": 256,
+    "validate": false
+  },
+  "option": [
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "liquidVolume",
+      "default": "100",
+      "max": "400",
+      "min": "20",
+      "name": "ConsumerProducts.CoffeeMaker.Option.FillQuantity",
+      "protocolType": "Integer",
+      "refCID": 20,
+      "refDID": 129,
+      "stepSize": "5",
+      "uid": 5122
+    }
+  ],
+  "program": [
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "40",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8209
+    },
+    {
+      "available": true,
+      "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.XLCoffee",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "300",
+          "liveUpdate": true,
+          "refUID": 5122
+        }
+      ],
+      "uid": 8224
+    }
+  ]
+}
