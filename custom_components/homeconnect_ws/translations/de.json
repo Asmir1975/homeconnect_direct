@@ -131,6 +131,9 @@
       "switch_allow_backend_connection": {
         "name": "Cloud-Verbindung erlauben"
       },
+      "switch_synchronize_with_time_server": {
+        "name": "Zeit mit Zeitserver abgleichen"
+      },
       "switch_auto_smart_start": {
         "name": "Automatischer Smart Start"
       },
@@ -286,29 +289,38 @@
       },
       "switch_oven_display_brand_logo": {
         "name": "Markenlogo"
+      },
+      "switch_eq700_skip_rinse_on": {
+        "name": "Spülen beim Einschalten überspringen"
+      },
+      "switch_eq700_playlist_running": {
+        "name": "Getränkeliste ausführen"
+      },
+      "switch_eq700_maintenance_tone": {
+        "name": "Wartungston"
+      },
+      "switch_eq700_key_tones": {
+        "name": "Tastentöne"
+      },
+      "switch_eq700_playlist_mode": {
+        "name": "Getränkeliste"
       }
     },
     "binary_sensor": {
-      "binary_sensor_hood_carbon_filter_max_saturation_reached": {
-        "name": "Aktivkohlefilter-Sättigung erreicht"
-      },
-      "binary_sensor_hood_carbon_filter_max_saturation_nearly_reached": {
-        "name": "Aktivkohlefilter-Sättigung fast erreicht"
-      },
-      "binary_sensor_hood_grease_filter_max_saturation_reached": {
-        "name": "Fettfilter-Sättigung erreicht"
-      },
-      "binary_sensor_hood_grease_filter_max_saturation_nearly_reached": {
-        "name": "Fettfilter-Sättigung fast erreicht"
-      },
-      "binary_sensor_hood_regenerative_carbon_filter_max_saturation_reached": {
-        "name": "Regenerierbarer Kohlefilter Sättigung erreicht"
-      },
       "binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded": {
         "name": "Regenerierbarer Kohlefilter Lebensdauer überschritten"
       },
       "binary_sensor_hood_regenerative_carbon_filter_lifetime_nearly_exceeded": {
         "name": "Regenerierbarer Kohlefilter Lebensdauer fast überschritten"
+      },
+      "binary_sensor_remaining_time_auto_counting": {
+        "name": "Restzeit läuft automatisch"
+      },
+      "binary_sensor_oven_cavity_selectable": {
+        "name": "Garraum wählbar{group_name}"
+      },
+      "binary_sensor_oven_cavity_startable": {
+        "name": "Garraum startbereit{group_name}"
       },
       "binary_sensor_favorite_001": {
         "name": "Favoritentaste kurz gedrückt"
@@ -366,16 +378,21 @@
         "name": "EcoDry Aktiv"
       },
       "binary_sensor_aqua_stop": {
-        "name": "AquaStop Aufgetreten"
+        "name": "AquaStop Aufgetreten",
+        "state": {
+          "on": "Fehler erkannt",
+          "off": "Kein Fehler"
+        }
       },
       "binary_sensor_low_water_pressure": {
-        "name": "Niedriger Wasserdruck"
+        "name": "Niedriger Wasserdruck",
+        "state": {
+          "on": "Fehler erkannt",
+          "off": "Kein Fehler"
+        }
       },
       "binary_sensor_bean_container_empty": {
         "name": "Bohnenbehälter Leer"
-      },
-      "binary_remote_start_allowed": {
-        "name": "Fernstart erlaubt"
       },
       "binary_sensor_refresher_level": {
         "name": "Refresher-Tank Füllstand",
@@ -391,20 +408,6 @@
           "off": "OK"
         }
       },
-      "binary_sensor_machinecarereminder": {
-        "name": "Maschinenreinigung",
-        "state": {
-          "on": "Wartung nötig",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_machinecareandfiltercleaningreminder": {
-        "name": "Maschinenreinigung Filter",
-        "state": {
-          "on": "Wartung nötig",
-          "off": "Ok"
-        }
-      },
       "binary_sensor_lint_filter_full": {
         "name": "Flusenfilter",
         "state": {
@@ -416,7 +419,11 @@
         "name": "Maschinenwartungsprogramm empfohlen"
       },
       "binary_sensor_program_aborted": {
-        "name": "Programm abgebrochen"
+        "name": "Programm abgebrochen",
+        "state": {
+          "on": "Fehler erkannt",
+          "off": "Kein Fehler"
+        }
       },
       "binary_sensor_foam_detection": {
         "name": "Schaumerkennung"
@@ -445,74 +452,15 @@
         "name": "Temperaturalarm Gefrierschrank"
       },
       "binary_sensor_interior_illumination": {
-        "name": "Innenbeleuchtung"
+        "name": "Innenbeleuchtung-Status"
       },
       "binary_sensor_program_finished": {
         "name": "Programm beendet"
-      },
-      "binary_sensor_low_voltage": {
-        "name": "Niederspannung"
       },
       "binary_sensor_machinecareandfilterreminder": {
         "name": "Maschinenpflege & Filterreinigung",
         "state": {
           "on": "Wartung erforderlich",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_waterheatercalcified": {
-        "name": "Wasserheizung verkalkt",
-        "state": {
-          "on": "Wartung erforderlich",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_smartfiltercleaningreminder": {
-        "name": "Smarte Filterreinigung",
-        "state": {
-          "on": "Wartung erforderlich",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_checkfiltersystem": {
-        "name": "Filtersystem prüfen",
-        "state": {
-          "on": "Wartung erforderlich",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_drainingnotpossible": {
-        "name": "Abpumpen nicht möglich",
-        "state": {
-          "on": "Wartung erforderlich",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_drainpumpblocked": {
-        "name": "Ablaufpumpe blockiert",
-        "state": {
-          "on": "Wartung erforderlich",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_flexspray_error_blocked": {
-        "name": "FlexSpray blockiert",
-        "state": {
-          "on": "Problem vorhanden",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_flexspray_error_general": {
-        "name": "FlexSpray Fehler",
-        "state": {
-          "on": "Problem vorhanden",
-          "off": "OK"
-        }
-      },
-      "binary_sensor_flexspray_error_spray_arm_not_mounted": {
-        "name": "Sprüharm nicht montiert",
-        "state": {
-          "on": "Problem vorhanden",
           "off": "OK"
         }
       },
@@ -579,9 +527,21 @@
       },
       "binary_sensor_alarm_clock_elapsed": {
         "name": "Alarm abgelaufen"
+      },
+      "binary_sensor_eq700_playlist_running": {
+        "name": "Getränkeliste läuft"
+      },
+      "binary_sensor_eq700_playlist_mode": {
+        "name": "Getränkeliste aktiviert"
       }
     },
     "sensor": {
+      "sensor_oven_cavity_selector": {
+        "name": "Garraum-Auswahl{group_name}"
+      },
+      "sensor_oven_cavity_level": {
+        "name": "Stufe{group_name}"
+      },
       "sensor_oven_steam_assist_level": {
         "name": "Dampfzugabe",
         "state": {
@@ -1756,6 +1716,36 @@
           "cooking_oven_program_heatingmode_3dhotair": "3D Heißluft"
         }
       },
+      "sensor_hood_filter_message": {
+        "name": "Filtermeldung",
+        "state": {
+          "carbon_filter_saturated": "Aktivkohlefilter-Sättigung erreicht",
+          "grease_filter_saturated": "Fettfilter-Sättigung erreicht",
+          "regenerative_carbon_filter_saturated": "Regenerierbarer Kohlefilter Sättigung erreicht",
+          "carbon_filter_nearly_saturated": "Aktivkohlefilter-Sättigung fast erreicht",
+          "grease_filter_nearly_saturated": "Fettfilter-Sättigung fast erreicht",
+          "regenerative_carbon_filter_nearly_saturated": "Regenerierbarer Kohlefilter Sättigung fast erreicht",
+          "none": "Kein Fehler"
+        }
+      },
+      "sensor_dishwasher_message": {
+        "name": "Fehlermeldung",
+        "state": {
+          "drain_pump_blocked": "Ablaufpumpe blockiert",
+          "draining_not_possible": "Abpumpen nicht möglich",
+          "flexspray_error_blocked": "FlexSpray blockiert",
+          "flexspray_error_general": "FlexSpray Fehler",
+          "flexspray_error_spray_arm_not_mounted": "Sprüharm nicht montiert",
+          "waterheater_calcified": "Wasserheizung verkalkt",
+          "check_filter_system": "Filtersystem prüfen",
+          "machine_care_and_filter_cleaning_reminder": "Maschinenpflege und Filterreinigung fällig",
+          "smart_filter_cleaning_reminder": "Smarte Filterreinigung fällig",
+          "machine_care_reminder": "Maschinenpflege fällig",
+          "low_voltage": "Niederspannung",
+          "program_aborted": "Programm abgebrochen",
+          "none": "Kein Fehler"
+        }
+      },
       "sensor_rinse_aid": {
         "name": "Klarspüler",
         "state": {
@@ -1978,6 +1968,64 @@
       "sensor_oven_current_temperature": {
         "name": "Aktuelle Temperatur"
       },
+      "sensor_stop_watch_state": {
+        "name": "Stoppuhr",
+        "state": {
+          "off": "Aus",
+          "running": "Läuft",
+          "paused": "Pausiert"
+        }
+      },
+      "sensor_hob_zone_cooking_sensor_level": {
+        "name": "Zone{group_name} Kochsensor-Stufe"
+      },
+      "sensor_hob_zone_active_program": {
+        "name": "Zone{group_name} Aktives Programm"
+      },
+      "sensor_hob_zone_selected_program": {
+        "name": "Zone{group_name} Ausgewähltes Programm"
+      },
+      "sensor_oven_message": {
+        "name": "Meldung{group_name}",
+        "state": {
+          "cavity_temperature_too_high": "Garraumtemperatur zu hoch",
+          "oven_lock_while_cooling_down": "Verriegelt beim Abkühlen",
+          "operating_time_limit_reached": "Maximale Betriebsdauer erreicht",
+          "force_flushing": "Zwangsspülung",
+          "error_code_e0502": "Fehler E05-02",
+          "error_door_latch": "Fehler Türverriegelung",
+          "appliance_module_error": "Fehler Gerätemodul",
+          "error_permanent_button_pressing": "Taste zu lange gedrückt",
+          "open_door": "Tür öffnen",
+          "subsequent_cooking_request": "Weitergaren?",
+          "insert_food_now": "Speise jetzt einschieben",
+          "turn_food_now": "Speise jetzt wenden",
+          "turn_joint_now": "Braten jetzt wenden",
+          "regular_preheat_finished": "Vorheizen beendet",
+          "fast_preheat_finished": "Schnellaufheizen beendet",
+          "alarm_clock_elapsed": "Alarm abgelaufen",
+          "program_finished": "Programm beendet",
+          "program_aborted": "Programm abgebrochen",
+          "close_door": "Tür schließen",
+          "insert_food_later": "Speise später einschieben",
+          "turn_food_later": "Speise später wenden",
+          "cavity_temperature_too_high_info": "Garraum noch heiß",
+          "leave_door_open": "Tür offen lassen",
+          "open_door_infrequently": "Tür seltener öffnen",
+          "pyro_remove_accessory": "Zubehör entnehmen",
+          "pyrolysis_remove_tank": "Tank entnehmen",
+          "after_pyrolysis_cleaning": "Nach Pyrolyse reinigen",
+          "easy_clean": "EasyClean",
+          "wipe_out_cavity_easy_clean": "Garraum auswischen",
+          "prepare_drying": "Trocknen vorbereiten",
+          "clock_permanent_on": "Uhr dauerhaft an",
+          "is_not_shown_again": "Wird nicht mehr angezeigt",
+          "none": "Keine Meldung"
+        }
+      },
+      "sensor_oven_program_name": {
+        "name": "Programmname{group_name}"
+      },
       "sensor_oven_current_meatprobe_temperature": {
         "name": "Aktuelle Bratenthermometer Temperatur"
       },
@@ -2187,6 +2235,281 @@
       },
       "sensor_host": {
         "name": "IP-Adresse"
+      },
+      "sensor_eq700_messages": {
+        "name": "Gerätemeldung",
+        "state": {
+          "heater_error": "Heizungsfehler",
+          "temperature_error": "Temperaturfehler",
+          "water_distrib_error": "Fehler Wasserverteilung",
+          "water_critically_empty": "Wasservorrat kritisch niedrig",
+          "pomace_cave_full": "Tresterbehälter voll",
+          "preparation_resume": "Zubereitung fortsetzen",
+          "maintenance_continue": "Wartung fortsetzen",
+          "milk_tube_removed": "Milchschlauch entfernt",
+          "milk_container_connected": "Milchbehälter verbunden",
+          "refill_removed_milk_container": "Entnommenen Milchbehälter auffüllen",
+          "insert_milk_tank": "Milchbehälter einsetzen",
+          "remove_milk_tank": "Milchbehälter entfernen",
+          "remove_milk_tube": "Milchschlauch entfernen",
+          "drip_tray_too_full_for_this_kind_of_beverage": "Tropfschale für dieses Getränk zu voll",
+          "keep_milk_tank_cool": "Milchbehälter kühl halten",
+          "not_enough_water_for_this_kind_of_beverage": "Zu wenig Wasser für dieses Getränk",
+          "not_enough_pomace_capacity_for_this_kind_of_beverage": "Zu wenig Platz im Tresterbehälter für dieses Getränk",
+          "grinder_error": "Mahlwerkfehler",
+          "observe_local_advice": "Hinweis am Gerät beachten",
+          "software_update_available": "Software-Update verfügbar",
+          "software_update_successful": "Software-Update erfolgreich",
+          "program_finished": "Programm beendet",
+          "call_hotline": "Kundendienst kontaktieren",
+          "drip_tray_full": "Tropfschale voll",
+          "drip_tray_not_inserted": "Tropfschale nicht eingesetzt",
+          "brewing_unit_is_missing": "Brüheinheit fehlt",
+          "clean_brewing_unit": "Brüheinheit reinigen",
+          "bu_cover_is_missing": "Abdeckung der Brüheinheit fehlt",
+          "power_supply_error": "Fehler Stromversorgung",
+          "device_is_to_cold4_c": "Gerät zu kalt (unter 4 °C)",
+          "system_has_run_dry": "System trocken gelaufen",
+          "bean_container_empty": "Bohnenbehälter leer",
+          "coffee_outlet_missing": "Kaffeeauslauf fehlt",
+          "close_door": "Tür schließen",
+          "refill_empty_bean_container": "Leeren Bohnenbehälter auffüllen",
+          "refill_empty_water_tank": "Leeren Wassertank auffüllen",
+          "under_over_voltage": "Unter- oder Überspannung",
+          "milk_container_removed": "Milchbehälter entfernt",
+          "press_on_off": "Ein/Aus drücken",
+          "restart_appliance": "Gerät neu starten",
+          "switch_off_power30sek_back_on": "Gerät ausschalten und nach 30 Sekunden einschalten",
+          "adjust_grind_setting": "Mahlgrad einstellen",
+          "water_tank_nearly_empty": "Wassertank fast leer",
+          "water_tank_empty": "Wassertank leer",
+          "water_tank_not_inserted": "Wassertank nicht eingesetzt",
+          "software_download_available": "Software-Download verfügbar",
+          "deactivate_playlist": "Getränkeliste deaktivieren",
+          "throw_cleaning_disc_in_the_drawer": "Reinigungstablette in den Schacht geben",
+          "empty_drip_tray": "Tropfschale leeren",
+          "fill_descaler": "Entkalkungsmittel einfüllen",
+          "clean_fill_water_tank": "Wassertank reinigen und füllen",
+          "place_container_under_outlet": "Gefäß unter den Auslauf stellen",
+          "special_rinsing": "Sonderspülung",
+          "empty_water_tank": "Wassertank leeren",
+          "clean_milk_tank": "Milchbehälter reinigen",
+          "empty_milk_tank": "Milchbehälter leeren",
+          "remove_milk_container": "Milchbehälter entfernen",
+          "empty_drip_tray_remove_container": "Tropfschale leeren und Gefäß entfernen",
+          "descaling_in20_cups": "Entkalkung in 20 Bezügen",
+          "descaling_in15_cups": "Entkalkung in 15 Bezügen",
+          "descaling_in10_cups": "Entkalkung in 10 Bezügen",
+          "descaling_in5_cups": "Entkalkung in 5 Bezügen",
+          "calcn_clean_in20_cups": "calc’nClean in 20 Bezügen",
+          "calcn_clean_in15_cups": "calc’nClean in 15 Bezügen",
+          "calcn_clean_in10_cups": "calc’nClean in 10 Bezügen",
+          "calcn_clean_in5_cups": "calc’nClean in 5 Bezügen",
+          "device_calcn_clean_overdue": "calc’nClean überfällig",
+          "device_calcn_clean_blockage": "Gerät wegen calc’nClean gesperrt",
+          "clean_brewing_unit_manually": "Brüheinheit manuell reinigen",
+          "device_cleaning_overdue": "Reinigung überfällig",
+          "device_should_be_descaled": "Gerät entkalken",
+          "device_should_be_cleaned": "Gerät reinigen",
+          "device_should_be_calcn_cleaned": "calc’nClean durchführen",
+          "device_descaling_overdue": "Entkalkung überfällig",
+          "device_descaling_blockage": "Gerät wegen Entkalkung gesperrt",
+          "place_milk_hose_in_drip_pan": "Milchschlauch in die Tropfschale legen",
+          "descaling_successfully": "Entkalkung erfolgreich",
+          "fill_watertank": "Wassertank füllen",
+          "place05l_container_under_outlet": "0,5-l-Gefäß unter den Auslauf stellen",
+          "cleaning_successfully": "Reinigung erfolgreich",
+          "remove05l_container_under_outlet": "0,5-l-Gefäß unter dem Auslauf entfernen",
+          "calcn_clean_successfully": "calc’nClean erfolgreich",
+          "milk_system_cleaning_successfully": "Milchsystemreinigung erfolgreich",
+          "appliance_switches_off": "Gerät schaltet aus",
+          "insert_milk_container_during_maintenance": "Milchbehälter während der Wartung einsetzen",
+          "remove_container_empty_drip_tray": "Gefäß entfernen und Tropfschale leeren",
+          "special_rinsing_successfully": "Sonderspülung erfolgreich",
+          "turn_aroma_ring_to_a": "Aromaring auf A drehen",
+          "turn_aroma_ring_to_b": "Aromaring auf B drehen",
+          "turn_aroma_ring_to_c": "Aromaring auf C drehen",
+          "clean_brewing_unit_step1": "Brüheinheit reinigen: Schritt 1",
+          "clean_brewing_unit_step2": "Brüheinheit reinigen: Schritt 2",
+          "clean_brewing_unit_step3": "Brüheinheit reinigen: Schritt 3",
+          "clean_brewing_unit_step4": "Brüheinheit reinigen: Schritt 4",
+          "clean_brewing_unit_step5": "Brüheinheit reinigen: Schritt 5",
+          "clean_brewing_unit_step6": "Brüheinheit reinigen: Schritt 6",
+          "clean_brewing_unit_step7": "Brüheinheit reinigen: Schritt 7",
+          "clean_brewing_unit_step8": "Brüheinheit reinigen: Schritt 8",
+          "clean_brewing_unit_step9": "Brüheinheit reinigen: Schritt 9",
+          "clean_brewing_unit_step10": "Brüheinheit reinigen: Schritt 10",
+          "clean_brewing_unit_step11": "Brüheinheit reinigen: Schritt 11",
+          "clean_brewing_unit_step12": "Brüheinheit reinigen: Schritt 12",
+          "clean_brewing_unit_step13": "Brüheinheit reinigen: Schritt 13",
+          "brewing_unit_cleaning_successfully": "Reinigung der Brüheinheit erfolgreich",
+          "clean_outlet_step1": "Auslauf reinigen: Schritt 1",
+          "clean_outlet_step2": "Auslauf reinigen: Schritt 2",
+          "clean_outlet_step3": "Auslauf reinigen: Schritt 3",
+          "clean_outlet_step4": "Auslauf reinigen: Schritt 4",
+          "clean_outlet_step5": "Auslauf reinigen: Schritt 5",
+          "clean_outlet_step6": "Auslauf reinigen: Schritt 6",
+          "clean_outlet_step7": "Auslauf reinigen: Schritt 7",
+          "clean_outlet_successfully": "Auslaufreinigung erfolgreich",
+          "remove_water_filter": "Wasserfilter entfernen",
+          "insert_water_filter": "Wasserfilter einsetzen",
+          "water_filter_should_be_changed": "Wasserfilter wechseln",
+          "prepare_water_filter_change": "Wasserfilterwechsel vorbereiten",
+          "insert_water_filter_successfully": "Wasserfilter erfolgreich eingesetzt",
+          "remove_water_filter_successfully": "Wasserfilter erfolgreich entfernt",
+          "replace_water_filter_successfully": "Wasserfilter erfolgreich gewechselt",
+          "none": "Keine Meldung"
+        }
+      },
+      "sensor_eq700_last_selected_beverage": {
+        "name": "Zuletzt gewähltes Getränk",
+        "state": {
+          "bsh_common_program_favorite_001": "Favorit 001",
+          "bsh_common_program_favorite_002": "Favorit 002",
+          "bsh_common_program_favorite_003": "Favorit 003",
+          "bsh_common_program_favorite_004": "Favorit 004",
+          "bsh_common_program_favorite_005": "Favorit 005",
+          "bsh_common_program_favorite_006": "Favorit 006",
+          "bsh_common_program_favorite_007": "Favorit 007",
+          "bsh_common_program_favorite_008": "Favorit 008",
+          "bsh_common_program_favorite_009": "Favorit 009",
+          "bsh_common_program_favorite_010": "Favorit 010",
+          "bsh_common_program_favorite_011": "Favorit 011",
+          "bsh_common_program_favorite_012": "Favorit 012",
+          "bsh_common_program_favorite_013": "Favorit 013",
+          "bsh_common_program_favorite_014": "Favorit 014",
+          "bsh_common_program_favorite_015": "Favorit 015",
+          "consumerproducts_coffeemaker_program_beverage_espresso": "Espresso",
+          "consumerproducts_coffeemaker_program_beverage_espressodoppio": "Espresso doppio",
+          "consumerproducts_coffeemaker_program_beverage_coffee": "Caffè Crema",
+          "consumerproducts_coffeemaker_program_beverage_caffegrande": "Caffè Grande",
+          "consumerproducts_coffeemaker_program_beverage_xlcoffee": "Caffè XL",
+          "consumerproducts_coffeemaker_program_beverage_cappuccino": "Cappuccino",
+          "consumerproducts_coffeemaker_program_beverage_lattemacchiato": "Latte macchiato",
+          "consumerproducts_coffeemaker_program_beverage_caffelatte": "Milchkaffee",
+          "consumerproducts_coffeemaker_program_beverage_milkfroth": "Milchschaum",
+          "consumerproducts_coffeemaker_program_beverage_warmmilk": "Warme Milch",
+          "consumerproducts_coffeemaker_program_beverage_hotwater": "Heißwasser",
+          "consumerproducts_coffeemaker_program_beverage_ristretto": "Ristretto",
+          "consumerproducts_coffeemaker_program_beverage_espressomacchiato": "Espresso macchiato",
+          "consumerproducts_coffeemaker_program_coffeeworld_verlaengerter": "Verlängerter",
+          "consumerproducts_coffeemaker_program_coffeeworld_kleinerbrauner": "Kleiner Brauner",
+          "consumerproducts_coffeemaker_program_coffeeworld_wienermelange": "Wiener Melange",
+          "consumerproducts_coffeemaker_program_coffeeworld_flatwhite": "Flat white",
+          "consumerproducts_coffeemaker_program_coffeeworld_cafeconleche": "Café con leche",
+          "consumerproducts_coffeemaker_program_coffeeworld_cafeaulait": "Café au lait",
+          "consumerproducts_coffeemaker_program_coffeeworld_koffieverkeerd": "Koffie verkeerd",
+          "consumerproducts_coffeemaker_program_coffeeworld_americano": "Americano",
+          "consumerproducts_coffeemaker_program_coffeeworld_grosserbrauner": "Großer Brauner",
+          "consumerproducts_coffeemaker_program_coffeeworld_verlaengerterbraun": "Verlängerter braun",
+          "consumerproducts_coffeemaker_program_coffeeworld_cortado": "Cortado",
+          "consumerproducts_coffeemaker_program_coffeeworld_doppio": "Doppio",
+          "consumerproducts_coffeemaker_program_coffeeworld_cafecortado": "Café Cortado",
+          "consumerproducts_coffeemaker_program_coffeeworld_kaapi": "Kaapi",
+          "consumerproducts_coffeemaker_program_coffeeworld_galao": "Galão",
+          "consumerproducts_coffeemaker_program_coffeeworld_garoto": "Garoto",
+          "consumerproducts_coffeemaker_program_coffeeworld_redeye": "Red eye",
+          "consumerproducts_coffeemaker_program_coffeeworld_blackeye": "Black eye",
+          "consumerproducts_coffeemaker_program_coffeeworld_deadeye": "Dead eye",
+          "consumerproducts_coffeemaker_program_coffeeworld_coldbrew": "Cold Brew",
+          "consumerproducts_coffeemaker_program_coffeeworld_coldbrewmacchiato": "Cold Brew macchiato",
+          "consumerproducts_coffeemaker_program_coffeeworld_slowbrew": "Slow Brew",
+          "consumerproducts_coffeemaker_program_cleaningmodes_applianceoffrinsing": "Ausschaltspülen",
+          "consumerproducts_coffeemaker_program_cleaningmodes_applianceonrinsing": "Einschaltspülen",
+          "consumerproducts_coffeemaker_program_cleaningmodes_rinsemilksystem": "Milchsystem Reinigung",
+          "consumerproducts_coffeemaker_program_cleaningmodes_clean": "Reinigung",
+          "consumerproducts_coffeemaker_program_cleaningmodes_descale": "Entkalken",
+          "consumerproducts_coffeemaker_program_cleaningmodes_calcnclean": "calc'nClean",
+          "consumerproducts_coffeemaker_program_cleaningmodes_specialrinsing": "Reinigung Spezial",
+          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Frostschutz",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Reinigung Brüheinheit",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Reinigung Brüheinheit (detailliert)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanoutletmanually": "Reinigung Getränkeauslauf",
+          "consumerproducts_coffeemaker_program_cleaningmodes_rinsewaterfilter": "Wasserfilter Reinigung",
+          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Wasserfilter entfernen",
+          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Wasserfilter ersetzen"
+        }
+      },
+      "sensor_eq700_water_hardness": {
+        "name": "Wasserhärte",
+        "state": {
+          "soft": "Weich",
+          "medium": "Mittel",
+          "hard": "Hart",
+          "veryhard": "Sehr hart"
+        }
+      },
+      "sensor_eq700_last_selected_coffee_world_beverage": {
+        "name": "Zuletzt gewähltes CoffeeWorld-Getränk",
+        "state": {
+          "bsh_common_program_favorite_001": "Favorit 001",
+          "bsh_common_program_favorite_002": "Favorit 002",
+          "bsh_common_program_favorite_003": "Favorit 003",
+          "bsh_common_program_favorite_004": "Favorit 004",
+          "bsh_common_program_favorite_005": "Favorit 005",
+          "bsh_common_program_favorite_006": "Favorit 006",
+          "bsh_common_program_favorite_007": "Favorit 007",
+          "bsh_common_program_favorite_008": "Favorit 008",
+          "bsh_common_program_favorite_009": "Favorit 009",
+          "bsh_common_program_favorite_010": "Favorit 010",
+          "bsh_common_program_favorite_011": "Favorit 011",
+          "bsh_common_program_favorite_012": "Favorit 012",
+          "bsh_common_program_favorite_013": "Favorit 013",
+          "bsh_common_program_favorite_014": "Favorit 014",
+          "bsh_common_program_favorite_015": "Favorit 015",
+          "consumerproducts_coffeemaker_program_beverage_espresso": "Espresso",
+          "consumerproducts_coffeemaker_program_beverage_espressodoppio": "Espresso doppio",
+          "consumerproducts_coffeemaker_program_beverage_coffee": "Caffè Crema",
+          "consumerproducts_coffeemaker_program_beverage_caffegrande": "Caffè Grande",
+          "consumerproducts_coffeemaker_program_beverage_xlcoffee": "Caffè XL",
+          "consumerproducts_coffeemaker_program_beverage_cappuccino": "Cappuccino",
+          "consumerproducts_coffeemaker_program_beverage_lattemacchiato": "Latte macchiato",
+          "consumerproducts_coffeemaker_program_beverage_caffelatte": "Milchkaffee",
+          "consumerproducts_coffeemaker_program_beverage_milkfroth": "Milchschaum",
+          "consumerproducts_coffeemaker_program_beverage_warmmilk": "Warme Milch",
+          "consumerproducts_coffeemaker_program_beverage_hotwater": "Heißwasser",
+          "consumerproducts_coffeemaker_program_beverage_ristretto": "Ristretto",
+          "consumerproducts_coffeemaker_program_beverage_espressomacchiato": "Espresso macchiato",
+          "consumerproducts_coffeemaker_program_coffeeworld_verlaengerter": "Verlängerter",
+          "consumerproducts_coffeemaker_program_coffeeworld_kleinerbrauner": "Kleiner Brauner",
+          "consumerproducts_coffeemaker_program_coffeeworld_wienermelange": "Wiener Melange",
+          "consumerproducts_coffeemaker_program_coffeeworld_flatwhite": "Flat white",
+          "consumerproducts_coffeemaker_program_coffeeworld_cafeconleche": "Café con leche",
+          "consumerproducts_coffeemaker_program_coffeeworld_cafeaulait": "Café au lait",
+          "consumerproducts_coffeemaker_program_coffeeworld_koffieverkeerd": "Koffie verkeerd",
+          "consumerproducts_coffeemaker_program_coffeeworld_americano": "Americano",
+          "consumerproducts_coffeemaker_program_coffeeworld_grosserbrauner": "Großer Brauner",
+          "consumerproducts_coffeemaker_program_coffeeworld_verlaengerterbraun": "Verlängerter braun",
+          "consumerproducts_coffeemaker_program_coffeeworld_cortado": "Cortado",
+          "consumerproducts_coffeemaker_program_coffeeworld_doppio": "Doppio",
+          "consumerproducts_coffeemaker_program_coffeeworld_cafecortado": "Café Cortado",
+          "consumerproducts_coffeemaker_program_coffeeworld_kaapi": "Kaapi",
+          "consumerproducts_coffeemaker_program_coffeeworld_galao": "Galão",
+          "consumerproducts_coffeemaker_program_coffeeworld_garoto": "Garoto",
+          "consumerproducts_coffeemaker_program_coffeeworld_redeye": "Red eye",
+          "consumerproducts_coffeemaker_program_coffeeworld_blackeye": "Black eye",
+          "consumerproducts_coffeemaker_program_coffeeworld_deadeye": "Dead eye",
+          "consumerproducts_coffeemaker_program_coffeeworld_coldbrew": "Cold Brew",
+          "consumerproducts_coffeemaker_program_coffeeworld_coldbrewmacchiato": "Cold Brew macchiato",
+          "consumerproducts_coffeemaker_program_coffeeworld_slowbrew": "Slow Brew",
+          "consumerproducts_coffeemaker_program_cleaningmodes_applianceoffrinsing": "Ausschaltspülen",
+          "consumerproducts_coffeemaker_program_cleaningmodes_applianceonrinsing": "Einschaltspülen",
+          "consumerproducts_coffeemaker_program_cleaningmodes_rinsemilksystem": "Milchsystem Reinigung",
+          "consumerproducts_coffeemaker_program_cleaningmodes_clean": "Reinigung",
+          "consumerproducts_coffeemaker_program_cleaningmodes_descale": "Entkalken",
+          "consumerproducts_coffeemaker_program_cleaningmodes_calcnclean": "calc'nClean",
+          "consumerproducts_coffeemaker_program_cleaningmodes_specialrinsing": "Reinigung Spezial",
+          "consumerproducts_coffeemaker_program_cleaningmodes_frostprotection": "Frostschutz",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanually": "Reinigung Brüheinheit",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanbrewingunitmanuallydetailed": "Reinigung Brüheinheit (detailliert)",
+          "consumerproducts_coffeemaker_program_cleaningmodes_cleanoutletmanually": "Reinigung Getränkeauslauf",
+          "consumerproducts_coffeemaker_program_cleaningmodes_rinsewaterfilter": "Wasserfilter Reinigung",
+          "consumerproducts_coffeemaker_program_cleaningmodes_removewaterfilter": "Wasserfilter entfernen",
+          "consumerproducts_coffeemaker_program_cleaningmodes_replacewaterfilter": "Wasserfilter ersetzen"
+        }
+      },
+      "sensor_eq700_beverage_counter_milk": {
+        "name": "Milchbezüge"
       }
     },
     "select": {
@@ -3438,7 +3761,7 @@
         }
       },
       "select_power_state": {
-        "name": "Betriebszustand",
+        "name": "Status",
         "state": {
           "mainsoff": "Strom abgeschaltet",
           "off": "Aus",
@@ -4487,6 +4810,55 @@
           "on": "Ein",
           "onenergysaving": "Ein, zeitlich begrenzt"
         }
+      },
+      "select_eq700_coffee_milk_order_mac": {
+        "name": "Reihenfolge Kaffee/Milch bei Macchiato",
+        "state": {
+          "firstmilk": "Zuerst Milch",
+          "firstcoffee": "Zuerst Kaffee"
+        }
+      },
+      "select_eq700_start_up_category": {
+        "name": "Startkategorie",
+        "state": {
+          "lastselected": "Zuletzt gewählt",
+          "favorites": "Favoriten",
+          "classics": "Klassiker",
+          "coffeeworld": "CoffeeWorld"
+        }
+      },
+      "select_eq700_coffee_milk_order": {
+        "name": "Reihenfolge Kaffee/Milch",
+        "state": {
+          "firstmilk": "Zuerst Milch",
+          "firstcoffee": "Zuerst Kaffee"
+        }
+      },
+      "select_eq700_macchiato_pause": {
+        "name": "Macchiato-Pause",
+        "state": {
+          "min": "Minimal",
+          "10sec": "10 Sekunden",
+          "5sec": "5 Sekunden"
+        }
+      },
+      "select_eq700_switch_off_after": {
+        "name": "Automatisches Ausschalten nach",
+        "state": {
+          "01hours00minutes": "1 Stunde",
+          "02hours00minutes": "2 Stunden",
+          "03hours00minutes": "3 Stunden",
+          "00hours15minutes": "15 Minuten",
+          "00hours30minutes": "30 Minuten"
+        }
+      },
+      "select_eq700_brewing_temperature": {
+        "name": "Brühtemperatur",
+        "state": {
+          "normal": "Normal",
+          "high": "Hoch",
+          "max": "Maximum"
+        }
       }
     },
     "button": {
@@ -4496,8 +4868,20 @@
       "button_refrigerator_open_door": {
         "name": "Tür öffnen"
       },
+      "button_acknowledge_event": {
+        "name": "Meldung bestätigen"
+      },
       "button_abort_program": {
         "name": "Abbrechen"
+      },
+      "button_stop_watch_start_pause_resume": {
+        "name": "Stoppuhr Start/Pause"
+      },
+      "button_stop_watch_reset": {
+        "name": "Stoppuhr zurücksetzen"
+      },
+      "button_skip": {
+        "name": "Überspringen"
       },
       "button_start_program": {
         "name": "Start"
@@ -4567,6 +4951,9 @@
       "number_oven_setpoint_temperature": {
         "name": "Sollwert Temperatur"
       },
+      "number_oven_weight": {
+        "name": "Gewicht"
+      },
       "number_oven_display_brightness": {
         "name": "Display Helligkeit"
       },
@@ -4599,6 +4986,12 @@
       },
       "number_hob_automatic_timer": {
         "name": "Automatischer Timer"
+      },
+      "number_eq700_touch_screen_sound_volume": {
+        "name": "Touchscreen-Lautstärke"
+      },
+      "number_eq700_brightness_display": {
+        "name": "Displayhelligkeit"
       }
     },
     "light": {

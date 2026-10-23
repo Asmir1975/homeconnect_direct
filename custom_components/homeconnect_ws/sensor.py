@@ -114,6 +114,8 @@ class HCSensor(HCEntity, SensorEntity):
             return 0
         if self._entity.value is None:
             return None
+        if self.entity_description.value_fn:
+            return self.entity_description.value_fn(self._entity)
         if self._entity.enum and self.entity_description.has_state_translation:
             return str(self._entity.value).lower()
         return self._entity.value

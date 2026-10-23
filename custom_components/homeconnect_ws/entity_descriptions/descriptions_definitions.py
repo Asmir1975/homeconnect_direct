@@ -72,6 +72,8 @@ class HCSensorEntityDescription(
     # and elapsed time have no legitimate non-zero value before a program starts,
     # unlike remaining time (a preview of the selected program's duration).
     also_reset_when_ready: bool = False
+    # State from an object value, like the error codes list.
+    value_fn: Callable[[HcEntity], StateType] | None = None
 
 
 class HCBinarySensorEntityDescription(
@@ -92,6 +94,8 @@ class HCButtonEntityDescription(
     """Description for Button Entity."""
 
     available_access: tuple[Access] = (Access.READ_WRITE, Access.WRITE_ONLY)
+    # Value sent on press. AcknowledgeEvent needs a specific integer instead of True.
+    press_value: bool | int = True
 
 
 class HCNumberEntityDescription(

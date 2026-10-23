@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from homeassistant.components.binary_sensor import BinarySensorDeviceClass
+from typing import TYPE_CHECKING
+
 from homeassistant.components.number import NumberDeviceClass, NumberMode
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -19,6 +20,48 @@ from .descriptions_definitions import (
     HCSwitchEntityDescription,
     _EntityDescriptionsDefinitionsType,
 )
+
+if TYPE_CHECKING:
+    from homeconnect_websocket import HomeAppliance
+
+# Most urgent first; the sensor shows the first one that is active, else "none"
+# (drain-blocking errors before FlexSpray errors before maintenance reminders).
+DISHWASHER_MESSAGES = (
+    ("Dishcare.Dishwasher.Event.DrainPumpBlocked", "drain_pump_blocked"),
+    ("Dishcare.Dishwasher.Event.DrainingNotPossible", "draining_not_possible"),
+    ("Dishcare.Dishwasher.Event.FlexSpray.Error.Blocked", "flexspray_error_blocked"),
+    ("Dishcare.Dishwasher.Event.FlexSpray.Error.General", "flexspray_error_general"),
+    (
+        "Dishcare.Dishwasher.Event.FlexSpray.Error.SprayArmNotMounted",
+        "flexspray_error_spray_arm_not_mounted",
+    ),
+    ("Dishcare.Dishwasher.Event.WaterheaterCalcified", "waterheater_calcified"),
+    ("Dishcare.Dishwasher.Event.CheckFilterSystem", "check_filter_system"),
+    (
+        "Dishcare.Dishwasher.Event.MachineCareAndFilterCleaningReminder",
+        "machine_care_and_filter_cleaning_reminder",
+    ),
+    ("Dishcare.Dishwasher.Event.SmartFilterCleaningReminder", "smart_filter_cleaning_reminder"),
+    ("Dishcare.Dishwasher.Event.MachineCareReminder", "machine_care_reminder"),
+    ("Dishcare.Dishwasher.Event.LowVoltage", "low_voltage"),
+    ("BSH.Common.Event.ProgramAborted", "program_aborted"),
+)
+
+
+def generate_dishwasher_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the most urgent active maintenance/error message, else "none" (Asko 18.10.2026)."""
+    messages = [
+        (entity, key) for entity, key in DISHWASHER_MESSAGES if entity in appliance.entities
+    ]
+    if not messages:
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_dishwasher_message",
+        entities=tuple(entity for entity, _ in messages),
+        device_class=SensorDeviceClass.ENUM,
+        options=[key for _, key in messages] + ["none"],
+    )
+
 
 DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "binary_sensor": [
@@ -43,106 +86,12 @@ DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="Dishcare.Dishwasher.Status.EcoDryActive",
             entity_registry_enabled_default=False,
         ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_machinecarereminder",
-            entity="Dishcare.Dishwasher.Event.MachineCareReminder",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_low_voltage",
-            entity="Dishcare.Dishwasher.Event.LowVoltage",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_machinecareandfiltercleaningreminder",
-            entity="Dishcare.Dishwasher.Event.MachineCareAndFilterCleaningReminder",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_waterheatercalcified",
-            entity="Dishcare.Dishwasher.Event.WaterheaterCalcified",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_smartfiltercleaningreminder",
-            entity="Dishcare.Dishwasher.Event.SmartFilterCleaningReminder",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_checkfiltersystem",
-            entity="Dishcare.Dishwasher.Event.CheckFilterSystem",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_drainingnotpossible",
-            entity="Dishcare.Dishwasher.Event.DrainingNotPossible",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_drainpumpblocked",
-            entity="Dishcare.Dishwasher.Event.DrainPumpBlocked",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
         # FlexSpray error events
         # NOTE: Bosch refers to this feature as "PowerControl" in marketing/UI.
         # The protocol/API objects use the name "FlexSpray", which is kept here.
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_flexspray_error_blocked",
-            entity="Dishcare.Dishwasher.Event.FlexSpray.Error.Blocked",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_flexspray_error_general",
-            entity="Dishcare.Dishwasher.Event.FlexSpray.Error.General",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_flexspray_error_spray_arm_not_mounted",
-            entity="Dishcare.Dishwasher.Event.FlexSpray.Error.SprayArmNotMounted",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity_registry_enabled_default=False,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
     ],
     "event_sensor": [
+        generate_dishwasher_message,
         HCSensorEntityDescription(
             key="sensor_rinse_aid",
             entities=[
