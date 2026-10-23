@@ -46,16 +46,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     ],
     "event_sensor": [
         HCSensorEntityDescription(
-            key="sensor_water_tank",
-            entities=[
-                "ConsumerProducts.CoffeeMaker.Event.WaterTankEmpty",
-                "ConsumerProducts.CoffeeMaker.Event.WaterTankNearlyEmpty",
-                "ConsumerProducts.CoffeeMaker.Event.WaterTankNotInserted",
-            ],
-            device_class=SensorDeviceClass.ENUM,
-            options=["empty", "nearly_empty", "not_inserted", "full"],
-        ),
-        HCSensorEntityDescription(
             key="sensor_drip_tray",
             entities=[
                 "ConsumerProducts.CoffeeMaker.Event.DripTrayFull",
@@ -616,3 +606,64 @@ def generate_coffee_quantity_select(appliance: HomeAppliance) -> EntityDescripti
 CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("dynamic", []).append(
     generate_coffee_quantity_select
 )
+
+
+_EVENT = "ConsumerProducts.CoffeeMaker.Event."
+# (key, events with their state, in priority order, state without an active event, minimum events)
+_COFFEE_CONTAINERS = (
+    (
+        "sensor_water_tank",
+        (
+            ("WaterTankEmpty", "empty"),
+            ("WaterCriticallyEmpty", "critically_empty"),
+            ("WaterTankNearlyEmpty", "nearly_empty"),
+            ("WaterTankNotInserted", "not_inserted"),
+        ),
+        "full",
+        1,
+    ),
+    (
+        "sensor_bean_container",
+        (
+            ("BeanContainerIsNotPresent", "not_present"),
+            ("BeanContainerNotFullyInserted", "not_fully_inserted"),
+            ("BeanContainerEmpty", "empty"),
+            ("BeanContainerNearlyEmpty", "nearly_empty"),
+        ),
+        "ok",
+        2,
+    ),
+    (
+        "sensor_pomace_container",
+        (("PomaceContainerMissing", "missing"), ("PomaceCaveFull", "full")),
+        "ok",
+        1,
+    ),
+)
+
+
+def generate_coffee_containers(appliance: HomeAppliance) -> EntityDescriptions:
+    """
+    Container state sensors from the events a coffee maker reports.
+
+    The bean container needs at least two events, otherwise it would only repeat the
+    binary sensor for "empty".
+    """
+    descriptions = EntityDescriptions(event_sensor=[])
+    for key, events, ok_state, minimum in _COFFEE_CONTAINERS:
+        present = [
+            (_EVENT + name, state) for name, state in events if _EVENT + name in appliance.entities
+        ]
+        if len(present) >= minimum:
+            descriptions["event_sensor"].append(
+                HCSensorEntityDescription(
+                    key=key,
+                    entities=tuple(name for name, _ in present),
+                    device_class=SensorDeviceClass.ENUM,
+                    options=[state for _, state in present] + [ok_state],
+                )
+            )
+    return descriptions
+
+
+CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("dynamic", []).append(generate_coffee_containers)

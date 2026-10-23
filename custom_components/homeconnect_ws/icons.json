@@ -360,6 +360,7 @@
                 "default": "mdi:water",
                 "state": {
                     "empty": "mdi:water-alert",
+                    "critically_empty": "mdi:water-alert",
                     "nearly_empty": "mdi:water-alert",
                     "not_inserted": "mdi:water-remove"
                 }
@@ -371,6 +372,12 @@
                     "not_inserted": "mdi:tray-remove",
                     "full": "mdi:tray-alert"
                 }
+            },
+            "sensor_bean_container": {
+                "default": "mdi:seed-outline"
+            },
+            "sensor_pomace_container": {
+                "default": "mdi:trash-can-outline"
             },
             "sensor_start_in": {
                 "default": "mdi:clock-start"

@@ -262,10 +262,17 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
     return descriptions
 
 
+def _wifi_is_polled(appliance: HomeAppliance) -> bool:
+    """Coffee makers list the WiFi status but never report it, so ask the network info."""
+    return (
+        "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities
+        or appliance.info.get("type") == "CoffeeMaker"
+    )
+
+
 def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
     """Get WiFi sensor description."""
-    entity = appliance.entities.get("BSH.Common.Status.WiFiSignalStrength")
-    if entity is None:
+    if _wifi_is_polled(appliance):
         return HCSensorEntityDescription(
             key="sensor_wifi_signal_strength",
             device_class=SensorDeviceClass.SIGNAL_STRENGTH,
@@ -274,6 +281,36 @@ def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
             entity_registry_enabled_default=False,
         )
     return None
+
+
+def generate_wifi_status_sensor(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the WiFi sensor that follows the status the appliance reports."""
+    if _wifi_is_polled(appliance):
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_wifi_signal_strength",
+        entity="BSH.Common.Status.WiFiSignalStrength",
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    )
+
+
+def generate_interior_illumination_binary_sensor(
+    appliance: HomeAppliance,
+) -> HCBinarySensorEntityDescription | None:
+    """Get the light status, not for coffee makers: they list it but never report it."""
+    if (
+        appliance.info.get("type") == "CoffeeMaker"
+        or "BSH.Common.Status.InteriorIlluminationActive" not in appliance.entities
+    ):
+        return None
+    return HCBinarySensorEntityDescription(
+        key="binary_sensor_interior_illumination",
+        entity="BSH.Common.Status.InteriorIlluminationActive",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    )
 
 
 def generate_temperature_unit(appliance: HomeAppliance) -> HCSelectEntityDescription | None:
@@ -460,11 +497,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             value_on={"Present", "Confirmed"},
             value_off={"Off"},
         ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_interior_illumination",
-            entity="BSH.Common.Status.InteriorIlluminationActive",
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
+        generate_interior_illumination_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_sensor_alarm_clock_elapsed",
             entity="BSH.Common.Event.AlarmClockElapsed",
@@ -587,14 +620,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             native_unit_of_measurement=UnitOfTime.SECONDS,
             suggested_unit_of_measurement=UnitOfTime.HOURS,
         ),
-        HCSensorEntityDescription(
-            key="sensor_wifi_signal_strength",
-            entity="BSH.Common.Status.WiFiSignalStrength",
-            device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-            native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
+        generate_wifi_status_sensor,
         generate_door_state,
     ],
     "start_button": [generate_start_button],

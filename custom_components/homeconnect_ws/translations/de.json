@@ -386,7 +386,11 @@
         }
       },
       "binary_sensor_bean_container_empty": {
-        "name": "Bohnenbehälter Leer"
+        "name": "Bohnenbehälter",
+        "state": {
+          "on": "Leer",
+          "off": "Voll"
+        }
       },
       "binary_sensor_child_lock_active": {
         "name": "Kindersicherung aktiv"
@@ -1764,6 +1768,7 @@
         "state": {
           "empty": "Leer",
           "nearly_empty": "Fast Leer",
+          "critically_empty": "Kritisch niedrig",
           "not_inserted": "Entfernt",
           "full": "Voll"
         }
@@ -1774,6 +1779,24 @@
           "ok": "OK",
           "not_inserted": "Nicht eingesetzt",
           "full": "Voll"
+        }
+      },
+      "sensor_bean_container": {
+        "name": "Bohnenbehälter Zustand",
+        "state": {
+          "ok": "OK",
+          "nearly_empty": "Fast leer",
+          "empty": "Leer",
+          "not_present": "Fehlt",
+          "not_fully_inserted": "Nicht richtig eingesetzt"
+        }
+      },
+      "sensor_pomace_container": {
+        "name": "Tresterbehälter",
+        "state": {
+          "ok": "OK",
+          "full": "Voll",
+          "missing": "Fehlt"
         }
       },
       "sensor_start_in": {

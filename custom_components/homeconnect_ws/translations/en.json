@@ -386,7 +386,11 @@
         }
       },
       "binary_sensor_bean_container_empty": {
-        "name": "Bean Container Empty"
+        "name": "Bean container",
+        "state": {
+          "on": "Empty",
+          "off": "Full"
+        }
       },
       "binary_sensor_child_lock_active": {
         "name": "Child lock active"
@@ -1764,6 +1768,7 @@
         "state": {
           "empty": "Empty",
           "nearly_empty": "Nearly Empty",
+          "critically_empty": "Critically Empty",
           "not_inserted": "Not Inserted",
           "full": "Full"
         }
@@ -1774,6 +1779,24 @@
           "ok": "OK",
           "not_inserted": "Not Inserted",
           "full": "Full"
+        }
+      },
+      "sensor_bean_container": {
+        "name": "Bean container status",
+        "state": {
+          "ok": "OK",
+          "nearly_empty": "Nearly empty",
+          "empty": "Empty",
+          "not_present": "Missing",
+          "not_fully_inserted": "Not fully inserted"
+        }
+      },
+      "sensor_pomace_container": {
+        "name": "Grounds container",
+        "state": {
+          "ok": "OK",
+          "full": "Full",
+          "missing": "Missing"
         }
       },
       "sensor_start_in": {
