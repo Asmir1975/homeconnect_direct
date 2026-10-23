@@ -35,6 +35,7 @@ from homeassistant.helpers.selector import (
     SelectSelector,
     SelectSelectorConfig,
 )
+from homeassistant.helpers.storage import Store
 from homeconnect_websocket import (
     AuthenticationError,
     ConnectionFailedError,
@@ -56,6 +57,8 @@ from .const import (
     DOMAIN,
 )
 from .hc_auth import HCAuthError, HCProfileDownloader
+
+DEVICE_IDS_STORE_KEY = f"{DOMAIN}_device_ids"
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -514,7 +517,11 @@ class HomeConnectConfigFlow(ConfigFlow, domain=DOMAIN):
 
             self.data[CONF_DESCRIPTION] = appliance["description"]
 
-            self.data[CONF_DEVICE_ID] = random.randbytes(4).hex()  # noqa: S311
+            device_ids_store = Store[dict[str, str]](self.hass, 1, DEVICE_IDS_STORE_KEY)
+            device_ids = await device_ids_store.async_load() or {}
+            self.data[CONF_DEVICE_ID] = device_ids.get(self.unique_id) or random.randbytes(4).hex()  # noqa: S311
+            device_ids[self.unique_id] = self.data[CONF_DEVICE_ID]
+            await device_ids_store.async_save(device_ids)
             self.data[CONF_NAME] = f"{appliance_info['brand']} {appliance_info['type']}"
 
             self._set_encryption_keys(appliance_info)

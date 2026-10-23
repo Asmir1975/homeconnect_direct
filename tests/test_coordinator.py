@@ -5,6 +5,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
 
+from aiohttp import WSServerHandshakeError
 from custom_components.homeconnect_ws import coordinator
 from custom_components.homeconnect_ws.const import (
     INITIAL_CONNECT_BACKOFF,
@@ -22,7 +23,7 @@ def _make_coordinator(connect: object) -> coordinator.HomeConnectCoordinator:
     coord.logger = MagicMock()
     coord.async_set_updated_data = MagicMock()
     coord.config_entry = SimpleNamespace(
-        data={CONF_HOST: "10.0.0.9", CONF_DESCRIPTION: {"info": {"vib": "TEST"}}}
+        data={CONF_HOST: "10.0.0.9", CONF_DESCRIPTION: {"info": {"vib": "TEST"}}},
     )
     coord.appliance = SimpleNamespace(
         connect=connect,
@@ -55,6 +56,27 @@ async def test_connect_backs_off_on_repeated_failure() -> None:
         INITIAL_CONNECT_BACKOFF * 2,
         INITIAL_CONNECT_BACKOFF * 4,
     ]
+
+
+async def test_connect_logs_handshake_refusal_once() -> None:
+    """A 503 from the appliance retries with backoff and only the first failure is an error."""
+    attempts = 0
+
+    async def refuse() -> None:
+        nonlocal attempts
+        attempts += 1
+        if attempts >= 4:
+            coord._connecting = False
+        raise WSServerHandshakeError(MagicMock(), (), status=503, message="Invalid response status")
+
+    coord = _make_coordinator(refuse)
+    with patch.object(coordinator.asyncio, "sleep", new=AsyncMock()) as sleep:
+        await coord._connect()
+
+    assert attempts == 4
+    assert sleep.await_count == 3
+    coord.logger.error.assert_called_once()
+    coord.logger.exception.assert_not_called()
 
 
 async def test_connect_backs_off_when_returned_without_connection() -> None:
