@@ -345,10 +345,45 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("sensor", []).extend(
     ]
 )
 
-CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("binary_sensor", []).extend([])
+_EVENT = "ConsumerProducts.CoffeeMaker.Event."
+# Events that matter in everyday use come first, rare device faults second, the rest after.
+# Both groups switch the Problem sensor on.
+_COFFEE_EVERYDAY = (
+    "BrewingUnitIsMissing",
+    "CleanBrewingUnit",
+    "WaterTankEmpty",
+    "WaterCriticallyEmpty",
+    "EmptyDripTrayRemoveContainer",
+    "AdjustGrindSetting",
+    "DeviceDescalingOverdue",
+    "DeviceDescalingBlockage",
+    "DeviceCalcNCleanBlockage",
+    "InsertWaterFilter",
+)
+_COFFEE_RARE = (
+    "HeaterError",
+    "TemperatureError",
+    "WaterDistribError",
+    "GrinderError",
+    "PowerSupplyError",
+    "DeviceIsToCold4C",
+    "SystemHasRunDry",
+    "RestartAppliance",
+    "SwitchOffPower30sekBackOn",
+    "UnderOverVoltage",
+)
 
 
-COFFEE_MAXIMUM_MESSAGES = (
+def _coffee_severity(message: tuple[str, str]) -> int:
+    """Rank a message: everyday problems, rare faults, everything else, each in list order."""
+    name = message[0].removeprefix(_EVENT)
+    for rank, names in enumerate((_COFFEE_EVERYDAY, _COFFEE_RARE)):
+        if name in names:
+            return rank * 100 + names.index(name)
+    return 200
+
+
+_COFFEE_MESSAGES = (
     ("ConsumerProducts.CoffeeMaker.Event.BeanContainerNearlyEmpty", "bean_container_nearly_empty"),
     ("ConsumerProducts.CoffeeMaker.Event.BeanContainerIsNotPresent", "bean_container_not_present"),
     (
@@ -387,11 +422,9 @@ COFFEE_MAXIMUM_MESSAGES = (
         "not_enough_pomace_capacity_for_this_kind_of_beverage",
     ),
     ("ConsumerProducts.CoffeeMaker.Event.GrinderError", "grinder_error"),
-    ("ConsumerProducts.CoffeeMaker.Event.ObserveLocalAdvice", "observe_local_advice"),
     ("BSH.Common.Event.SoftwareUpdateAvailable", "software_update_available"),
     ("BSH.Common.Event.SoftwareUpdateSuccessful", "software_update_successful"),
     ("BSH.Common.Event.ProgramFinished", "program_finished"),
-    ("ConsumerProducts.CoffeeMaker.Event.CallHotline", "call_hotline"),
     ("ConsumerProducts.CoffeeMaker.Event.DripTrayFull", "drip_tray_full"),
     ("ConsumerProducts.CoffeeMaker.Event.DripTrayNotInserted", "drip_tray_not_inserted"),
     ("ConsumerProducts.CoffeeMaker.Event.BrewingUnitIsMissing", "brewing_unit_is_missing"),
@@ -407,7 +440,6 @@ COFFEE_MAXIMUM_MESSAGES = (
     ("ConsumerProducts.CoffeeMaker.Event.RefillEmptyWaterTank", "refill_empty_water_tank"),
     ("ConsumerProducts.CoffeeMaker.Event.UnderOverVoltage", "under_over_voltage"),
     ("ConsumerProducts.CoffeeMaker.Event.MilkContainerRemoved", "milk_container_removed"),
-    ("ConsumerProducts.CoffeeMaker.Event.PressOnOff", "press_on_off"),
     ("ConsumerProducts.CoffeeMaker.Event.RestartAppliance", "restart_appliance"),
     (
         "ConsumerProducts.CoffeeMaker.Event.SwitchOffPower30sekBackOn",
@@ -537,12 +569,28 @@ COFFEE_MAXIMUM_MESSAGES = (
     ),
 )
 
+COFFEE_MAXIMUM_MESSAGES = tuple(sorted(_COFFEE_MESSAGES, key=_coffee_severity))
+
 
 def generate_coffee_maximum(appliance: HomeAppliance) -> EntityDescriptions:
     """Expose selected everyday coffee functions without changing existing entities."""
-    result = EntityDescriptions(event_sensor=[], sensor=[])
+    result = EntityDescriptions(binary_sensor=[], event_sensor=[], sensor=[])
     if not any(name.startswith("ConsumerProducts.CoffeeMaker.") for name in appliance.entities):
         return result
+    problems = tuple(
+        _EVENT + name
+        for name in (*_COFFEE_EVERYDAY, *_COFFEE_RARE)
+        if _EVENT + name in appliance.entities
+    )
+    if problems:
+        result["binary_sensor"].append(
+            HCBinarySensorEntityDescription(
+                key="binary_sensor_eq700_problem",
+                entities=problems,
+                device_class=BinarySensorDeviceClass.PROBLEM,
+                value_on={"Present", "Confirmed"},
+            )
+        )
     messages = [(name, key) for name, key in COFFEE_MAXIMUM_MESSAGES if name in appliance.entities]
     if messages:
         result["event_sensor"].append(
@@ -608,7 +656,6 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("dynamic", []).append(
 )
 
 
-_EVENT = "ConsumerProducts.CoffeeMaker.Event."
 # (key, events with their state, in priority order, state without an active event, minimum events)
 _COFFEE_CONTAINERS = (
     (

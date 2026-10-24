@@ -153,9 +153,9 @@ def generate_child_lock(appliance: HomeAppliance) -> HCSwitchEntityDescription |
     )
 
 
-# Devices where pressing it is known to answer the appliance's pending event
-# prompt, not just dismiss it. Needs confirming per device before it stays enabled.
-_ACKNOWLEDGE_EVENT_TYPES = frozenset({"Oven", "CoffeeMaker"})
+# Devices where the button is offered. It sends the uid of the event that is
+# currently Present, needs confirming per device before it stays enabled.
+_ACKNOWLEDGE_EVENT_TYPES = frozenset({"Oven"})
 
 
 def generate_acknowledge_event_button(appliance: HomeAppliance) -> HCButtonEntityDescription | None:
@@ -168,7 +168,7 @@ def generate_acknowledge_event_button(appliance: HomeAppliance) -> HCButtonEntit
     return HCButtonEntityDescription(
         key="button_acknowledge_event",
         entity="BSH.Common.Command.AcknowledgeEvent",
-        press_value=4689,
+        press_value=None,
         force_disabled_default=True,
     )
 
@@ -313,6 +313,24 @@ def generate_interior_illumination_binary_sensor(
     )
 
 
+def generate_estimated_program_time_sensor(
+    appliance: HomeAppliance,
+) -> HCSensorEntityDescription | None:
+    """Get the estimated program time, not for coffee makers: they list it but never report it."""
+    if (
+        appliance.info.get("type") == "CoffeeMaker"
+        or "BSH.Common.Option.EstimatedTotalProgramTime" not in appliance.entities
+    ):
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_estimated_remaining_program_time",
+        entity="BSH.Common.Option.EstimatedTotalProgramTime",
+        device_class=SensorDeviceClass.DURATION,
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        suggested_unit_of_measurement=UnitOfTime.HOURS,
+    )
+
+
 def generate_temperature_unit(appliance: HomeAppliance) -> HCSelectEntityDescription | None:
     """Get Temperature unit description."""
     entity = appliance.entities.get("BSH.Common.Setting.TemperatureUnit")
@@ -451,11 +469,6 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCButtonEntityDescription(
             key="button_stop_watch_reset",
             entity="BSH.Common.Command.StopWatchReset",
-            force_disabled_default=True,
-        ),
-        HCButtonEntityDescription(
-            key="button_skip",
-            entity="BSH.Common.Command.Skip",
             force_disabled_default=True,
         ),
     ],
@@ -613,13 +626,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
         ),
-        HCSensorEntityDescription(
-            key="sensor_estimated_remaining_program_time",
-            entity="BSH.Common.Option.EstimatedTotalProgramTime",
-            device_class=SensorDeviceClass.DURATION,
-            native_unit_of_measurement=UnitOfTime.SECONDS,
-            suggested_unit_of_measurement=UnitOfTime.HOURS,
-        ),
+        generate_estimated_program_time_sensor,
         generate_wifi_status_sensor,
         generate_door_state,
     ],

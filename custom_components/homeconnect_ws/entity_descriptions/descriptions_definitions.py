@@ -94,8 +94,8 @@ class HCButtonEntityDescription(
     """Description for Button Entity."""
 
     available_access: tuple[Access] = (Access.READ_WRITE, Access.WRITE_ONLY)
-    # Value sent on press. AcknowledgeEvent needs a specific integer instead of True.
-    press_value: bool | int = True
+    # Value sent on press. None sends the uid of the pending event that needs acknowledging.
+    press_value: bool | int | None = True
 
 
 class HCNumberEntityDescription(

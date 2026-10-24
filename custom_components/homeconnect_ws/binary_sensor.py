@@ -50,6 +50,10 @@ class HCBinarySensor(HCEntity, BinarySensorEntity):
 
     @property
     def is_on(self) -> bool:
+        if self.entity_description.entities:
+            return any(
+                entity.value in self.entity_description.value_on for entity in self._entities
+            )
         if self.entity_description.value_on:
             if self._entity.value in self.entity_description.value_on:
                 return True

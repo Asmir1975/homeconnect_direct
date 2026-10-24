@@ -1691,11 +1691,11 @@ async def test_allow_backend_connection_switch(
     assert switch.force_disabled_default
 
 
-async def test_acknowledge_event_button_oven_and_coffeemaker(
+async def test_acknowledge_event_button_oven(
     mock_homeconnect_appliance: MockApplianceType,
 ) -> None:
-    """Test AcknowledgeEvent becomes a button for Oven and CoffeeMaker."""
-    # UID and name from the HB774G1B1 profile, also present on the EQ700.
+    """Test AcknowledgeEvent becomes a button for an Oven."""
+    # UID and name from the HB774G1B1 profile.
     description = DeviceDescription(
         info={"type": "Oven"},
         command=[
@@ -1712,8 +1712,29 @@ async def test_acknowledge_event_button_oven_and_coffeemaker(
 
     button = next(item for item in entities["button"] if item.key == "button_acknowledge_event")
     assert button.entity == "BSH.Common.Command.AcknowledgeEvent"
-    assert button.press_value == 4689
+    assert button.press_value is None
     assert button.force_disabled_default
+
+
+async def test_acknowledge_event_button_not_created_for_coffeemaker(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """The coffee maker dialogs need someone at the appliance, so no button there."""
+    description = DeviceDescription(
+        info={"type": "CoffeeMaker"},
+        command=[
+            EntityDescription(
+                uid=6,
+                name="BSH.Common.Command.AcknowledgeEvent",
+                available=True,
+                access=Access.WRITE_ONLY,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    assert not any(item.key == "button_acknowledge_event" for item in entities["button"])
 
 
 async def test_acknowledge_event_button_not_created_for_hob(

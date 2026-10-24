@@ -301,6 +301,9 @@
       }
     },
     "binary_sensor": {
+      "binary_sensor_eq700_problem": {
+        "name": "Problem"
+      },
       "binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded": {
         "name": "Regenerative Carbon Filter Lifetime Exceeded"
       },
@@ -2277,11 +2280,9 @@
           "not_enough_water_for_this_kind_of_beverage": "Not enough water for this kind of beverage",
           "not_enough_pomace_capacity_for_this_kind_of_beverage": "Not enough pomace capacity for this kind of beverage",
           "grinder_error": "Grinder error",
-          "observe_local_advice": "Observe local advice",
           "software_update_available": "Software update available",
           "software_update_successful": "Software update successful",
           "program_finished": "Program finished",
-          "call_hotline": "Call hotline",
           "drip_tray_full": "Drip tray full",
           "drip_tray_not_inserted": "Drip tray not inserted",
           "brewing_unit_is_missing": "Brewing unit is missing",
@@ -2297,7 +2298,6 @@
           "refill_empty_water_tank": "Refill empty water tank",
           "under_over_voltage": "Under over voltage",
           "milk_container_removed": "Milk container removed",
-          "press_on_off": "Press on off",
           "restart_appliance": "Restart appliance",
           "switch_off_power30sek_back_on": "Switch off power30sek back on",
           "adjust_grind_setting": "Adjust grind setting",
@@ -4002,7 +4002,7 @@
           "85c": "85 °C",
           "90c": "90 °C",
           "95c": "95 °C",
-          "97c": "97 °C"
+          "97c": "Max"
         }
       },
       "select_flow_rate": {
@@ -4934,9 +4934,6 @@
       "button_stop_watch_reset": {
         "name": "Stopwatch Reset"
       },
-      "button_skip": {
-        "name": "Skip"
-      },
       "button_start_program": {
         "name": "Start"
       },
@@ -5147,6 +5144,9 @@
     }
   },
   "exceptions": {
+    "no_pending_event": {
+      "message": "No pending message to acknowledge"
+    },
     "start_in_not_available": {
       "message": "'Start in' is not available on this Appliance"
     },

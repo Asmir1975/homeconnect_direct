@@ -301,6 +301,9 @@
       }
     },
     "binary_sensor": {
+      "binary_sensor_eq700_problem": {
+        "name": "Problem"
+      },
       "binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded": {
         "name": "Regenerierbarer Kohlefilter Lebensdauer überschritten"
       },
@@ -1774,7 +1777,7 @@
         }
       },
       "sensor_drip_tray": {
-        "name": "Auffangschale",
+        "name": "Tropfschale",
         "state": {
           "ok": "OK",
           "not_inserted": "Nicht eingesetzt",
@@ -2277,11 +2280,9 @@
           "not_enough_water_for_this_kind_of_beverage": "Zu wenig Wasser für dieses Getränk",
           "not_enough_pomace_capacity_for_this_kind_of_beverage": "Zu wenig Platz im Tresterbehälter für dieses Getränk",
           "grinder_error": "Mahlwerkfehler",
-          "observe_local_advice": "Hinweis am Gerät beachten",
           "software_update_available": "Software-Update verfügbar",
           "software_update_successful": "Software-Update erfolgreich",
           "program_finished": "Programm beendet",
-          "call_hotline": "Kundendienst kontaktieren",
           "drip_tray_full": "Tropfschale voll",
           "drip_tray_not_inserted": "Tropfschale nicht eingesetzt",
           "brewing_unit_is_missing": "Brüheinheit fehlt",
@@ -2297,7 +2298,6 @@
           "refill_empty_water_tank": "Leeren Wassertank auffüllen",
           "under_over_voltage": "Unter- oder Überspannung",
           "milk_container_removed": "Milchbehälter entfernt",
-          "press_on_off": "Ein/Aus drücken",
           "restart_appliance": "Gerät neu starten",
           "switch_off_power30sek_back_on": "Gerät ausschalten und nach 30 Sekunden einschalten",
           "adjust_grind_setting": "Mahlgrad einstellen",
@@ -2382,7 +2382,7 @@
           "bean_container_not_present": "Bohnenbehälter fehlt",
           "bean_container_not_fully_inserted": "Bohnenbehälter nicht vollständig eingesetzt",
           "pomace_container_missing": "Tresterbehälter fehlt",
-          "drip_tray_over_full": "Auffangschale übervoll"
+          "drip_tray_over_full": "Tropfschale übervoll"
         }
       },
       "sensor_eq700_last_selected_beverage": {
@@ -2552,7 +2552,7 @@
         }
       },
       "sensor_eq700_beverage_counter_milk": {
-        "name": "Milchbezüge"
+        "name": "Milchgetränke"
       }
     },
     "select": {
@@ -3893,7 +3893,7 @@
           "85c": "85 °C",
           "90c": "90 °C",
           "95c": "95 °C",
-          "97c": "97 °C"
+          "97c": "Max"
         }
       },
       "select_flow_rate": {
@@ -4934,9 +4934,6 @@
       "button_stop_watch_reset": {
         "name": "Stoppuhr zurücksetzen"
       },
-      "button_skip": {
-        "name": "Überspringen"
-      },
       "button_start_program": {
         "name": "Start"
       },
@@ -5147,6 +5144,9 @@
     }
   },
   "exceptions": {
+    "no_pending_event": {
+      "message": "Keine offene Meldung zum Bestätigen"
+    },
     "start_in_not_available": {
       "message": "'Start in' ist an diesem Gerät nicht verfügbar"
     },

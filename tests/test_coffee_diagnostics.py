@@ -5,6 +5,7 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import TYPE_CHECKING
 
+import pytest
 from custom_components.homeconnect_ws.entity_descriptions import get_available_entities
 
 if TYPE_CHECKING:
@@ -91,3 +92,39 @@ async def test_wifi_is_polled_when_the_status_is_missing(
     assert not any(
         item.key == "binary_sensor_interior_illumination" for item in available["binary_sensor"]
     )
+
+
+ESTIMATED = "BSH.Common.Option.EstimatedTotalProgramTime"
+
+
+def _estimated_description(appliance_type: str) -> dict:
+    description = _description(appliance_type, wifi=False, light=False)
+    description["option"] = [
+        {
+            "uid": 531,
+            "name": ESTIMATED,
+            "protocolType": "Integer",
+            "access": "read",
+            "available": True,
+        }
+    ]
+    return description
+
+
+@pytest.mark.parametrize("appliance_type", ["Oven", "Washer", "Dryer", "Dishwasher"])
+async def test_other_appliances_keep_the_estimated_program_time(
+    appliance_type: str, mock_homeconnect_appliance: MockApplianceType
+) -> None:
+    """Washers and dryers report the value, so the sensor stays for everything but coffee makers."""
+    appliance = await mock_homeconnect_appliance(description=_estimated_description(appliance_type))
+    sensors = get_available_entities(appliance)["sensor"]
+    assert any(item.key == "sensor_estimated_remaining_program_time" for item in sensors)
+
+
+async def test_coffee_maker_has_no_estimated_program_time(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """The EQ700 never reports it: the sensor stayed unavailable in every log."""
+    appliance = await mock_homeconnect_appliance(description=_estimated_description("CoffeeMaker"))
+    sensors = get_available_entities(appliance)["sensor"]
+    assert not any(item.key == "sensor_estimated_remaining_program_time" for item in sensors)

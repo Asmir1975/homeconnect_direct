@@ -5,10 +5,17 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from homeassistant.components.button import ButtonEntity
+from homeassistant.exceptions import HomeAssistantError
 from homeconnect_websocket.entities import Execution
 
+from .const import DOMAIN
 from .entity import HCEntity
-from .helpers import create_entities, error_decorator, start_coffee_favorite_with_fallback
+from .helpers import (
+    create_entities,
+    error_decorator,
+    pending_acknowledge_event_uid,
+    start_coffee_favorite_with_fallback,
+)
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
@@ -44,7 +51,15 @@ class HCButton(HCEntity, ButtonEntity):
 
     @error_decorator
     async def async_press(self) -> None:
-        await self._entity.set_value(self.entity_description.press_value)
+        press_value = self.entity_description.press_value
+        if press_value is None:
+            press_value = pending_acknowledge_event_uid(self._runtime_data)
+            if press_value is None:
+                raise HomeAssistantError(
+                    translation_domain=DOMAIN,
+                    translation_key="no_pending_event",
+                )
+        await self._entity.set_value(press_value)
 
 
 class HCStartButton(HCEntity, ButtonEntity):

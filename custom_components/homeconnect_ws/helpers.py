@@ -7,9 +7,10 @@ import math
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any, Never
 
+from homeassistant.const import CONF_DESCRIPTION
 from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers.service import async_extract_config_entry_ids
-from homeconnect_websocket.entities import Access, Option, SelectedProgram
+from homeconnect_websocket.entities import Access, EventHandling, Option, SelectedProgram
 from homeconnect_websocket.errors import AccessError, CodeResponsError, NotConnectedError
 
 from .const import DOMAIN
@@ -100,6 +101,20 @@ async def get_config_entry_from_call(
         if config_entry.domain == DOMAIN:
             return config_entry
     raise ServiceValidationError(translation_domain=DOMAIN, translation_key="not_appliance")
+
+
+def pending_acknowledge_event_uid(runtime_data: HCData) -> int | None:
+    """Get the uid of the first event that waits for an acknowledge, if any."""
+    description = runtime_data.coordinator.config_entry.data.get(CONF_DESCRIPTION, {})
+    for event in description.get("event", ()):
+        entity = runtime_data.appliance.events.get(event.get("name"))
+        if (
+            event.get("handling") == EventHandling.ACKNOWLEDGE
+            and entity is not None
+            and entity.value == "Present"
+        ):
+            return entity.uid
+    return None
 
 
 def entity_is_available(entity: HcEntity, available_access: tuple[Access]) -> bool:
