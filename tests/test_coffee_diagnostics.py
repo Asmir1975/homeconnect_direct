@@ -124,7 +124,7 @@ async def test_other_appliances_keep_the_estimated_program_time(
 async def test_coffee_maker_has_no_estimated_program_time(
     mock_homeconnect_appliance: MockApplianceType,
 ) -> None:
-    """The EQ700 never reports it: the sensor stayed unavailable in every log."""
+    """The EQ700 lists it but never reports a value."""
     appliance = await mock_homeconnect_appliance(description=_estimated_description("CoffeeMaker"))
     sensors = get_available_entities(appliance)["sensor"]
     assert not any(item.key == "sensor_estimated_remaining_program_time" for item in sensors)

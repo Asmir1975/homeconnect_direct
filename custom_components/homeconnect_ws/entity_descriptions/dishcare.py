@@ -49,7 +49,7 @@ DISHWASHER_MESSAGES = (
 
 
 def generate_dishwasher_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
-    """Get the most urgent active maintenance/error message, else "none" (Asko 18.10.2026)."""
+    """Get the most urgent active maintenance/error message, else "none"."""
     messages = [
         (entity, key) for entity, key in DISHWASHER_MESSAGES if entity in appliance.entities
     ]
@@ -86,9 +86,6 @@ DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="Dishcare.Dishwasher.Status.EcoDryActive",
             entity_registry_enabled_default=False,
         ),
-        # FlexSpray error events
-        # NOTE: Bosch refers to this feature as "PowerControl" in marketing/UI.
-        # The protocol/API objects use the name "FlexSpray", which is kept here.
     ],
     "event_sensor": [
         generate_dishwasher_message,

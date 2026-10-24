@@ -113,7 +113,7 @@ def test_dishwasher_pretreatment_switch_description() -> None:
 
 
 def test_hob_extension_zones_not_created() -> None:
-    """Test that hob extension zones get no entities at all (never had a value, 144 logs)."""
+    """Test that hob extension zones get no entities at all (they never report a value)."""
     appliance = MagicMock()
     appliance.entities = {}
     zone_sensors = (
@@ -817,9 +817,9 @@ async def test_hob_elapsed_time_resets_on_terminal_state(
     """
     Test the hob elapsed time sensors reset on a terminal state, not on Ready.
 
-    Device log 2026-10-04 10:27:31: the hob went from Run to Inactive and kept
-    sending 1770 s for the zone and the appliance. Via Ready (09:26:23) it sent 0
-    itself, so Ready needs no overlay.
+    Seen on EX851LYV5E: the hob went from Run to Inactive and kept sending 1770 s
+    for the zone and the appliance. Via Ready it sent 0 itself, so Ready needs no
+    overlay.
     """
     appliance = await mock_homeconnect_appliance(description=HOB_ELAPSED_TIME_PROFILE)
 

@@ -235,7 +235,7 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
 }
 
 
-# Profile-backed EQ700 functions selected for everyday Dev testing.
+# Profile-backed coffee maker settings.
 CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("switch", []).extend(
     [
         HCSwitchEntityDescription(

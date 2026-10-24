@@ -42,7 +42,7 @@ if TYPE_CHECKING:
 def _append_oven_cavity_extra_status(
     descriptions: EntityDescriptions, appliance: HomeAppliance, group: tuple[str], group_name: str
 ) -> None:
-    """Append additional per-cavity status entities (Maximum-Paket, 18.10.2026)."""
+    """Append additional per-cavity status entities."""
     entity = f"Cooking.Oven.Status.Cavity.{group[0]}.CavitySelector"
     if entity in appliance.entities:
         descriptions["sensor"].append(
@@ -174,8 +174,7 @@ OVEN_MESSAGES = (
     ("IsNotShownAgain", "is_not_shown_again"),
 )
 
-# Most urgent first; the sensor shows the first one that is active, else "none"
-# (Asko 18.10.2026: collapse the 6 filter-saturation booleans into one sensor).
+# Most urgent first; the sensor shows the first one that is active, else "none".
 HOOD_FILTER_MESSAGES = (
     ("Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached", "carbon_filter_saturated"),
     ("Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached", "grease_filter_saturated"),
@@ -199,7 +198,7 @@ HOOD_FILTER_MESSAGES = (
 
 
 def generate_hood_filter_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
-    """Get the most saturated filter, else "none" (Asko 18.10.2026)."""
+    """Get the most saturated filter, else "none"."""
     messages = [
         (entity, key) for entity, key in HOOD_FILTER_MESSAGES if entity in appliance.entities
     ]
@@ -338,15 +337,15 @@ def generate_hood_level_select(appliance: HomeAppliance) -> HCFanEntityDescripti
     return None
 
 
-# Extension zones (120, 121, 201, 301, 340, 341) never reported a value for any of
-# their 16 UIDs across 144 logs, 21.04. to 14.10.2026 (Asko, beleg_kochfeld_zonen.txt).
+# Seen on EX851LYV5E: the extension zones (120, 121, 201, 301, 340, 341) never report
+# a value for any of their 16 UIDs.
 _HOB_MAIN_ZONES = frozenset({"100", "200", "300", "400"})
 
 
 def _append_hob_zone_program_status(
     descriptions: EntityDescriptions, appliance: HomeAppliance, group: tuple[str], group_name: str
 ) -> None:
-    """Append ActiveProgram/SelectedProgram for main zones only (Maximum-Paket, 18.10.2026)."""
+    """Append ActiveProgram/SelectedProgram for main zones only."""
     if group[0] not in _HOB_MAIN_ZONES:
         return
     entity = f"Cooking.Hob.Status.Zone.{group[0]}.ActiveProgram"
@@ -376,8 +375,7 @@ def _append_hob_zone_program_status(
 def generate_hob_zones(appliance: HomeAppliance) -> HCFanEntityDescription:
     """Get Oven status descriptions."""
     pattern = re.compile(r"^Cooking\.Hob\.Status\.Zone\.([0-9]*)\..*$")
-    # Extension zones (120, 121, 201, 301, 340, 341) never reported a value for any
-    # of their 16 UIDs across 144 logs, 21.04. to 14.10.2026 (Asko, beleg_kochfeld_zonen.txt).
+    # Extension zones never reported a value, see _HOB_MAIN_ZONES.
     groups = {g for g in get_groups_from_regex(appliance, pattern) if g[0] in _HOB_MAIN_ZONES}
     descriptions = EntityDescriptions(sensor=[])
     for group in groups:
