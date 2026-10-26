@@ -9,35 +9,31 @@
 
 <div align="center">
 
-Control Bosch, Siemens and Neff appliances from Home Assistant over your local network.<br>
-After setup, no cloud is involved.
+Control Bosch, Siemens and Neff appliances from Home Assistant over your local network.
 
 ⭐ If this fork helps you, a star makes it easier for others to find.
 
 </div>
 
-<sub>Independently developed, forked from [chris-mc1/homeconnect_local_hass](https://github.com/chris-mc1/homeconnect_local_hass).</sub>
+## Why this fork
 
+- Sign in to Home Connect during setup. You don't need the desktop tool, and it works on any device.
+- Local after setup: your appliances talk to Home Assistant directly.
+- Actively maintained, with regular bug fixes and new features.
 
-## 💡 Why this fork
-
-- 📥 Sign in to Home Connect during setup. You don't need the desktop tool, and it works on any device.
-- 🔌 Local after setup: your appliances talk to Home Assistant directly.
-- 🛠️ Actively maintained, with regular bug fixes and new features.
-
-## 📋 Supported devices
+## Supported devices
 
 | Device | Status | Device | Status |
 |---|---|---|---|
 | 🍽️ Dishwasher | ✅ Supported | 🧺 Washing machine | ✅ Supported |
 | 🔥 Hob | ✅ Supported | 🧊 Fridge / Freezer | ✅ Supported |
-| ♨️ Oven | ✅ Supported | ☕ Coffee machine | 🧪 In testing |
+| ♨️ Oven | ✅ Supported | ☕ Coffee machine | ✅ Supported |
 | 💨 Hood | ✅ Supported | 👕 Dryer | 🧪 In testing |
 
 > [!NOTE]
 > Two washing machines, hoods or ovens can behave quite differently. If yours doesn't work as expected, open an issue with a debug log and your model number. That's the only way we can track it down.
 
-## 🚀 Get started
+## Get started
 
 1. Add the repository to HACS, download it and restart Home Assistant.
 
@@ -59,7 +55,7 @@ After setup, no cloud is involved.
 
 4. If your appliance isn't found, enter its IP address. Your router lists it.
 
-## 🐛 Issues & feature requests
+## Issues & feature requests
 
 [Open an issue](https://github.com/Asmir1975/homeconnect_local_hass-UI/issues) and attach:
 
@@ -69,13 +65,13 @@ After setup, no cloud is involved.
   <img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/diagnostics_button.png" alt="Download diagnostics" width="300">
 - your **model number**
 
-## 🪵 Debug logging
+## Debug logging
 
 **In the UI**: Settings → Devices & Services → Home Connect Local → ⋮ → **Enable debug logging**. Reproduce the problem and disable it again. The log downloads automatically.
 
 <img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/debug_menu.png" alt="Enable debug logging" width="220">
 
-To include startup, add this to `configuration.yaml`, restart Home Assistant and download the full log:
+Optional (preferred, includes startup): add this to `configuration.yaml`, restart Home Assistant and download the full log:
 
 ```yaml
 logger:
@@ -86,8 +82,4 @@ logger:
 
 [![Open your Home Assistant instance and show your logs.](https://my.home-assistant.io/badges/logs.svg)](https://my.home-assistant.io/redirect/logs/)
 
-## 🙏 Credits
-
-- [chris-mc1](https://github.com/chris-mc1) for [Home Connect Local](https://github.com/chris-mc1/homeconnect_local_hass) and the [homeconnect-websocket](https://github.com/chris-mc1/homeconnect_websocket) library.
-- [bruestel](https://github.com/bruestel) for the [profile downloader](https://github.com/bruestel/homeconnect-profile-downloader). Our sign-in uses the same flow.
-- [SamJongenelen](https://github.com/SamJongenelen) for the idea of downloading the profile during setup.
+<sub>Credits: [chris-mc1](https://github.com/chris-mc1) for [Home Connect Local](https://github.com/chris-mc1/homeconnect_local_hass) and the [homeconnect-websocket](https://github.com/chris-mc1/homeconnect_websocket) library. [bruestel](https://github.com/bruestel) for the [profile downloader](https://github.com/bruestel/homeconnect-profile-downloader), our sign-in uses the same flow.</sub>
