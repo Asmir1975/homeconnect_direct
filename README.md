@@ -1,4 +1,4 @@
-![Home Connect Local: local control for Bosch, Siemens and Neff dishwasher, hob and oven, no cloud required](https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/banner.png)
+![Home Connect Local: local control for Bosch, Siemens and Neff appliances](https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/banner.png)
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-41BDF5?style=flat-square&logo=home-assistant&logoColor=white)](https://www.home-assistant.io/)
