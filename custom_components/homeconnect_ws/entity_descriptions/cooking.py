@@ -109,6 +109,48 @@ def generate_oven_status(appliance: HomeAppliance) -> EntityDescriptions:
                 )
             )
 
+        # Meat probe, only when the appliance has no general entity for it
+        entity = f"Cooking.Oven.Status.Cavity.{group[0]}.CurrentMeatprobeTemperature"
+        if (
+            entity in appliance.entities
+            and "Cooking.Oven.Status.CurrentMeatprobeTemperature" not in appliance.entities
+        ):
+            descriptions["sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_oven_cavity_meatprobe_temperature_{group[0]}",
+                    translation_key="sensor_oven_cavity_meatprobe_temperature",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=SensorDeviceClass.TEMPERATURE,
+                    native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+                )
+            )
+
+        entity = f"Cooking.Oven.Status.Server.Cavity.{group[0]}.MeatProbeSetpointTemperatureCelsius"
+        if entity in appliance.entities:
+            descriptions["sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_oven_meatprobe_target_temperature_{group[0]}",
+                    translation_key="sensor_oven_meatprobe_target_temperature",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=SensorDeviceClass.TEMPERATURE,
+                    native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+                )
+            )
+
+        entity = f"Cooking.Oven.Status.Cavity.{group[0]}.MeatprobePlugged"
+        if entity in appliance.entities:
+            descriptions["binary_sensor"].append(
+                HCBinarySensorEntityDescription(
+                    key=f"binary_sensor_oven_cavity_meatprobe_plugged_{group[0]}",
+                    translation_key="binary_sensor_oven_cavity_meatprobe_plugged",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=BinarySensorDeviceClass.PLUG,
+                )
+            )
+
         # Running program, as shown in the app
         entity = f"Cooking.Oven.Status.Cavity.{group[0]}.ProgramName"
         if entity in appliance.entities:

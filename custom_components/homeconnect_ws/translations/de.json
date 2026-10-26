@@ -319,6 +319,9 @@
       "binary_sensor_oven_cavity_startable": {
         "name": "Garraum startbereit{group_name}"
       },
+      "binary_sensor_oven_cavity_meatprobe_plugged": {
+        "name": "Bratenthermometer eingesteckt{group_name}"
+      },
       "binary_sensor_favorite_001": {
         "name": "Favoritentaste kurz gedrückt"
       },
@@ -539,6 +542,9 @@
       },
       "sensor_oven_cavity_level": {
         "name": "Stufe{group_name}"
+      },
+      "sensor_oven_cavity_meatprobe_temperature": {
+        "name": "Aktuelle Bratenthermometer Temperatur{group_name}"
       },
       "sensor_oven_steam_assist_level": {
         "name": "Dampfzugabe",
@@ -2048,6 +2054,9 @@
       },
       "sensor_oven_program_name": {
         "name": "Programmname{group_name}"
+      },
+      "sensor_oven_meatprobe_target_temperature": {
+        "name": "Bratenthermometer Zieltemperatur{group_name}"
       },
       "sensor_oven_current_meatprobe_temperature": {
         "name": "Aktuelle Bratenthermometer Temperatur"

@@ -303,6 +303,12 @@
                     "on": "mdi:checkbox-marked-circle-outline"
                 }
             },
+            "binary_sensor_oven_cavity_meatprobe_plugged": {
+                "default": "mdi:thermometer-probe-off",
+                "state": {
+                    "on": "mdi:thermometer-probe"
+                }
+            },
             "binary_sensor_oven_cavity_startable": {
                 "default": "mdi:play-circle-outline",
                 "state": {
@@ -402,6 +408,15 @@
                 "state": {
                     "none": "mdi:message-outline"
                 }
+            },
+            "sensor_oven_current_meatprobe_temperature": {
+                "default": "mdi:thermometer-probe"
+            },
+            "sensor_oven_meatprobe_target_temperature": {
+                "default": "mdi:target"
+            },
+            "sensor_oven_cavity_meatprobe_temperature": {
+                "default": "mdi:thermometer-probe"
             },
             "sensor_oven_cavity_selector": {
                 "default": "mdi:form-select"

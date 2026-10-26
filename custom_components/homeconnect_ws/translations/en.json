@@ -319,6 +319,9 @@
       "binary_sensor_oven_cavity_startable": {
         "name": "Cavity Startable{group_name}"
       },
+      "binary_sensor_oven_cavity_meatprobe_plugged": {
+        "name": "Meatprobe plugged in{group_name}"
+      },
       "binary_sensor_favorite_001": {
         "name": "Favorite short press"
       },
@@ -539,6 +542,9 @@
       },
       "sensor_oven_cavity_level": {
         "name": "Level{group_name}"
+      },
+      "sensor_oven_cavity_meatprobe_temperature": {
+        "name": "Current Meatprobe Temperature{group_name}"
       },
       "sensor_oven_steam_assist_level": {
         "name": "Add steam",
@@ -2057,6 +2063,9 @@
       },
       "sensor_oven_program_name": {
         "name": "Program Name{group_name}"
+      },
+      "sensor_oven_meatprobe_target_temperature": {
+        "name": "Meatprobe Target Temperature{group_name}"
       },
       "sensor_oven_current_meatprobe_temperature": {
         "name": "Current Meatprobe Temperature"
