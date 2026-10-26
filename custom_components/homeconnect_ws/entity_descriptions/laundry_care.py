@@ -36,7 +36,7 @@ def generate_washer_speed_perfect(appliance: HomeAppliance) -> HCSwitchEntityDes
     Get the Washer-specific SpeedPerfect switch description.
 
     Distinct key only when the Common variant is also present, avoids the
-    unique_id collision from #11 without changing existing entity_ids.
+    unique_id collision without changing existing entity_ids.
     """
     if "LaundryCare.Washer.Option.SpeedPerfect" not in appliance.entities:
         return None

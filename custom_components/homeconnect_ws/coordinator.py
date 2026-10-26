@@ -8,6 +8,7 @@ import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
 
+from aiohttp import WSServerHandshakeError
 from homeassistant.const import CONF_DESCRIPTION, CONF_DEVICE_ID, CONF_HOST
 from homeassistant.exceptions import ConfigEntryError
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -96,7 +97,7 @@ class HomeConnectCoordinator(DataUpdateCoordinator):
                     self.connected = True
                     self.async_set_updated_data(None)
                     return
-            except ConnectionFailedError, HCHandshakeError:
+            except ConnectionFailedError, HCHandshakeError, WSServerHandshakeError:
                 await self.appliance.close()
                 msg = f"Can't connect to {self.config_entry.data[CONF_HOST]}, retrying"
                 if first_failure:

@@ -292,6 +292,46 @@ async def test_user_tls(
     mock_setup_entry.assert_awaited_once()
 
 
+async def test_user_tls_reinstall_reuses_device_id(
+    hass: HomeAssistant,
+    mock_process_profile_file: MagicMock,
+    monkeypatch: pytest.MonkeyPatch,
+    mock_setup_entry: AsyncMock,
+) -> None:
+    """A full reinstall (delete entry, re-add) must reuse the device_id, not draw a new one."""
+    appliance = MockAppliance(MOCK_TLS_DEVICE_INFO)
+    monkeypatch.setattr(config_flow, "HomeAppliance", appliance)
+
+    randbytes = Mock()
+    randbytes.return_value = bytes.fromhex("01020304")
+    monkeypatch.setattr(config_flow.random, "randbytes", randbytes)
+
+    result = await async_start_upload_flow(hass)
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], user_input={CONF_FILE: UPLOADED_FILE}
+    )
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], user_input={CONF_DEVICE: MOCK_TLS_DEVICE_ID}
+    )
+    assert result["data"][CONF_DEVICE_ID] == "01020304"
+
+    await hass.config_entries.async_remove(result["result"].entry_id)
+
+    randbytes.return_value = bytes.fromhex("0a0b0c0d")
+
+    result = await async_start_upload_flow(hass)
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], user_input={CONF_FILE: UPLOADED_FILE}
+    )
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], user_input={CONF_DEVICE: MOCK_TLS_DEVICE_ID}
+    )
+
+    assert result["data"][CONF_DEVICE_ID] == "01020304"
+    assert mock_process_profile_file.call_count == 2
+    assert mock_setup_entry.await_count == 2
+
+
 async def test_user_aes(
     hass: HomeAssistant,
     mock_process_profile_file: MagicMock,

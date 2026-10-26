@@ -72,6 +72,8 @@ class HCSensorEntityDescription(
     # and elapsed time have no legitimate non-zero value before a program starts,
     # unlike remaining time (a preview of the selected program's duration).
     also_reset_when_ready: bool = False
+    # State from an object value, like the error codes list.
+    value_fn: Callable[[HcEntity], StateType] | None = None
 
 
 class HCBinarySensorEntityDescription(
@@ -92,6 +94,8 @@ class HCButtonEntityDescription(
     """Description for Button Entity."""
 
     available_access: tuple[Access] = (Access.READ_WRITE, Access.WRITE_ONLY)
+    # Value sent on press. None sends the uid of the pending event that needs acknowledging.
+    press_value: bool | int | None = True
 
 
 class HCNumberEntityDescription(
@@ -131,6 +135,7 @@ class EntityDescriptions(TypedDict):
     active_program: list[HCSensorEntityDescription]
     binary_sensor: list[HCBinarySensorEntityDescription]
     event_sensor: list[HCSensorEntityDescription]
+    coffee_quantity: list[HCSelectEntityDescription]
     number: list[HCNumberEntityDescription]
     program: list[HCSelectEntityDescription]
     select: list[HCSelectEntityDescription]
@@ -150,6 +155,7 @@ _EntityDescriptionsDefinitionsType = dict[
         "active_program",
         "binary_sensor",
         "event_sensor",
+        "coffee_quantity",
         "number",
         "program",
         "select",
@@ -175,6 +181,7 @@ _EntityDescriptionsType = dict[
         "active_program",
         "binary_sensor",
         "event_sensor",
+        "coffee_quantity",
         "number",
         "program",
         "select",

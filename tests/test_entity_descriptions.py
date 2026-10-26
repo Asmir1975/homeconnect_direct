@@ -29,11 +29,14 @@ from custom_components.homeconnect_ws.entity_descriptions.common import (
 )
 from custom_components.homeconnect_ws.entity_descriptions.cooking import (
     COOKING_ENTITY_DESCRIPTIONS,
+    HOOD_FILTER_MESSAGES,
+    OVEN_MESSAGES,
     generate_hob_zones,
     generate_hood_fan,
 )
 from custom_components.homeconnect_ws.entity_descriptions.dishcare import (
     DISHCARE_ENTITY_DESCRIPTIONS,
+    DISHWASHER_MESSAGES,
 )
 from custom_components.homeconnect_ws.entity_descriptions.refrigeration import (
     generate_internal_light,
@@ -109,8 +112,8 @@ def test_dishwasher_pretreatment_switch_description() -> None:
     assert description.device_class is SwitchDeviceClass.SWITCH
 
 
-def test_not_selectable_hob_zones_disabled_by_default() -> None:
-    """Test that unavailable hob extension zones start disabled."""
+def test_hob_extension_zones_not_created() -> None:
+    """Test that hob extension zones get no entities at all (they never report a value)."""
     appliance = MagicMock()
     appliance.entities = {}
     zone_sensors = (
@@ -127,20 +130,13 @@ def test_not_selectable_hob_zones_disabled_by_default() -> None:
     for zone in {"100", *extension_zones}:
         for sensor in zone_sensors:
             entity = MagicMock()
-            entity.value = (
-                "NotSelectable" if zone in extension_zones and sensor == "State" else None
-            )
-            if zone == "100" and sensor == "State":
-                entity.value = "Off"
+            entity.value = "Off" if zone == "100" and sensor == "State" else None
             appliance.entities[f"Cooking.Hob.Status.Zone.{zone}.{sensor}"] = entity
 
     descriptions = generate_hob_zones(appliance)["sensor"]
-    disabled = [item for item in descriptions if item.force_disabled_default]
-    enabled = [item for item in descriptions if not item.force_disabled_default]
 
-    assert len(disabled) == 48
-    assert len(enabled) == 8
-    assert all("_100_" in item.key for item in enabled)
+    assert len(descriptions) == 8
+    assert all("_100_" in item.key for item in descriptions)
 
 
 def test_force_disabled_default_overrides_fork_default() -> None:
@@ -821,9 +817,9 @@ async def test_hob_elapsed_time_resets_on_terminal_state(
     """
     Test the hob elapsed time sensors reset on a terminal state, not on Ready.
 
-    Device log 2026-10-04 10:27:31: the hob went from Run to Inactive and kept
-    sending 1770 s for the zone and the appliance. Via Ready (09:26:23) it sent 0
-    itself, so Ready needs no overlay.
+    Seen on EX851LYV5E: the hob went from Run to Inactive and kept sending 1770 s
+    for the zone and the appliance. Via Ready it sent 0 itself, so Ready needs no
+    overlay.
     """
     appliance = await mock_homeconnect_appliance(description=HOB_ELAPSED_TIME_PROFILE)
 
@@ -1022,23 +1018,8 @@ def test_hood_regenerative_carbon_filter_sensors() -> None:
 
 
 def test_hood_filter_event_binary_sensors_disabled_by_default() -> None:
-    """Test the seven filter event Binary Sensors: entity, on/off values, disabled default."""
+    """Test the two remaining filter lifetime sensors (rest folded into the message sensor)."""
     keys_to_entities = {
-        "binary_sensor_hood_carbon_filter_max_saturation_reached": (
-            "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached"
-        ),
-        "binary_sensor_hood_carbon_filter_max_saturation_nearly_reached": (
-            "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationNearlyReached"
-        ),
-        "binary_sensor_hood_grease_filter_max_saturation_reached": (
-            "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached"
-        ),
-        "binary_sensor_hood_grease_filter_max_saturation_nearly_reached": (
-            "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationNearlyReached"
-        ),
-        "binary_sensor_hood_regenerative_carbon_filter_max_saturation_reached": (
-            "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationReached"
-        ),
         "binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded": (
             "Cooking.Common.Event.Hood.RegenerativeCarbonFilterLifeTimeExceeded"
         ),
@@ -1046,7 +1027,11 @@ def test_hood_filter_event_binary_sensors_disabled_by_default() -> None:
             "Cooking.Common.Event.Hood.RegenerativeCarbonFilterLifeTimeNearlyExceeded"
         ),
     }
-    by_key = {item.key: item for item in COOKING_ENTITY_DESCRIPTIONS["binary_sensor"]}
+    by_key = {
+        item.key: item
+        for item in COOKING_ENTITY_DESCRIPTIONS["binary_sensor"]
+        if item.key.startswith("binary_sensor_hood_")
+    }
     assert set(by_key) == set(keys_to_entities)
     for key, entity in keys_to_entities.items():
         description = by_key[key]
@@ -1056,6 +1041,65 @@ def test_hood_filter_event_binary_sensors_disabled_by_default() -> None:
         assert description.value_off == {"Off"}
         assert description.force_disabled_default is True
         assert description.entity_category is EntityCategory.DIAGNOSTIC
+
+
+HOOD_FILTER_MESSAGE_PROFILE = DeviceDescription(
+    event=[
+        EntityDescription(
+            uid=uid,
+            name=name,
+            enumeration={"0": "Off", "1": "Present", "2": "Confirmed"},
+        )
+        for uid, name in enumerate(
+            (
+                "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached",
+                "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached",
+            ),
+            start=1,
+        )
+    ],
+)
+
+
+async def test_hood_filter_message_shows_most_saturated_filter(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the hood filter message sensor shows the most saturated filter, else none."""
+    appliance = await mock_homeconnect_appliance(description=HOOD_FILTER_MESSAGE_PROFILE)
+    appliance.info = {"deviceID": "test_device_id"}
+    available = entity_descriptions.get_available_entities(appliance)
+    description = next(
+        item for item in available["event_sensor"] if item.key == "sensor_hood_filter_message"
+    )
+    runtime_data = HCData(
+        appliance=appliance,
+        device_info=MagicMock(),
+        available_entity_descriptions=available,
+        coordinator=MagicMock(),
+    )
+    sensor = HCEventSensor(description, runtime_data)
+    carbon = appliance.entities["Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached"]
+    grease = appliance.entities["Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached"]
+
+    for event in (carbon, grease):
+        await event.update({"value": 0})
+    assert sensor.native_value == "none"
+
+    await grease.update({"value": 1})
+    assert sensor.native_value == "grease_filter_saturated"
+
+    await carbon.update({"value": 1})
+    assert sensor.native_value == "carbon_filter_saturated"
+
+
+def test_hood_filter_message_states_translated() -> None:
+    """Test every hood filter message state has an English and German text."""
+    root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
+    keys = [key for _, key in HOOD_FILTER_MESSAGES] + ["none"]
+    for language in ("en", "de"):
+        translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
+        states = translation["entity"]["sensor"]["sensor_hood_filter_message"]["state"]
+        assert set(states) == set(keys), language
 
 
 def _settings(*entries: tuple) -> DeviceDescription:
@@ -1226,6 +1270,360 @@ async def test_oven_settings_follow_the_app(
     }
 
 
+# UIDs, names and types from the HB774G1B1 profile.
+OVEN_EVENT_UIDS = (
+    (6118, "CavityTemperatureTooHigh"),
+    (6115, "OvenLockWhileCoolingDown"),
+    (6119, "OperatingTimeLimitReached"),
+    (6127, "ForceFlushing"),
+    (6548, "ErrorCodeE0502"),
+    (6418, "ErrorDoorLatch"),
+    (6414, "ApplianceModuleError"),
+    (6420, "ErrorPermanentButtonPressing"),
+    (6399, "OpenDoor"),
+    (6117, "SubsequentCookingRequest"),
+    (6343, "InsertFoodNow"),
+    (6340, "TurnFoodNow"),
+    (6339, "TurnJointNow"),
+    (6123, "RegularPreheatFinished"),
+    (6114, "FastPreheatFinished"),
+    (6131, "AlarmClockElapsed"),
+    (6120, "ProgramFinished"),
+    (6121, "ProgramAborted"),
+    (6555, "CloseDoor"),
+    (6344, "InsertFoodLater"),
+    (6342, "TurnFoodLater"),
+    (6558, "CavityTemperatureTooHighInfo"),
+    (6370, "LeaveDoorOpen"),
+    (6553, "OpenDoorInfrequently"),
+    (6559, "PyroRemoveAccessory"),
+    (6561, "PyrolysisRemoveTank"),
+    (6560, "AfterPyrolysisCleaning"),
+    (6557, "EasyClean"),
+    (6374, "WipeOutCavityEasyClean"),
+    (6371, "PrepareDrying"),
+    (6552, "ClockPermanentOn"),
+    (6410, "IsNotShownAgain"),
+)
+OVEN_EVENT_PROFILE = DeviceDescription(
+    event=[
+        EntityDescription(
+            uid=uid,
+            name=f"Cooking.Oven.Event.Cavity.001.{name}",
+            enumeration={"0": "Off", "1": "Present", "2": "Confirmed"},
+        )
+        for uid, name in OVEN_EVENT_UIDS
+    ],
+    status=[
+        EntityDescription(
+            uid=6396,
+            name="Cooking.Oven.Status.Cavity.001.ProgramName",
+            available=True,
+            access=Access.READ,
+        ),
+        EntityDescription(
+            uid=6096,
+            name="Cooking.Oven.Status.Cavity.001.SetpointTemperature",
+            available=True,
+            access=Access.READ,
+        ),
+        EntityDescription(
+            uid=6089,
+            name="Cooking.Oven.Status.Cavity.001.Duration",
+            available=True,
+            access=Access.READ,
+        ),
+        EntityDescription(
+            uid=6102,
+            name="Cooking.Oven.Status.Cavity.001.FastPreHeat",
+            available=True,
+            access=Access.READ,
+        ),
+    ],
+    option=[
+        OptionDescription(
+            uid=5126,
+            name="Cooking.Oven.Option.Weight",
+            available=True,
+            access=Access.READ_WRITE,
+            min=0,
+            max=4500,
+            stepSize=50,
+        ),
+    ],
+)
+
+
+async def test_oven_profile_entities_disabled_by_default(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the oven events become the message sensor, active by default, no per-event sensors."""
+    appliance = await mock_homeconnect_appliance(description=OVEN_EVENT_PROFILE)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    binary = {item.key: item for item in entities["binary_sensor"]}
+    assert set(binary) == {"binary_sensor_oven_alarm_clock_elapsed_001"}
+    assert binary["binary_sensor_oven_alarm_clock_elapsed_001"].force_disabled_default is False
+
+    message = next(
+        item for item in entities["event_sensor"] if item.key == "sensor_oven_message_001"
+    )
+    assert len(message.entities) == len(OVEN_EVENT_UIDS)
+    assert len(message.options) == len(OVEN_EVENT_UIDS) + 1
+    assert message.options[-1] == "none"
+    assert message.force_disabled_default is False
+
+    sensors = {item.key: item for item in entities["sensor"]}
+    assert sensors["sensor_oven_program_name_001"].device_class is None
+    assert sensors["sensor_oven_program_name_001"].force_disabled_default is True
+
+    weight = next(item for item in entities["number"] if item.key == "number_oven_weight")
+    assert weight.device_class is NumberDeviceClass.WEIGHT
+    assert weight.force_disabled_default is True
+
+
+async def test_oven_message_shows_most_urgent_event(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the message sensor shows the most urgent active event, else none."""
+    appliance = await mock_homeconnect_appliance(description=OVEN_EVENT_PROFILE)
+    appliance.info = {"deviceID": "test_device_id"}
+    available = entity_descriptions.get_available_entities(appliance)
+    description = next(
+        item for item in available["event_sensor"] if item.key == "sensor_oven_message_001"
+    )
+    runtime_data = HCData(
+        appliance=appliance,
+        device_info=MagicMock(),
+        available_entity_descriptions=available,
+        coordinator=MagicMock(),
+    )
+    sensor = HCEventSensor(description, runtime_data)
+    finished = appliance.entities["Cooking.Oven.Event.Cavity.001.ProgramFinished"]
+    request = appliance.entities["Cooking.Oven.Event.Cavity.001.SubsequentCookingRequest"]
+
+    for event in (finished, request):
+        await event.update({"value": 0})
+    assert sensor.native_value == "none"
+
+    await finished.update({"value": 1})
+    assert sensor.native_value == "program_finished"
+
+    await request.update({"value": 1})
+    assert sensor.native_value == "subsequent_cooking_request"
+
+    await request.update({"value": 2})
+    await finished.update({"value": 0})
+    assert sensor.native_value == "subsequent_cooking_request"
+
+
+def test_oven_message_states_translated() -> None:
+    """Test every oven message state and new name has an English and German text."""
+    root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
+    keys = [key for _, key in OVEN_MESSAGES] + ["none"]
+    for language in ("en", "de"):
+        translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
+        states = translation["entity"]["sensor"]["sensor_oven_message"]["state"]
+        assert set(states) == set(keys), language
+
+
+DISHWASHER_MESSAGE_PROFILE = DeviceDescription(
+    event=[
+        EntityDescription(
+            uid=uid,
+            name=name,
+            enumeration={"0": "Off", "1": "Present", "2": "Confirmed"},
+        )
+        for uid, name in enumerate(
+            (
+                "Dishcare.Dishwasher.Event.DrainPumpBlocked",
+                "Dishcare.Dishwasher.Event.CheckFilterSystem",
+                "Dishcare.Dishwasher.Event.MachineCareReminder",
+            ),
+            start=1,
+        )
+    ],
+)
+
+
+async def test_dishwasher_message_shows_most_urgent_event(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the dishwasher message sensor shows the most urgent active event, else none."""
+    appliance = await mock_homeconnect_appliance(description=DISHWASHER_MESSAGE_PROFILE)
+    appliance.info = {"deviceID": "test_device_id"}
+    available = entity_descriptions.get_available_entities(appliance)
+    description = next(
+        item for item in available["event_sensor"] if item.key == "sensor_dishwasher_message"
+    )
+    runtime_data = HCData(
+        appliance=appliance,
+        device_info=MagicMock(),
+        available_entity_descriptions=available,
+        coordinator=MagicMock(),
+    )
+    sensor = HCEventSensor(description, runtime_data)
+    blocked = appliance.entities["Dishcare.Dishwasher.Event.DrainPumpBlocked"]
+    filter_check = appliance.entities["Dishcare.Dishwasher.Event.CheckFilterSystem"]
+    care = appliance.entities["Dishcare.Dishwasher.Event.MachineCareReminder"]
+
+    for event in (blocked, filter_check, care):
+        await event.update({"value": 0})
+    assert sensor.native_value == "none"
+
+    await care.update({"value": 1})
+    assert sensor.native_value == "machine_care_reminder"
+
+    await filter_check.update({"value": 1})
+    assert sensor.native_value == "check_filter_system"
+
+    await blocked.update({"value": 1})
+    assert sensor.native_value == "drain_pump_blocked"
+
+
+def test_dishwasher_message_states_translated() -> None:
+    """Test every dishwasher message state has an English and German text."""
+    root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
+    keys = [key for _, key in DISHWASHER_MESSAGES] + ["none"]
+    for language in ("en", "de"):
+        translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
+        states = translation["entity"]["sensor"]["sensor_dishwasher_message"]["state"]
+        assert set(states) == set(keys), language
+
+
+_EVENT_ENUM = {"0": "Off", "1": "Present", "2": "Confirmed"}
+_SOFTWARE_EVENTS = [
+    EntityDescription(uid=uid, name=name, enumeration=_EVENT_ENUM)
+    for uid, name in (
+        (593, "BSH.Common.Event.SoftwareDownloadAvailable"),
+        (21, "BSH.Common.Event.SoftwareUpdateAvailable"),
+        (595, "BSH.Common.Event.SoftwareUpdateSuccessful"),
+    )
+]
+
+# UIDs, names and enumerations from the EX851LYV5E profile.
+HOB_PROFILE_ADDITIONS = DeviceDescription(
+    status=[
+        EntityDescription(
+            uid=572,
+            name="BSH.Common.Status.StopWatchState",
+            available=True,
+            access=Access.READ,
+            enumeration={"0": "Off", "1": "Running", "2": "Paused"},
+        ),
+        EntityDescription(
+            uid=571, name="BSH.Common.Status.StopWatchTime", available=True, access=Access.READ
+        ),
+        EntityDescription(
+            uid=550,
+            name="BSH.Common.Status.WipeProtectionActive",
+            available=True,
+            access=Access.READ,
+        ),
+        EntityDescription(
+            uid=8205,
+            name="Cooking.Hob.Status.Zone.100.CookingSensorLevel",
+            available=True,
+            access=Access.READ,
+            enumeration={"0": "Off", "60": "60dC", "65": "65dC", "1140": "140dF"},
+        ),
+    ],
+    event=[
+        EntityDescription(uid=uid, name=name, enumeration=_EVENT_ENUM)
+        for uid, name in (
+            (53248, "Cooking.Common.Event.ApplianceModuleError"),
+            (53249, "Cooking.Common.Event.ApplianceOverheated"),
+            (53252, "Cooking.Common.Event.ConfirmActionAtAppliance"),
+        )
+    ]
+    + _SOFTWARE_EVENTS,
+    command=[
+        EntityDescription(
+            uid=573,
+            name="BSH.Common.Command.StopWatchStartPauseResume",
+            available=True,
+            access=Access.WRITE_ONLY,
+        ),
+        EntityDescription(
+            uid=574,
+            name="BSH.Common.Command.StopWatchReset",
+            available=True,
+            access=Access.WRITE_ONLY,
+        ),
+    ],
+)
+
+# UIDs and names from the HB774G1B1, EX851LYV5E and SX63HX52BE profiles.
+COMMON_PROFILE_ADDITIONS = DeviceDescription(
+    status=[
+        EntityDescription(uid=uid, name=name, available=True, access=Access.READ)
+        for uid, name in (
+            (523, "BSH.Common.Status.RemoteControlActive"),
+            (535, "BSH.Common.Status.LocalControlActive"),
+            (5, "BSH.Common.Status.BackendConnected"),
+            (557, "BSH.Common.Status.CustomerServiceConnectionAllowed"),
+            (614, "BSH.Common.Status.ErrorCodesList"),
+            (6104, "Cooking.Oven.Status.Cavity.001.Weight"),
+            (6297, "Cooking.Oven.Status.Cavity.001.Startable"),
+            (6298, "Cooking.Oven.Status.Cavity.001.Selectable"),
+            (4099, "Cooking.Oven.Status.LastRemoteStartRelease"),
+        )
+    ],
+    option=[
+        OptionDescription(uid=uid, name=name, available=True, access=access)
+        for uid, name, access in (
+            (549, "BSH.Common.Option.RemainingProgramTimeIsEstimated", Access.READ),
+            (2, "BSH.Common.Option.RemainingProgramTime.AutoCounting", Access.READ),
+            (32772, "BSH.Common.Option.ProgramName", Access.READ),
+            (632, "BSH.Common.Option.SmartEnergyService.SmartStartEnabled", Access.READ_WRITE),
+        )
+    ],
+    setting=[
+        EntityDescription(uid=547, name="BSH.Common.Setting.SynchronizeWithTimeServer"),
+        EntityDescription(uid=514, name="BSH.Common.Setting.AllowConsumerInsights"),
+        EntityDescription(
+            uid=631, name="BSH.Common.Setting.SmartEnergyService.AutoSmartStartEnabled"
+        ),
+        EntityDescription(
+            uid=533, name="BSH.Common.Setting.Language", enumeration={"7": "De", "9": "En"}
+        ),
+    ],
+    event=[
+        EntityDescription(uid=uid, name=name, enumeration=_EVENT_ENUM)
+        for uid, name in (
+            (46, "BSH.Common.Event.ConfirmPermanentRemoteStart"),
+            (577, "BSH.Common.Event.ConnectLocalWiFi"),
+            (559, "BSH.Common.Event.CustomerServiceRequest"),
+        )
+    ],
+)
+
+
+async def test_common_profile_additions_disabled_by_default(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the remaining profile entries become entities, disabled by default."""
+    appliance = await mock_homeconnect_appliance(description=COMMON_PROFILE_ADDITIONS)
+    entities = entity_descriptions.get_available_entities(appliance)
+    new = {
+        "binary_sensor": {
+            "binary_sensor_remaining_time_auto_counting",
+            "binary_sensor_oven_cavity_selectable_001",
+            "binary_sensor_oven_cavity_startable_001",
+        },
+        "switch": {
+            "switch_synchronize_with_time_server",
+            "switch_auto_smart_start",
+            "switch_smart_start",
+        },
+    }
+    for platform, keys in new.items():
+        by_key = {item.key: item for item in entities[platform]}
+        assert keys <= set(by_key), platform
+        for key in keys:
+            assert by_key[key].force_disabled_default is True, key
+
+
 # UIDs and names from the SX63HX52BE profile.
 SMART_START_PROFILE = DeviceDescription(
     setting=[
@@ -1291,3 +1689,71 @@ async def test_allow_backend_connection_switch(
     assert switch.entity == "BSH.Common.Setting.AllowBackendConnection"
     assert switch.entity_category is EntityCategory.CONFIG
     assert switch.force_disabled_default
+
+
+async def test_acknowledge_event_button_oven(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test AcknowledgeEvent becomes a button for an Oven."""
+    # UID and name from the HB774G1B1 profile.
+    description = DeviceDescription(
+        info={"type": "Oven"},
+        command=[
+            EntityDescription(
+                uid=6,
+                name="BSH.Common.Command.AcknowledgeEvent",
+                available=True,
+                access=Access.WRITE_ONLY,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    button = next(item for item in entities["button"] if item.key == "button_acknowledge_event")
+    assert button.entity == "BSH.Common.Command.AcknowledgeEvent"
+    assert button.press_value is None
+    assert button.force_disabled_default
+
+
+async def test_acknowledge_event_button_not_created_for_coffeemaker(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """The coffee maker dialogs need someone at the appliance, so no button there."""
+    description = DeviceDescription(
+        info={"type": "CoffeeMaker"},
+        command=[
+            EntityDescription(
+                uid=6,
+                name="BSH.Common.Command.AcknowledgeEvent",
+                available=True,
+                access=Access.WRITE_ONLY,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    assert not any(item.key == "button_acknowledge_event" for item in entities["button"])
+
+
+async def test_acknowledge_event_button_not_created_for_hob(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test AcknowledgeEvent stays out of the button list on a Hob."""
+    # Also present in the EX851LYV5E profile, but needs a physical confirmation there.
+    description = DeviceDescription(
+        info={"type": "Hob"},
+        command=[
+            EntityDescription(
+                uid=6,
+                name="BSH.Common.Command.AcknowledgeEvent",
+                available=True,
+                access=Access.WRITE_ONLY,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    assert all(item.key != "button_acknowledge_event" for item in entities["button"])

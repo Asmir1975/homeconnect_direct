@@ -278,9 +278,54 @@
             },
             "binary_sensor_favorite_002": {
                 "default": "mdi:gesture-tap-hold"
+            },
+            "binary_sensor_program_aborted": {
+                "default": "mdi:close-circle-outline",
+                "state": {
+                    "on": "mdi:close-circle"
+                }
+            },
+            "binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded": {
+                "default": "mdi:air-filter",
+                "state": {
+                    "on": "mdi:air-filter-off"
+                }
+            },
+            "binary_sensor_hood_regenerative_carbon_filter_lifetime_nearly_exceeded": {
+                "default": "mdi:air-filter",
+                "state": {
+                    "on": "mdi:air-filter-off"
+                }
+            },
+            "binary_sensor_oven_cavity_selectable": {
+                "default": "mdi:checkbox-blank-circle-outline",
+                "state": {
+                    "on": "mdi:checkbox-marked-circle-outline"
+                }
+            },
+            "binary_sensor_oven_cavity_meatprobe_plugged": {
+                "default": "mdi:thermometer-probe-off",
+                "state": {
+                    "on": "mdi:thermometer-probe"
+                }
+            },
+            "binary_sensor_oven_cavity_startable": {
+                "default": "mdi:play-circle-outline",
+                "state": {
+                    "on": "mdi:play-circle"
+                }
+            },
+            "binary_sensor_remaining_time_auto_counting": {
+                "default": "mdi:timer-outline",
+                "state": {
+                    "on": "mdi:timer-check-outline"
+                }
             }
         },
         "sensor": {
+          "sensor_shot_count": {
+            "default": "mdi:coffee"
+          },
           "sensor_water_filter_saturation": {
             "default": "mdi:water-percent"
           },
@@ -321,6 +366,7 @@
                 "default": "mdi:water",
                 "state": {
                     "empty": "mdi:water-alert",
+                    "critically_empty": "mdi:water-alert",
                     "nearly_empty": "mdi:water-alert",
                     "not_inserted": "mdi:water-remove"
                 }
@@ -333,7 +379,51 @@
                     "full": "mdi:tray-alert"
                 }
             },
-            "sensor_start_in": {},
+            "sensor_bean_container": {
+                "default": "mdi:seed-outline"
+            },
+            "sensor_pomace_container": {
+                "default": "mdi:trash-can-outline"
+            },
+            "sensor_start_in": {
+                "default": "mdi:clock-start"
+            },
+            "sensor_finish_in": {
+                "default": "mdi:clock-end"
+            },
+            "sensor_dishwasher_message": {
+                "default": "mdi:message-alert-outline",
+                "state": {
+                    "none": "mdi:message-outline"
+                }
+            },
+            "sensor_hood_filter_message": {
+                "default": "mdi:message-alert-outline",
+                "state": {
+                    "none": "mdi:message-outline"
+                }
+            },
+            "sensor_oven_message": {
+                "default": "mdi:message-alert-outline",
+                "state": {
+                    "none": "mdi:message-outline"
+                }
+            },
+            "sensor_oven_current_meatprobe_temperature": {
+                "default": "mdi:thermometer-probe"
+            },
+            "sensor_oven_meatprobe_target_temperature": {
+                "default": "mdi:target"
+            },
+            "sensor_oven_cavity_meatprobe_temperature": {
+                "default": "mdi:thermometer-probe"
+            },
+            "sensor_oven_cavity_selector": {
+                "default": "mdi:form-select"
+            },
+            "sensor_oven_program_name": {
+                "default": "mdi:text-box-outline"
+            },
             "sensor_count_started": {
                 "default": "mdi:counter"
             },
@@ -468,9 +558,6 @@
             },
             "select_water_hardness": {
                 "default": "mdi:water-opacity"
-            },
-            "select_shot_count": {
-                "default": "mdi:coffee"
             },
             "select_cups": {
                 "default": "mdi:coffee"
@@ -646,6 +733,9 @@
           "button_refrigerator_open_door": {
             "default": "mdi:door-open"
           },
+            "button_acknowledge_event": {
+                "default": "mdi:check-circle-outline"
+            },
             "button_abort_program": {
                 "default": "mdi:stop"
             },
@@ -675,6 +765,12 @@
             }
         },
         "number": {
+            "number_start_in": {
+                "default": "mdi:clock-start"
+            },
+            "number_finish_in": {
+                "default": "mdi:clock-end"
+            },
             "number_fill_quantity": {},
             "number_idos1_base_level": {
                 "default": "mdi:tune"

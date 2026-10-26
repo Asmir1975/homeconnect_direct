@@ -50,6 +50,10 @@ POWER_SWITCH_VALUE_MAPINGS = (
 
 POWER_OFF_STATE_NAMES = ("Off", "MainsOff")
 
+# Care programs the appliance reports as unavailable are not offered for selection, but it
+# still runs some of them itself (rinsing at switch-on), so the active program sensor keeps them.
+_COFFEE_CARE_PREFIX = "ConsumerProducts.CoffeeMaker.Program.CleaningModes."
+
 
 def generate_start_button(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Start Button description."""
@@ -149,6 +153,26 @@ def generate_child_lock(appliance: HomeAppliance) -> HCSwitchEntityDescription |
     )
 
 
+# Devices where the button is offered. It sends the uid of the event that is
+# currently Present, needs confirming per device before it stays enabled.
+_ACKNOWLEDGE_EVENT_TYPES = frozenset({"Oven"})
+
+
+def generate_acknowledge_event_button(appliance: HomeAppliance) -> HCButtonEntityDescription | None:
+    """Get the AcknowledgeEvent button for appliance types where it answers a prompt."""
+    if (
+        appliance.info.get("type") not in _ACKNOWLEDGE_EVENT_TYPES
+        or "BSH.Common.Command.AcknowledgeEvent" not in appliance.entities
+    ):
+        return None
+    return HCButtonEntityDescription(
+        key="button_acknowledge_event",
+        entity="BSH.Common.Command.AcknowledgeEvent",
+        press_value=None,
+        force_disabled_default=True,
+    )
+
+
 def generate_door_state(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
     """Get Door sensor description."""
     entity = appliance.entities.get("BSH.Common.Status.DoorState")
@@ -162,13 +186,40 @@ def generate_door_state(appliance: HomeAppliance) -> HCSensorEntityDescription |
     return None
 
 
+def generate_program_aborted_binary_sensor(
+    appliance: HomeAppliance,
+) -> HCBinarySensorEntityDescription | None:
+    """Get the ProgramAborted binary sensor, unless the dishwasher message sensor covers it."""
+    if (
+        appliance.info.get("type") == "Dishwasher"
+        or "BSH.Common.Event.ProgramAborted" not in appliance.entities
+    ):
+        return None
+    return HCBinarySensorEntityDescription(
+        key="binary_sensor_program_aborted",
+        entity="BSH.Common.Event.ProgramAborted",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        device_class=BinarySensorDeviceClass.PROBLEM,
+        force_disabled_default=True,
+        value_on={"Present", "Confirmed"},
+        value_off={"Off"},
+    )
+
+
 def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Door program select and sensor description."""
     pattern = re.compile(r"^BSH\.Common\.Program\.Favorite\.(.*)$")
 
     programs = {}
+    selectable = set()
 
-    for program in appliance.programs:
+    for program, program_entity in appliance.programs.items():
+        if not (
+            appliance.info.get("type") == "CoffeeMaker"
+            and program.startswith(_COFFEE_CARE_PREFIX)
+            and program_entity.available is False
+        ):
+            selectable.add(program)
         if match := pattern.match(program):
             favorite_name_entity = appliance.settings.get(
                 f"BSH.Common.Setting.Favorite.{match.groups()[0]}.Name"
@@ -186,6 +237,7 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
     programs_keys = list(programs.keys())
     programs_keys.sort()
     sorted_programs = {i: programs[i] for i in programs_keys}
+    selectable_programs = {i: name for i, name in sorted_programs.items() if i in selectable}
 
     descriptions = EntityDescriptions()
     if programs:
@@ -203,17 +255,24 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
                 key="select_program",
                 entity="BSH.Common.Root.SelectedProgram",
                 has_state_translation=False,
-                mapping=sorted_programs,
+                mapping=selectable_programs,
             )
         ]
 
     return descriptions
 
 
+def _wifi_is_polled(appliance: HomeAppliance) -> bool:
+    """Coffee makers list the WiFi status but never report it, so ask the network info."""
+    return (
+        "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities
+        or appliance.info.get("type") == "CoffeeMaker"
+    )
+
+
 def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
     """Get WiFi sensor description."""
-    entity = appliance.entities.get("BSH.Common.Status.WiFiSignalStrength")
-    if entity is None:
+    if _wifi_is_polled(appliance):
         return HCSensorEntityDescription(
             key="sensor_wifi_signal_strength",
             device_class=SensorDeviceClass.SIGNAL_STRENGTH,
@@ -222,6 +281,54 @@ def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
             entity_registry_enabled_default=False,
         )
     return None
+
+
+def generate_wifi_status_sensor(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the WiFi sensor that follows the status the appliance reports."""
+    if _wifi_is_polled(appliance):
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_wifi_signal_strength",
+        entity="BSH.Common.Status.WiFiSignalStrength",
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
+        native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+    )
+
+
+def generate_interior_illumination_binary_sensor(
+    appliance: HomeAppliance,
+) -> HCBinarySensorEntityDescription | None:
+    """Get the light status, not for coffee makers: they list it but never report it."""
+    if (
+        appliance.info.get("type") == "CoffeeMaker"
+        or "BSH.Common.Status.InteriorIlluminationActive" not in appliance.entities
+    ):
+        return None
+    return HCBinarySensorEntityDescription(
+        key="binary_sensor_interior_illumination",
+        entity="BSH.Common.Status.InteriorIlluminationActive",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    )
+
+
+def generate_estimated_program_time_sensor(
+    appliance: HomeAppliance,
+) -> HCSensorEntityDescription | None:
+    """Get the estimated program time, not for coffee makers: they list it but never report it."""
+    if (
+        appliance.info.get("type") == "CoffeeMaker"
+        or "BSH.Common.Option.EstimatedTotalProgramTime" not in appliance.entities
+    ):
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_estimated_remaining_program_time",
+        entity="BSH.Common.Option.EstimatedTotalProgramTime",
+        device_class=SensorDeviceClass.DURATION,
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        suggested_unit_of_measurement=UnitOfTime.HOURS,
+    )
 
 
 def generate_temperature_unit(appliance: HomeAppliance) -> HCSelectEntityDescription | None:
@@ -337,6 +444,7 @@ def _generate_favorite_trigger(
 
 COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "button": [
+        generate_acknowledge_event_button,
         HCButtonEntityDescription(
             key="button_abort_program",
             entity="BSH.Common.Command.AbortProgram",
@@ -353,8 +461,23 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="button_mains_power_off",
             entity="BSH.Common.Command.MainsPowerOff",
         ),
+        HCButtonEntityDescription(
+            key="button_stop_watch_start_pause_resume",
+            entity="BSH.Common.Command.StopWatchStartPauseResume",
+            force_disabled_default=True,
+        ),
+        HCButtonEntityDescription(
+            key="button_stop_watch_reset",
+            entity="BSH.Common.Command.StopWatchReset",
+            force_disabled_default=True,
+        ),
     ],
     "binary_sensor": [
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_remaining_time_auto_counting",
+            entity="BSH.Common.Option.RemainingProgramTime.AutoCounting",
+            force_disabled_default=True,
+        ),
         HCBinarySensorEntityDescription(
             key="binary_sensor_door_state",
             entity="BSH.Common.Status.DoorState",
@@ -365,7 +488,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="binary_sensor_aqua_stop",
             device_class=BinarySensorDeviceClass.PROBLEM,
             entity="BSH.Common.Event.AquaStopOccured",
-            entity_registry_enabled_default=False,
+            force_disabled_default=True,
             value_on={"Present"},
             value_off={"Off", "Confirmed"},
             entity_category=EntityCategory.DIAGNOSTIC,
@@ -374,25 +497,12 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="binary_sensor_low_water_pressure",
             device_class=BinarySensorDeviceClass.PROBLEM,
             entity="BSH.Common.Event.LowWaterPressure",
-            entity_registry_enabled_default=False,
+            force_disabled_default=True,
             value_on={"Present"},
             value_off={"Off", "Confirmed"},
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
-        HCBinarySensorEntityDescription(
-            key="binary_remote_start_allowed",
-            entity="BSH.Common.Status.RemoteControlStartAllowed",
-            entity_registry_enabled_default=False,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_program_aborted",
-            entity="BSH.Common.Event.ProgramAborted",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
+        generate_program_aborted_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_sensor_program_finished",
             entity="BSH.Common.Event.ProgramFinished",
@@ -400,11 +510,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             value_on={"Present", "Confirmed"},
             value_off={"Off"},
         ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_interior_illumination",
-            entity="BSH.Common.Status.InteriorIlluminationActive",
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
+        generate_interior_illumination_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_sensor_alarm_clock_elapsed",
             entity="BSH.Common.Event.AlarmClockElapsed",
@@ -426,6 +532,13 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         generate_temperature_unit,
     ],
     "sensor": [
+        HCSensorEntityDescription(
+            key="sensor_stop_watch_state",
+            entity="BSH.Common.Status.StopWatchState",
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
+            force_disabled_default=True,
+        ),
         generate_remaining_program_time,
         generate_elapsed_program_time,
         generate_program_progress,
@@ -453,6 +566,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=SensorDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
             suggested_unit_of_measurement=UnitOfTime.HOURS,
+            force_disabled_default=True,
         ),
         HCSensorEntityDescription(
             key="sensor_finish_in",
@@ -460,6 +574,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=SensorDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
             suggested_unit_of_measurement=UnitOfTime.HOURS,
+            force_disabled_default=True,
         ),
         HCSensorEntityDescription(
             key="sensor_count_started",
@@ -511,21 +626,8 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
         ),
-        HCSensorEntityDescription(
-            key="sensor_estimated_remaining_program_time",
-            entity="BSH.Common.Option.EstimatedTotalProgramTime",
-            device_class=SensorDeviceClass.DURATION,
-            native_unit_of_measurement=UnitOfTime.SECONDS,
-            suggested_unit_of_measurement=UnitOfTime.HOURS,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_wifi_signal_strength",
-            entity="BSH.Common.Status.WiFiSignalStrength",
-            device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-            native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
+        generate_estimated_program_time_sensor,
+        generate_wifi_status_sensor,
         generate_door_state,
     ],
     "start_button": [generate_start_button],
@@ -534,6 +636,13 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCSwitchEntityDescription(
             key="switch_allow_backend_connection",
             entity="BSH.Common.Setting.AllowBackendConnection",
+            device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
+            force_disabled_default=True,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_synchronize_with_time_server",
+            entity="BSH.Common.Setting.SynchronizeWithTimeServer",
             device_class=SwitchDeviceClass.SWITCH,
             entity_category=EntityCategory.CONFIG,
             force_disabled_default=True,
@@ -566,7 +675,6 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=NumberDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
             mode=NumberMode.AUTO,
-            entity_registry_enabled_default=False,
         ),
         HCNumberEntityDescription(
             key="number_finish_in",
@@ -574,7 +682,6 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=NumberDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
             mode=NumberMode.AUTO,
-            entity_registry_enabled_default=False,
         ),
         HCNumberEntityDescription(
             key="number_setting_alarm_clock",
@@ -586,6 +693,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             mode=NumberMode.BOX,
         ),
     ],
+    "event_sensor": [],
     "wifi": [generate_wifi],
     "host": [
         HCSensorEntityDescription(

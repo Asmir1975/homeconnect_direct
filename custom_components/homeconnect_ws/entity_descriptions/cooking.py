@@ -10,7 +10,13 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.number import NumberDeviceClass, NumberMode
 from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.switch import SwitchDeviceClass
-from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfTemperature, UnitOfTime
+from homeassistant.const import (
+    PERCENTAGE,
+    EntityCategory,
+    UnitOfMass,
+    UnitOfTemperature,
+    UnitOfTime,
+)
 
 from custom_components.homeconnect_ws.helpers import get_groups_from_regex
 
@@ -33,11 +39,40 @@ if TYPE_CHECKING:
     from homeconnect_websocket import HomeAppliance
 
 
+def _append_oven_cavity_extra_status(
+    descriptions: EntityDescriptions, appliance: HomeAppliance, group: tuple[str], group_name: str
+) -> None:
+    """Append additional per-cavity status entities."""
+    entity = f"Cooking.Oven.Status.Cavity.{group[0]}.CavitySelector"
+    if entity in appliance.entities:
+        descriptions["sensor"].append(
+            HCSensorEntityDescription(
+                key=f"sensor_oven_cavity_selector_{group[0]}",
+                translation_key="sensor_oven_cavity_selector",
+                translation_placeholders={"group_name": group_name},
+                entity=entity,
+                force_disabled_default=True,
+            )
+        )
+
+    entity = f"Cooking.Oven.Status.Cavity.{group[0]}.Level"
+    if entity in appliance.entities:
+        descriptions["sensor"].append(
+            HCSensorEntityDescription(
+                key=f"sensor_oven_cavity_level_{group[0]}",
+                translation_key="sensor_oven_cavity_level",
+                translation_placeholders={"group_name": group_name},
+                entity=entity,
+                force_disabled_default=True,
+            )
+        )
+
+
 def generate_oven_status(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Oven status descriptions."""
     pattern = re.compile(r"^Cooking\.Oven\.Status\.Cavity\.(\d+)\..*$")
     groups = get_groups_from_regex(appliance, pattern)
-    descriptions = EntityDescriptions(event_sensor=[], sensor=[])
+    descriptions = EntityDescriptions(binary_sensor=[], event_sensor=[], sensor=[])
     for group in groups:
         group_name = f" {int(group[0])}"
         if len(groups) == 1:
@@ -74,14 +109,156 @@ def generate_oven_status(appliance: HomeAppliance) -> EntityDescriptions:
                 )
             )
 
+        # Meat probe, only when the appliance has no general entity for it
+        entity = f"Cooking.Oven.Status.Cavity.{group[0]}.CurrentMeatprobeTemperature"
+        if (
+            entity in appliance.entities
+            and "Cooking.Oven.Status.CurrentMeatprobeTemperature" not in appliance.entities
+        ):
+            descriptions["sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_oven_cavity_meatprobe_temperature_{group[0]}",
+                    translation_key="sensor_oven_cavity_meatprobe_temperature",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=SensorDeviceClass.TEMPERATURE,
+                    native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+                )
+            )
+
+        entity = f"Cooking.Oven.Status.Server.Cavity.{group[0]}.MeatProbeSetpointTemperatureCelsius"
+        if entity in appliance.entities:
+            descriptions["sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_oven_meatprobe_target_temperature_{group[0]}",
+                    translation_key="sensor_oven_meatprobe_target_temperature",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=SensorDeviceClass.TEMPERATURE,
+                    native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+                )
+            )
+
+        entity = f"Cooking.Oven.Status.Cavity.{group[0]}.MeatprobePlugged"
+        if entity in appliance.entities:
+            descriptions["binary_sensor"].append(
+                HCBinarySensorEntityDescription(
+                    key=f"binary_sensor_oven_cavity_meatprobe_plugged_{group[0]}",
+                    translation_key="binary_sensor_oven_cavity_meatprobe_plugged",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=BinarySensorDeviceClass.PLUG,
+                )
+            )
+
+        # Running program, as shown in the app
+        entity = f"Cooking.Oven.Status.Cavity.{group[0]}.ProgramName"
+        if entity in appliance.entities:
+            descriptions["sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_oven_program_name_{group[0]}",
+                    translation_key="sensor_oven_program_name",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    force_disabled_default=True,
+                )
+            )
+        for status, key in (("Selectable", "selectable"), ("Startable", "startable")):
+            entity = f"Cooking.Oven.Status.Cavity.{group[0]}.{status}"
+            if entity in appliance.entities:
+                descriptions["binary_sensor"].append(
+                    HCBinarySensorEntityDescription(
+                        key=f"binary_sensor_oven_cavity_{key}_{group[0]}",
+                        translation_key=f"binary_sensor_oven_cavity_{key}",
+                        translation_placeholders={"group_name": group_name},
+                        entity=entity,
+                        force_disabled_default=True,
+                    )
+                )
+        _append_oven_cavity_extra_status(descriptions, appliance, group, group_name)
     return descriptions
+
+
+# Cavity events of HB774G1B1 and their state keys, most urgent first:
+# the message sensor shows the first active one, like the app.
+OVEN_MESSAGES = (
+    ("CavityTemperatureTooHigh", "cavity_temperature_too_high"),
+    ("OvenLockWhileCoolingDown", "oven_lock_while_cooling_down"),
+    ("OperatingTimeLimitReached", "operating_time_limit_reached"),
+    ("ForceFlushing", "force_flushing"),
+    ("ErrorCodeE0502", "error_code_e0502"),
+    ("ErrorDoorLatch", "error_door_latch"),
+    ("ApplianceModuleError", "appliance_module_error"),
+    ("ErrorPermanentButtonPressing", "error_permanent_button_pressing"),
+    ("OpenDoor", "open_door"),
+    ("SubsequentCookingRequest", "subsequent_cooking_request"),
+    ("InsertFoodNow", "insert_food_now"),
+    ("TurnFoodNow", "turn_food_now"),
+    ("TurnJointNow", "turn_joint_now"),
+    ("RegularPreheatFinished", "regular_preheat_finished"),
+    ("FastPreheatFinished", "fast_preheat_finished"),
+    ("AlarmClockElapsed", "alarm_clock_elapsed"),
+    ("ProgramFinished", "program_finished"),
+    ("ProgramAborted", "program_aborted"),
+    ("CloseDoor", "close_door"),
+    ("InsertFoodLater", "insert_food_later"),
+    ("TurnFoodLater", "turn_food_later"),
+    ("CavityTemperatureTooHighInfo", "cavity_temperature_too_high_info"),
+    ("LeaveDoorOpen", "leave_door_open"),
+    ("OpenDoorInfrequently", "open_door_infrequently"),
+    ("PyroRemoveAccessory", "pyro_remove_accessory"),
+    ("PyrolysisRemoveTank", "pyrolysis_remove_tank"),
+    ("AfterPyrolysisCleaning", "after_pyrolysis_cleaning"),
+    ("EasyClean", "easy_clean"),
+    ("WipeOutCavityEasyClean", "wipe_out_cavity_easy_clean"),
+    ("PrepareDrying", "prepare_drying"),
+    ("ClockPermanentOn", "clock_permanent_on"),
+    ("IsNotShownAgain", "is_not_shown_again"),
+)
+
+# Most urgent first; the sensor shows the first one that is active, else "none".
+HOOD_FILTER_MESSAGES = (
+    ("Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached", "carbon_filter_saturated"),
+    ("Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached", "grease_filter_saturated"),
+    (
+        "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationReached",
+        "regenerative_carbon_filter_saturated",
+    ),
+    (
+        "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationNearlyReached",
+        "carbon_filter_nearly_saturated",
+    ),
+    (
+        "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationNearlyReached",
+        "grease_filter_nearly_saturated",
+    ),
+    (
+        "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationNearlyReached",
+        "regenerative_carbon_filter_nearly_saturated",
+    ),
+)
+
+
+def generate_hood_filter_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the most saturated filter, else "none"."""
+    messages = [
+        (entity, key) for entity, key in HOOD_FILTER_MESSAGES if entity in appliance.entities
+    ]
+    if not messages:
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_hood_filter_message",
+        entities=tuple(entity for entity, _ in messages),
+        device_class=SensorDeviceClass.ENUM,
+        options=[key for _, key in messages] + ["none"],
+    )
 
 
 def generate_oven_event(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Oven event descriptions."""
     pattern = re.compile(r"^Cooking\.Oven\.Event\.Cavity\.([0-9]*)\..*$")
     groups = get_groups_from_regex(appliance, pattern)
-    descriptions = EntityDescriptions(binary_sensor=[])
+    descriptions = EntityDescriptions(binary_sensor=[], event_sensor=[])
     for group in groups:
         group_name = f" {int(group[0])}"
         if len(groups) == 1:
@@ -98,6 +275,23 @@ def generate_oven_event(appliance: HomeAppliance) -> EntityDescriptions:
                     entity=entity,
                     value_on={"Present", "Confirmed"},
                     value_off={"Off"},
+                )
+            )
+
+        messages = [
+            (f"Cooking.Oven.Event.Cavity.{group[0]}.{event}", key)
+            for event, key in OVEN_MESSAGES
+            if f"Cooking.Oven.Event.Cavity.{group[0]}.{event}" in appliance.entities
+        ]
+        if messages:
+            descriptions["event_sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_oven_message_{group[0]}",
+                    translation_key="sensor_oven_message",
+                    translation_placeholders={"group_name": group_name},
+                    entities=tuple(entity for entity, _ in messages),
+                    device_class=SensorDeviceClass.ENUM,
+                    options=[key for _, key in messages] + ["none"],
                 )
             )
 
@@ -185,15 +379,53 @@ def generate_hood_level_select(appliance: HomeAppliance) -> HCFanEntityDescripti
     return None
 
 
+# Seen on EX851LYV5E: the extension zones (120, 121, 201, 301, 340, 341) never report
+# a value for any of their 16 UIDs.
+_HOB_MAIN_ZONES = frozenset({"100", "200", "300", "400"})
+
+
+def _append_hob_zone_program_status(
+    descriptions: EntityDescriptions, appliance: HomeAppliance, group: tuple[str], group_name: str
+) -> None:
+    """Append ActiveProgram/SelectedProgram for main zones only."""
+    if group[0] not in _HOB_MAIN_ZONES:
+        return
+    entity = f"Cooking.Hob.Status.Zone.{group[0]}.ActiveProgram"
+    if entity in appliance.entities:
+        descriptions["sensor"].append(
+            HCSensorEntityDescription(
+                key=f"sensor_hob_zone_{group[0]}_active_program",
+                translation_key="sensor_hob_zone_active_program",
+                translation_placeholders={"group_name": group_name},
+                entity=entity,
+                force_disabled_default=True,
+            )
+        )
+    entity = f"Cooking.Hob.Status.Zone.{group[0]}.SelectedProgram"
+    if entity in appliance.entities:
+        descriptions["sensor"].append(
+            HCSensorEntityDescription(
+                key=f"sensor_hob_zone_{group[0]}_selected_program",
+                translation_key="sensor_hob_zone_selected_program",
+                translation_placeholders={"group_name": group_name},
+                entity=entity,
+                force_disabled_default=True,
+            )
+        )
+
+
 def generate_hob_zones(appliance: HomeAppliance) -> HCFanEntityDescription:
     """Get Oven status descriptions."""
     pattern = re.compile(r"^Cooking\.Hob\.Status\.Zone\.([0-9]*)\..*$")
-    groups = get_groups_from_regex(appliance, pattern)
+    # Extension zones never reported a value, see _HOB_MAIN_ZONES.
+    groups = {g for g in get_groups_from_regex(appliance, pattern) if g[0] in _HOB_MAIN_ZONES}
     descriptions = EntityDescriptions(sensor=[])
     for group in groups:
         group_name = f" {int(group[0])}"
         zone_state = appliance.entities.get(f"Cooking.Hob.Status.Zone.{group[0]}.State")
         force_disabled_default = zone_state is not None and zone_state.value == "NotSelectable"
+
+        _append_hob_zone_program_status(descriptions, appliance, group, group_name)
 
         # State
         entity = f"Cooking.Hob.Status.Zone.{group[0]}.State"
@@ -258,6 +490,20 @@ def generate_hob_zones(appliance: HomeAppliance) -> HCFanEntityDescription:
                     device_class=SensorDeviceClass.ENUM,
                     has_state_translation=True,
                     force_disabled_default=force_disabled_default,
+                )
+            )
+
+        # CookingSensorLevel
+        entity = f"Cooking.Hob.Status.Zone.{group[0]}.CookingSensorLevel"
+        if entity in appliance.entities:
+            descriptions["sensor"].append(
+                HCSensorEntityDescription(
+                    key=f"sensor_hob_zone_{group[0]}_cooking_sensor_level",
+                    translation_key="sensor_hob_zone_cooking_sensor_level",
+                    translation_placeholders={"group_name": group_name},
+                    entity=entity,
+                    device_class=SensorDeviceClass.ENUM,
+                    force_disabled_default=True,
                 )
             )
 
@@ -467,21 +713,21 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="Cooking.Hood.Setting.IntervalTimeOff",
             device_class=SensorDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
-            entity_registry_enabled_default=False,
+            force_disabled_default=True,
         ),
         HCSensorEntityDescription(
             key="sensor_interval_time_on",
             entity="Cooking.Hood.Setting.IntervalTimeOn",
             device_class=SensorDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
-            entity_registry_enabled_default=False,
+            force_disabled_default=True,
         ),
         HCSensorEntityDescription(
             key="sensor_delayed_shutoff_time",
             entity="Cooking.Hood.Setting.DelayedShutOffTime",
             device_class=SensorDeviceClass.DURATION,
             native_unit_of_measurement=UnitOfTime.SECONDS,
-            entity_registry_enabled_default=False,
+            force_disabled_default=True,
         ),
         HCSensorEntityDescription(
             key="sensor_heatup_progress",
@@ -523,6 +769,7 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
     ],
     "event_sensor": [
+        generate_hood_filter_message,
         HCSensorEntityDescription(
             key="sensor_oven_water_tank",
             translation_placeholders={"group_name": ""},
@@ -547,6 +794,14 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=NumberDeviceClass.TEMPERATURE,
             native_unit_of_measurement=UnitOfTemperature.CELSIUS,
             mode=NumberMode.AUTO,
+        ),
+        HCNumberEntityDescription(
+            key="number_oven_weight",
+            entity="Cooking.Oven.Option.Weight",
+            device_class=NumberDeviceClass.WEIGHT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            mode=NumberMode.AUTO,
+            force_disabled_default=True,
         ),
         HCNumberEntityDescription(
             key="number_oven_display_brightness",
@@ -954,51 +1209,6 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
     ],
     "binary_sensor": [
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_hood_carbon_filter_max_saturation_reached",
-            entity="Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            force_disabled_default=True,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_hood_carbon_filter_max_saturation_nearly_reached",
-            entity="Cooking.Common.Event.Hood.CarbonFilterMaxSaturationNearlyReached",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            force_disabled_default=True,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_hood_grease_filter_max_saturation_reached",
-            entity="Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            force_disabled_default=True,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_hood_grease_filter_max_saturation_nearly_reached",
-            entity="Cooking.Common.Event.Hood.GreaseFilterMaxSaturationNearlyReached",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            force_disabled_default=True,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_hood_regenerative_carbon_filter_max_saturation_reached",
-            entity="Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationReached",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            force_disabled_default=True,
-            value_on={"Present", "Confirmed"},
-            value_off={"Off"},
-        ),
         HCBinarySensorEntityDescription(
             key="binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded",
             entity="Cooking.Common.Event.Hood.RegenerativeCarbonFilterLifeTimeExceeded",
