@@ -28,15 +28,33 @@ if TYPE_CHECKING:
 
     from .descriptions_definitions import _EntityDescriptionsDefinitionsType
 
+
+def generate_bean_container_empty(
+    appliance: HomeAppliance,
+) -> HCBinarySensorEntityDescription | None:
+    """Get the bean container sensor, empty when the appliance reports it or asks for beans."""
+    entities = tuple(
+        name
+        for name in (
+            "ConsumerProducts.CoffeeMaker.Event.BeanContainerEmpty",
+            "ConsumerProducts.CoffeeMaker.Event.RefillEmptyBeanContainer",
+        )
+        if name in appliance.entities
+    )
+    if not entities:
+        return None
+    return HCBinarySensorEntityDescription(
+        key="binary_sensor_bean_container_empty",
+        entities=entities,
+        device_class=BinarySensorDeviceClass.PROBLEM,
+        value_on={"Present"},
+        value_off={"Off", "Confirmed"},
+    )
+
+
 CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "binary_sensor": [
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_bean_container_empty",
-            entity="ConsumerProducts.CoffeeMaker.Event.BeanContainerEmpty",
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            value_on={"Present"},
-            value_off={"Off", "Confirmed"},
-        ),
+        generate_bean_container_empty,
         HCBinarySensorEntityDescription(
             key="binary_sensor_child_lock_active",
             entity="ConsumerProducts.CoffeeMaker.Status.ChildLockActive",
