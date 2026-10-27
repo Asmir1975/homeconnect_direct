@@ -1773,12 +1773,21 @@ async def test_alarm_clock_numbers_convert_into_every_duration_unit(
                 access=Access.READ_WRITE,
             ),
         ],
+        event=[
+            EntityDescription(
+                uid=6131,
+                name="Cooking.Oven.Event.Cavity.001.AlarmClockElapsed",
+                enumeration={"0": "Off", "1": "Present", "2": "Confirmed"},
+            ),
+        ],
     )
     appliance = await mock_homeconnect_appliance(description=description)
     entities = entity_descriptions.get_available_entities(appliance)
 
     alarms = [item for item in entities["number"] if "alarm_clock" in item.key]
     assert {item.key for item in alarms} == {"number_oven_setting_001_alarm_clock"}
+    assert alarms[0].zero_when_event_present
+    assert alarms[0].entities == ["Cooking.Oven.Event.Cavity.001.AlarmClockElapsed"]
     for item in alarms:
         # Same steps as NumberEntity._convert_to_state_value.
         text = str(item.native_max_value)

@@ -16,6 +16,7 @@ from .helpers import create_entities, ensure_writable, error_decorator
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
+    from homeconnect_websocket.entities import Entity as HcEntity
 
     from . import HCConfigEntry, HCData
     from .entity_descriptions.descriptions_definitions import HCNumberEntityDescription
@@ -47,9 +48,23 @@ class HCNumber(HCEntity, NumberEntity):
     ) -> None:
         super().__init__(entity_description, runtime_data)
         self._entity._type = int  # noqa: SLF001 Force integer type
+        self._elapsed_event = (
+            self._entities[-1] if entity_description.zero_when_event_present else None
+        )
+        self._expired = self._elapsed_event is not None and self._elapsed_event.value == "Present"
+
+    async def callback(self, entity: HcEntity) -> None:
+        if self._elapsed_event is not None:
+            if entity is self._elapsed_event and entity.value == "Present":
+                self._expired = True
+            elif entity is self._entity:
+                self._expired = False
+        await super().callback(entity)
 
     @property
     def native_value(self) -> int | float:
+        if self._expired:
+            return 0
         return self._entity.value
 
     @property

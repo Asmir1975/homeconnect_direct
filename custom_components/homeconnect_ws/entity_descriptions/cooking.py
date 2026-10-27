@@ -307,6 +307,7 @@ def generate_oven_settings(appliance: HomeAppliance) -> EntityDescriptions:
 
         # AlarmClock
         entity = f"Cooking.Oven.Setting.Cavity.{group[0]}.AlarmClock"
+        elapsed = f"Cooking.Oven.Event.Cavity.{group[0]}.AlarmClockElapsed"
         if entity in appliance.entities:
             descriptions["number"].append(
                 HCNumberEntityDescription(
@@ -318,6 +319,8 @@ def generate_oven_settings(appliance: HomeAppliance) -> EntityDescriptions:
                     native_unit_of_measurement=UnitOfTime.SECONDS,
                     native_max_value=86399,
                     mode=NumberMode.BOX,
+                    entities=[elapsed] if elapsed in appliance.entities else None,
+                    zero_when_event_present=elapsed in appliance.entities,
                 )
             )
 
