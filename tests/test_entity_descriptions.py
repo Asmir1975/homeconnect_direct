@@ -46,10 +46,11 @@ from custom_components.homeconnect_ws.helpers import entity_is_available, merge_
 from custom_components.homeconnect_ws.number import HCNumber
 from custom_components.homeconnect_ws.sensor import HCEventSensor
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
-from homeassistant.components.number import NumberDeviceClass, NumberMode
+from homeassistant.components.number import NumberDeviceClass, NumberMode, ceil_decimal
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfTime
+from homeassistant.util.unit_conversion import DurationConverter
 from homeconnect_websocket.entities import (
     Access,
     DeviceDescription,
@@ -1757,3 +1758,33 @@ async def test_acknowledge_event_button_not_created_for_hob(
     entities = entity_descriptions.get_available_entities(appliance)
 
     assert all(item.key != "button_acknowledge_event" for item in entities["button"])
+
+
+async def test_alarm_clock_numbers_convert_into_every_duration_unit(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """The alarm clock maximum survives the unit conversion Home Assistant applies."""
+    description = DeviceDescription(
+        setting=[
+            EntityDescription(
+                uid=6135,
+                name="Cooking.Oven.Setting.Cavity.001.AlarmClock",
+                available=True,
+                access=Access.READ_WRITE,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    alarms = [item for item in entities["number"] if "alarm_clock" in item.key]
+    assert {item.key for item in alarms} == {"number_oven_setting_001_alarm_clock"}
+    for item in alarms:
+        # Same steps as NumberEntity._convert_to_state_value.
+        text = str(item.native_max_value)
+        precision = len(text) - text.index(".") - 1 if "." in text else 0
+        for unit in DurationConverter.VALID_UNITS:
+            converted = DurationConverter.converter_factory(UnitOfTime.SECONDS, unit)(
+                item.native_max_value
+            )
+            ceil_decimal(converted, precision)
