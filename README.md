@@ -1,11 +1,9 @@
-![Home Connect Local: local control for Bosch, Siemens and Neff appliances](https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/banner.png)
+![Home Connect Direct: local control for Bosch, Siemens and Neff appliances](https://raw.githubusercontent.com/Asmir1975/homeconnect_direct/main/assets/banner.png)
 
-[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
-[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-41BDF5?style=flat-square&logo=home-assistant&logoColor=white)](https://www.home-assistant.io/)
-[![Version](https://img.shields.io/github/v/release/Asmir1975/homeconnect_local_hass-UI?style=flat-square&logo=github&color=41BDF5&logoColor=white)](https://github.com/Asmir1975/homeconnect_local_hass-UI/releases)
+[![Version](https://img.shields.io/github/v/release/Asmir1975/homeconnect_direct?style=flat-square&logo=github&color=41BDF5&logoColor=white)](https://github.com/Asmir1975/homeconnect_direct/releases)
 
-[![GitHub stars](https://img.shields.io/github/stars/Asmir1975/homeconnect_local_hass-UI?style=flat-square)](https://github.com/Asmir1975/homeconnect_local_hass-UI/stargazers)
-[![GitHub downloads](https://img.shields.io/github/downloads/Asmir1975/homeconnect_local_hass-UI/total?style=flat-square)](https://github.com/Asmir1975/homeconnect_local_hass-UI/releases)
+[![GitHub stars](https://img.shields.io/github/stars/Asmir1975/homeconnect_direct?style=flat-square)](https://github.com/Asmir1975/homeconnect_direct/stargazers)
+[![GitHub downloads](https://img.shields.io/github/downloads/Asmir1975/homeconnect_direct/total?style=flat-square)](https://github.com/Asmir1975/homeconnect_direct/releases)
 
 <div align="center">
 
@@ -37,19 +35,19 @@ Control Bosch, Siemens and Neff appliances from Home Assistant over your local n
 
 1. Add the repository to HACS, download it and restart Home Assistant.
 
-   [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Asmir1975&repository=homeconnect_local_hass-UI&category=integration)
+   [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Asmir1975&repository=homeconnect_direct&category=integration)
 
-   <sub>Or add it by hand: HACS → Custom repositories → `https://github.com/Asmir1975/homeconnect_local_hass-UI`, type Integration.</sub>
+   <sub>Or add it by hand: HACS → Custom repositories → `https://github.com/Asmir1975/homeconnect_direct`, type Integration.</sub>
 
 2. Add the integration and choose **Sign in with Home Connect**.
 
-   [![Open your Home Assistant instance and start setting up Home Connect Local.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=homeconnect_ws)
+   [![Open your Home Assistant instance and start setting up Home Connect Direct.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=homeconnect_ws)
 
    <sub>Or upload a profile ZIP from the [profile downloader](https://github.com/bruestel/homeconnect-profile-downloader).</sub>
 
    <sub>If Home Assistant already found your appliance, click **Add** on it under Settings → Devices & Services instead.</sub>
 
-3. Approve access, copy the full URL from your browser's address bar into the form, then pick your appliance. The page after approval won't load. That's normal. [Guide with screenshots](https://github.com/Asmir1975/homeconnect_local_hass-UI/discussions/102)
+3. Approve access, copy the full URL from your browser's address bar into the form, then pick your appliance. The page after approval won't load. That's normal. [Guide with screenshots](https://github.com/Asmir1975/homeconnect_direct/discussions/102)
 
    <sub>You log in on the Home Connect page. Home Assistant only keeps the appliance profile.</sub>
 
@@ -57,19 +55,19 @@ Control Bosch, Siemens and Neff appliances from Home Assistant over your local n
 
 ## Issues & feature requests
 
-[Open an issue](https://github.com/Asmir1975/homeconnect_local_hass-UI/issues) and attach:
+[Open an issue](https://github.com/Asmir1975/homeconnect_direct/issues) and attach:
 
 - a **debug log** (see below)
-- the **diagnostics** of the appliance: Settings → Devices & Services → Home Connect Local → your appliance → **Download diagnostics**. The file contains the appliance profile and current values. Keys, serial number and MAC address are removed.
+- the **diagnostics** of the appliance: Settings → Devices & Services → Home Connect Direct → your appliance → **Download diagnostics**. The file contains the appliance profile and current values. Keys, serial number and MAC address are removed.
 
-  <img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/diagnostics_button.png" alt="Download diagnostics" width="300">
+  <img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_direct/main/assets/diagnostics_button.png" alt="Download diagnostics" width="300">
 - your **model number**
 
 ## Debug logging
 
-**In the UI**: Settings → Devices & Services → Home Connect Local → ⋮ → **Enable debug logging**. Reproduce the problem and disable it again. The log downloads automatically.
+**In the UI**: Settings → Devices & Services → Home Connect Direct → ⋮ → **Enable debug logging**. Reproduce the problem and disable it again. The log downloads automatically.
 
-<img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_local_hass-UI/main/assets/debug_menu.png" alt="Enable debug logging" width="220">
+<img src="https://raw.githubusercontent.com/Asmir1975/homeconnect_direct/main/assets/debug_menu.png" alt="Enable debug logging" width="220">
 
 Optional (preferred, includes startup): add this to `configuration.yaml`, restart Home Assistant and download the full log:
 
