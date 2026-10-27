@@ -1,5 +1,5 @@
 name: Issue using the Integration
-description: Report an issue with using Home Connect Local integration.
+description: Report an issue with using Home Connect Direct integration.
 labels: ["bug"]
 body:
   - type: markdown
@@ -21,9 +21,9 @@ body:
       label: Before submitting a bug report, please follow these troubleshooting steps
       description: Please confirm that you have completed the following steps
       options:
-        - label: I have tried the latest release of Home Connect Local.
+        - label: I have tried the latest release of Home Connect Direct.
         - label: I have checked that I can perform the same action through the HomeConnect App.
-        - label: I have checked the [open issues](https://github.com/Asmir1975/homeconnect_local_hass-UI/issues) to ensure my issue isn't a duplicate.
+        - label: I have checked the [open issues](https://github.com/Asmir1975/homeconnect_direct/issues) to ensure my issue isn't a duplicate.
     validations:
       required: true
 
@@ -33,7 +33,7 @@ body:
         ## Environment
   - type: input
     attributes:
-      label: Version of Home Connect Local
+      label: Version of Home Connect Direct
     validations:
       required: true
   - type: input

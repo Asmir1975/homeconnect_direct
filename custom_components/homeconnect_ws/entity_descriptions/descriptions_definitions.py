@@ -108,6 +108,9 @@ class HCNumberEntityDescription(
     # grid are rejected with a clear message before anything is sent, and the
     # step stays usable when the unit is changed in Home Assistant.
     enforce_step: bool = False
+    # The last of entities is an event that marks a timer as used up. The appliance does
+    # not always report 0 when a timer ends, so the value reads 0 until it reports a new one.
+    zero_when_event_present: bool = False
 
 
 class HCLightEntityDescription(HCEntityDescription, LightEntityDescription, frozen_or_thawed=True):

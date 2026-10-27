@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-import sys
 from typing import TYPE_CHECKING
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
@@ -308,6 +307,7 @@ def generate_oven_settings(appliance: HomeAppliance) -> EntityDescriptions:
 
         # AlarmClock
         entity = f"Cooking.Oven.Setting.Cavity.{group[0]}.AlarmClock"
+        elapsed = f"Cooking.Oven.Event.Cavity.{group[0]}.AlarmClockElapsed"
         if entity in appliance.entities:
             descriptions["number"].append(
                 HCNumberEntityDescription(
@@ -317,8 +317,10 @@ def generate_oven_settings(appliance: HomeAppliance) -> EntityDescriptions:
                     entity=entity,
                     device_class=NumberDeviceClass.DURATION,
                     native_unit_of_measurement=UnitOfTime.SECONDS,
-                    native_max_value=sys.float_info.max,
+                    native_max_value=86399,
                     mode=NumberMode.BOX,
+                    entities=[elapsed] if elapsed in appliance.entities else None,
+                    zero_when_event_present=elapsed in appliance.entities,
                 )
             )
 
