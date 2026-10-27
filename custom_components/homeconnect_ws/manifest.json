@@ -4,9 +4,6 @@
   "after_dependencies": [
     "file_upload"
   ],
-  "categories": [
-    "appliances_cleaning"
-  ],
   "codeowners": [
     "@Asmir1975"
   ],
