@@ -15,7 +15,13 @@ from .const import CONF_FILTER_UNSAVED_FAVORITES, DOMAIN
 from .entity import HCEntity
 from .entity_descriptions.common import POWER_OFF_STATE_NAMES
 from .fan import SpeedMapping
-from .helpers import create_entities, ensure_writable, entity_is_available, error_decorator
+from .helpers import (
+    create_entities,
+    ensure_writable,
+    entity_is_available,
+    error_decorator,
+    full_option_set_select_options,
+)
 from .program_names import (
     favorite_name_settings,
     program_labels,
@@ -307,7 +313,10 @@ class HCProgram(HCSelect):
             # read-only fallback; only this path actually writes SelectedProgram.
             ensure_writable(self._entity)
             # Don't carry option shadows from the previously selected program.
-            await selected_program.select(override_options=True)
+            await selected_program.select(
+                full_option_set_select_options(self._runtime_data, selected_program),
+                override_options=True,
+            )
         elif selected_program.execution == Execution.START_ONLY:
             if venting_options := hood_venting_start_options(
                 self._runtime_data.appliance, selected_program

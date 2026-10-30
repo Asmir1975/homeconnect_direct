@@ -12,6 +12,7 @@ from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers.service import async_extract_config_entry_ids
 from homeconnect_websocket.entities import Access, EventHandling, Option, SelectedProgram
 from homeconnect_websocket.errors import AccessError, CodeResponsError, NotConnectedError
+from homeconnect_websocket.helpers import TYPE_MAPPING
 
 from .const import DOMAIN
 
@@ -152,6 +153,82 @@ def ensure_writable(entity: HcEntity | None) -> None:
             translation_domain=DOMAIN,
             translation_key="read_only",
         )
+
+
+# Options left out of a write through SelectedProgram, the oven did not need them.
+_WRITE_THROUGH_SKIPPED = frozenset(
+    {"BSH.Common.Option.StartInRelative", "Cooking.Oven.Option.FastPreHeat"}
+)
+
+
+def _oven_with_full_option_set(runtime_data: HCData) -> bool:
+    """Whether the description marks SelectedProgram of an oven with fullOptionSet."""
+    description = runtime_data.coordinator.config_entry.data.get(CONF_DESCRIPTION, {})
+    return runtime_data.appliance.info.get("type") == "Oven" and bool(
+        description.get("selectedProgram", {}).get("fullOptionSet")
+    )
+
+
+def _whole_number(value: Any) -> Any:
+    """Send 160 and not 160.0, the oven answers 400 to the float."""
+    return int(value) if isinstance(value, float) and value.is_integer() else value
+
+
+def full_option_set_select_options(
+    runtime_data: HCData, program: Program
+) -> dict[int, str | int | float | bool]:
+    """
+    Writable profile defaults to send when selecting a program on an oven with fullOptionSet.
+
+    The oven answers an empty option list with 526. Other appliances and ovens
+    without the flag get no options and keep the empty list.
+    """
+    if not _oven_with_full_option_set(runtime_data):
+        return {}
+    description = runtime_data.coordinator.config_entry.data[CONF_DESCRIPTION]
+    program_description = next(
+        (item for item in description.get("program", []) if item["uid"] == program.uid), None
+    )
+    if program_description is None:
+        return {}
+    definitions = {item["uid"]: item for item in description.get("option", [])}
+    options: dict[int, str | int | float | bool] = {}
+    for member in program_description.get("options", []):
+        if member.get("access") != "readwrite" or not member.get("available", True):
+            continue
+        definition = definitions.get(member["refUID"], {})
+        default = member.get("default", definition.get("default"))
+        if default is not None:
+            convert = TYPE_MAPPING.get(definition.get("protocolType"), lambda value: value)
+            options[member["refUID"]] = _whole_number(convert(default))
+    return options
+
+
+async def write_through_selected_program(
+    runtime_data: HCData, entity: HcEntity, value: float
+) -> bool:
+    """Change one option of the selected program with a SelectedProgram write."""
+    program = runtime_data.appliance.selected_program
+    if program is None or not _oven_with_full_option_set(runtime_data):
+        return False
+    options: dict[int, Any] = {}
+    for option in program.options:
+        if (
+            option.access != Access.READ_WRITE
+            or not option.available
+            or option.name in _WRITE_THROUGH_SKIPPED
+        ):
+            continue
+        current = value if option.uid == entity.uid else option.value_shadow
+        if current is not None:
+            options[option.uid] = _whole_number(current)
+    if entity.uid not in options:
+        return False
+    _LOGGER.debug(
+        "Writing %s answered 527, selecting %s with %s", entity.name, program.name, options
+    )
+    await program.select(options, override_options=True)
+    return True
 
 
 async def start_coffee_favorite_with_fallback(program: Program) -> None:

@@ -11,7 +11,12 @@ from homeconnect_websocket.errors import CodeResponsError
 from .coffee_quantity import FILL_QUANTITY, selected_quantity_options
 from .const import DOMAIN
 from .entity import HCEntity
-from .helpers import create_entities, ensure_writable, error_decorator
+from .helpers import (
+    create_entities,
+    ensure_writable,
+    error_decorator,
+    write_through_selected_program,
+)
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
@@ -133,6 +138,10 @@ class HCNumber(HCEntity, NumberEntity):
         try:
             await self._entity.set_value(int(value))
         except CodeResponsError as exc:
+            if exc.code == 527 and await write_through_selected_program(
+                self._runtime_data, self._entity, int(value)
+            ):
+                return
             if exc.code == 400 and self._entity.name == FILL_QUANTITY:
                 raise ServiceValidationError(
                     translation_domain=DOMAIN, translation_key="coffee_quantity_rejected"
