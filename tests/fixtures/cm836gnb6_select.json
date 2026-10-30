@@ -1,0 +1,1107 @@
+{
+  "info": {
+    "brand": "SIEMENS",
+    "type": "Oven",
+    "model": "CM836GNB6",
+    "eNumber": "CM836GNB6/A6",
+    "vib": "CM836GNB6",
+    "deviceType": "Oven",
+    "deviceID": "TEST-CM836GNB6"
+  },
+  "status": [
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 5,
+      "name": "BSH.Common.Status.BackendConnected"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 557,
+      "name": "BSH.Common.Status.CustomerServiceConnectionAllowed"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "notifyOnChange": false,
+      "contentType": "dbm",
+      "protocolType": "Integer",
+      "refCID": 18,
+      "refDID": 132,
+      "uid": 27,
+      "name": "BSH.Common.Status.WiFiSignalStrength"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "enumeration": {
+        "0": "Open",
+        "1": "Closed",
+        "2": "Locked"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 527,
+      "name": "BSH.Common.Status.DoorState"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 532,
+      "name": "BSH.Common.Status.InteriorIlluminationActive"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 535,
+      "name": "BSH.Common.Status.LocalControlActive"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 517,
+      "name": "BSH.Common.Status.RemoteControlStartAllowed"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 523,
+      "name": "BSH.Common.Status.RemoteControlActive"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "2": "DelayedStart",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 552,
+      "name": "BSH.Common.Status.OperationState"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "notifyOnChange": false,
+      "contentType": "temperatureCelsius",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 4096,
+      "name": "Cooking.Oven.Status.CurrentCavityTemperature"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "time",
+      "protocolType": "String",
+      "refCID": 23,
+      "refDID": 169,
+      "uid": 4099,
+      "name": "Cooking.Oven.Status.LastRemoteStartRelease"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "temperatureCelsius",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 2050,
+      "name": "Cooking.Oven.Status.Server.Pt500Temperature"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "integer",
+      "protocolType": "Integer",
+      "refCID": 2,
+      "refDID": 128,
+      "uid": 2051,
+      "name": "Cooking.Oven.Status.Server.HeatingModeId"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "temperatureCelsius",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 2052,
+      "name": "Cooking.Oven.Status.Server.HeatingModeTemperature"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "enumeration": {
+        "0": "Left",
+        "1": "Right"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 2053,
+      "name": "Cooking.Oven.Status.Server.HeatingModeFanDirection"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 136,
+      "uid": 2054,
+      "name": "Cooking.Oven.Status.Server.HeatingModeFanSpeed"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "enumeration": {
+        "0": "Off",
+        "9": "90Watt",
+        "18": "180Watt",
+        "36": "360Watt",
+        "60": "600Watt",
+        "100": "1000Watt"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 129,
+      "uid": 2057,
+      "name": "Cooking.Oven.Status.Server.HeatingModeMicrowavePower"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "integer",
+      "protocolType": "Integer",
+      "refCID": 2,
+      "refDID": 129,
+      "uid": 2063,
+      "name": "Cooking.Oven.Status.Server.DishCategory"
+    }
+  ],
+  "setting": [
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 3,
+      "name": "BSH.Common.Setting.AllowBackendConnection"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 514,
+      "name": "BSH.Common.Setting.AllowConsumerInsights"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "dateTime",
+      "protocolType": "String",
+      "refCID": 6,
+      "refDID": 138,
+      "uid": 520,
+      "name": "BSH.Common.Setting.ApplianceDateTime"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 524,
+      "name": "BSH.Common.Setting.ChildLock"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "enumeration": {
+        "1": "Ar",
+        "3": "Bg",
+        "5": "Cs",
+        "6": "Da",
+        "7": "De",
+        "8": "El",
+        "9": "En",
+        "11": "Es",
+        "13": "Et",
+        "14": "Fi",
+        "15": "Fr",
+        "17": "He",
+        "19": "Hr",
+        "20": "Hu",
+        "23": "It",
+        "27": "Lt",
+        "28": "Lv",
+        "29": "Mk",
+        "32": "Nl",
+        "33": "No",
+        "34": "Pl",
+        "35": "Pt",
+        "37": "Ro",
+        "38": "Ru",
+        "39": "Sk",
+        "40": "Sl",
+        "41": "Sq",
+        "42": "Sr",
+        "43": "Sv",
+        "45": "Tr",
+        "46": "Uk",
+        "48": "Zh",
+        "49": "ZhHk"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 533,
+      "name": "BSH.Common.Setting.Language"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "enumeration": {
+        "2": "On",
+        "3": "Standby"
+      },
+      "initValue": "2",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 539,
+      "name": "BSH.Common.Setting.PowerState"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 547,
+      "name": "BSH.Common.Setting.SynchronizeWithTimeServer"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 565,
+      "name": "BSH.Common.Setting.AlarmClock"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4353,
+      "name": "Cooking.Oven.Setting.ButtonTones"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "enumeration": {
+        "0": "Off",
+        "1": "Clock01",
+        "2": "Clock02"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4354,
+      "name": "Cooking.Oven.Setting.ClockDisplay"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4355,
+      "name": "Cooking.Oven.Setting.ContinueWhenDoorShut"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "enumeration": {
+        "0": "Recommended",
+        "1": "Short"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4356,
+      "name": "Cooking.Oven.Setting.CoolingFanRunOnTime"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4357,
+      "name": "Cooking.Oven.Setting.DisplayBrandLogo"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "max": "4",
+      "min": "0",
+      "contentType": "integer",
+      "protocolType": "Integer",
+      "refCID": 2,
+      "refDID": 128,
+      "uid": 4358,
+      "name": "Cooking.Oven.Setting.DisplayBrightness"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4397,
+      "name": "Cooking.Oven.Setting.MicrowaveBakingTrayHint"
+    },
+    {
+      "access": "readwrite",
+      "available": false,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4396,
+      "name": "Cooking.Oven.Setting.MicrowaveDrying"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4360,
+      "name": "Cooking.Oven.Setting.NightDimout"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "enumeration": {
+        "0": "MainMenue",
+        "1": "HeatingModes",
+        "2": "Microwave",
+        "3": "MicroCombiModes",
+        "5": "Dishes"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4361,
+      "name": "Cooking.Oven.Setting.OperationAfterRestart"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4362,
+      "name": "Cooking.Oven.Setting.OvenLightDuringOperation"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 4363,
+      "name": "Cooking.Oven.Setting.SabbathMode"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "enumeration": {
+        "0": "Short",
+        "1": "Medium",
+        "2": "Long"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4364,
+      "name": "Cooking.Oven.Setting.SignalDuration"
+    }
+  ],
+  "event": [
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "none",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 559,
+      "name": "BSH.Common.Event.CustomerServiceRequest"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "acknowledge",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 21,
+      "name": "BSH.Common.Event.SoftwareUpdateAvailable"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "acknowledge",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 545,
+      "name": "BSH.Common.Event.ProgramAborted"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "acknowledge",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 540,
+      "name": "BSH.Common.Event.ProgramFinished"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "acknowledge",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 567,
+      "name": "BSH.Common.Event.AlarmClockElapsed"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "acknowledge",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4612,
+      "name": "Cooking.Oven.Event.PreheatFinished"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "none",
+      "level": "warning",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4617,
+      "name": "Cooking.Oven.Event.CavityTemperatureTooHigh"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "decision",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4618,
+      "name": "Cooking.Oven.Event.SubsequentCookingRequest"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "acknowledge",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4619,
+      "name": "Cooking.Oven.Event.UserInteractionRequired"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "none",
+      "level": "hint",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4622,
+      "name": "Cooking.Oven.Event.CavityHeatup"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "none",
+      "level": "warning",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4623,
+      "name": "Cooking.Oven.Event.OperatingTimeLimitReached"
+    },
+    {
+      "enumeration": {
+        "0": "Off",
+        "1": "Present",
+        "2": "Confirmed"
+      },
+      "handling": "none",
+      "level": "alert",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 4625,
+      "name": "Cooking.Oven.Event.ApplianceModuleError"
+    }
+  ],
+  "command": [
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "uidValue",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 6,
+      "name": "BSH.Common.Command.AcknowledgeEvent"
+    },
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 1,
+      "name": "BSH.Common.Command.DeactivateWiFi"
+    },
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 560,
+      "name": "BSH.Common.Command.DisallowCustomerServiceConnection"
+    },
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "uidValue",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 16,
+      "name": "BSH.Common.Command.RejectEvent"
+    },
+    {
+      "access": "writeonly",
+      "available": false,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 512,
+      "name": "BSH.Common.Command.AbortProgram"
+    },
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 553,
+      "name": "BSH.Common.Command.ApplyFactoryReset"
+    },
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 554,
+      "name": "BSH.Common.Command.ApplyNetworkReset"
+    },
+    {
+      "access": "writeonly",
+      "available": true,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 541,
+      "name": "BSH.Common.Command.DeactivateRemoteControl"
+    },
+    {
+      "access": "writeonly",
+      "available": false,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 555,
+      "name": "BSH.Common.Command.DeactivateRemoteControlStart"
+    },
+    {
+      "access": "writeonly",
+      "available": false,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 537,
+      "name": "BSH.Common.Command.PauseProgram"
+    },
+    {
+      "access": "writeonly",
+      "available": false,
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 546,
+      "name": "BSH.Common.Command.ResumeProgram"
+    }
+  ],
+  "option": [
+    {
+      "access": "readwrite",
+      "available": true,
+      "default": "60",
+      "max": "266400",
+      "min": "1",
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 548,
+      "name": "BSH.Common.Option.Duration"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 528,
+      "name": "BSH.Common.Option.ElapsedProgramTime"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 551,
+      "name": "BSH.Common.Option.FinishInRelative"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "default": "0",
+      "max": "86340",
+      "min": "0",
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 558,
+      "name": "BSH.Common.Option.StartInRelative"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 544,
+      "name": "BSH.Common.Option.RemainingProgramTime"
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 542,
+      "name": "BSH.Common.Option.ProgramProgress"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "max": "300",
+      "min": "30",
+      "contentType": "temperatureCelsius",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 5120,
+      "name": "Cooking.Oven.Option.SetpointTemperature"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "default": "3",
+      "enumeration": {
+        "1": "Level01",
+        "2": "Level02",
+        "3": "Level03"
+      },
+      "max": "3",
+      "min": "1",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 5122,
+      "name": "Cooking.Oven.Option.Level"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "default": "false",
+      "contentType": "boolean",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 5123,
+      "name": "Cooking.Oven.Option.FastPreHeat"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "default": "9",
+      "enumeration": {
+        "0": "Off",
+        "9": "90Watt",
+        "18": "180Watt",
+        "36": "360Watt",
+        "60": "600Watt",
+        "100": "1000Watt"
+      },
+      "max": "36",
+      "min": "9",
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 5124,
+      "name": "Cooking.Oven.Option.MicrowavePower"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "min": "0",
+      "contentType": "weight",
+      "protocolType": "Integer",
+      "refCID": 19,
+      "refDID": 129,
+      "uid": 5126,
+      "name": "Cooking.Oven.Option.Weight"
+    },
+    {
+      "access": "none",
+      "available": true,
+      "enumeration": {
+        "0": "AutomaticOperation",
+        "1": "AutomaticOperationWithMicrowave",
+        "2": "BakingSensorOperation",
+        "3": "BottomHeating",
+        "4": "Defrosting",
+        "5": "Desiccation",
+        "6": "DoughProving",
+        "7": "FrozenHeatupSpecial",
+        "8": "GrillLargeArea",
+        "9": "GrillSmallArea",
+        "10": "HotAir",
+        "11": "HotAirEco",
+        "12": "HotAirGrilling",
+        "13": "IntensiveHeat",
+        "14": "KeepWarm",
+        "15": "Microwave",
+        "16": "PizzaSetting",
+        "17": "PreheatOvenware",
+        "18": "Reheat",
+        "19": "SabbathProgramme",
+        "20": "SlowCook",
+        "21": "Steam",
+        "22": "TopBottomHeating",
+        "23": "TopBottomHeatingEco",
+        "24": "BreadBaking",
+        "25": "SteamWithSteamSet"
+      },
+      "contentType": "enumeration",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 5127,
+      "name": "Cooking.Oven.Option.UsedHeatingMode"
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "max": "86340",
+      "min": "1",
+      "contentType": "timeSpan",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 5128,
+      "name": "Cooking.Oven.Option.SubsequentCookingDuration"
+    }
+  ],
+  "program": [
+    {
+      "available": true,
+      "uid": 8208,
+      "name": "Cooking.Oven.Program.HeatingMode.HotAir",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 5120,
+          "default": "160"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 548,
+          "default": "60"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 5123
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 558,
+          "default": "0"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 528
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 544
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 542
+        }
+      ]
+    },
+    {
+      "available": true,
+      "uid": 8464,
+      "name": "Cooking.Oven.Program.MicroCombiModes.HotAir",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 5120,
+          "default": "160"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 548,
+          "default": "60"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 528
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 542
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 544
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 5124
+        }
+      ]
+    },
+    {
+      "available": false,
+      "uid": 9727,
+      "name": "Cooking.Oven.Program.Dish.SubsequentCooking",
+      "options": [
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 528
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 544
+        },
+        {
+          "access": "read",
+          "available": true,
+          "refUID": 542
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 5128
+        }
+      ]
+    }
+  ],
+  "activeProgram": {
+    "access": "read",
+    "uid": 256,
+    "name": "BSH.Common.Root.ActiveProgram"
+  },
+  "selectedProgram": {
+    "access": "readwrite",
+    "fullOptionSet": true,
+    "uid": 257,
+    "name": "BSH.Common.Root.SelectedProgram"
+  }
+}
