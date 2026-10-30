@@ -1,0 +1,1121 @@
+{
+  "info": {
+    "brand": "BOSCH",
+    "customerIndex": "66",
+    "deviceID": "**REDACTED**",
+    "deviceInfo": "",
+    "deviceType": "Hob",
+    "eNumber": "PID775HC1E/66",
+    "fdString": "0507",
+    "haVersion": "2.154",
+    "hwVersion": "3.0.0.4",
+    "mac": "**REDACTED**",
+    "model": "PID775HC1E",
+    "revision": 9,
+    "serialNumber": "**REDACTED**",
+    "shipSki": "**REDACTED**",
+    "swVersion": "3.11.7.0",
+    "type": "Hob",
+    "version": 2,
+    "vib": "PID775HC1E"
+  },
+  "status": [
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Status.BackendConnected",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 5
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Status.CustomerServiceConnectionAllowed",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 557
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Status.LocalControlActive",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 535
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "name": "BSH.Common.Status.OperationState",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 552
+    },
+    {
+      "access": "read",
+      "available": false,
+      "contentType": "identifier",
+      "name": "BSH.Common.Status.SoftwareUpdateTransactionID",
+      "protocolType": "Integer",
+      "refCID": 38,
+      "refDID": 131,
+      "uid": 592
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "dbm",
+      "name": "BSH.Common.Status.WiFiSignalStrength",
+      "notifyOnChange": false,
+      "protocolType": "Integer",
+      "refCID": 18,
+      "refDID": 132,
+      "uid": 27
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "1": "Ready",
+        "2": "Busy"
+      },
+      "initValue": "0",
+      "name": "BSH.Common.Status.BluetoothPresenceDetection",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 45
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Status.WipeProtectionActive",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 550
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "AsList",
+        "1": "AsButtons"
+      },
+      "initValue": "1",
+      "name": "BSH.Common.Status.Favorite.Handling",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 32771
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "600",
+      "name": "Cooking.Hob.Status.Size.LengthX",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 136,
+      "uid": 8192
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "520",
+      "name": "Cooking.Hob.Status.Size.LengthY",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 136,
+      "uid": 8193
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "programInstructionList",
+      "initValue": "{\"length\":1,\"list\":[{\"program\":12289,\"options\":[{\"uid\":5123,\"value\":1}]}]}",
+      "name": "Cooking.Hob.Status.Favorite.Suggestion.Program.KeepWarm",
+      "protocolType": "Object",
+      "refCID": 168,
+      "refDID": 16525,
+      "uid": 4113
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "programInstructionList",
+      "initValue": "{\"length\":1,\"list\":[{\"program\":12289,\"options\":[{\"uid\":5123,\"value\":20}]}]}",
+      "name": "Cooking.Hob.Status.Favorite.Suggestion.Program.PanBoost",
+      "protocolType": "Object",
+      "refCID": 168,
+      "refDID": 16525,
+      "uid": 4114
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "120": "Left",
+        "300": "RearRight",
+        "400": "FrontRight"
+      },
+      "initValue": "120",
+      "name": "Cooking.Hob.Status.Zone.120.ZoneSelector",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 129,
+      "uid": 8213
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "NotSelectable",
+        "1": "Off",
+        "2": "Active",
+        "3": "ResiduelHeat"
+      },
+      "initValue": "1",
+      "name": "Cooking.Hob.Status.Zone.120.State",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8218
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.120.ActiveProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 8219
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.120.SelectedProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 8220
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "name": "Cooking.Hob.Status.Zone.120.OperationState",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8221
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "1": "KeepWarm",
+        "10": "50",
+        "11": "55",
+        "12": "60",
+        "13": "65",
+        "14": "70",
+        "15": "75",
+        "16": "80",
+        "17": "85",
+        "18": "90",
+        "2": "10",
+        "20": "Boost1",
+        "21": "Boost2",
+        "3": "15",
+        "4": "20",
+        "5": "25",
+        "6": "30",
+        "7": "35",
+        "8": "40",
+        "9": "45"
+      },
+      "name": "Cooking.Hob.Status.Zone.120.PowerLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8222
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.120.BaseProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 12255
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "string",
+      "name": "Cooking.Hob.Status.Zone.120.ProgramName",
+      "protocolType": "String",
+      "refCID": 5,
+      "refDID": 139,
+      "uid": 12256
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "None",
+        "1": "Cooking",
+        "2": "Venting"
+      },
+      "initValue": "1",
+      "name": "Cooking.Hob.Status.Zone.120.Type",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 9046
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "100": "100dC",
+        "110": "110dC",
+        "120": "120dC",
+        "140": "140dC",
+        "160": "160dC",
+        "180": "180dC",
+        "200": "200dC",
+        "220": "220dC",
+        "70": "70dC",
+        "80": "80dC",
+        "90": "90dC"
+      },
+      "name": "Cooking.Hob.Status.Zone.120.FryingSensorLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8224
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "temperatureCelsius",
+      "name": "Cooking.Hob.Status.Zone.120.CurrentTemperature",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 12114
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "name": "Cooking.Hob.Status.Zone.120.HeatupProgress",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 12132
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "initValue": "false",
+      "name": "Cooking.Hob.Status.Zone.120.JoinZone",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 20538
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "320",
+      "name": "Cooking.Hob.Status.Zone.120.LengthX",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 128,
+      "uid": 8215
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "320",
+      "name": "Cooking.Hob.Status.Zone.120.LengthY",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 128,
+      "uid": 8216
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "pose2D",
+      "initValue": "{\"x\":187.5,\"y\":323,\"angleX\":0}",
+      "name": "Cooking.Hob.Status.Zone.120.Position",
+      "protocolType": "Object",
+      "refCID": 26,
+      "refDID": 321,
+      "uid": 8214
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Round",
+        "1": "Oval",
+        "2": "Rectangular",
+        "3": "Octangular"
+      },
+      "initValue": "0",
+      "name": "Cooking.Hob.Status.Zone.120.Shape",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8217
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.120.Duration",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8226
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.120.ElapsedProgramTime",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8227
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "initValue": "false",
+      "name": "Cooking.Hob.Status.Zone.120.ElapsedProgramTime.AutoCounting",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 20494
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "name": "Cooking.Hob.Status.Zone.120.ProgramProgress",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 8229
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.120.RemainingProgramTime",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8228
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "Cooking.Hob.Status.Zone.120.RemainingProgramTime.AutoCounting",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 12232
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "120": "Left",
+        "300": "RearRight",
+        "400": "FrontRight"
+      },
+      "initValue": "300",
+      "name": "Cooking.Hob.Status.Zone.300.ZoneSelector",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 129,
+      "uid": 8249
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "NotSelectable",
+        "1": "Off",
+        "2": "Active",
+        "3": "ResiduelHeat"
+      },
+      "initValue": "1",
+      "name": "Cooking.Hob.Status.Zone.300.State",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8254
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.300.ActiveProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 8255
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.300.SelectedProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 8256
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "name": "Cooking.Hob.Status.Zone.300.OperationState",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8257
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "1": "KeepWarm",
+        "10": "50",
+        "11": "55",
+        "12": "60",
+        "13": "65",
+        "14": "70",
+        "15": "75",
+        "16": "80",
+        "17": "85",
+        "18": "90",
+        "2": "10",
+        "20": "Boost1",
+        "21": "Boost2",
+        "3": "15",
+        "4": "20",
+        "5": "25",
+        "6": "30",
+        "7": "35",
+        "8": "40",
+        "9": "45"
+      },
+      "name": "Cooking.Hob.Status.Zone.300.PowerLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8258
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.300.BaseProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 12259
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "string",
+      "name": "Cooking.Hob.Status.Zone.300.ProgramName",
+      "protocolType": "String",
+      "refCID": 5,
+      "refDID": 139,
+      "uid": 12260
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "None",
+        "1": "Cooking",
+        "2": "Venting"
+      },
+      "initValue": "1",
+      "name": "Cooking.Hob.Status.Zone.300.Type",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 9047
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "100": "100dC",
+        "110": "110dC",
+        "120": "120dC",
+        "140": "140dC",
+        "160": "160dC",
+        "180": "180dC",
+        "200": "200dC",
+        "220": "220dC",
+        "70": "70dC",
+        "80": "80dC",
+        "90": "90dC"
+      },
+      "name": "Cooking.Hob.Status.Zone.300.FryingSensorLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8260
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "temperatureCelsius",
+      "name": "Cooking.Hob.Status.Zone.300.CurrentTemperature",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 12121
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "name": "Cooking.Hob.Status.Zone.300.HeatupProgress",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 12134
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "initValue": "false",
+      "name": "Cooking.Hob.Status.Zone.300.JoinZone",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 20540
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "150",
+      "name": "Cooking.Hob.Status.Zone.300.LengthX",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 128,
+      "uid": 8251
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "150",
+      "name": "Cooking.Hob.Status.Zone.300.LengthY",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 128,
+      "uid": 8252
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "pose2D",
+      "initValue": "{\"x\":467.5,\"y\":401,\"angleX\":0}",
+      "name": "Cooking.Hob.Status.Zone.300.Position",
+      "protocolType": "Object",
+      "refCID": 26,
+      "refDID": 321,
+      "uid": 8250
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Round",
+        "1": "Oval",
+        "2": "Rectangular",
+        "3": "Octangular"
+      },
+      "initValue": "0",
+      "name": "Cooking.Hob.Status.Zone.300.Shape",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8253
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.300.Duration",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8262
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.300.ElapsedProgramTime",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8263
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "initValue": "false",
+      "name": "Cooking.Hob.Status.Zone.300.ElapsedProgramTime.AutoCounting",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 20495
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "name": "Cooking.Hob.Status.Zone.300.ProgramProgress",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 8265
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.300.RemainingProgramTime",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8264
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "Cooking.Hob.Status.Zone.300.RemainingProgramTime.AutoCounting",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 12233
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "120": "Left",
+        "300": "RearRight",
+        "400": "FrontRight"
+      },
+      "initValue": "400",
+      "name": "Cooking.Hob.Status.Zone.400.ZoneSelector",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 129,
+      "uid": 8285
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "NotSelectable",
+        "1": "Off",
+        "2": "Active",
+        "3": "ResiduelHeat"
+      },
+      "initValue": "1",
+      "name": "Cooking.Hob.Status.Zone.400.State",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8290
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.400.ActiveProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 8291
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.400.SelectedProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 8292
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "name": "Cooking.Hob.Status.Zone.400.OperationState",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8293
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "1": "KeepWarm",
+        "10": "50",
+        "11": "55",
+        "12": "60",
+        "13": "65",
+        "14": "70",
+        "15": "75",
+        "16": "80",
+        "17": "85",
+        "18": "90",
+        "2": "10",
+        "20": "Boost1",
+        "21": "Boost2",
+        "3": "15",
+        "4": "20",
+        "5": "25",
+        "6": "30",
+        "7": "35",
+        "8": "40",
+        "9": "45"
+      },
+      "name": "Cooking.Hob.Status.Zone.400.PowerLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8294
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "uidValue",
+      "name": "Cooking.Hob.Status.Zone.400.BaseProgram",
+      "protocolType": "Integer",
+      "refCID": 21,
+      "refDID": 129,
+      "uid": 12263
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "string",
+      "name": "Cooking.Hob.Status.Zone.400.ProgramName",
+      "protocolType": "String",
+      "refCID": 5,
+      "refDID": 139,
+      "uid": 12264
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "None",
+        "1": "Cooking",
+        "2": "Venting"
+      },
+      "initValue": "1",
+      "name": "Cooking.Hob.Status.Zone.400.Type",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 9048
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Off",
+        "100": "100dC",
+        "110": "110dC",
+        "120": "120dC",
+        "140": "140dC",
+        "160": "160dC",
+        "180": "180dC",
+        "200": "200dC",
+        "220": "220dC",
+        "70": "70dC",
+        "80": "80dC",
+        "90": "90dC"
+      },
+      "name": "Cooking.Hob.Status.Zone.400.FryingSensorLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8296
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "temperatureCelsius",
+      "name": "Cooking.Hob.Status.Zone.400.CurrentTemperature",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 12125
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "name": "Cooking.Hob.Status.Zone.400.HeatupProgress",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 12136
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "initValue": "false",
+      "name": "Cooking.Hob.Status.Zone.400.JoinZone",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 20542
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "210",
+      "name": "Cooking.Hob.Status.Zone.400.LengthX",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 128,
+      "uid": 8287
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "length",
+      "initValue": "210",
+      "name": "Cooking.Hob.Status.Zone.400.LengthY",
+      "protocolType": "Float",
+      "refCID": 33,
+      "refDID": 128,
+      "uid": 8288
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "pose2D",
+      "initValue": "{\"x\":467.5,\"y\":193,\"angleX\":0}",
+      "name": "Cooking.Hob.Status.Zone.400.Position",
+      "protocolType": "Object",
+      "refCID": 26,
+      "refDID": 321,
+      "uid": 8286
+    },
+    {
+      "access": "readstatic",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Round",
+        "1": "Oval",
+        "2": "Rectangular",
+        "3": "Octangular"
+      },
+      "initValue": "0",
+      "name": "Cooking.Hob.Status.Zone.400.Shape",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 8289
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.400.Duration",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8298
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.400.ElapsedProgramTime",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8299
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "initValue": "false",
+      "name": "Cooking.Hob.Status.Zone.400.ElapsedProgramTime.AutoCounting",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 20496
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "percent",
+      "name": "Cooking.Hob.Status.Zone.400.ProgramProgress",
+      "protocolType": "Float",
+      "refCID": 17,
+      "refDID": 160,
+      "uid": 8301
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "timeSpan",
+      "name": "Cooking.Hob.Status.Zone.400.RemainingProgramTime",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 8300
+    },
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "boolean",
+      "name": "Cooking.Hob.Status.Zone.400.RemainingProgramTime.AutoCounting",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 12234
+    }
+  ],
+  "activeProgram": {
+    "access": "read",
+    "name": "BSH.Common.Root.ActiveProgram",
+    "uid": 256
+  },
+  "selectedProgram": {
+    "access": "readwrite",
+    "fullOptionSet": true,
+    "name": "BSH.Common.Root.SelectedProgram",
+    "uid": 257,
+    "validate": false
+  },
+  "setting": [],
+  "event": [],
+  "command": [],
+  "option": [],
+  "program": []
+}

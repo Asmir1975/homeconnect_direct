@@ -113,31 +113,51 @@ def test_dishwasher_pretreatment_switch_description() -> None:
     assert description.device_class is SwitchDeviceClass.SWITCH
 
 
-def test_hob_extension_zones_not_created() -> None:
-    """Test that hob extension zones get no entities at all (they never report a value)."""
+HOB_ZONE_SENSORS = (
+    "State",
+    "OperationState",
+    "PowerLevel",
+    "FryingSensorLevel",
+    "Duration",
+    "ElapsedProgramTime",
+    "RemainingProgramTime",
+    "ProgramProgress",
+    "ActiveProgram",
+    "SelectedProgram",
+)
+
+
+def hob_zones_of(zones: list[str]) -> set[str]:
+    """Return the zones that get sensors for a hob reporting these zones."""
     appliance = MagicMock()
     appliance.entities = {}
-    zone_sensors = (
-        "State",
-        "OperationState",
-        "PowerLevel",
-        "FryingSensorLevel",
-        "Duration",
-        "ElapsedProgramTime",
-        "RemainingProgramTime",
-        "ProgramProgress",
-    )
-    extension_zones = {"120", "121", "201", "301", "340", "341"}
-    for zone in {"100", *extension_zones}:
-        for sensor in zone_sensors:
-            entity = MagicMock()
-            entity.value = "Off" if zone == "100" and sensor == "State" else None
-            appliance.entities[f"Cooking.Hob.Status.Zone.{zone}.{sensor}"] = entity
+    for zone in zones:
+        for sensor in HOB_ZONE_SENSORS:
+            appliance.entities[f"Cooking.Hob.Status.Zone.{zone}.{sensor}"] = MagicMock(value=None)
 
     descriptions = generate_hob_zones(appliance)["sensor"]
 
-    assert len(descriptions) == 8
-    assert all("_100_" in item.key for item in descriptions)
+    return {item.key.split("_")[3] for item in descriptions}
+
+
+def test_hob_extension_zones_not_created() -> None:
+    """Test that hob extension zones get no entities at all (they never report a value)."""
+    # Zones of the EX851LYV5E, where 120 to 341 never report a value.
+    zones = ["100", "120", "121", "200", "201", "300", "301", "340", "341", "400"]
+
+    assert hob_zones_of(zones) == {"100", "200", "300", "400"}
+
+
+async def test_hob_zone_120_kept_without_zone_100(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test that 120 is a normal zone on a hob without zone 100 (PID775HC1E)."""
+    description = json.loads((Path(__file__).parent / "fixtures/pid775hc1e_zones.json").read_text())
+    appliance = await mock_homeconnect_appliance(description=description)
+
+    descriptions = generate_hob_zones(appliance)["sensor"]
+
+    assert {item.key.split("_")[3] for item in descriptions} == {"120", "300", "400"}
 
 
 def test_force_disabled_default_overrides_fork_default() -> None:

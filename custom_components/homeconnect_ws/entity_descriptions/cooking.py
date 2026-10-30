@@ -381,17 +381,23 @@ def generate_hood_level_select(appliance: HomeAppliance) -> HCFanEntityDescripti
     return None
 
 
-# Seen on EX851LYV5E: the extension zones (120, 121, 201, 301, 340, 341) never report
-# a value for any of their 16 UIDs.
-_HOB_MAIN_ZONES = frozenset({"100", "200", "300", "400"})
+def _is_hob_extension_zone(zone: str, zones: set[str]) -> bool:
+    """
+    Return True if the zone extends a main zone that is also present.
+
+    Seen on EX851LYV5E: the extension zones 120, 121, 201, 301, 340 and 341 sit next
+    to the main zones 100, 200 and 300 and never report a value for any of their
+    16 UIDs. Hobs without zone 100 use 120 as a normal zone (PID775HC1E: zones 120,
+    300 and 400, where 120 is the 32 cm zone on the left).
+    """
+    base = f"{zone[:1]}00"
+    return zone != base and base in zones
 
 
 def _append_hob_zone_program_status(
     descriptions: EntityDescriptions, appliance: HomeAppliance, group: tuple[str], group_name: str
 ) -> None:
-    """Append ActiveProgram/SelectedProgram for main zones only."""
-    if group[0] not in _HOB_MAIN_ZONES:
-        return
+    """Append ActiveProgram/SelectedProgram for a zone."""
     entity = f"Cooking.Hob.Status.Zone.{group[0]}.ActiveProgram"
     if entity in appliance.entities:
         descriptions["sensor"].append(
@@ -419,8 +425,10 @@ def _append_hob_zone_program_status(
 def generate_hob_zones(appliance: HomeAppliance) -> HCFanEntityDescription:
     """Get Oven status descriptions."""
     pattern = re.compile(r"^Cooking\.Hob\.Status\.Zone\.([0-9]*)\..*$")
-    # Extension zones never reported a value, see _HOB_MAIN_ZONES.
-    groups = {g for g in get_groups_from_regex(appliance, pattern) if g[0] in _HOB_MAIN_ZONES}
+    all_groups = get_groups_from_regex(appliance, pattern)
+    zones = {g[0] for g in all_groups}
+    # Extension zones never reported a value, see _is_hob_extension_zone.
+    groups = {g for g in all_groups if not _is_hob_extension_zone(g[0], zones)}
     descriptions = EntityDescriptions(sensor=[])
     for group in groups:
         group_name = f" {int(group[0])}"
