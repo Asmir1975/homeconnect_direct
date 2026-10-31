@@ -502,6 +502,12 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             value_off={"Off", "Confirmed"},
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
+        HCBinarySensorEntityDescription(
+            key="binary_remote_start_allowed",
+            entity="BSH.Common.Status.RemoteControlStartAllowed",
+            force_disabled_default=True,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
         generate_program_aborted_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_sensor_program_finished",

@@ -398,6 +398,9 @@
           "off": "Voll"
         }
       },
+      "binary_remote_start_allowed": {
+        "name": "Fernstart erlaubt"
+      },
       "binary_sensor_child_lock_active": {
         "name": "Kindersicherung aktiv"
       },
