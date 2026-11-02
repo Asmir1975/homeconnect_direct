@@ -8,7 +8,12 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.number import NumberDeviceClass, NumberMode
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
-from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfTemperature
+from homeassistant.const import (
+    PERCENTAGE,
+    EntityCategory,
+    UnitOfTemperature,
+    UnitOfTime,
+)
 
 from .descriptions_definitions import (
     HCBinarySensorEntityDescription,
@@ -60,24 +65,33 @@ def generate_internal_light_brightness(
     )
 
 
-def generate_fahrenheit_setpoint(
-    key: str, translation_key: str, entity: str
+def generate_setpoint(
+    key: str,
+    entity: str,
+    unit: UnitOfTemperature,
+    twin: str,
+    translation_key: str | None = None,
 ) -> Callable[[HomeAppliance], HCNumberEntityDescription | None]:
     """
-    Get the Fahrenheit twin of a setpoint, unless the appliance marks it unavailable.
+    Get a setpoint in one temperature unit, unless the appliance selected the other unit.
 
     Seen on KFI96AXEA: with the unit set to Celsius the appliance marks both Fahrenheit
     setpoints as unavailable, they showed up as greyed-out copies of the Celsius ones.
+    The setpoint is only left out when it is unavailable and its twin in the other unit
+    is available, so an appliance with a single or two unavailable setpoints keeps them.
     """
 
     def generate(appliance: HomeAppliance) -> HCNumberEntityDescription | None:
-        if (setpoint := appliance.entities.get(entity)) is None or not setpoint.available:
+        if (setpoint := appliance.entities.get(entity)) is None:
+            return None
+        other = appliance.entities.get(twin)
+        if not setpoint.available and other is not None and other.available:
             return None
         return HCNumberEntityDescription(
             key=key,
-            translation_key=translation_key,
+            translation_key=translation_key or key,
             entity=entity,
-            native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
+            native_unit_of_measurement=unit,
             device_class=NumberDeviceClass.TEMPERATURE,
             mode=NumberMode.AUTO,
             step=1,
@@ -261,6 +275,35 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             value_off={"Off"},
         ),
         HCBinarySensorEntityDescription(
+            key="binary_sensor_water_tank_empty",
+            entity="Refrigeration.Common.Event.Dispenser.WaterTankEmpty",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_ice_hopper_empty",
+            entity="Refrigeration.Common.Event.Dispenser.EmptyIceHopper",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_quick_ice_bin_full",
+            entity="Refrigeration.Common.Event.IceMaker.QuickIceBinFull",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_ice_hopper_presence",
+            entity="Refrigeration.Common.Status.Dispenser.IceHopperPresence",
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        HCBinarySensorEntityDescription(
             key="binary_sensor_ice_expired",
             entity="Refrigeration.Common.Event.Dispenser.IceExpired",
             entity_category=EntityCategory.DIAGNOSTIC,
@@ -327,6 +370,15 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     ],
     "number": [
         HCNumberEntityDescription(
+            key="number_sabbath_mode_duration",
+            entity="Refrigeration.Common.Setting.SabbathModeDuration",
+            device_class=NumberDeviceClass.DURATION,
+            native_unit_of_measurement=UnitOfTime.SECONDS,
+            entity_category=EntityCategory.CONFIG,
+            mode=NumberMode.SLIDER,
+            enforce_step=True,
+        ),
+        HCNumberEntityDescription(
             key="number_setpoint_freezer",
             entity="Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer",
             native_unit_of_measurement=UnitOfTemperature.CELSIUS,
@@ -342,47 +394,46 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             mode=NumberMode.AUTO,
             step=1,
         ),
-        HCNumberEntityDescription(
-            key="number_setpoint_freezer",
-            entity="Refrigeration.Common.Setting.Freezer.SetpointTemperature",
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-            device_class=NumberDeviceClass.TEMPERATURE,
-            mode=NumberMode.AUTO,
-            step=1,
-        ),
-        generate_fahrenheit_setpoint(
-            "number_setpoint_freezer_fahrenheit",
+        generate_setpoint(
             "number_setpoint_freezer",
+            "Refrigeration.Common.Setting.Freezer.SetpointTemperature",
+            UnitOfTemperature.CELSIUS,
             "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
         ),
-        HCNumberEntityDescription(
-            key="number_setpoint_refrigerator",
-            entity="Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-            device_class=NumberDeviceClass.TEMPERATURE,
-            mode=NumberMode.AUTO,
-            step=1,
+        generate_setpoint(
+            "number_setpoint_freezer_fahrenheit",
+            "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
+            UnitOfTemperature.FAHRENHEIT,
+            "Refrigeration.Common.Setting.Freezer.SetpointTemperature",
+            "number_setpoint_freezer",
         ),
-        generate_fahrenheit_setpoint(
-            "number_setpoint_refrigerator_fahrenheit",
+        generate_setpoint(
             "number_setpoint_refrigerator",
+            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
+            UnitOfTemperature.CELSIUS,
             "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
         ),
-        # This is only available when the `ChillerCommon.Preset` is `custom`.
-        HCNumberEntityDescription(
-            key="number_setpoint_chiller_common",
-            entity="Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-            device_class=NumberDeviceClass.TEMPERATURE,
-            entity_registry_enabled_default=False,
-            mode=NumberMode.AUTO,
-            step=1,
+        generate_setpoint(
+            "number_setpoint_refrigerator_fahrenheit",
+            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
+            UnitOfTemperature.FAHRENHEIT,
+            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
+            "number_setpoint_refrigerator",
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
-        generate_fahrenheit_setpoint(
-            "number_setpoint_chiller_common_fahrenheit",
+        generate_setpoint(
             "number_setpoint_chiller_common",
+            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
+            UnitOfTemperature.CELSIUS,
             "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
+        ),
+        # This is only available when the `ChillerCommon.Preset` is `custom`.
+        generate_setpoint(
+            "number_setpoint_chiller_common_fahrenheit",
+            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
+            UnitOfTemperature.FAHRENHEIT,
+            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
+            "number_setpoint_chiller_common",
         ),
         generate_internal_light_brightness,
     ],
@@ -431,6 +482,11 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCSwitchEntityDescription(
             key="switch_refrigerator_vacation",
             entity="Refrigeration.Common.Setting.VacationMode",
+            device_class=SwitchDeviceClass.SWITCH,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_quick_ice",
+            entity="Refrigeration.Common.Setting.IceMaker.QuickIceEnabled",
             device_class=SwitchDeviceClass.SWITCH,
         ),
         HCSwitchEntityDescription(
@@ -485,6 +541,12 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
     ],
     "select": [
+        HCSelectEntityDescription(
+            key="select_dispenser_function",
+            entity="Refrigeration.Common.Setting.Dispenser.Function",
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
+        ),
         HCSelectEntityDescription(
             key="select_refrigerator_door_assistant_freezer_trigger",
             entity="Refrigeration.Common.Setting.Door.AssistantTriggerFreezer",
