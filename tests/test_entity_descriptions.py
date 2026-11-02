@@ -39,6 +39,7 @@ from custom_components.homeconnect_ws.entity_descriptions.dishcare import (
     DISHWASHER_MESSAGES,
 )
 from custom_components.homeconnect_ws.entity_descriptions.refrigeration import (
+    generate_fahrenheit_setpoint,
     generate_internal_light,
     generate_internal_light_brightness,
 )
@@ -312,6 +313,24 @@ def test_read_only_hob_power_controls_disabled_by_default() -> None:
 
     assert descriptions["switch"][0].force_disabled_default
     assert descriptions["select"][0].force_disabled_default
+
+
+def test_fahrenheit_setpoint_only_while_available() -> None:
+    """Test that the Fahrenheit twin is not offered while the appliance marks it unavailable."""
+    entity = "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit"
+    appliance = MagicMock()
+    generate = generate_fahrenheit_setpoint(
+        "number_setpoint_freezer_fahrenheit", "number_setpoint_freezer", entity
+    )
+
+    appliance.entities = {entity: MagicMock(available=False)}
+    assert generate(appliance) is None
+
+    appliance.entities = {entity: MagicMock(available=True)}
+    assert generate(appliance).key == "number_setpoint_freezer_fahrenheit"
+
+    appliance.entities = {}
+    assert generate(appliance) is None
 
 
 def test_start_button_disabled_only_for_read_only_hob() -> None:

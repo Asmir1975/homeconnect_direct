@@ -22,6 +22,8 @@ from .descriptions_definitions import (
 )
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from homeconnect_websocket import HomeAppliance
 
 
@@ -56,6 +58,32 @@ def generate_internal_light_brightness(
         step=1,
         force_disabled_default=power in appliance.entities,
     )
+
+
+def generate_fahrenheit_setpoint(
+    key: str, translation_key: str, entity: str
+) -> Callable[[HomeAppliance], HCNumberEntityDescription | None]:
+    """
+    Get the Fahrenheit twin of a setpoint, unless the appliance marks it unavailable.
+
+    Seen on KFI96AXEA: with the unit set to Celsius the appliance marks both Fahrenheit
+    setpoints as unavailable, they showed up as greyed-out copies of the Celsius ones.
+    """
+
+    def generate(appliance: HomeAppliance) -> HCNumberEntityDescription | None:
+        if (setpoint := appliance.entities.get(entity)) is None or not setpoint.available:
+            return None
+        return HCNumberEntityDescription(
+            key=key,
+            translation_key=translation_key,
+            entity=entity,
+            native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
+            device_class=NumberDeviceClass.TEMPERATURE,
+            mode=NumberMode.AUTO,
+            step=1,
+        )
+
+    return generate
 
 
 REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
@@ -322,14 +350,10 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             mode=NumberMode.AUTO,
             step=1,
         ),
-        HCNumberEntityDescription(
-            key="number_setpoint_freezer_fahrenheit",
-            translation_key="number_setpoint_freezer",
-            entity="Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
-            native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
-            device_class=NumberDeviceClass.TEMPERATURE,
-            mode=NumberMode.AUTO,
-            step=1,
+        generate_fahrenheit_setpoint(
+            "number_setpoint_freezer_fahrenheit",
+            "number_setpoint_freezer",
+            "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
         ),
         HCNumberEntityDescription(
             key="number_setpoint_refrigerator",
@@ -339,14 +363,10 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             mode=NumberMode.AUTO,
             step=1,
         ),
-        HCNumberEntityDescription(
-            key="number_setpoint_refrigerator_fahrenheit",
-            translation_key="number_setpoint_refrigerator",
-            entity="Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
-            native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
-            device_class=NumberDeviceClass.TEMPERATURE,
-            mode=NumberMode.AUTO,
-            step=1,
+        generate_fahrenheit_setpoint(
+            "number_setpoint_refrigerator_fahrenheit",
+            "number_setpoint_refrigerator",
+            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
         HCNumberEntityDescription(
@@ -359,15 +379,10 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             step=1,
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
-        HCNumberEntityDescription(
-            key="number_setpoint_chiller_common_fahrenheit",
-            translation_key="number_setpoint_chiller_common",
-            entity="Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
-            native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
-            device_class=NumberDeviceClass.TEMPERATURE,
-            entity_registry_enabled_default=False,
-            mode=NumberMode.AUTO,
-            step=1,
+        generate_fahrenheit_setpoint(
+            "number_setpoint_chiller_common_fahrenheit",
+            "number_setpoint_chiller_common",
+            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
         ),
         generate_internal_light_brightness,
     ],
