@@ -1220,6 +1220,11 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     ],
     "binary_sensor": [
         HCBinarySensorEntityDescription(
+            key="binary_sensor_hob_join_zone",
+            entity="Cooking.Hob.Option.JoinZone",
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        HCBinarySensorEntityDescription(
             key="binary_sensor_hood_regenerative_carbon_filter_lifetime_exceeded",
             entity="Cooking.Common.Event.Hood.RegenerativeCarbonFilterLifeTimeExceeded",
             entity_category=EntityCategory.DIAGNOSTIC,

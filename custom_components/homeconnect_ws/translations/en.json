@@ -401,6 +401,9 @@
       "binary_remote_start_allowed": {
         "name": "Remote start allowed"
       },
+      "binary_sensor_hob_join_zone": {
+        "name": "Join zone"
+      },
       "binary_sensor_child_lock_active": {
         "name": "Child lock active"
       },
