@@ -1755,6 +1755,7 @@
           "smart_filter_cleaning_reminder": "Smart filter cleaning due",
           "machine_care_reminder": "Machine care due",
           "low_voltage": "Low voltage",
+          "low_water_pressure": "Low water pressure",
           "program_aborted": "Program aborted",
           "none": "No error"
         }

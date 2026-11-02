@@ -1755,6 +1755,7 @@
           "smart_filter_cleaning_reminder": "Smarte Filterreinigung fällig",
           "machine_care_reminder": "Maschinenpflege fällig",
           "low_voltage": "Niederspannung",
+          "low_water_pressure": "Niedriger Wasserdruck",
           "program_aborted": "Programm abgebrochen",
           "none": "Kein Fehler"
         }

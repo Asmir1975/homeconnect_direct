@@ -35,6 +35,7 @@ DISHWASHER_MESSAGES = (
         "Dishcare.Dishwasher.Event.FlexSpray.Error.SprayArmNotMounted",
         "flexspray_error_spray_arm_not_mounted",
     ),
+    ("BSH.Common.Event.LowWaterPressure", "low_water_pressure"),
     ("Dishcare.Dishwasher.Event.WaterheaterCalcified", "waterheater_calcified"),
     ("Dishcare.Dishwasher.Event.CheckFilterSystem", "check_filter_system"),
     (

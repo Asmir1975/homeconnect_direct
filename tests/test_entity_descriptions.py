@@ -1460,6 +1460,7 @@ DISHWASHER_MESSAGE_PROFILE = DeviceDescription(
                 "Dishcare.Dishwasher.Event.DrainPumpBlocked",
                 "Dishcare.Dishwasher.Event.CheckFilterSystem",
                 "Dishcare.Dishwasher.Event.MachineCareReminder",
+                "BSH.Common.Event.LowWaterPressure",
             ),
             start=1,
         )
@@ -1487,19 +1488,45 @@ async def test_dishwasher_message_shows_most_urgent_event(
     blocked = appliance.entities["Dishcare.Dishwasher.Event.DrainPumpBlocked"]
     filter_check = appliance.entities["Dishcare.Dishwasher.Event.CheckFilterSystem"]
     care = appliance.entities["Dishcare.Dishwasher.Event.MachineCareReminder"]
+    pressure = appliance.entities["BSH.Common.Event.LowWaterPressure"]
 
-    for event in (blocked, filter_check, care):
+    for event in (blocked, filter_check, care, pressure):
         await event.update({"value": 0})
     assert sensor.native_value == "none"
 
     await care.update({"value": 1})
     assert sensor.native_value == "machine_care_reminder"
 
+    await pressure.update({"value": 1})
+    assert sensor.native_value == "low_water_pressure"
+
+    await pressure.update({"value": 0})
     await filter_check.update({"value": 1})
     assert sensor.native_value == "check_filter_system"
 
     await blocked.update({"value": 1})
     assert sensor.native_value == "drain_pump_blocked"
+
+
+async def test_low_water_pressure_binary_sensor_only_outside_dishwashers(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the dishwasher message sensor replaces the low water pressure binary sensor."""
+    profile = DeviceDescription(
+        event=[
+            EntityDescription(
+                uid=1,
+                name="BSH.Common.Event.LowWaterPressure",
+                enumeration={"0": "Off", "1": "Present", "2": "Confirmed"},
+            )
+        ],
+    )
+    for appliance_type, expected in (("Dishwasher", False), ("Washer", True)):
+        appliance = await mock_homeconnect_appliance(description=profile)
+        appliance.info = {"deviceID": "test_device_id", "type": appliance_type}
+        available = entity_descriptions.get_available_entities(appliance)
+        keys = {item.key for item in available["binary_sensor"]}
+        assert ("binary_sensor_low_water_pressure" in keys) is expected, appliance_type
 
 
 def test_dishwasher_message_states_translated() -> None:

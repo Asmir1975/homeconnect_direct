@@ -206,6 +206,26 @@ def generate_program_aborted_binary_sensor(
     )
 
 
+def generate_low_water_pressure_binary_sensor(
+    appliance: HomeAppliance,
+) -> HCBinarySensorEntityDescription | None:
+    """Get the LowWaterPressure binary sensor, unless the dishwasher message sensor covers it."""
+    if (
+        appliance.info.get("type") == "Dishwasher"
+        or "BSH.Common.Event.LowWaterPressure" not in appliance.entities
+    ):
+        return None
+    return HCBinarySensorEntityDescription(
+        key="binary_sensor_low_water_pressure",
+        device_class=BinarySensorDeviceClass.PROBLEM,
+        entity="BSH.Common.Event.LowWaterPressure",
+        force_disabled_default=True,
+        value_on={"Present"},
+        value_off={"Off", "Confirmed"},
+        entity_category=EntityCategory.DIAGNOSTIC,
+    )
+
+
 def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Door program select and sensor description."""
     pattern = re.compile(r"^BSH\.Common\.Program\.Favorite\.(.*)$")
@@ -493,15 +513,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             value_off={"Off", "Confirmed"},
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_low_water_pressure",
-            device_class=BinarySensorDeviceClass.PROBLEM,
-            entity="BSH.Common.Event.LowWaterPressure",
-            force_disabled_default=True,
-            value_on={"Present"},
-            value_off={"Off", "Confirmed"},
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
+        generate_low_water_pressure_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_remote_start_allowed",
             entity="BSH.Common.Status.RemoteControlStartAllowed",
