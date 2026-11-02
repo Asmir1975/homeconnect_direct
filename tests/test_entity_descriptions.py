@@ -28,6 +28,8 @@ from custom_components.homeconnect_ws.entity_descriptions.common import (
     generate_program_progress,
     generate_remaining_program_time,
     generate_start_button,
+    generate_wifi,
+    generate_wifi_status_sensor,
 )
 from custom_components.homeconnect_ws.entity_descriptions.cooking import (
     COOKING_ENTITY_DESCRIPTIONS,
@@ -321,6 +323,28 @@ def test_fridge_dispenser_and_sabbath_descriptions() -> None:
     }
 
     assert expected.items() <= found.items()
+
+
+def test_wifi_is_polled_where_the_status_is_never_reported() -> None:
+    """Test that the WiFi sensor asks the network info on coffee makers and fridge freezers."""
+    appliance = MagicMock()
+
+    for appliance_type, has_status, polled in (
+        ("Oven", True, False),
+        ("Hob", True, False),
+        ("Oven", False, True),
+        ("CoffeeMaker", True, True),
+        ("FridgeFreezer", True, True),
+    ):
+        appliance.info = {"type": appliance_type}
+        appliance.entities = (
+            {"BSH.Common.Status.WiFiSignalStrength": MagicMock()} if has_status else {}
+        )
+        assert (generate_wifi(appliance) is not None) is polled, (appliance_type, has_status)
+        assert (generate_wifi_status_sensor(appliance) is None) is polled, (
+            appliance_type,
+            has_status,
+        )
 
 
 def test_door_state_left_out_on_fridge_freezers_with_own_doors() -> None:

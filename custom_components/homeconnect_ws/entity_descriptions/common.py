@@ -320,11 +320,10 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
 
 
 def _wifi_is_polled(appliance: HomeAppliance) -> bool:
-    """Coffee makers list the WiFi status but never report it, so ask the network info."""
-    return (
-        "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities
-        or appliance.info.get("type") == "CoffeeMaker"
-    )
+    """Coffee makers and fridge freezers never report the WiFi status, so ask the network info."""
+    return "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities or appliance.info.get(
+        "type"
+    ) in ("CoffeeMaker", "FridgeFreezer")
 
 
 def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
