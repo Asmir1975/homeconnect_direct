@@ -20,12 +20,16 @@ from custom_components.homeconnect_ws.entity_descriptions import (
 )
 from custom_components.homeconnect_ws.entity_descriptions.common import (
     COMMON_ENTITY_DESCRIPTIONS,
+    generate_door_state,
+    generate_door_state_binary_sensor,
     generate_elapsed_program_time,
     generate_power_switch,
     generate_program,
     generate_program_progress,
     generate_remaining_program_time,
     generate_start_button,
+    generate_wifi,
+    generate_wifi_status_sensor,
 )
 from custom_components.homeconnect_ws.entity_descriptions.cooking import (
     COOKING_ENTITY_DESCRIPTIONS,
@@ -39,8 +43,10 @@ from custom_components.homeconnect_ws.entity_descriptions.dishcare import (
     DISHWASHER_MESSAGES,
 )
 from custom_components.homeconnect_ws.entity_descriptions.refrigeration import (
+    REFRIGERATION_ENTITY_DESCRIPTIONS,
     generate_internal_light,
     generate_internal_light_brightness,
+    generate_setpoint,
 )
 from custom_components.homeconnect_ws.helpers import entity_is_available, merge_dicts
 from custom_components.homeconnect_ws.number import HCNumber
@@ -49,7 +55,7 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.number import NumberDeviceClass, NumberMode, ceil_decimal
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
-from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfTime
+from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfTemperature, UnitOfTime
 from homeassistant.util.unit_conversion import DurationConverter
 from homeconnect_websocket.entities import (
     Access,
@@ -297,21 +303,131 @@ async def test_power_switch(mock_homeconnect_appliance: MockApplianceType) -> No
     )
 
 
-def test_read_only_hob_power_controls_disabled_by_default() -> None:
-    """Test that read-only hob power controls start disabled."""
+def test_fridge_dispenser_and_sabbath_descriptions() -> None:
+    """Test that the dispenser, quick ice, ice hopper and sabbath duration settings are mapped."""
+    common = "Refrigeration.Common."
+    expected = {
+        "select_dispenser_function": f"{common}Setting.Dispenser.Function",
+        "switch_quick_ice": f"{common}Setting.IceMaker.QuickIceEnabled",
+        "number_sabbath_mode_duration": f"{common}Setting.SabbathModeDuration",
+        "binary_sensor_water_tank_empty": f"{common}Event.Dispenser.WaterTankEmpty",
+        "binary_sensor_ice_hopper_empty": f"{common}Event.Dispenser.EmptyIceHopper",
+        "binary_sensor_quick_ice_bin_full": f"{common}Event.IceMaker.QuickIceBinFull",
+        "binary_sensor_ice_hopper_presence": f"{common}Status.Dispenser.IceHopperPresence",
+    }
+    found = {
+        item.key: item.entity
+        for items in REFRIGERATION_ENTITY_DESCRIPTIONS.values()
+        for item in items
+        if not callable(item)
+    }
+
+    assert expected.items() <= found.items()
+
+
+def test_wifi_is_polled_where_the_status_is_never_reported() -> None:
+    """Test that the WiFi sensor asks the network info on coffee makers and fridge freezers."""
     appliance = MagicMock()
-    appliance.info = {"type": "Hob"}
+
+    for appliance_type, has_status, polled in (
+        ("Oven", True, False),
+        ("Hob", True, False),
+        ("Oven", False, True),
+        ("CoffeeMaker", True, True),
+        ("FridgeFreezer", True, True),
+    ):
+        appliance.info = {"type": appliance_type}
+        appliance.entities = (
+            {"BSH.Common.Status.WiFiSignalStrength": MagicMock()} if has_status else {}
+        )
+        assert (generate_wifi(appliance) is not None) is polled, (appliance_type, has_status)
+        assert (generate_wifi_status_sensor(appliance) is None) is polled, (
+            appliance_type,
+            has_status,
+        )
+
+
+def test_door_state_left_out_on_fridge_freezers_with_own_doors() -> None:
+    """Test that the general door state is only left out where the doors have their own state."""
+    appliance = MagicMock()
+    appliance.entities = {
+        "BSH.Common.Status.DoorState": MagicMock(
+            enum={0: "Open", 1: "Closed", 2: "Locked", 3: "Ajar"}
+        )
+    }
+
+    for appliance_type, doors, kept in (
+        ("Oven", (), True),
+        ("Dishwasher", (), True),
+        ("FridgeFreezer", (), True),
+        ("FridgeFreezer", ("Refrigeration.Common.Status.Door.Freezer",), False),
+        ("Oven", ("Refrigeration.Common.Status.Door.Freezer",), True),
+    ):
+        appliance.info = {"type": appliance_type}
+        appliance.entities = {
+            "BSH.Common.Status.DoorState": appliance.entities["BSH.Common.Status.DoorState"],
+            **dict.fromkeys(doors, MagicMock()),
+        }
+        assert (generate_door_state_binary_sensor(appliance) is not None) is kept, (
+            appliance_type,
+            doors,
+        )
+        assert (generate_door_state(appliance) is not None) is kept, (appliance_type, doors)
+
+
+def test_read_only_power_state_has_no_controls_where_seen() -> None:
+    """Test that a read-only power state gets no switch or select on hobs and fridge freezers."""
+    appliance = MagicMock()
     power_state = MagicMock()
-    power_state.access = Access.READ
-    power_state.enum = {1: "Off", 2: "On"}
-    power_state.min = 1
-    power_state.max = 2
+    power_state.enum = {0: "MainsOff", 1: "Off", 2: "On", 3: "Standby"}
+    power_state.min = None
+    power_state.max = None
     appliance.entities = {"BSH.Common.Setting.PowerState": power_state}
 
-    descriptions = generate_power_switch(appliance)
+    for appliance_type, access, controls in (
+        ("Hob", Access.READ, False),
+        ("FridgeFreezer", Access.READ, False),
+        ("FridgeFreezer", Access.READ_WRITE, True),
+        ("Oven", Access.READ, True),
+    ):
+        appliance.info = {"type": appliance_type}
+        power_state.access = access
+        assert bool(generate_power_switch(appliance)) is controls, (appliance_type, access)
 
-    assert descriptions["switch"][0].force_disabled_default
-    assert descriptions["select"][0].force_disabled_default
+
+def test_setpoint_left_out_only_when_unavailable_and_twin_available() -> None:
+    """Test that the setpoint of the unselected unit is left out and no other is lost."""
+    celsius = "Refrigeration.Common.Setting.Freezer.SetpointTemperature"
+    fahrenheit = celsius + "Fahrenheit"
+    appliance = MagicMock()
+    generate_celsius = generate_setpoint(
+        "number_setpoint_freezer", celsius, UnitOfTemperature.CELSIUS, fahrenheit
+    )
+    generate_fahrenheit = generate_setpoint(
+        "number_setpoint_freezer_fahrenheit",
+        fahrenheit,
+        UnitOfTemperature.FAHRENHEIT,
+        celsius,
+        "number_setpoint_freezer",
+    )
+
+    for celsius_available, fahrenheit_available, celsius_kept, fahrenheit_kept in (
+        (True, False, True, False),  # Celsius selected, as on the KFI96AXEA
+        (False, True, False, True),  # Fahrenheit selected
+        (True, True, True, True),
+        (False, False, True, True),  # both unavailable, nothing to prefer
+    ):
+        appliance.entities = {
+            celsius: MagicMock(available=celsius_available),
+            fahrenheit: MagicMock(available=fahrenheit_available),
+        }
+        assert (generate_celsius(appliance) is not None) is celsius_kept
+        assert (generate_fahrenheit(appliance) is not None) is fahrenheit_kept
+
+    # Only one unit listed, as in the profile of the KG39NAICT
+    appliance.entities = {celsius: MagicMock(available=False)}
+    assert generate_celsius(appliance) is not None
+    assert generate_fahrenheit(appliance) is None
 
 
 def test_start_button_disabled_only_for_read_only_hob() -> None:

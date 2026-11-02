@@ -254,6 +254,9 @@
       "switch_laundry_hygienic_steam": {
         "name": "Hygiene-Dampf"
       },
+      "switch_quick_ice": {
+        "name": "Schnell-Eis"
+      },
       "switch_refrigerator_sabbath_mode": {
         "name": "Sabbat-Modus"
       },
@@ -403,6 +406,18 @@
       },
       "binary_sensor_hob_join_zone": {
         "name": "Zonen verbunden"
+      },
+      "binary_sensor_water_tank_empty": {
+        "name": "Wassertank leer"
+      },
+      "binary_sensor_ice_hopper_empty": {
+        "name": "Eisbehälter leer"
+      },
+      "binary_sensor_quick_ice_bin_full": {
+        "name": "Schnell-Eis-Behälter voll"
+      },
+      "binary_sensor_ice_hopper_presence": {
+        "name": "Eisbehälter eingesetzt"
       },
       "binary_sensor_child_lock_active": {
         "name": "Kindersicherung aktiv"
@@ -4457,6 +4472,14 @@
           "plus3": "Plus 3"
         }
       },
+      "select_dispenser_function": {
+        "name": "Spenderfunktion",
+        "state": {
+          "cubes": "Würfel",
+          "crushed": "Gecrushtes Eis",
+          "water": "Wasser"
+        }
+      },
       "select_refrigerator_door_assistant_freezer_trigger": {
         "name": "Gefrierschrank-Türassistent Auslöser",
         "state": {
@@ -5003,11 +5026,14 @@
       "number_laundry_spin_class": {
         "name": "Schleuderklasse"
       },
+      "number_sabbath_mode_duration": {
+        "name": "Sabbat-Modus Dauer"
+      },
       "number_setpoint_freezer": {
         "name": "Temperatur Gefrierschrank"
       },
       "number_setpoint_refrigerator": {
-        "name": "Temperature Kühlschank"
+        "name": "Temperatur Kühlschrank"
       },
       "number_idos1_base_level": {
         "name": "i-DOS Dosiervolumen: Waschmittel"

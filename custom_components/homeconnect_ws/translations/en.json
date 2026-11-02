@@ -254,6 +254,9 @@
       "switch_oven_sabbath_mode": {
         "name": "Sabbath mode"
       },
+      "switch_quick_ice": {
+        "name": "Quick ice"
+      },
       "switch_refrigerator_sabbath_mode": {
         "name": "Sabbath mode"
       },
@@ -403,6 +406,18 @@
       },
       "binary_sensor_hob_join_zone": {
         "name": "Join zone"
+      },
+      "binary_sensor_water_tank_empty": {
+        "name": "Water tank empty"
+      },
+      "binary_sensor_ice_hopper_empty": {
+        "name": "Ice hopper empty"
+      },
+      "binary_sensor_quick_ice_bin_full": {
+        "name": "Quick ice bin full"
+      },
+      "binary_sensor_ice_hopper_presence": {
+        "name": "Ice hopper inserted"
       },
       "binary_sensor_child_lock_active": {
         "name": "Child lock active"
@@ -4457,6 +4472,14 @@
           "onlyonetime": "Very short"
         }
       },
+      "select_dispenser_function": {
+        "name": "Dispenser function",
+        "state": {
+          "cubes": "Cubes",
+          "crushed": "Crushed ice",
+          "water": "Water"
+        }
+      },
       "select_refrigerator_door_assistant_freezer_trigger": {
         "name": "Freezer Door Assistant trigger",
         "state": {
@@ -5002,6 +5025,9 @@
       },
       "number_laundry_spin_class": {
         "name": "Spin class"
+      },
+      "number_sabbath_mode_duration": {
+        "name": "Sabbath mode duration"
       },
       "number_setpoint_freezer": {
         "name": "Freezer Temperature"

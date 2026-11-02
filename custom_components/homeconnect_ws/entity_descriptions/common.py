@@ -92,13 +92,20 @@ def generate_start_button(appliance: HomeAppliance) -> EntityDescriptions:
     return None
 
 
+_READ_ONLY_POWER_STATE_TYPES = frozenset({"Hob", "FridgeFreezer"})
+
+
 def generate_power_switch(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Power switch description."""
     entity_descriptions = EntityDescriptions()
     if entity := appliance.entities.get("BSH.Common.Setting.PowerState"):
-        force_disabled_default = (
-            appliance.info.get("type") == "Hob" and entity.access == Access.READ
-        )
+        if (
+            appliance.info.get("type") in _READ_ONLY_POWER_STATE_TYPES
+            and entity.access == Access.READ
+        ):
+            # Seen on EX851LYV5E, EX877HVC1E and KFI96AXEA: the state cannot be written, the
+            # controls stayed unavailable. The power state sensor shows the state.
+            return entity_descriptions
         if entity.min and entity.max:
             # has min/max
             settable_states = set()
@@ -118,7 +125,6 @@ def generate_power_switch(appliance: HomeAppliance) -> EntityDescriptions:
                             entity="BSH.Common.Setting.PowerState",
                             device_class=SwitchDeviceClass.SWITCH,
                             value_mapping=mapping,
-                            force_disabled_default=force_disabled_default,
                         )
                     ]
 
@@ -130,7 +136,6 @@ def generate_power_switch(appliance: HomeAppliance) -> EntityDescriptions:
                 has_state_translation=True,
                 # more then two power states
                 entity_registry_enabled_default=len(settable_states) > 2,
-                force_disabled_default=force_disabled_default,
             )
         ]
     return entity_descriptions
@@ -173,10 +178,42 @@ def generate_acknowledge_event_button(appliance: HomeAppliance) -> HCButtonEntit
     )
 
 
+def _has_own_fridge_doors(appliance: HomeAppliance) -> bool:
+    """
+    Whether a fridge freezer reports a state for each of its doors.
+
+    Seen on KFI96AXEA: the general door state stays on "Open" while both doors
+    are closed, so it is left out and only the doors of the compartments stay.
+    """
+    return appliance.info.get("type") == "FridgeFreezer" and any(
+        door in appliance.entities
+        for door in (
+            "Refrigeration.Common.Status.Door.Freezer",
+            "Refrigeration.Common.Status.Door.Refrigerator",
+            "Refrigeration.FridgeFreezer.Status.DoorFreezer",
+            "Refrigeration.FridgeFreezer.Status.DoorRefrigerator",
+        )
+    )
+
+
+def generate_door_state_binary_sensor(
+    appliance: HomeAppliance,
+) -> HCBinarySensorEntityDescription | None:
+    """Get the door binary sensor, unless the compartments have their own doors."""
+    if "BSH.Common.Status.DoorState" not in appliance.entities or _has_own_fridge_doors(appliance):
+        return None
+    return HCBinarySensorEntityDescription(
+        key="binary_sensor_door_state",
+        entity="BSH.Common.Status.DoorState",
+        value_on={"Open", "Ajar"},
+        value_off={"Closed", "Locked"},
+    )
+
+
 def generate_door_state(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
     """Get Door sensor description."""
     entity = appliance.entities.get("BSH.Common.Status.DoorState")
-    if entity and len(entity.enum) > 2:
+    if entity and len(entity.enum) > 2 and not _has_own_fridge_doors(appliance):
         return HCSensorEntityDescription(
             key="sensor_door_state",
             entity="BSH.Common.Status.DoorState",
@@ -283,11 +320,10 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
 
 
 def _wifi_is_polled(appliance: HomeAppliance) -> bool:
-    """Coffee makers list the WiFi status but never report it, so ask the network info."""
-    return (
-        "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities
-        or appliance.info.get("type") == "CoffeeMaker"
-    )
+    """Coffee makers and fridge freezers never report the WiFi status, so ask the network info."""
+    return "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities or appliance.info.get(
+        "type"
+    ) in ("CoffeeMaker", "FridgeFreezer")
 
 
 def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
@@ -498,12 +534,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="BSH.Common.Option.RemainingProgramTime.AutoCounting",
             force_disabled_default=True,
         ),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_door_state",
-            entity="BSH.Common.Status.DoorState",
-            value_on={"Open", "Ajar"},
-            value_off={"Closed", "Locked"},
-        ),
+        generate_door_state_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_sensor_aqua_stop",
             device_class=BinarySensorDeviceClass.PROBLEM,
