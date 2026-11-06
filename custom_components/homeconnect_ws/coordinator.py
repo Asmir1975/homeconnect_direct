@@ -101,6 +101,7 @@ class HomeConnectCoordinator(DataUpdateCoordinator):
                 await self.appliance.close()
                 msg = f"Can't connect to {self.config_entry.data[CONF_HOST]}, retrying"
                 if first_failure:
+                    msg = f"{msg}. A short power cycle of the appliance can help."
                     self.logger.error(msg)  # noqa: TRY400
                     first_failure = False  # first_failure_fix
                 else:

@@ -76,6 +76,7 @@ async def test_connect_logs_handshake_refusal_once() -> None:
     assert attempts == 4
     assert sleep.await_count == 3
     coord.logger.error.assert_called_once()
+    assert "power cycle" in coord.logger.error.call_args.args[0]
     coord.logger.exception.assert_not_called()
 
 
