@@ -52,7 +52,7 @@ from custom_components.homeconnect_ws.helpers import entity_is_available, merge_
 from custom_components.homeconnect_ws.number import HCNumber
 from custom_components.homeconnect_ws.sensor import HCEventSensor
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
-from homeassistant.components.number import NumberDeviceClass, NumberMode, ceil_decimal
+from homeassistant.components.number import NumberDeviceClass, NumberMode
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfTemperature, UnitOfTime
@@ -64,6 +64,11 @@ from homeconnect_websocket.entities import (
     Execution,
     OptionDescription,
 )
+
+try:
+    from homeassistant.components.number.entity import ceil_decimal
+except ImportError:  # Home Assistant vor 2026.11
+    from homeassistant.components.number import ceil_decimal
 
 if TYPE_CHECKING:
     import pytest
