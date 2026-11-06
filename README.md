@@ -8,11 +8,11 @@
 
 Control Bosch, Siemens and Neff appliances from Home Assistant over your local network.
 
-⭐ If this fork helps you, a star makes it easier for others to find.
+⭐ If this helps you, a star makes it easier for others to find.
 
 </div>
 
-## Why this fork
+## Why Home Connect Direct
 
 - Sign in to Home Connect during setup. You don't need the desktop tool, and it works on any device.
 - Local after setup: your appliances talk to Home Assistant directly.
@@ -32,11 +32,14 @@ Control Bosch, Siemens and Neff appliances from Home Assistant over your local n
 
 ## Get started
 
-1. Add the repository to HACS, download it and restart Home Assistant.
+1. Add the repository and install it.
 
-   [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Asmir1975&repository=homeconnect_direct&category=integration)
+   [![Open your Home Assistant instance and open this repository.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Asmir1975&repository=homeconnect_direct&category=integration)
 
-   <sub>Or add it by hand: HACS → Custom repositories → `https://github.com/Asmir1975/homeconnect_direct`, type Integration.</sub>
+   Or add it by hand:
+
+   - **Home Assistant 2026.11 or newer:** Settings → Marketplace → **Add from link**, enter `https://github.com/Asmir1975/homeconnect_direct`, then **Install**. The first time, Home Assistant asks you to connect GitHub.
+   - **Older versions:** HACS → Custom repositories → the same URL, type Integration. Download it and restart Home Assistant.
 
 2. Add the integration and choose **Sign in with Home Connect**.
 
