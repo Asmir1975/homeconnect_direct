@@ -1361,7 +1361,7 @@ OVEN_SETTINGS_PROFILE = _settings(
 async def test_hob_settings_follow_the_app(
     mock_homeconnect_appliance: MockApplianceType,
 ) -> None:
-    """Test the hob settings become config entities, the child lock as a select only."""
+    """Test the hob settings become config entities, with the ChildLock switch kept."""
     appliance = await mock_homeconnect_appliance(description=HOB_SETTINGS_PROFILE)
     entities = entity_descriptions.get_available_entities(appliance)
 
@@ -1383,7 +1383,7 @@ async def test_hob_settings_follow_the_app(
         "select_hob_power_move_middle_right",
         "select_hob_power_move_rear_right",
     }
-    assert not entities.get("switch")
+    assert [item.key for item in entities["switch"]] == ["switch_child_lock"]
     timer = next(item for item in entities["number"] if item.key == "number_hob_automatic_timer")
     assert timer.mode is NumberMode.SLIDER
 
