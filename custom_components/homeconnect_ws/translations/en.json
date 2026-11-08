@@ -4618,7 +4618,7 @@
         }
       },
       "select_hob_automatic_key_lock": {
-        "name": "Child lock",
+        "name": "Automatic child lock",
         "state": {
           "deactivated": "Manual",
           "activated": "Automatically when switched off",
