@@ -1857,6 +1857,33 @@
       "sensor_delayed_shutoff_time": {
         "name": "Fan run-on time"
       },
+      "sensor_hob_ventilation": {
+        "name": "Ventilation",
+        "state": {
+          "off": "Off",
+          "automatic": "Automatic mode",
+          "afterrun": "Run-on mode",
+          "level01": "Level 1",
+          "level02": "Level 1.5",
+          "level03": "Level 2",
+          "level04": "Level 2.5",
+          "level05": "Level 3",
+          "level06": "Level 3.5",
+          "level07": "Level 4",
+          "level08": "Level 4.5",
+          "level09": "Level 5",
+          "level10": "Level 5.5",
+          "level11": "Level 6",
+          "level12": "Level 6.5",
+          "level13": "Level 7",
+          "level14": "Level 7.5",
+          "level15": "Level 8",
+          "level16": "Level 8.5",
+          "level17": "Level 9",
+          "boostlevel1": "Boost 1",
+          "boostlevel2": "Boost 2"
+        }
+      },
       "sensor_power_state": {
         "name": "Power state",
         "state": {

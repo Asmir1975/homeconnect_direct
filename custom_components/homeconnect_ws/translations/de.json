@@ -1854,6 +1854,33 @@
       "sensor_delayed_shutoff_time": {
         "name": "Nachlaufzeit"
       },
+      "sensor_hob_ventilation": {
+        "name": "Lüftersteuerung",
+        "state": {
+          "off": "Aus",
+          "automatic": "Automatikmodus",
+          "afterrun": "Nachlaufmodus",
+          "level01": "Stufe 1",
+          "level02": "Stufe 1.5",
+          "level03": "Stufe 2",
+          "level04": "Stufe 2.5",
+          "level05": "Stufe 3",
+          "level06": "Stufe 3.5",
+          "level07": "Stufe 4",
+          "level08": "Stufe 4.5",
+          "level09": "Stufe 5",
+          "level10": "Stufe 5.5",
+          "level11": "Stufe 6",
+          "level12": "Stufe 6.5",
+          "level13": "Stufe 7",
+          "level14": "Stufe 7.5",
+          "level15": "Stufe 8",
+          "level16": "Stufe 8.5",
+          "level17": "Stufe 9",
+          "boostlevel1": "Intensiv 1",
+          "boostlevel2": "Intensiv 2"
+        }
+      },
       "sensor_power_state": {
         "name": "Status",
         "state": {

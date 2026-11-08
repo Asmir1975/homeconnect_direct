@@ -713,6 +713,12 @@ def _generate_hood_favorite_functionality(
 COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "sensor": [
         HCSensorEntityDescription(
+            key="sensor_hob_ventilation",
+            entity="Cooking.Hob.Setting.Ventilation",
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
+        ),
+        HCSensorEntityDescription(
             key="sensor_oven_steam_assist_level",
             entity="Cooking.Oven.Option.SteamAssistLevel",
             device_class=SensorDeviceClass.ENUM,

@@ -50,7 +50,7 @@ from custom_components.homeconnect_ws.entity_descriptions.refrigeration import (
 )
 from custom_components.homeconnect_ws.helpers import entity_is_available, merge_dicts
 from custom_components.homeconnect_ws.number import HCNumber
-from custom_components.homeconnect_ws.sensor import HCEventSensor
+from custom_components.homeconnect_ws.sensor import HCEventSensor, HCSensor
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.number import NumberDeviceClass, NumberMode
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
@@ -1965,3 +1965,91 @@ async def test_alarm_clock_numbers_convert_into_every_duration_unit(
                 item.native_max_value
             )
             ceil_decimal(converted, precision)
+
+
+# NEFF T58PL6EX2, uid 4409: names and raw keys from the debug log and the diagnostics
+# excerpt in the issue (08.11.2026). The access was read in an earlier capture and
+# readwrite during the test.
+HOB_VENTILATION_ENUM = {
+    "0": "Off",
+    "1": "Automatic",
+    **{str(10 + level): f"Level{level:02d}" for level in range(1, 18)},
+    "95": "BoostLevel1",
+    "96": "BoostLevel2",
+    "101": "AfterRun",
+}
+HOB_VENTILATION_PROFILE = {
+    "setting": [
+        {
+            "access": "read",
+            "available": True,
+            "uid": 4409,
+            "name": "Cooking.Hob.Setting.Ventilation",
+            "enumeration": HOB_VENTILATION_ENUM,
+        },
+    ],
+}
+# Values notified in the log, from 13:22:30 to 13:23:43
+HOB_VENTILATION_LOG = (
+    (12, "level02"),
+    (15, "level05"),
+    (17, "level07"),
+    (18, "level08"),
+    (19, "level09"),
+    (21, "level11"),
+    (95, "boostlevel1"),
+    (96, "boostlevel2"),
+    (27, "level17"),
+    (21, "level11"),
+    (18, "level08"),
+    (17, "level07"),
+    (11, "level01"),
+    (0, "off"),
+)
+
+
+async def test_hob_ventilation_sensor_follows_the_hob(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test the ventilation sensor follows the values the hob reported."""
+    appliance = await mock_homeconnect_appliance(description=HOB_VENTILATION_PROFILE)
+    available = entity_descriptions.get_available_entities(appliance)
+    entity = appliance.entities["Cooking.Hob.Setting.Ventilation"]
+
+    sensor = next(item for item in available["sensor"] if item.key == "sensor_hob_ventilation")
+    assert sensor.device_class is SensorDeviceClass.ENUM
+    assert sensor.entity_category is None
+    select = next(item for item in available["select"] if item.key == "select_hob_ventilation")
+
+    # With access read the select is unavailable, the sensor is not.
+    assert entity_is_available(entity, sensor.available_access)
+    assert not entity_is_available(entity, select.available_access)
+
+    appliance.info["deviceID"] = "test_hob"
+    runtime = HCData(
+        appliance=appliance,
+        device_info=MagicMock(),
+        available_entity_descriptions=available,
+        coordinator=MagicMock(),
+    )
+    hc_sensor = HCSensor(sensor, runtime)
+    assert hc_sensor.options == [name.lower() for name in HOB_VENTILATION_ENUM.values()]
+
+    # The hob switched the access to readwrite during the test.
+    await entity.update({"access": "readwrite", "value": 0})
+    assert entity_is_available(entity, sensor.available_access)
+    assert entity_is_available(entity, select.available_access)
+
+    for raw, state in HOB_VENTILATION_LOG:
+        await entity.update({"value": raw})
+        assert hc_sensor.native_value == state, raw
+
+
+def test_hob_ventilation_sensor_states_are_translated() -> None:
+    """Test every ventilation level has a state text in en and de."""
+    root = Path(entity_descriptions.__file__).parents[1] / "translations"
+    keys = {name.lower() for name in HOB_VENTILATION_ENUM.values()}
+    for language in ("en", "de"):
+        translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
+        states = translation["entity"]["sensor"]["sensor_hob_ventilation"]["state"]
+        assert set(states) == keys, language

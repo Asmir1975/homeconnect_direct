@@ -403,6 +403,12 @@
                     "none": "mdi:message-outline"
                 }
             },
+            "sensor_hob_ventilation": {
+                "default": "mdi:fan",
+                "state": {
+                    "off": "mdi:fan-off"
+                }
+            },
             "sensor_oven_message": {
                 "default": "mdi:message-alert-outline",
                 "state": {
