@@ -209,6 +209,9 @@
       "switch_oven_sabbath_mode": {
         "name": "Sabbat Modus"
       },
+      "switch_oven_night_dimout": {
+        "name": "Nachtabsenkung"
+      },
       "switch_zeolite_dry": {
         "name": "CrystalDry"
       },
@@ -2071,6 +2074,17 @@
           "prepare_drying": "Trocknen vorbereiten",
           "clock_permanent_on": "Uhr dauerhaft an",
           "is_not_shown_again": "Wird nicht mehr angezeigt",
+          "force_draining": "Zwangsentleerung",
+          "meatprobe_incompatible_operation": "Bratenthermometer in dieser Betriebsart nicht möglich",
+          "baking_sensor_program_aborted": "Backsensor-Programm abgebrochen",
+          "water_container_empty": "Wassertank leer",
+          "insert_water_container": "Wassertank einsetzen",
+          "close_front_panel": "Bedienblende schließen",
+          "user_interaction_required": "Eingabe am Gerät notwendig",
+          "empty_water_container": "Wassertank leeren",
+          "water_container_nearly_empty": "Wassertank fast leer",
+          "descaling_request": "Entkalken notwendig",
+          "ecolysis_required": "Reinigung notwendig (Ecolyse)",
           "none": "Keine Meldung"
         }
       },
@@ -4743,6 +4757,15 @@
           "favorites": "Favoriten"
         }
       },
+      "select_oven_operation_after_restart": {
+        "name": "Betrieb nach Neustart",
+        "state": {
+          "mainmenue": "Hauptmenü",
+          "heatingmodes": "Heizarten",
+          "steammodes": "Dampfarten",
+          "dishes": "Gerichte"
+        }
+      },
       "select_oven_cavity_illumination": {
         "name": "Beleuchtung",
         "state": {
@@ -5049,6 +5072,12 @@
       },
       "number_oven_display_brightness": {
         "name": "Display Helligkeit"
+      },
+      "number_oven_meatprobe_temperature": {
+        "name": "Bratenthermometer Zieltemperatur"
+      },
+      "number_oven_sound_volume": {
+        "name": "Lautstärke"
       },
       "number_start_in": {
         "name": "Starten in"

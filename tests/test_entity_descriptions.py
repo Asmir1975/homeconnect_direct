@@ -34,6 +34,7 @@ from custom_components.homeconnect_ws.entity_descriptions.common import (
 from custom_components.homeconnect_ws.entity_descriptions.cooking import (
     COOKING_ENTITY_DESCRIPTIONS,
     HOOD_FILTER_MESSAGES,
+    OVEN_FLAT_MESSAGES,
     OVEN_MESSAGES,
     generate_hob_zones,
     generate_hood_fan,
@@ -1562,7 +1563,7 @@ async def test_oven_message_shows_most_urgent_event(
 def test_oven_message_states_translated() -> None:
     """Test every oven message state and new name has an English and German text."""
     root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
-    keys = [key for _, key in OVEN_MESSAGES] + ["none"]
+    keys = [key for _, key in (*OVEN_MESSAGES, *OVEN_FLAT_MESSAGES)] + ["none"]
     for language in ("en", "de"):
         translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
         states = translation["entity"]["sensor"]["sensor_oven_message"]["state"]
@@ -1828,6 +1829,121 @@ async def test_smart_start_switches_disabled_by_default(
     assert smart_start.entity_category is None
     assert auto.force_disabled_default is True
     assert smart_start.force_disabled_default is True
+
+
+_EVENT_ENUM = {"0": "Off", "1": "Present", "2": "Confirmed"}
+
+# UIDs and names from the HS658GXS7 profile, which has no Cavity namespace.
+FLAT_OVEN_PROFILE = DeviceDescription(
+    status=[
+        EntityDescription(
+            uid=4100,
+            name="Cooking.Oven.Status.MeatprobePlugged",
+            available=True,
+            access=Access.READ,
+        ),
+    ],
+    event=[
+        EntityDescription(
+            uid=4611, name="Cooking.Oven.Event.WaterContainerEmpty", enumeration=_EVENT_ENUM
+        ),
+        EntityDescription(
+            uid=4612, name="Cooking.Oven.Event.PreheatFinished", enumeration=_EVENT_ENUM
+        ),
+        EntityDescription(
+            uid=4621, name="Cooking.Oven.Event.EcolysisRequired", enumeration=_EVENT_ENUM
+        ),
+    ],
+    setting=[
+        EntityDescription(
+            uid=4360,
+            name="Cooking.Oven.Setting.NightDimout",
+            available=True,
+            access=Access.READ_WRITE,
+        ),
+        EntityDescription(
+            uid=4361,
+            name="Cooking.Oven.Setting.OperationAfterRestart",
+            available=True,
+            access=Access.READ_WRITE,
+            enumeration={"0": "MainMenue", "1": "HeatingModes", "4": "SteamModes", "5": "Dishes"},
+        ),
+        EntityDescription(
+            uid=4365,
+            name="Cooking.Oven.Setting.SoundVolume",
+            available=True,
+            access=Access.READ_WRITE,
+            min=0,
+            max=4,
+        ),
+    ],
+    option=[
+        EntityDescription(
+            uid=5121,
+            name="Cooking.Oven.Option.MeatProbeTemperature",
+            available=True,
+            access=Access.READ_WRITE,
+            min=30,
+            max=99,
+        ),
+    ],
+)
+
+
+async def test_flat_oven_profile(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test an oven without Cavity namespace gets its message sensor, meat probe and settings."""
+    appliance = await mock_homeconnect_appliance(description=FLAT_OVEN_PROFILE)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    message = next(item for item in entities["event_sensor"] if item.key == "sensor_oven_message")
+    assert tuple(message.entities) == (
+        "Cooking.Oven.Event.WaterContainerEmpty",
+        "Cooking.Oven.Event.PreheatFinished",
+        "Cooking.Oven.Event.EcolysisRequired",
+    )
+    assert message.options == [
+        "water_container_empty",
+        "regular_preheat_finished",
+        "ecolysis_required",
+        "none",
+    ]
+    assert "binary_sensor_oven_meatprobe_plugged" in {
+        item.key for item in entities["binary_sensor"]
+    }
+    assert {"number_oven_meatprobe_temperature", "number_oven_sound_volume"} <= {
+        item.key for item in entities["number"]
+    }
+    assert "select_oven_operation_after_restart" in {item.key for item in entities["select"]}
+    assert "switch_oven_night_dimout" in {item.key for item in entities["switch"]}
+
+
+async def test_cavity_oven_keeps_single_meatprobe_plugged_sensor(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test an oven with Cavity names does not get a second meat probe plug sensor."""
+    profile = DeviceDescription(
+        status=[
+            EntityDescription(
+                uid=4100,
+                name="Cooking.Oven.Status.MeatprobePlugged",
+                available=True,
+                access=Access.READ,
+            ),
+            EntityDescription(
+                uid=4200,
+                name="Cooking.Oven.Status.Cavity.001.MeatprobePlugged",
+                available=True,
+                access=Access.READ,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=profile)
+    entities = entity_descriptions.get_available_entities(appliance)
+
+    keys = [item.key for item in entities["binary_sensor"] if "meatprobe_plugged" in item.key]
+    assert keys == ["binary_sensor_oven_cavity_meatprobe_plugged_001"]
 
 
 async def test_child_lock_switch_without_child_lock_select(
