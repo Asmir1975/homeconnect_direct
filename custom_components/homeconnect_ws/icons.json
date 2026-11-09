@@ -112,6 +112,12 @@
               "off": "mdi:volume-off"
             }
           },
+          "switch_oven_night_dimout": {
+            "default": "mdi:weather-night",
+            "state": {
+              "off": "mdi:weather-sunny"
+            }
+          },
           "switch_oven_telescopic_slide_out": {
             "default": "mdi:tray-arrow-down"
           },
@@ -689,6 +695,9 @@
             "select_oven_startup_menu": {
                 "default": "mdi:menu"
             },
+            "select_oven_operation_after_restart": {
+                "default": "mdi:restart"
+            },
             "select_oven_cavity_illumination": {
                 "default": "mdi:lightbulb-auto-outline"
             },
@@ -792,6 +801,12 @@
             },
             "number_oven_display_brightness": {
                 "default": "mdi:brightness-6"
+            },
+            "number_oven_meatprobe_temperature": {
+                "default": "mdi:thermometer-probe"
+            },
+            "number_oven_sound_volume": {
+                "default": "mdi:volume-high"
             },
             "number_hood_interval_on": {
                 "default": "mdi:timer-play-outline"

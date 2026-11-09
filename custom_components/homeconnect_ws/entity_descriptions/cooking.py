@@ -175,6 +175,18 @@ def generate_oven_status(appliance: HomeAppliance) -> EntityDescriptions:
                     )
                 )
         _append_oven_cavity_extra_status(descriptions, appliance, group, group_name)
+
+    # Ovens without a Cavity namespace report the meat probe directly.
+    if not groups and "Cooking.Oven.Status.MeatprobePlugged" in appliance.entities:
+        descriptions["binary_sensor"].append(
+            HCBinarySensorEntityDescription(
+                key="binary_sensor_oven_meatprobe_plugged",
+                translation_key="binary_sensor_oven_cavity_meatprobe_plugged",
+                translation_placeholders={"group_name": ""},
+                entity="Cooking.Oven.Status.MeatprobePlugged",
+                device_class=BinarySensorDeviceClass.PLUG,
+            )
+        )
     return descriptions
 
 
@@ -213,6 +225,29 @@ OVEN_MESSAGES = (
     ("PrepareDrying", "prepare_drying"),
     ("ClockPermanentOn", "clock_permanent_on"),
     ("IsNotShownAgain", "is_not_shown_again"),
+)
+
+# Events of HS658GXS7, which uses Cooking.Oven.Event.<Name> without a Cavity
+# namespace, most urgent first. Events that also exist per cavity reuse the keys
+# of OVEN_MESSAGES.
+OVEN_FLAT_MESSAGES = (
+    ("CavityTemperatureTooHigh", "cavity_temperature_too_high"),
+    ("OperatingTimeLimitReached", "operating_time_limit_reached"),
+    ("ForceFlushing", "force_flushing"),
+    ("ForceDraining", "force_draining"),
+    ("ApplianceModuleError", "appliance_module_error"),
+    ("MeatprobeIncompatibleOperation", "meatprobe_incompatible_operation"),
+    ("BakingSensorProgramAborted", "baking_sensor_program_aborted"),
+    ("WaterContainerEmpty", "water_container_empty"),
+    ("InsertWaterContainer", "insert_water_container"),
+    ("CloseFrontPanel", "close_front_panel"),
+    ("UserInteractionRequired", "user_interaction_required"),
+    ("SubsequentCookingRequest", "subsequent_cooking_request"),
+    ("PreheatFinished", "regular_preheat_finished"),
+    ("EmptyWaterContainer", "empty_water_container"),
+    ("WaterContainerNearlyEmpty", "water_container_nearly_empty"),
+    ("DescalingRequest", "descaling_request"),
+    ("EcolysisRequired", "ecolysis_required"),
 )
 
 # Most urgent first; the sensor shows the first one that is active, else "none".
@@ -288,6 +323,24 @@ def generate_oven_event(appliance: HomeAppliance) -> EntityDescriptions:
                     key=f"sensor_oven_message_{group[0]}",
                     translation_key="sensor_oven_message",
                     translation_placeholders={"group_name": group_name},
+                    entities=tuple(entity for entity, _ in messages),
+                    device_class=SensorDeviceClass.ENUM,
+                    options=[key for _, key in messages] + ["none"],
+                )
+            )
+
+    if not groups:
+        # Ovens without a Cavity namespace report their events directly.
+        messages = [
+            (f"Cooking.Oven.Event.{event}", key)
+            for event, key in OVEN_FLAT_MESSAGES
+            if f"Cooking.Oven.Event.{event}" in appliance.entities
+        ]
+        if messages:
+            descriptions["event_sensor"].append(
+                HCSensorEntityDescription(
+                    key="sensor_oven_message",
+                    translation_placeholders={"group_name": ""},
                     entities=tuple(entity for entity, _ in messages),
                     device_class=SensorDeviceClass.ENUM,
                     options=[key for _, key in messages] + ["none"],
@@ -826,6 +879,19 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             mode=NumberMode.AUTO,
         ),
         HCNumberEntityDescription(
+            key="number_oven_meatprobe_temperature",
+            entity="Cooking.Oven.Option.MeatProbeTemperature",
+            device_class=NumberDeviceClass.TEMPERATURE,
+            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+            mode=NumberMode.AUTO,
+        ),
+        HCNumberEntityDescription(
+            key="number_oven_sound_volume",
+            entity="Cooking.Oven.Setting.SoundVolume",
+            entity_category=EntityCategory.CONFIG,
+            mode=NumberMode.SLIDER,
+        ),
+        HCNumberEntityDescription(
             key="number_hob_automatic_timer",
             entity="Cooking.Hob.Setting.AutomaticTimer",
             native_unit_of_measurement=UnitOfTime.MINUTES,
@@ -1078,6 +1144,12 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity_category=EntityCategory.CONFIG,
         ),
         HCSelectEntityDescription(
+            key="select_oven_operation_after_restart",
+            entity="Cooking.Oven.Setting.OperationAfterRestart",
+            has_state_translation=True,
+            entity_category=EntityCategory.CONFIG,
+        ),
+        HCSelectEntityDescription(
             key="select_oven_cavity_illumination",
             entity="Cooking.Oven.Setting.CavityIllumination",
             has_state_translation=True,
@@ -1171,6 +1243,12 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCSwitchEntityDescription(
             key="switch_oven_sabbath_mode",
             entity="Cooking.Oven.Setting.SabbathMode",
+            device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_oven_night_dimout",
+            entity="Cooking.Oven.Setting.NightDimout",
             device_class=SwitchDeviceClass.SWITCH,
             entity_category=EntityCategory.CONFIG,
         ),

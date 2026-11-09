@@ -254,6 +254,9 @@
       "switch_oven_sabbath_mode": {
         "name": "Sabbath mode"
       },
+      "switch_oven_night_dimout": {
+        "name": "Night dimming"
+      },
       "switch_quick_ice": {
         "name": "Quick ice"
       },
@@ -2107,6 +2110,17 @@
           "prepare_drying": "Prepare drying",
           "clock_permanent_on": "Clock permanently on",
           "is_not_shown_again": "Not shown again",
+          "force_draining": "Forced draining",
+          "meatprobe_incompatible_operation": "Meatprobe not possible in this mode",
+          "baking_sensor_program_aborted": "Baking sensor program aborted",
+          "water_container_empty": "Water tank empty",
+          "insert_water_container": "Insert water tank",
+          "close_front_panel": "Close front panel",
+          "user_interaction_required": "Action required at the appliance",
+          "empty_water_container": "Empty water tank",
+          "water_container_nearly_empty": "Water tank nearly empty",
+          "descaling_request": "Descaling required",
+          "ecolysis_required": "Cleaning required (ecolysis)",
           "none": "No message"
         }
       },
@@ -4770,6 +4784,15 @@
           "favorites": "Favorites"
         }
       },
+      "select_oven_operation_after_restart": {
+        "name": "Mode after restart",
+        "state": {
+          "mainmenue": "Main menu",
+          "heatingmodes": "Heating modes",
+          "steammodes": "Steam modes",
+          "dishes": "Dishes"
+        }
+      },
       "select_oven_cavity_illumination": {
         "name": "Lighting",
         "state": {
@@ -5082,6 +5105,12 @@
       },
       "number_oven_display_brightness": {
         "name": "Display brightness"
+      },
+      "number_oven_meatprobe_temperature": {
+        "name": "Meatprobe target temperature"
+      },
+      "number_oven_sound_volume": {
+        "name": "Sound volume"
       },
       "number_hood_interval_off": {
         "name": "Interval fan off"
