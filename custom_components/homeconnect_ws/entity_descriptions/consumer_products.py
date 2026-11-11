@@ -228,6 +228,8 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="sensor_count_hot_water",
             entity="ConsumerProducts.CoffeeMaker.Status.BeverageCounterHotWater",
             entity_registry_enabled_default=False,
+            device_class=SensorDeviceClass.VOLUME,
+            native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             state_class=SensorStateClass.TOTAL_INCREASING,
         ),
         HCSensorEntityDescription(

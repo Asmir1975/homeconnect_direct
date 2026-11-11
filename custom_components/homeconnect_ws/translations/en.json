@@ -2241,28 +2241,35 @@
         "name": "Zone{group_name} Program Progress"
       },
       "sensor_count_ristretto_espresso": {
-        "name": "Ristretto Espresso count"
+        "name": "Ristretto Espresso count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_coffee": {
-        "name": "Coffee count"
+        "name": "Coffee count",
+        "unit_of_measurement": "coffees"
       },
       "sensor_count_coffee_milk": {
-        "name": "Coffee & Milk count"
+        "name": "Coffee & Milk count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_frothy_milk": {
-        "name": "Frothy Milk count"
+        "name": "Frothy Milk count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_hot_milk": {
-        "name": "Hot Milk count"
+        "name": "Hot Milk count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_hot_water": {
         "name": "Hot Water count"
       },
       "sensor_count_hot_water_cups": {
-        "name": "Hot Water Cups count"
+        "name": "Hot Water Cups count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_powder_coffee": {
-        "name": "Powder Coffee count"
+        "name": "Powder Coffee count",
+        "unit_of_measurement": "coffees"
       },
       "sensor_machine_care_reminder": {
         "name": "Machine Care Reminder"
@@ -2624,7 +2631,8 @@
         }
       },
       "sensor_eq700_beverage_counter_milk": {
-        "name": "Milk drinks"
+        "name": "Milk drinks",
+        "unit_of_measurement": "cups"
       }
     },
     "select": {

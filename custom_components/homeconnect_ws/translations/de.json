@@ -2131,28 +2131,35 @@
         "name": "WLAN Signalstärke"
       },
       "sensor_count_ristretto_espresso": {
-        "name": "Anzahl Ristretto"
+        "name": "Anzahl Ristretto",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_coffee": {
-        "name": "Anzahl Kaffeegetränke"
+        "name": "Anzahl Kaffeegetränke",
+        "unit_of_measurement": "Kaffees"
       },
       "sensor_count_coffee_milk": {
-        "name": "Anzahl Kaffee-Milch-Spezialitäten"
+        "name": "Anzahl Kaffee-Milch-Spezialitäten",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_frothy_milk": {
-        "name": "Anzahl Milchschaum"
+        "name": "Anzahl Milchschaum",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_hot_milk": {
-        "name": "Anzahl Milchgetränke"
+        "name": "Anzahl Milchgetränke",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_hot_water": {
         "name": "Menge Heißwasser"
       },
       "sensor_count_hot_water_cups": {
-        "name": "Heißwasser"
+        "name": "Heißwasser",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_powder_coffee": {
-        "name": "Anzahl Pulverkaffee"
+        "name": "Anzahl Pulverkaffee",
+        "unit_of_measurement": "Kaffees"
       },
       "sensor_machine_care_reminder": {
         "name": "Maschinenpflege Erinnerung"
@@ -2624,7 +2631,8 @@
         }
       },
       "sensor_eq700_beverage_counter_milk": {
-        "name": "Milchgetränke"
+        "name": "Milchgetränke",
+        "unit_of_measurement": "Tassen"
       }
     },
     "select": {
