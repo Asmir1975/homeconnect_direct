@@ -69,23 +69,18 @@ def generate_setpoint(
     key: str,
     entity: str,
     unit: UnitOfTemperature,
-    twin: str,
     translation_key: str | None = None,
 ) -> Callable[[HomeAppliance], HCNumberEntityDescription | None]:
     """
-    Get a setpoint in one temperature unit, unless the appliance selected the other unit.
+    Register a supported setpoint regardless of its initial availability.
 
-    Seen on KFI96AXEA: with the unit set to Celsius the appliance marks both Fahrenheit
-    setpoints as unavailable, they showed up as greyed-out copies of the Celsius ones.
-    The setpoint is only left out when it is unavailable and its twin in the other unit
-    is available, so an appliance with a single or two unavailable setpoints keeps them.
+    Descriptions are generated before connecting, so profile availability can
+    disagree with the live temperature unit. Keep both twins registered so
+    runtime availability also follows unit changes without an integration reload.
     """
 
     def generate(appliance: HomeAppliance) -> HCNumberEntityDescription | None:
-        if (setpoint := appliance.entities.get(entity)) is None:
-            return None
-        other = appliance.entities.get(twin)
-        if not setpoint.available and other is not None and other.available:
+        if entity not in appliance.entities:
             return None
         return HCNumberEntityDescription(
             key=key,
@@ -398,26 +393,22 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             "number_setpoint_freezer",
             "Refrigeration.Common.Setting.Freezer.SetpointTemperature",
             UnitOfTemperature.CELSIUS,
-            "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
         ),
         generate_setpoint(
             "number_setpoint_freezer_fahrenheit",
             "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
             UnitOfTemperature.FAHRENHEIT,
-            "Refrigeration.Common.Setting.Freezer.SetpointTemperature",
             "number_setpoint_freezer",
         ),
         generate_setpoint(
             "number_setpoint_refrigerator",
             "Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
             UnitOfTemperature.CELSIUS,
-            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
         ),
         generate_setpoint(
             "number_setpoint_refrigerator_fahrenheit",
             "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
             UnitOfTemperature.FAHRENHEIT,
-            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
             "number_setpoint_refrigerator",
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
@@ -425,14 +416,12 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             "number_setpoint_chiller_common",
             "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
             UnitOfTemperature.CELSIUS,
-            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
         generate_setpoint(
             "number_setpoint_chiller_common_fahrenheit",
             "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
             UnitOfTemperature.FAHRENHEIT,
-            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
             "number_setpoint_chiller_common",
         ),
         generate_internal_light_brightness,
