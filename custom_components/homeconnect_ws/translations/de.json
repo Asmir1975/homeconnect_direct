@@ -2131,8 +2131,7 @@
         "name": "WLAN Signalstärke"
       },
       "sensor_count_ristretto_espresso": {
-        "name": "Espressotassen mit Ristretto",
-        "unit_of_measurement": "Tassen"
+        "name": "Anzahl Ristretto"
       },
       "sensor_count_coffee": {
         "name": "Kaffees",
@@ -2143,12 +2142,10 @@
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_frothy_milk": {
-        "name": "Tassen mit Milchschaum",
-        "unit_of_measurement": "Tassen"
+        "name": "Anzahl Milchschaum"
       },
       "sensor_count_hot_milk": {
-        "name": "Tassen mit heißer Milch",
-        "unit_of_measurement": "Tassen"
+        "name": "Anzahl Milchgetränke"
       },
       "sensor_count_hot_water": {
         "name": "Heißwasser"
@@ -2158,8 +2155,7 @@
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_powder_coffee": {
-        "name": "Pulverkaffees",
-        "unit_of_measurement": "Kaffees"
+        "name": "Anzahl Pulverkaffee"
       },
       "sensor_machine_care_reminder": {
         "name": "Maschinenpflege Erinnerung"

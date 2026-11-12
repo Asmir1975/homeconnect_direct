@@ -13,14 +13,17 @@ from homeassistant.const import EntityCategory, UnitOfVolume
 TRANSLATIONS = Path(__file__).parents[1] / "custom_components/homeconnect_ws/translations"
 COUNTER_UNITS = {
     "sensor_count_coffee": ("coffees", "Kaffees"),
-    "sensor_count_powder_coffee": ("coffees", "Kaffees"),
     "sensor_count_hot_water_cups": ("cups", "Tassen"),
-    "sensor_count_hot_milk": ("cups", "Tassen"),
-    "sensor_count_frothy_milk": ("cups", "Tassen"),
     "sensor_count_coffee_milk": ("cups", "Tassen"),
-    "sensor_count_ristretto_espresso": ("cups", "Tassen"),
     "sensor_eq700_beverage_counter_milk": ("cups", "Tassen"),
 }
+
+UNTOUCHED = (
+    "sensor_count_ristretto_espresso",
+    "sensor_count_frothy_milk",
+    "sensor_count_hot_milk",
+    "sensor_count_powder_coffee",
+)
 
 
 def _sensors() -> dict:
@@ -48,5 +51,5 @@ def test_counter_units_come_from_translations(lang: str, index: int) -> None:
 def test_counters_are_diagnostic() -> None:
     """The counters are statistics and belong to the diagnostic card."""
     sensors = _sensors()
-    for key in [*COUNTER_UNITS, "sensor_count_hot_water"]:
+    for key in [*COUNTER_UNITS, *UNTOUCHED, "sensor_count_hot_water"]:
         assert sensors[key].entity_category is EntityCategory.DIAGNOSTIC
