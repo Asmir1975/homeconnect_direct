@@ -67,6 +67,12 @@ def generate_dishwasher_message(appliance: HomeAppliance) -> HCSensorEntityDescr
 DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "binary_sensor": [
         HCBinarySensorEntityDescription(
+            key="binary_sensor_program_finished_sanitized",
+            entity="Dishcare.Dishwasher.Event.ProgramFinishedSanitized",
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
             key="binary_sensor_intensiv_zone_active",
             entity="Dishcare.Dishwasher.Option.IntensivZone",
         ),
@@ -263,6 +269,11 @@ DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
     ],
     "switch": [
+        HCSwitchEntityDescription(
+            key="switch_energy_safe",
+            entity="Dishcare.Dishwasher.Option.EnergySafe",
+            device_class=SwitchDeviceClass.SWITCH,
+        ),
         HCSwitchEntityDescription(
             key="switch_extra_dry_option",
             entity="Dishcare.Dishwasher.Option.ExtraDry",
