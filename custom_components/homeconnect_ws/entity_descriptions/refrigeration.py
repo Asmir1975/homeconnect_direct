@@ -73,20 +73,20 @@ def generate_setpoint(
     translation_key: str | None = None,
 ) -> Callable[[HomeAppliance], HCNumberEntityDescription | None]:
     """
-    Get a setpoint in one temperature unit, unless the appliance selected the other unit.
+    Register a setpoint in one temperature unit, disabled if the other unit is selected.
 
+    Descriptions are generated before connecting, so profile availability can
+    disagree with the live temperature unit. Both twins are registered so the
+    other one can be enabled after a unit change.
     Seen on KFI96AXEA: with the unit set to Celsius the appliance marks both Fahrenheit
     setpoints as unavailable, they showed up as greyed-out copies of the Celsius ones.
-    The setpoint is only left out when it is unavailable and its twin in the other unit
-    is available, so an appliance with a single or two unavailable setpoints keeps them.
+    The unavailable twin of an available setpoint is therefore disabled by default.
     """
 
     def generate(appliance: HomeAppliance) -> HCNumberEntityDescription | None:
         if (setpoint := appliance.entities.get(entity)) is None:
             return None
         other = appliance.entities.get(twin)
-        if not setpoint.available and other is not None and other.available:
-            return None
         return HCNumberEntityDescription(
             key=key,
             translation_key=translation_key or key,
@@ -95,6 +95,9 @@ def generate_setpoint(
             device_class=NumberDeviceClass.TEMPERATURE,
             mode=NumberMode.AUTO,
             step=1,
+            force_disabled_default=(
+                not setpoint.available and other is not None and other.available
+            ),
         )
 
     return generate

@@ -401,8 +401,8 @@ def test_read_only_power_state_has_no_controls_where_seen() -> None:
         assert bool(generate_power_switch(appliance)) is controls, (appliance_type, access)
 
 
-def test_setpoint_left_out_only_when_unavailable_and_twin_available() -> None:
-    """Test that the setpoint of the unselected unit is left out and no other is lost."""
+def test_setpoints_registered_and_unselected_unit_disabled() -> None:
+    """Test that both units are registered and only the unselected one starts disabled."""
     celsius = "Refrigeration.Common.Setting.Freezer.SetpointTemperature"
     fahrenheit = celsius + "Fahrenheit"
     appliance = MagicMock()
@@ -417,22 +417,22 @@ def test_setpoint_left_out_only_when_unavailable_and_twin_available() -> None:
         "number_setpoint_freezer",
     )
 
-    for celsius_available, fahrenheit_available, celsius_kept, fahrenheit_kept in (
-        (True, False, True, False),  # Celsius selected, as on the KFI96AXEA
-        (False, True, False, True),  # Fahrenheit selected
-        (True, True, True, True),
-        (False, False, True, True),  # both unavailable, nothing to prefer
+    for celsius_available, fahrenheit_available, celsius_disabled, fahrenheit_disabled in (
+        (True, False, False, True),  # Celsius selected, as on the KFI96AXEA
+        (False, True, True, False),  # Fahrenheit selected
+        (True, True, False, False),
+        (False, False, False, False),  # both unavailable, nothing to prefer
     ):
         appliance.entities = {
             celsius: MagicMock(available=celsius_available),
             fahrenheit: MagicMock(available=fahrenheit_available),
         }
-        assert (generate_celsius(appliance) is not None) is celsius_kept
-        assert (generate_fahrenheit(appliance) is not None) is fahrenheit_kept
+        assert generate_celsius(appliance).force_disabled_default is celsius_disabled
+        assert generate_fahrenheit(appliance).force_disabled_default is fahrenheit_disabled
 
     # Only one unit listed, as in the profile of the KG39NAICT
     appliance.entities = {celsius: MagicMock(available=False)}
-    assert generate_celsius(appliance) is not None
+    assert generate_celsius(appliance).force_disabled_default is False
     assert generate_fahrenheit(appliance) is None
 
 
