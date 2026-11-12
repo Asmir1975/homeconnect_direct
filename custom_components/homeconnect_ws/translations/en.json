@@ -1763,7 +1763,7 @@
         }
       },
       "sensor_dishwasher_message": {
-        "name": "Error Message",
+        "name": "Message",
         "state": {
           "drain_pump_blocked": "Drain pump blocked",
           "draining_not_possible": "Draining not possible",
@@ -2335,7 +2335,7 @@
         "name": "IP address"
       },
       "sensor_eq700_messages": {
-        "name": "Appliance message",
+        "name": "Message",
         "state": {
           "heater_error": "Heater error",
           "temperature_error": "Temperature error",

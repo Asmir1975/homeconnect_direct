@@ -279,6 +279,18 @@
                     "on": "mdi:alarm-light"
                 }
             },
+            "binary_sensor_hob_join_zone": {
+                "default": "mdi:link-variant-off",
+                "state": {
+                    "on": "mdi:link-variant"
+                }
+            },
+            "binary_sensor_child_lock_active": {
+                "default": "mdi:hand-back-right",
+                "state": {
+                    "on": "mdi:hand-back-right-off"
+                }
+            },
             "binary_sensor_favorite_001": {
                 "default": "mdi:gesture-tap"
             },
@@ -450,6 +462,38 @@
             },
             "sensor_delayed_shutoff_time": {
                 "default": "mdi:timer-stop-outline"
+            },
+            "sensor_stop_watch_state": {
+                "default": "mdi:timer-outline",
+                "state": {
+                    "off": "mdi:timer-off-outline",
+                    "running": "mdi:timer-play-outline",
+                    "paused": "mdi:timer-pause-outline"
+                }
+            },
+            "sensor_eq700_messages": {
+                "default": "mdi:message-alert-outline",
+                "state": {
+                    "none": "mdi:message-outline"
+                }
+            },
+            "sensor_eq700_water_hardness": {
+                "default": "mdi:water-opacity"
+            },
+            "sensor_eq700_last_selected_beverage": {
+                "default": "mdi:coffee-outline"
+            },
+            "sensor_eq700_last_selected_coffee_world_beverage": {
+                "default": "mdi:coffee"
+            },
+            "sensor_oven_cavity_level": {
+                "default": "mdi:stairs"
+            },
+            "sensor_oven_steam_assist_level": {
+                "default": "mdi:pot-steam-outline"
+            },
+            "sensor_hob_zone_cooking_sensor_level": {
+                "default": "mdi:pot-mix-outline"
             },
             "sensor_power_state": {
                 "default": "mdi:power",
