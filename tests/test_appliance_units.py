@@ -45,6 +45,7 @@ async def test_two_unit_choices_and_write(
     )
     descriptions = get_available_entities(appliance)["select"]
     assert len(descriptions) == 1
+    assert descriptions[0].force_disabled_default
     select = HCSelect(
         descriptions[0],
         SimpleNamespace(
