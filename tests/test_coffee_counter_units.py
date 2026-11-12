@@ -8,7 +8,7 @@ from custom_components.homeconnect_ws.entity_descriptions.consumer_products impo
     CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS,
 )
 from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.const import UnitOfVolume
+from homeassistant.const import EntityCategory, UnitOfVolume
 
 TRANSLATIONS = Path(__file__).parents[1] / "custom_components/homeconnect_ws/translations"
 COUNTER_UNITS = {
@@ -43,3 +43,10 @@ def test_counter_units_come_from_translations(lang: str, index: int) -> None:
         if key in sensors:
             assert sensors[key].native_unit_of_measurement is None
         assert texts["entity"]["sensor"][key]["unit_of_measurement"] == units[index]
+
+
+def test_counters_are_diagnostic() -> None:
+    """The counters are statistics and belong to the diagnostic card."""
+    sensors = _sensors()
+    for key in [*COUNTER_UNITS, "sensor_count_hot_water"]:
+        assert sensors[key].entity_category is EntityCategory.DIAGNOSTIC

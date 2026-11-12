@@ -1837,7 +1837,7 @@
         "name": "Starten in"
       },
       "sensor_count_started": {
-        "name": "Startanzahl"
+        "name": "Anzahl Spülgänge"
       },
       "sensor_end_trigger": {
         "name": "Programmende-Bedingung",
@@ -1981,7 +1981,7 @@
         }
       },
       "sensor_count_completed": {
-        "name": "Beendet-Zähler"
+        "name": "Anzahl beendete Spülgänge"
       },
       "sensor_flex_start": {
         "name": "Flex Start",

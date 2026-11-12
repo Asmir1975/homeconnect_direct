@@ -1840,7 +1840,7 @@
         "name": "Finish in"
       },
       "sensor_count_started": {
-        "name": "Start count"
+        "name": "Wash cycle count"
       },
       "sensor_end_trigger": {
         "name": "Program End Condition",
@@ -1984,7 +1984,7 @@
         }
       },
       "sensor_count_completed": {
-        "name": "Completed count"
+        "name": "Completed wash cycle count"
       },
       "sensor_flex_start": {
         "name": "Flex start",
