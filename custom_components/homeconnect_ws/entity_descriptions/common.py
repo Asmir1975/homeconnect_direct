@@ -393,7 +393,7 @@ def generate_estimated_program_time_sensor(
 def generate_temperature_unit(appliance: HomeAppliance) -> HCSelectEntityDescription | None:
     """Get Temperature unit description."""
     entity = appliance.entities.get("BSH.Common.Setting.TemperatureUnit")
-    if entity and len(entity.enum) > 2:
+    if entity and len(entity.enum or {}) > 1:
         return HCSelectEntityDescription(
             key="select_temperature_unit",
             entity="BSH.Common.Setting.TemperatureUnit",
@@ -401,6 +401,21 @@ def generate_temperature_unit(appliance: HomeAppliance) -> HCSelectEntityDescrip
             entity_category=EntityCategory.CONFIG,
             entity_registry_enabled_default=False,
             has_state_translation=True,
+            force_disabled_default=True,
+        )
+    return None
+
+
+def generate_liquid_volume_unit(appliance: HomeAppliance) -> HCSelectEntityDescription | None:
+    """Expose the appliance's liquid volume unit when it offers a choice."""
+    entity = appliance.entities.get("BSH.Common.Setting.LiquidVolumeUnit")
+    if entity and len(entity.enum or {}) > 1:
+        return HCSelectEntityDescription(
+            key="select_liquid_volume_unit",
+            entity="BSH.Common.Setting.LiquidVolumeUnit",
+            entity_category=EntityCategory.CONFIG,
+            has_state_translation=True,
+            force_disabled_default=True,
         )
     return None
 
@@ -582,6 +597,7 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
         # cleanup: duplicate select_remote_control_level entry removed
         generate_temperature_unit,
+        generate_liquid_volume_unit,
     ],
     "sensor": [
         HCSensorEntityDescription(
