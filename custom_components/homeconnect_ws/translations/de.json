@@ -125,6 +125,9 @@
       "switch_cup_warmer": {
         "name": "Tassenwärmer"
       },
+      "switch_energy_safe": {
+        "name": "Energie sparen"
+      },
       "switch_half_load": {
         "name": "Halbe Ladung"
       },
@@ -484,6 +487,9 @@
       },
       "binary_sensor_interior_illumination": {
         "name": "Licht-Status"
+      },
+      "binary_sensor_program_finished_sanitized": {
+        "name": "Programm hygienisch beendet"
       },
       "binary_sensor_program_finished": {
         "name": "Programm beendet"
@@ -4590,6 +4596,13 @@
           "fanstage01": "Stufe 1",
           "fanstage02": "Stufe 2",
           "fanstage03": "Stufe 3"
+        }
+      },
+      "select_liquid_volume_unit": {
+        "name": "Volumeneinheit",
+        "state": {
+          "milliliter": "Milliliter",
+          "fluidounces": "Flüssigunzen"
         }
       },
       "select_temperature_unit": {
