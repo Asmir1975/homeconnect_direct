@@ -1763,7 +1763,7 @@
         }
       },
       "sensor_dishwasher_message": {
-        "name": "Fehlermeldung",
+        "name": "Meldung",
         "state": {
           "drain_pump_blocked": "Ablaufpumpe blockiert",
           "draining_not_possible": "Abpumpen nicht möglich",
@@ -2335,7 +2335,7 @@
         "name": "IP-Adresse"
       },
       "sensor_eq700_messages": {
-        "name": "Gerätemeldung",
+        "name": "Meldung",
         "state": {
           "heater_error": "Heizungsfehler",
           "temperature_error": "Temperaturfehler",
