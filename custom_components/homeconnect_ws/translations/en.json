@@ -2244,10 +2244,12 @@
         "name": "Ristretto Espresso count"
       },
       "sensor_count_coffee": {
-        "name": "Coffee count"
+        "name": "Coffee count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_coffee_milk": {
-        "name": "Coffee & Milk count"
+        "name": "Coffee & Milk count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_frothy_milk": {
         "name": "Frothy Milk count"
@@ -2259,7 +2261,8 @@
         "name": "Hot Water count"
       },
       "sensor_count_hot_water_cups": {
-        "name": "Hot Water Cups count"
+        "name": "Hot Water Cups count",
+        "unit_of_measurement": "cups"
       },
       "sensor_count_powder_coffee": {
         "name": "Powder Coffee count"
@@ -2624,7 +2627,8 @@
         }
       },
       "sensor_eq700_beverage_counter_milk": {
-        "name": "Milk drinks"
+        "name": "Milk drinks",
+        "unit_of_measurement": "cups"
       }
     },
     "select": {

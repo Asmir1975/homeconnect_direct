@@ -2134,10 +2134,12 @@
         "name": "Anzahl Ristretto"
       },
       "sensor_count_coffee": {
-        "name": "Anzahl Kaffeegetränke"
+        "name": "Anzahl Kaffeegetränke",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_coffee_milk": {
-        "name": "Anzahl Kaffee-Milch-Spezialitäten"
+        "name": "Anzahl Kaffee-Milch-Spezialitäten",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_frothy_milk": {
         "name": "Anzahl Milchschaum"
@@ -2149,7 +2151,8 @@
         "name": "Menge Heißwasser"
       },
       "sensor_count_hot_water_cups": {
-        "name": "Heißwasser"
+        "name": "Heißwasser",
+        "unit_of_measurement": "Tassen"
       },
       "sensor_count_powder_coffee": {
         "name": "Anzahl Pulverkaffee"
@@ -2624,7 +2627,8 @@
         }
       },
       "sensor_eq700_beverage_counter_milk": {
-        "name": "Milchgetränke"
+        "name": "Milchgetränke",
+        "unit_of_measurement": "Tassen"
       }
     },
     "select": {
