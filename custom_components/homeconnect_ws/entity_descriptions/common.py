@@ -162,7 +162,7 @@ def generate_child_lock(appliance: HomeAppliance) -> HCSwitchEntityDescription |
 
 
 # Devices where the button is offered. It sends the uid of the event that is
-# currently Present, needs confirming per device before it stays enabled.
+# currently Present. Confirmed on an Oven (HB774G1B1), disabled by default.
 _ACKNOWLEDGE_EVENT_TYPES = frozenset({"Oven"})
 
 
