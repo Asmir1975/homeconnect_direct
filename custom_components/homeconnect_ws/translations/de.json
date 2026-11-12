@@ -1837,7 +1837,7 @@
         "name": "Starten in"
       },
       "sensor_count_started": {
-        "name": "Anzahl Spülgänge"
+        "name": "Startanzahl"
       },
       "sensor_end_trigger": {
         "name": "Programmende-Bedingung",
@@ -1981,7 +1981,7 @@
         }
       },
       "sensor_count_completed": {
-        "name": "Anzahl beendete Spülgänge"
+        "name": "Beendet-Zähler"
       },
       "sensor_flex_start": {
         "name": "Flex Start",
@@ -2131,34 +2131,34 @@
         "name": "WLAN Signalstärke"
       },
       "sensor_count_ristretto_espresso": {
-        "name": "Anzahl Ristretto",
+        "name": "Espressotassen mit Ristretto",
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_coffee": {
-        "name": "Anzahl Kaffeegetränke",
+        "name": "Kaffees",
         "unit_of_measurement": "Kaffees"
       },
       "sensor_count_coffee_milk": {
-        "name": "Anzahl Kaffee-Milch-Spezialitäten",
+        "name": "Kaffee- und Milchtassen",
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_frothy_milk": {
-        "name": "Anzahl Milchschaum",
+        "name": "Tassen mit Milchschaum",
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_hot_milk": {
-        "name": "Anzahl Milchgetränke",
+        "name": "Tassen mit heißer Milch",
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_hot_water": {
-        "name": "Menge Heißwasser"
+        "name": "Heißwasser"
       },
       "sensor_count_hot_water_cups": {
-        "name": "Heißwasser",
+        "name": "Tassen mit Heißwasser",
         "unit_of_measurement": "Tassen"
       },
       "sensor_count_powder_coffee": {
-        "name": "Anzahl Pulverkaffee",
+        "name": "Pulverkaffees",
         "unit_of_measurement": "Kaffees"
       },
       "sensor_machine_care_reminder": {
@@ -2631,7 +2631,7 @@
         }
       },
       "sensor_eq700_beverage_counter_milk": {
-        "name": "Milchgetränke",
+        "name": "Tassen mit Milch",
         "unit_of_measurement": "Tassen"
       }
     },
