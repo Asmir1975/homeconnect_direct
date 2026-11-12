@@ -5083,6 +5083,9 @@
       "number_sabbath_mode_duration": {
         "name": "Sabbath mode duration"
       },
+      "number_bottle_fill_quantity": {
+        "name": "Bottle fill quantity"
+      },
       "number_setpoint_freezer": {
         "name": "Freezer Temperature"
       },
@@ -5308,6 +5311,9 @@
     },
     "coffee_quantity_rejected": {
       "message": "The appliance rejected this amount for the selected drink. Check the allowed steps in the Home Connect app."
+    },
+    "bottle_fill_requires_milliliters": {
+      "message": "Bottle fill quantity requires the appliance liquid volume unit to be milliliters."
     },
     "invalid_step": {
       "message": "Value not allowed: use a multiple of {step} {unit} from {min} to {max} {unit}"

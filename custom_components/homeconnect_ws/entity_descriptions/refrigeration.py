@@ -13,6 +13,7 @@ from homeassistant.const import (
     EntityCategory,
     UnitOfTemperature,
     UnitOfTime,
+    UnitOfVolume,
 )
 
 from .descriptions_definitions import (
@@ -369,6 +370,16 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
     ],
     "number": [
+        HCNumberEntityDescription(
+            key="number_bottle_fill_quantity",
+            entity="Refrigeration.Common.Setting.Dispenser.BottleFillQuantity",
+            entities=["BSH.Common.Setting.LiquidVolumeUnit"],
+            device_class=NumberDeviceClass.VOLUME,
+            native_unit_of_measurement=UnitOfVolume.MILLILITERS,
+            mode=NumberMode.BOX,
+            enforce_step=True,
+            force_disabled_default=True,
+        ),
         HCNumberEntityDescription(
             key="number_sabbath_mode_duration",
             entity="Refrigeration.Common.Setting.SabbathModeDuration",

@@ -29,6 +29,8 @@ if TYPE_CHECKING:
 PARALLEL_UPDATES = 0
 
 _STEP_TOLERANCE = 1e-6
+_BOTTLE_FILL_QUANTITY = "Refrigeration.Common.Setting.Dispenser.BottleFillQuantity"
+_LIQUID_VOLUME_UNIT = "BSH.Common.Setting.LiquidVolumeUnit"
 
 
 async def async_setup_entry(
@@ -57,6 +59,19 @@ class HCNumber(HCEntity, NumberEntity):
             self._entities[-1] if entity_description.zero_when_event_present else None
         )
         self._expired = self._elapsed_event is not None and self._elapsed_event.value == "Present"
+
+    @property
+    def _bottle_fill_unit_supported(self) -> bool:
+        if self.entity_description.entity != _BOTTLE_FILL_QUANTITY:
+            return True
+        # The numeric wire representation in fluid-ounce mode has not been
+        # verified. Never label it as mL or send an mL value in that mode.
+        unit = self._runtime_data.appliance.entities.get(_LIQUID_VOLUME_UNIT)
+        return unit is not None and unit.value == "MilliLiter"
+
+    @property
+    def available(self) -> bool:
+        return super().available and self._bottle_fill_unit_supported
 
     async def callback(self, entity: HcEntity) -> None:
         if self._elapsed_event is not None:
@@ -124,6 +139,11 @@ class HCNumber(HCEntity, NumberEntity):
 
     @error_decorator
     async def async_set_native_value(self, value: float) -> None:
+        if not self._bottle_fill_unit_supported:
+            raise ServiceValidationError(
+                translation_domain=DOMAIN,
+                translation_key="bottle_fill_requires_milliliters",
+            )
         ensure_writable(self._entity)
         if self.entity_description.enforce_step:
             self._ensure_valid_step(value)
