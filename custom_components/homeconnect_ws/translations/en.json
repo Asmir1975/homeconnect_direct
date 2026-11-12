@@ -128,6 +128,9 @@
       "switch_cup_warmer": {
         "name": "Cup warmer"
       },
+      "switch_energy_safe": {
+        "name": "Energy saving"
+      },
       "switch_half_load": {
         "name": "Half load"
       },
@@ -455,6 +458,9 @@
           "on": "Maintenance Required",
           "off": "OK"
         }
+      },
+      "binary_sensor_program_finished_sanitized": {
+        "name": "Program finished sanitized"
       },
       "binary_sensor_program_finished": {
         "name": "Program Finished"
