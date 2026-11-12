@@ -514,6 +514,9 @@
             "sensor_count_powder_coffee": {
                 "default": "mdi:coffee"
             },
+            "sensor_eq700_beverage_counter_milk": {
+                "default": "mdi:cup"
+            },
             "sensor_countdown_calc_n_clean": {
                 "default": "mdi:broom"
             },
@@ -552,6 +555,9 @@
             }
         },
         "select": {
+            "select_dispenser_function": {
+                "default": "mdi:cup-water"
+            },
             "select_drying_assistant_all_programs": {},
             "select_hot_water": {
                 "default": "mdi:water-thermometer-outline"
