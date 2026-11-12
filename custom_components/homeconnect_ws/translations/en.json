@@ -4592,6 +4592,13 @@
           "fanstage03": "Level 3"
         }
       },
+      "select_liquid_volume_unit": {
+        "name": "Liquid volume unit",
+        "state": {
+          "milliliter": "Milliliters",
+          "fluidounces": "Fluid ounces"
+        }
+      },
       "select_temperature_unit": {
         "name": "Temperature unit",
         "state": {
