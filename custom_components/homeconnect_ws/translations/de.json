@@ -4249,7 +4249,7 @@
         }
       },
       "select_oven_child_lock_setting": {
-        "name": "Kindersicherung",
+        "name": "Kindersicherung Art",
         "state": {
           "deactivated": "Deaktiviert",
           "activated": "Nur Tastensperre",
