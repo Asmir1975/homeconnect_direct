@@ -143,16 +143,15 @@ def generate_power_switch(appliance: HomeAppliance) -> EntityDescriptions:
 
 def generate_child_lock(appliance: HomeAppliance) -> HCSwitchEntityDescription | None:
     """
-    Get the ChildLock switch, unless the appliance configures its child lock as a select.
+    Get the ChildLock switch.
 
-    Hobs keep the switch next to Cooking.Hob.Setting.AutomaticKeyLock: that select only
-    decides whether the lock engages by itself when the hob is switched off, while
-    BSH.Common.Setting.ChildLock locks and unlocks the hob right away.
+    BSH.Common.Setting.ChildLock locks and unlocks the appliance right away. The selects
+    next to it only configure the lock: Cooking.Hob.Setting.AutomaticKeyLock decides
+    whether it engages by itself, Cooking.Oven.Setting.ConfigureChildLock which kind of
+    lock is used. Seen on HB774G1B1: ChildLock is unavailable while that select is
+    Deactivated and becomes available with the other two choices.
     """
-    if (
-        "BSH.Common.Setting.ChildLock" not in appliance.entities
-        or "Cooking.Oven.Setting.ConfigureChildLock" in appliance.entities
-    ):
+    if "BSH.Common.Setting.ChildLock" not in appliance.entities:
         return None
     return HCSwitchEntityDescription(
         key="switch_child_lock",

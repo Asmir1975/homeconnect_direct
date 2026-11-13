@@ -1392,7 +1392,7 @@ async def test_hob_settings_follow_the_app(
 async def test_oven_settings_follow_the_app(
     mock_homeconnect_appliance: MockApplianceType,
 ) -> None:
-    """Test the oven settings become config entities, the child lock as a select only."""
+    """Test the oven settings become config entities, with the ChildLock switch kept."""
     appliance = await mock_homeconnect_appliance(description=OVEN_SETTINGS_PROFILE)
     entities = entity_descriptions.get_available_entities(appliance)
 
@@ -1407,6 +1407,7 @@ async def test_oven_settings_follow_the_app(
         "select_oven_cavity_illumination",
     }
     assert {item.key for item in entities["switch"]} == {
+        "switch_child_lock",
         "switch_oven_display_brand_logo",
         "switch_oven_fast_pre_heat_setting",
         "switch_oven_telescopic_slide_out",

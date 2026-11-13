@@ -4489,7 +4489,7 @@
         }
       },
       "select_oven_child_lock_setting": {
-        "name": "Child lock",
+        "name": "Child lock type",
         "state": {
           "deactivated": "Deactivated",
           "activated": "Key lock only",
