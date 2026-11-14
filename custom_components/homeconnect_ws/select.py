@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from http import HTTPStatus
 from typing import TYPE_CHECKING
 
 from homeassistant.components.select import SelectEntity
 from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers.translation import async_get_translations
 from homeconnect_websocket.entities import Access, Execution
 from homeconnect_websocket.errors import CodeResponsError
 from homeconnect_websocket.message import Action, Message
@@ -299,6 +301,29 @@ class HCProgram(HCSelect):
 
     @error_decorator
     async def async_select_option(self, option: str) -> None:
+        try:
+            await self._select_program(option)
+        except CodeResponsError as exc:
+            if exc.code != HTTPStatus.BAD_REQUEST:
+                raise
+            # The appliance refuses a program it does not offer right now.
+            raise ServiceValidationError(
+                translation_domain=DOMAIN,
+                translation_key="program_not_selectable",
+                translation_placeholders={"program": await self._program_label(option)},
+            ) from None
+
+    async def _program_label(self, option: str) -> str:
+        """Return the program name as the select shows it, the option itself if unknown."""
+        if self.hass is None:
+            return option
+        translations = await async_get_translations(
+            self.hass, self.hass.config.language, "entity", [DOMAIN]
+        )
+        key = f"component.{DOMAIN}.entity.select.{self.translation_key}.state.{option}"
+        return translations.get(key, option)
+
+    async def _select_program(self, option: str) -> None:
         program_by_label = {label: name for name, label in self._labels().items()}
         selected_program = self._runtime_data.appliance.programs[program_by_label[option]]
         if slot := unsaved_favorite_slot(self._runtime_data.appliance, selected_program.name):

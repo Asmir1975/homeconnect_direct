@@ -6,6 +6,8 @@ from types import SimpleNamespace
 from typing import TYPE_CHECKING
 
 import pytest
+from custom_components.homeconnect_ws import select
+from custom_components.homeconnect_ws.const import DOMAIN
 from custom_components.homeconnect_ws.select import hood_venting_start_options
 from homeassistant.components.select import (
     ATTR_OPTION,
@@ -19,8 +21,10 @@ from homeassistant.const import (
     STATE_UNAVAILABLE,
     STATE_UNKNOWN,
 )
-from homeassistant.exceptions import ServiceValidationError
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
+from homeassistant.helpers import entity_registry as er
 from homeconnect_websocket.entities import Access, Execution
+from homeconnect_websocket.errors import CodeResponsError
 from homeconnect_websocket.message import Action, Message
 
 from . import setup_config_entry
@@ -792,3 +796,78 @@ def test_hood_venting_start_ignores_other_programs() -> None:
     other = SimpleNamespace(name="Cooking.Common.Program.Hood.Automatic")
     assert hood_venting_start_options(appliance, other) is None
     assert hood_venting_start_options(SimpleNamespace(entities={}), _VENTING) is None
+
+
+async def test_program_select_explains_a_rejected_program(
+    hass: HomeAssistant,
+    mock_appliance: MockAppliance,
+    patch_entity_description: None,  # noqa: ARG001
+) -> None:
+    """Test a 400 on selecting a program says which program cannot be selected."""
+    entity_id = "select.fake_brand_homeappliance_selectedprogram"
+    assert await setup_config_entry(hass, MOCK_CONFIG_DATA)
+    mock_appliance.session.send_sync.side_effect = CodeResponsError(400, "/ro/selectedProgram")
+
+    with pytest.raises(ServiceValidationError) as err:
+        await hass.services.async_call(
+            SELECT_DOMAIN,
+            SERVICE_SELECT_OPTION,
+            {ATTR_ENTITY_ID: entity_id, ATTR_OPTION: "test_program_program2"},
+            blocking=True,
+        )
+
+    assert err.value.translation_key == "program_not_selectable"
+    assert err.value.translation_placeholders == {"program": "test_program_program2"}
+
+
+async def test_program_select_keeps_other_error_codes(
+    hass: HomeAssistant,
+    mock_appliance: MockAppliance,
+    patch_entity_description: None,  # noqa: ARG001
+) -> None:
+    """Test other error codes still reach the user as the appliance error."""
+    entity_id = "select.fake_brand_homeappliance_selectedprogram"
+    assert await setup_config_entry(hass, MOCK_CONFIG_DATA)
+    mock_appliance.session.send_sync.side_effect = CodeResponsError(500, "/ro/selectedProgram")
+
+    with pytest.raises(HomeAssistantError) as err:
+        await hass.services.async_call(
+            SELECT_DOMAIN,
+            SERVICE_SELECT_OPTION,
+            {ATTR_ENTITY_ID: entity_id, ATTR_OPTION: "test_program_program2"},
+            blocking=True,
+        )
+
+    assert err.value.translation_key == "code_respons"
+
+
+async def test_program_select_names_the_program_as_shown(
+    hass: HomeAssistant,
+    mock_appliance: MockAppliance,
+    patch_entity_description: None,  # noqa: ARG001
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Test the message names the program with its translated name."""
+    entity_id = "select.fake_brand_homeappliance_selectedprogram"
+    assert await setup_config_entry(hass, MOCK_CONFIG_DATA)
+    registry_entry = er.async_get(hass).async_get(entity_id)
+    state_key = (
+        f"component.{DOMAIN}.entity.select.{registry_entry.translation_key}"
+        ".state.test_program_program2"
+    )
+
+    async def translations(*_args: object) -> dict[str, str]:
+        return {state_key: "Program Two"}
+
+    monkeypatch.setattr(select, "async_get_translations", translations)
+    mock_appliance.session.send_sync.side_effect = CodeResponsError(400, "/ro/selectedProgram")
+
+    with pytest.raises(ServiceValidationError) as err:
+        await hass.services.async_call(
+            SELECT_DOMAIN,
+            SERVICE_SELECT_OPTION,
+            {ATTR_ENTITY_ID: entity_id, ATTR_OPTION: "test_program_program2"},
+            blocking=True,
+        )
+
+    assert err.value.translation_placeholders == {"program": "Program Two"}
