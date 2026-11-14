@@ -146,12 +146,6 @@
       "switch_child_lock": {
         "name": "Kindersicherung"
       },
-      "switch_door_light_ring": {
-        "name": "Tür Ringlicht"
-      },
-      "switch_drum_light": {
-        "name": "Trommellicht"
-      },
       "switch_laundry_end_signal": {
         "name": "Beendet-Ton"
       },
@@ -4099,7 +4093,7 @@
         }
       },
       "select_laundry_sound_volume": {
-        "name": "Lautstärke Tastenton",
+        "name": "Lautstärke Ton",
         "state": {
           "off": "Aus",
           "volume1": "Lautstärke 1",
@@ -4177,7 +4171,7 @@
         }
       },
       "select_laundry_refresher": {
-        "name": "Trockenziel",
+        "name": "Auffrischen",
         "state": {
           "shirt1": "Hemd 1",
           "shirt5": "Hemd 5",
