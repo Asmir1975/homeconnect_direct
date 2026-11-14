@@ -149,12 +149,6 @@
       "switch_child_lock": {
         "name": "Child lock"
       },
-      "switch_door_light_ring": {
-        "name": "Door Ring light"
-      },
-      "switch_drum_light": {
-        "name": "Drum light"
-      },
       "switch_laundry_end_signal": {
         "name": "End Signal"
       },
@@ -4208,7 +4202,7 @@
         }
       },
       "select_laundry_sound_volume": {
-        "name": "Key Signal volume",
+        "name": "Sound volume",
         "state": {
           "off": "Off",
           "volume1": "Volume 1",
@@ -4286,7 +4280,7 @@
         }
       },
       "select_laundry_refresher": {
-        "name": "Drying target",
+        "name": "Refresher",
         "state": {
           "shirt1": "Shirt 1",
           "shirt5": "Shirt 5",

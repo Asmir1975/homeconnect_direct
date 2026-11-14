@@ -442,18 +442,6 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     ],
     "switch": [
         HCSwitchEntityDescription(
-            key="switch_door_light_ring",
-            entity="LaundryCare.Common.Setting.DoorLightRing.Active",
-            device_class=SwitchDeviceClass.SWITCH,
-            entity_registry_enabled_default=False,
-        ),
-        HCSwitchEntityDescription(
-            key="switch_drum_light",
-            entity="LaundryCare.Common.Setting.DrumLight.Active",
-            device_class=SwitchDeviceClass.SWITCH,
-            entity_registry_enabled_default=False,
-        ),
-        HCSwitchEntityDescription(
             key="switch_laundry_end_signal",
             entity="LaundryCare.Common.Setting.EndSignal",
             device_class=SwitchDeviceClass.SWITCH,

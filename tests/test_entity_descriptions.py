@@ -43,6 +43,9 @@ from custom_components.homeconnect_ws.entity_descriptions.dishcare import (
     DISHCARE_ENTITY_DESCRIPTIONS,
     DISHWASHER_MESSAGES,
 )
+from custom_components.homeconnect_ws.entity_descriptions.laundry_care import (
+    LAUNDRY_ENTITY_DESCRIPTIONS,
+)
 from custom_components.homeconnect_ws.entity_descriptions.refrigeration import (
     REFRIGERATION_ENTITY_DESCRIPTIONS,
     generate_internal_light,
@@ -2170,3 +2173,12 @@ def test_hob_ventilation_sensor_states_are_translated() -> None:
         translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
         states = translation["entity"]["sensor"]["sensor_hob_ventilation"]["state"]
         assert set(states) == keys, language
+
+
+def test_laundry_light_settings_only_create_lights() -> None:
+    """Test the drum and door ring light settings have a light and no duplicate switch."""
+    switches = {item.key for item in LAUNDRY_ENTITY_DESCRIPTIONS["switch"] if not callable(item)}
+    lights = {item.key for item in LAUNDRY_ENTITY_DESCRIPTIONS["light"] if not callable(item)}
+
+    assert {"switch_door_light_ring", "switch_drum_light"}.isdisjoint(switches)
+    assert {"light_door_ring", "light_drum_light"} <= lights
