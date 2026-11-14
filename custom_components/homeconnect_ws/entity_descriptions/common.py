@@ -92,7 +92,7 @@ def generate_start_button(appliance: HomeAppliance) -> EntityDescriptions:
     return None
 
 
-_READ_ONLY_POWER_STATE_TYPES = frozenset({"Hob", "FridgeFreezer"})
+_READ_ONLY_POWER_STATE_TYPES = frozenset({"Hob", "FridgeFreezer", "Refrigerator", "Freezer"})
 
 
 def generate_power_switch(appliance: HomeAppliance) -> EntityDescriptions:
@@ -103,8 +103,9 @@ def generate_power_switch(appliance: HomeAppliance) -> EntityDescriptions:
             appliance.info.get("type") in _READ_ONLY_POWER_STATE_TYPES
             and entity.access == Access.READ
         ):
-            # Seen on EX851LYV5E, EX877HVC1E and KFI96AXEA: the state cannot be written, the
-            # controls stayed unavailable. The power state sensor shows the state.
+            # Seen on EX851LYV5E, EX877HVC1E, KFI96AXEA, T36IR905SP and T18IF905SP: the state
+            # cannot be written, the controls stayed unavailable. The power state sensor shows
+            # the state.
             return entity_descriptions
         if entity.min and entity.max:
             # has min/max
@@ -322,10 +323,10 @@ def generate_program(appliance: HomeAppliance) -> EntityDescriptions:
 
 
 def _wifi_is_polled(appliance: HomeAppliance) -> bool:
-    """Coffee makers and fridge freezers never report the WiFi status, so ask the network info."""
+    """Coffee makers and cooling appliances never report the WiFi status, ask the network info."""
     return "BSH.Common.Status.WiFiSignalStrength" not in appliance.entities or appliance.info.get(
         "type"
-    ) in ("CoffeeMaker", "FridgeFreezer")
+    ) in ("CoffeeMaker", "FridgeFreezer", "Refrigerator", "Freezer")
 
 
 def generate_wifi(appliance: HomeAppliance) -> EntityDescriptions:
