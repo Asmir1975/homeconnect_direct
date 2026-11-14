@@ -409,34 +409,35 @@ def test_read_only_power_state_has_no_controls_where_seen() -> None:
         assert bool(generate_power_switch(appliance)) is controls, (appliance_type, access)
 
 
-def test_setpoints_registered_and_unselected_unit_disabled() -> None:
-    """Test that both units are registered and only the unselected one starts disabled."""
+def test_setpoints_of_both_units_are_registered_and_enabled() -> None:
+    """Test both units are offered enabled, whichever unit the profile marks available."""
     celsius = "Refrigeration.Common.Setting.Freezer.SetpointTemperature"
     fahrenheit = celsius + "Fahrenheit"
     appliance = MagicMock()
     generate_celsius = generate_setpoint(
-        "number_setpoint_freezer", celsius, UnitOfTemperature.CELSIUS, fahrenheit
+        "number_setpoint_freezer", celsius, UnitOfTemperature.CELSIUS
     )
     generate_fahrenheit = generate_setpoint(
         "number_setpoint_freezer_fahrenheit",
         fahrenheit,
         UnitOfTemperature.FAHRENHEIT,
-        celsius,
-        "number_setpoint_freezer",
     )
 
-    for celsius_available, fahrenheit_available, celsius_disabled, fahrenheit_disabled in (
-        (True, False, False, True),  # Celsius selected, as on the KFI96AXEA
-        (False, True, True, False),  # Fahrenheit selected
-        (True, True, False, False),
-        (False, False, False, False),  # both unavailable, nothing to prefer
+    for celsius_available, fahrenheit_available in (
+        (True, False),  # as in the profile of the KFI96AXEA
+        (False, True),  # as the Thermador freezer reports it live
+        (True, True),
+        (False, False),
     ):
         appliance.entities = {
             celsius: MagicMock(available=celsius_available),
             fahrenheit: MagicMock(available=fahrenheit_available),
         }
-        assert generate_celsius(appliance).force_disabled_default is celsius_disabled
-        assert generate_fahrenheit(appliance).force_disabled_default is fahrenheit_disabled
+        assert generate_celsius(appliance).force_disabled_default is False
+        assert generate_fahrenheit(appliance).force_disabled_default is False
+        assert generate_fahrenheit(appliance).native_unit_of_measurement == (
+            UnitOfTemperature.FAHRENHEIT
+        )
 
     # Only one unit listed, as in the profile of the KG39NAICT
     appliance.entities = {celsius: MagicMock(available=False)}

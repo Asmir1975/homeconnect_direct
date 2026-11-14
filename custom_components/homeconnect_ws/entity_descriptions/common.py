@@ -399,9 +399,7 @@ def generate_temperature_unit(appliance: HomeAppliance) -> HCSelectEntityDescrip
             entity="BSH.Common.Setting.TemperatureUnit",
             device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
-            entity_registry_enabled_default=False,
             has_state_translation=True,
-            force_disabled_default=True,
         )
     return None
 
@@ -415,7 +413,6 @@ def generate_liquid_volume_unit(appliance: HomeAppliance) -> HCSelectEntityDescr
             entity="BSH.Common.Setting.LiquidVolumeUnit",
             entity_category=EntityCategory.CONFIG,
             has_state_translation=True,
-            force_disabled_default=True,
         )
     return None
 
