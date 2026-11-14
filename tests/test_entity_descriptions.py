@@ -341,6 +341,9 @@ def test_wifi_is_polled_where_the_status_is_never_reported() -> None:
         ("Oven", False, True),
         ("CoffeeMaker", True, True),
         ("FridgeFreezer", True, True),
+        # T36IR905SP and T18IF905SP report the status as 0.
+        ("Refrigerator", True, True),
+        ("Freezer", True, True),
     ):
         appliance.info = {"type": appliance_type}
         appliance.entities = (
@@ -382,7 +385,7 @@ def test_door_state_left_out_on_fridge_freezers_with_own_doors() -> None:
 
 
 def test_read_only_power_state_has_no_controls_where_seen() -> None:
-    """Test that a read-only power state gets no switch or select on hobs and fridge freezers."""
+    """Test that a read-only power state gets no switch or select on hobs and cooling appliances."""
     appliance = MagicMock()
     power_state = MagicMock()
     power_state.enum = {0: "MainsOff", 1: "Off", 2: "On", 3: "Standby"}
@@ -393,6 +396,8 @@ def test_read_only_power_state_has_no_controls_where_seen() -> None:
     for appliance_type, access, controls in (
         ("Hob", Access.READ, False),
         ("FridgeFreezer", Access.READ, False),
+        ("Refrigerator", Access.READ, False),
+        ("Freezer", Access.READ, False),
         ("FridgeFreezer", Access.READ_WRITE, True),
         ("Oven", Access.READ, True),
     ):
@@ -654,6 +659,16 @@ async def test_internal_light_with_power_only(
         entity="Refrigeration.Common.Setting.Light.Internal.Power",
     )
     assert generate_internal_light_brightness(appliance) is None
+
+
+async def test_internal_light_is_not_created_when_it_cannot_be_switched(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test a readstatic power Setting gets no light (T36IR905SP, T18IF905SP)."""
+    setting = {**INTERNAL_LIGHT["setting"][0], "access": Access.READ_STATIC}
+    appliance = await mock_homeconnect_appliance(description=DeviceDescription(setting=[setting]))
+
+    assert generate_internal_light(appliance) is None
 
 
 async def test_internal_light_with_brightness_only(

@@ -14,6 +14,7 @@ from homeassistant.const import (
     UnitOfTemperature,
     UnitOfTime,
 )
+from homeconnect_websocket.entities import Access
 
 from .descriptions_definitions import (
     HCBinarySensorEntityDescription,
@@ -37,6 +38,9 @@ def generate_internal_light(appliance: HomeAppliance) -> HCLightEntityDescriptio
     power = "Refrigeration.Common.Setting.Light.Internal.Power"
     brightness = "Refrigeration.Common.Setting.Light.Internal.Brightness"
     if power not in appliance.entities:
+        return None
+    # Seen on T36IR905SP and T18IF905SP: the light cannot be switched.
+    if appliance.entities[power].access == Access.READ_STATIC:
         return None
 
     return HCLightEntityDescription(
