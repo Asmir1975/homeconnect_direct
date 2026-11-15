@@ -73,24 +73,20 @@ def generate_setpoint(
     key: str,
     entity: str,
     unit: UnitOfTemperature,
-    twin: str,
     translation_key: str | None = None,
 ) -> Callable[[HomeAppliance], HCNumberEntityDescription | None]:
     """
-    Register a setpoint in one temperature unit, disabled if the other unit is selected.
+    Register a setpoint in one temperature unit.
 
-    Descriptions are generated before connecting, so profile availability can
-    disagree with the live temperature unit. Both twins are registered so the
-    other one can be enabled after a unit change.
-    Seen on KFI96AXEA: with the unit set to Celsius the appliance marks both Fahrenheit
-    setpoints as unavailable, they showed up as greyed-out copies of the Celsius ones.
-    The unavailable twin of an available setpoint is therefore disabled by default.
+    Descriptions are generated before connecting, so the stored profile cannot tell which
+    unit the appliance uses (seen on T36IR905SP and T18IF905SP: the profile marks the Celsius
+    setpoints available, the appliance runs on Fahrenheit). Both units are therefore
+    registered and enabled, the unit select shows which pair the appliance reports.
     """
 
     def generate(appliance: HomeAppliance) -> HCNumberEntityDescription | None:
-        if (setpoint := appliance.entities.get(entity)) is None:
+        if appliance.entities.get(entity) is None:
             return None
-        other = appliance.entities.get(twin)
         return HCNumberEntityDescription(
             key=key,
             translation_key=translation_key or key,
@@ -99,9 +95,6 @@ def generate_setpoint(
             device_class=NumberDeviceClass.TEMPERATURE,
             mode=NumberMode.AUTO,
             step=1,
-            force_disabled_default=(
-                not setpoint.available and other is not None and other.available
-            ),
         )
 
     return generate
@@ -405,42 +398,33 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             "number_setpoint_freezer",
             "Refrigeration.Common.Setting.Freezer.SetpointTemperature",
             UnitOfTemperature.CELSIUS,
-            "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
         ),
         generate_setpoint(
             "number_setpoint_freezer_fahrenheit",
             "Refrigeration.Common.Setting.Freezer.SetpointTemperatureFahrenheit",
             UnitOfTemperature.FAHRENHEIT,
-            "Refrigeration.Common.Setting.Freezer.SetpointTemperature",
-            "number_setpoint_freezer",
         ),
         generate_setpoint(
             "number_setpoint_refrigerator",
             "Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
             UnitOfTemperature.CELSIUS,
-            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
         ),
         generate_setpoint(
             "number_setpoint_refrigerator_fahrenheit",
             "Refrigeration.Common.Setting.Refrigerator.SetpointTemperatureFahrenheit",
             UnitOfTemperature.FAHRENHEIT,
-            "Refrigeration.Common.Setting.Refrigerator.SetpointTemperature",
-            "number_setpoint_refrigerator",
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
         generate_setpoint(
             "number_setpoint_chiller_common",
             "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
             UnitOfTemperature.CELSIUS,
-            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
         ),
         # This is only available when the `ChillerCommon.Preset` is `custom`.
         generate_setpoint(
             "number_setpoint_chiller_common_fahrenheit",
             "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperatureFahrenheit",
             UnitOfTemperature.FAHRENHEIT,
-            "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
-            "number_setpoint_chiller_common",
         ),
         generate_internal_light_brightness,
     ],

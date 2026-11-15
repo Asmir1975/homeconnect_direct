@@ -146,12 +146,6 @@
       "switch_child_lock": {
         "name": "Kindersicherung"
       },
-      "switch_door_light_ring": {
-        "name": "Tür Ringlicht"
-      },
-      "switch_drum_light": {
-        "name": "Trommellicht"
-      },
       "switch_laundry_end_signal": {
         "name": "Beendet-Ton"
       },
@@ -4099,7 +4093,7 @@
         }
       },
       "select_laundry_sound_volume": {
-        "name": "Lautstärke Tastenton",
+        "name": "Lautstärke Ton",
         "state": {
           "off": "Aus",
           "volume1": "Lautstärke 1",
@@ -4177,7 +4171,7 @@
         }
       },
       "select_laundry_refresher": {
-        "name": "Trockenziel",
+        "name": "Auffrischen",
         "state": {
           "shirt1": "Hemd 1",
           "shirt5": "Hemd 5",
@@ -5099,8 +5093,14 @@
       "number_setpoint_freezer": {
         "name": "Temperatur Gefrierschrank"
       },
+      "number_setpoint_freezer_fahrenheit": {
+        "name": "Temperatur Gefrierschrank (°F)"
+      },
       "number_setpoint_refrigerator": {
         "name": "Temperatur Kühlschrank"
+      },
+      "number_setpoint_refrigerator_fahrenheit": {
+        "name": "Temperatur Kühlschrank (°F)"
       },
       "number_idos1_base_level": {
         "name": "i-DOS Dosiervolumen: Waschmittel"
@@ -5131,6 +5131,9 @@
       },
       "number_setpoint_chiller_common": {
         "name": "Frischezone-Temperatur"
+      },
+      "number_setpoint_chiller_common_fahrenheit": {
+        "name": "Frischezone-Temperatur (°F)"
       },
       "number_light_internal_brightness": {
         "name": "Innenbeleuchtung Helligkeit"
@@ -5309,6 +5312,9 @@
     },
     "favorite_not_saved": {
       "message": "Favorit {slot} ist am Gerät noch nicht angelegt. Bitte zuerst in der Home-Connect-App oder am Gerät speichern."
+    },
+    "program_not_selectable": {
+      "message": "„{program}“ kann gerade nicht gewählt werden."
     },
     "start_in_needs_program": {
       "message": "Bitte zuerst ein Programm wählen, dann die Startverzögerung setzen."

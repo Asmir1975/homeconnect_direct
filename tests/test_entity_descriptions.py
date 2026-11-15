@@ -43,6 +43,9 @@ from custom_components.homeconnect_ws.entity_descriptions.dishcare import (
     DISHCARE_ENTITY_DESCRIPTIONS,
     DISHWASHER_MESSAGES,
 )
+from custom_components.homeconnect_ws.entity_descriptions.laundry_care import (
+    LAUNDRY_ENTITY_DESCRIPTIONS,
+)
 from custom_components.homeconnect_ws.entity_descriptions.refrigeration import (
     REFRIGERATION_ENTITY_DESCRIPTIONS,
     generate_internal_light,
@@ -406,34 +409,35 @@ def test_read_only_power_state_has_no_controls_where_seen() -> None:
         assert bool(generate_power_switch(appliance)) is controls, (appliance_type, access)
 
 
-def test_setpoints_registered_and_unselected_unit_disabled() -> None:
-    """Test that both units are registered and only the unselected one starts disabled."""
+def test_setpoints_of_both_units_are_registered_and_enabled() -> None:
+    """Test both units are offered enabled, whichever unit the profile marks available."""
     celsius = "Refrigeration.Common.Setting.Freezer.SetpointTemperature"
     fahrenheit = celsius + "Fahrenheit"
     appliance = MagicMock()
     generate_celsius = generate_setpoint(
-        "number_setpoint_freezer", celsius, UnitOfTemperature.CELSIUS, fahrenheit
+        "number_setpoint_freezer", celsius, UnitOfTemperature.CELSIUS
     )
     generate_fahrenheit = generate_setpoint(
         "number_setpoint_freezer_fahrenheit",
         fahrenheit,
         UnitOfTemperature.FAHRENHEIT,
-        celsius,
-        "number_setpoint_freezer",
     )
 
-    for celsius_available, fahrenheit_available, celsius_disabled, fahrenheit_disabled in (
-        (True, False, False, True),  # Celsius selected, as on the KFI96AXEA
-        (False, True, True, False),  # Fahrenheit selected
-        (True, True, False, False),
-        (False, False, False, False),  # both unavailable, nothing to prefer
+    for celsius_available, fahrenheit_available in (
+        (True, False),  # as in the profile of the KFI96AXEA
+        (False, True),  # as the Thermador freezer reports it live
+        (True, True),
+        (False, False),
     ):
         appliance.entities = {
             celsius: MagicMock(available=celsius_available),
             fahrenheit: MagicMock(available=fahrenheit_available),
         }
-        assert generate_celsius(appliance).force_disabled_default is celsius_disabled
-        assert generate_fahrenheit(appliance).force_disabled_default is fahrenheit_disabled
+        assert generate_celsius(appliance).force_disabled_default is False
+        assert generate_fahrenheit(appliance).force_disabled_default is False
+        assert generate_fahrenheit(appliance).native_unit_of_measurement == (
+            UnitOfTemperature.FAHRENHEIT
+        )
 
     # Only one unit listed, as in the profile of the KG39NAICT
     appliance.entities = {celsius: MagicMock(available=False)}
@@ -2185,3 +2189,12 @@ def test_hob_ventilation_sensor_states_are_translated() -> None:
         translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
         states = translation["entity"]["sensor"]["sensor_hob_ventilation"]["state"]
         assert set(states) == keys, language
+
+
+def test_laundry_light_settings_only_create_lights() -> None:
+    """Test the drum and door ring light settings have a light and no duplicate switch."""
+    switches = {item.key for item in LAUNDRY_ENTITY_DESCRIPTIONS["switch"] if not callable(item)}
+    lights = {item.key for item in LAUNDRY_ENTITY_DESCRIPTIONS["light"] if not callable(item)}
+
+    assert {"switch_door_light_ring", "switch_drum_light"}.isdisjoint(switches)
+    assert {"light_door_ring", "light_drum_light"} <= lights

@@ -149,12 +149,6 @@
       "switch_child_lock": {
         "name": "Child lock"
       },
-      "switch_door_light_ring": {
-        "name": "Door Ring light"
-      },
-      "switch_drum_light": {
-        "name": "Drum light"
-      },
       "switch_laundry_end_signal": {
         "name": "End Signal"
       },
@@ -4208,7 +4202,7 @@
         }
       },
       "select_laundry_sound_volume": {
-        "name": "Key Signal volume",
+        "name": "Sound volume",
         "state": {
           "off": "Off",
           "volume1": "Volume 1",
@@ -4286,7 +4280,7 @@
         }
       },
       "select_laundry_refresher": {
-        "name": "Drying target",
+        "name": "Refresher",
         "state": {
           "shirt1": "Shirt 1",
           "shirt5": "Shirt 5",
@@ -5099,11 +5093,20 @@
       "number_setpoint_freezer": {
         "name": "Freezer Temperature"
       },
+      "number_setpoint_freezer_fahrenheit": {
+        "name": "Freezer Temperature (°F)"
+      },
       "number_setpoint_refrigerator": {
         "name": "Fridge Temperature"
       },
+      "number_setpoint_refrigerator_fahrenheit": {
+        "name": "Fridge Temperature (°F)"
+      },
       "number_setpoint_chiller_common": {
         "name": "Chiller Temperature"
+      },
+      "number_setpoint_chiller_common_fahrenheit": {
+        "name": "Chiller Temperature (°F)"
       },
       "number_light_internal_brightness": {
         "name": "Internal Light Brightness"
@@ -5309,6 +5312,9 @@
     },
     "favorite_not_saved": {
       "message": "Favorite {slot} is not saved on the appliance yet. Save it in the Home Connect app or on the appliance first."
+    },
+    "program_not_selectable": {
+      "message": "“{program}” can't be selected right now."
     },
     "start_in_needs_program": {
       "message": "Select a program first, then set the delayed start."

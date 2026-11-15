@@ -25,7 +25,7 @@ Control Bosch, Siemens and Neff appliances from Home Assistant over your local n
 | 🍽️ Dishwasher | ✅ Supported | 🧺 Washing machine | ✅ Supported |
 | 🔥 Hob | ✅ Supported | 🧊 Fridge / Freezer | ✅ Supported |
 | ♨️ Oven | ✅ Supported | ☕ Coffee machine | ✅ Supported |
-| 💨 Hood | ✅ Supported | 👕 Dryer | 🧪 In testing |
+| 💨 Hood | ✅ Supported | 👕 Dryer | ✅ Supported |
 
 > [!NOTE]
 > Two washing machines, hoods or ovens can behave quite differently. If yours doesn't work as expected, open an issue with a debug log and your model number. That's the only way we can track it down.
