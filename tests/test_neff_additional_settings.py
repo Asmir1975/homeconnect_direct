@@ -123,10 +123,6 @@ def test_steam_options_come_from_device_not_translation() -> None:
     )
     entity = HCSensor(description, runtime)
     assert entity.options == ["off", "low", "high"]
-    assert not any(
-        not callable(item) and item.entity == description.entity
-        for item in COOKING_ENTITY_DESCRIPTIONS["select"]
-    )
     for value in ("Off", "Low", "High"):
         wire_entity.value = value
         assert entity.native_value == value.lower()
@@ -167,4 +163,3 @@ def test_part_b_translation_keys(language: str) -> None:
     for (platform, key), states in expected.items():
         assert set(data["entity"][platform][key]["state"]) == states
         assert all(data["entity"][platform][key]["state"].values())
-    assert "select_oven_steam_assist_level" not in data["entity"]["select"]

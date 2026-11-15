@@ -48,6 +48,7 @@ class HCSelectEntityDescription(
     available_access: tuple[Access] = (Access.READ_WRITE, Access.WRITE_ONLY)
     has_state_translation: bool = False
     mapping: dict[str, str] = None
+    sent_with_start: bool = False
 
 
 class HCSwitchEntityDescription(
@@ -57,6 +58,7 @@ class HCSwitchEntityDescription(
 
     value_mapping: tuple[str, str] | None = None
     available_access: tuple[Access] = (Access.READ_WRITE, Access.WRITE_ONLY)
+    sent_with_start: bool = False
 
 
 class HCSensorEntityDescription(

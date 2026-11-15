@@ -197,6 +197,9 @@
       "switch_oven_fast_pre_heat": {
         "name": "Schnelles Vorheizen"
       },
+      "switch_oven_steam_boost": {
+        "name": "Dampfstoß"
+      },
       "switch_oven_button_tones": {
         "name": "Tastenton"
       },
@@ -4201,6 +4204,15 @@
           "level01": "Stufe 1",
           "level02": "Stufe 2",
           "level03": "Stufe 3"
+        }
+      },
+      "select_oven_steam_assist_level": {
+        "name": "Dampfzugabe",
+        "state": {
+          "off": "Aus",
+          "low": "Gering",
+          "medium": "Mittel",
+          "high": "Stark"
         }
       },
       "select_oven_used_heating_mode": {

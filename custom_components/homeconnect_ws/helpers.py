@@ -32,6 +32,16 @@ _LOGGER = logging.getLogger(__name__)
 
 HTTP_BAD_REQUEST = 400
 _START_RESOURCE = "/ro/activeProgram"
+_OPERATION_STATE = "BSH.Common.Status.OperationState"
+_STEAM_LEVEL = "Cooking.Oven.Option.SteamAssistLevel"
+_STEAM_BOOST = "Cooking.Oven.Option.SteamBoost"
+# Seen on HR776G1B1: a start with these options changes them in a running program too.
+_SENT_WITH_START = (
+    "Cooking.Oven.Option.SetpointTemperature",
+    "BSH.Common.Option.Duration",
+    _STEAM_LEVEL,
+    _STEAM_BOOST,
+)
 
 
 def create_entities(
@@ -229,6 +239,64 @@ async def write_through_selected_program(
     )
     await program.select(options, override_options=True)
     return True
+
+
+def start_option_entities(appliance: HomeAppliance, entity: HcEntity) -> list[HcEntity]:
+    """Get the entities an option sent with the start has to follow."""
+    names = (_OPERATION_STATE, _STEAM_LEVEL, _STEAM_BOOST)
+    return [
+        appliance.entities[name]
+        for name in names
+        if name in appliance.entities and appliance.entities[name] is not entity
+    ]
+
+
+def start_option_running(appliance: HomeAppliance) -> bool | None:
+    """Tell if a program runs (True), the oven is idle (False) or neither (None)."""
+    operation_state = appliance.entities.get(_OPERATION_STATE)
+    if operation_state is None or operation_state.value is None:
+        return False
+    state = str(operation_state.value).lower()
+    if state == "run":
+        return True
+    if state in ("inactive", "ready"):
+        return False
+    return None
+
+
+async def write_with_start(runtime_data: HCData, entity: HcEntity, value: Any) -> None:
+    """
+    Keep an option for the next start, or send the start again while a program runs.
+
+    Seen on HR776G1B1: the oven takes the steam level and the steam boost with the
+    program start, also in a running program, and runs either a level or the boost.
+    """
+    appliance = runtime_data.appliance
+    values = {entity.name: value}
+    if entity.name == _STEAM_LEVEL and value:
+        values[_STEAM_BOOST] = False
+    elif entity.name == _STEAM_BOOST and value:
+        values[_STEAM_LEVEL] = 0
+
+    if start_option_running(appliance):
+        program = appliance.active_program
+        members = {option.name: option for option in program.options} if program else {}
+        if entity.name not in members:
+            raise ServiceValidationError(translation_domain=DOMAIN, translation_key="read_only")
+        options = {}
+        for name in _SENT_WITH_START:
+            if name in members:
+                current = values.get(name, members[name].value_shadow)
+                if current is not None:
+                    options[members[name].uid] = _whole_number(current)
+        await program.start(options, override_options=True)
+        return
+
+    for name, kept in values.items():
+        option = appliance.entities.get(name)
+        if option is not None:
+            option._value_shadow = kept  # noqa: SLF001
+            await option.update({})
 
 
 async def start_coffee_favorite_with_fallback(program: Program) -> None:

@@ -969,6 +969,12 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             has_state_translation=True,
         ),
         HCSelectEntityDescription(
+            key="select_oven_steam_assist_level",
+            entity="Cooking.Oven.Option.SteamAssistLevel",
+            has_state_translation=True,
+            sent_with_start=True,
+        ),
+        HCSelectEntityDescription(
             key="select_oven_used_heating_mode",
             entity="Cooking.Oven.Option.UsedHeatingMode",
             has_state_translation=True,
@@ -1229,6 +1235,12 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="switch_oven_fast_pre_heat",
             entity="Cooking.Oven.Option.FastPreHeat",
             device_class=SwitchDeviceClass.SWITCH,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_oven_steam_boost",
+            entity="Cooking.Oven.Option.SteamBoost",
+            device_class=SwitchDeviceClass.SWITCH,
+            sent_with_start=True,
         ),
         HCSwitchEntityDescription(
             key="switch_oven_button_tones",

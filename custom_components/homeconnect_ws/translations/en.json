@@ -242,6 +242,9 @@
       "switch_oven_fast_pre_heat": {
         "name": "Fast Preheat"
       },
+      "switch_oven_steam_boost": {
+        "name": "Steam boost"
+      },
       "switch_oven_button_tones": {
         "name": "Button tone"
       },
@@ -4441,6 +4444,15 @@
           "level01": "Level 1",
           "level02": "Level 2",
           "level03": "Level 3"
+        }
+      },
+      "select_oven_steam_assist_level": {
+        "name": "Add steam",
+        "state": {
+          "off": "Off",
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
         }
       },
       "select_oven_used_heating_mode": {

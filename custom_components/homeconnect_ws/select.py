@@ -23,6 +23,9 @@ from .helpers import (
     entity_is_available,
     error_decorator,
     full_option_set_select_options,
+    start_option_entities,
+    start_option_running,
+    write_with_start,
 )
 from .program_names import (
     favorite_name_settings,
@@ -155,13 +158,29 @@ class HCSelect(HCEntity, SelectEntity):
             for _, value in translatable_items:
                 self._rev_options[str(value).lower()] = value
 
+        if entity_description.sent_with_start:
+            self._entities.extend(start_option_entities(runtime_data.appliance, self._entity))
+
+    @property
+    def available(self) -> bool:
+        if (
+            self.entity_description.sent_with_start
+            and start_option_running(self._runtime_data.appliance) is None
+        ):
+            return False
+        return super().available
+
     @property
     def current_option(self) -> str:
+        entity_value = self._entity.value
+        if self.entity_description.sent_with_start:
+            # The value kept for the next start, the oven's own value once it reports one.
+            entity_value = (self._entity.enum or {}).get(self._entity.value_shadow)
         if self.entity_description.has_state_translation:
-            value = str(self._entity.value).lower()
+            value = str(entity_value).lower()
             if value in self._attr_options:
                 return value
-        value = str(self._entity.value)
+        value = str(entity_value)
         if value in self._attr_options:
             return value
         return None
@@ -171,6 +190,10 @@ class HCSelect(HCEntity, SelectEntity):
         ensure_writable(self._entity)
         if self._rev_options:
             option = self._rev_options[option]
+        if self.entity_description.sent_with_start:
+            raw = next(key for key, value in self._entity.enum.items() if value == option)
+            await write_with_start(self._runtime_data, self._entity, raw)
+            return
         await self._entity.set_value(option)
 
 
