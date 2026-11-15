@@ -47,6 +47,7 @@ def generate_internal_light(appliance: HomeAppliance) -> HCLightEntityDescriptio
         key="light_internal",
         entity=power,
         brightness_entity=brightness if brightness in appliance.entities else None,
+        entity_category=EntityCategory.CONFIG,
     )
 
 
@@ -65,6 +66,7 @@ def generate_internal_light_brightness(
         native_unit_of_measurement=PERCENTAGE,
         mode=NumberMode.AUTO,
         step=1,
+        entity_category=EntityCategory.CONFIG,
         force_disabled_default=power in appliance.entities,
     )
 
@@ -507,6 +509,7 @@ REFRIGERATION_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="switch_refrigeration_light_theater_mode",
             entity="Refrigeration.Common.Setting.Light.Internal.EnableTheaterMode",
             device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
         ),
         HCSwitchEntityDescription(
             key="switch_refrigerator_sabbath_mode",

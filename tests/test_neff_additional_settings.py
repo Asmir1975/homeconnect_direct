@@ -81,7 +81,6 @@ def test_part_b_mapping(
 @pytest.mark.parametrize(
     ("platform", "key"),
     [
-        ("switch", "switch_dishwasher_gap_illumination"),
         ("select", "select_dishwasher_interior_light_mode"),
     ],
 )
@@ -99,6 +98,17 @@ def test_lights_force_disabled_despite_fork_default(platform: str, key: str) -> 
         coordinator=MagicMock(),
     )
     assert not HCEntity(description, runtime).entity_registry_enabled_default
+
+
+def test_gap_illumination_is_enabled_by_default() -> None:
+    """The gap illumination switch is only created when the appliance has the setting."""
+    description = next(
+        item
+        for item in DISHCARE_ENTITY_DESCRIPTIONS["switch"]
+        if item.key == "switch_dishwasher_gap_illumination"
+    )
+    assert description.entity_registry_enabled_default
+    assert not description.force_disabled_default
 
 
 def test_steam_options_come_from_device_not_translation() -> None:

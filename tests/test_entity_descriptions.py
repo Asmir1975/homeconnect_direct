@@ -633,6 +633,7 @@ async def test_internal_light_with_brightness(
             key="light_internal",
             entity="Refrigeration.Common.Setting.Light.Internal.Power",
             brightness_entity="Refrigeration.Common.Setting.Light.Internal.Brightness",
+            entity_category=EntityCategory.CONFIG,
         )
     ]
 
@@ -661,6 +662,7 @@ async def test_internal_light_with_power_only(
     assert generate_internal_light(appliance) == HCLightEntityDescription(
         key="light_internal",
         entity="Refrigeration.Common.Setting.Light.Internal.Power",
+        entity_category=EntityCategory.CONFIG,
     )
     assert generate_internal_light_brightness(appliance) is None
 

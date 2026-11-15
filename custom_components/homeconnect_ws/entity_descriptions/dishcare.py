@@ -338,8 +338,6 @@ DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="Dishcare.Dishwasher.Setting.GapIllumination",
             device_class=SwitchDeviceClass.SWITCH,
             entity_category=EntityCategory.CONFIG,
-            entity_registry_enabled_default=False,
-            force_disabled_default=True,
         ),
         HCSwitchEntityDescription(
             key="switch_half_load",
