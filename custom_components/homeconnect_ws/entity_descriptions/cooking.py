@@ -50,6 +50,7 @@ def _append_oven_cavity_extra_status(
                 translation_key="sensor_oven_cavity_selector",
                 translation_placeholders={"group_name": group_name},
                 entity=entity,
+                device_class=SensorDeviceClass.ENUM,
                 force_disabled_default=True,
             )
         )
@@ -62,6 +63,7 @@ def _append_oven_cavity_extra_status(
                 translation_key="sensor_oven_cavity_level",
                 translation_placeholders={"group_name": group_name},
                 entity=entity,
+                device_class=SensorDeviceClass.ENUM,
                 force_disabled_default=True,
             )
         )
