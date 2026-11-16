@@ -1,0 +1,5096 @@
+{
+  "entry_data": {
+    "description": {
+      "activeProgram": {
+        "access": "read",
+        "available": true,
+        "fullOptionSet": false,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "uid": 256
+      },
+      "command": [
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AbortProgram",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 512
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Command.AcknowledgeEvent",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 6
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AllowSoftwareDownload",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 594
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AllowSoftwareUpdate",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 611
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ApplyFactoryReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 553
+        },
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ApplyNetworkReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 554
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.DeactivateWiFi",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 1
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Command.RejectEvent",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 16
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.DeactivateRemoteControlStart",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 555
+        },
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.PauseProgram",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 537
+        },
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ResumeProgram",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 546
+        }
+      ],
+      "event": [
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "BSH.Common.Event.CustomerServiceRequest",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 559
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "BSH.Common.Event.HomeConnectApplianceDataMissing",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 598
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.ProgramAborted",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 545
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.ProgramFinished",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 540
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareDownloadAvailable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 593
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 21
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareUpdateSuccessful",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 595
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Common.Event.DelayedShutdown",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18954
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "info",
+          "name": "LaundryCare.Common.Event.DelayedShutdownCanceled",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18955
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "LaundryCare.Common.Event.DoorNotLockable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18950
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Common.Event.DoorNotUnlockable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18949
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "LaundryCare.Common.Event.DoorOpen",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18951
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "LaundryCare.Common.Event.FatalErrorOccured",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18946
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Common.Event.SupplyPower.BlackedOut",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18957
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "LaundryCare.Common.Event.SupplyPower.SupplyVoltageTooLow",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 18956
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "LaundryCare.Dryer.Event.CondensateContainerFull",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17665
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.DontDry",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17685
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.DontDrySilk",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17680
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.LaundryTooMoist",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17684
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.NoDryingProgram",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17682
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.SingleDryLargeItems",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17681
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.UseBasket",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17686
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ConnectedDry.WasherTooLoaded",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17683
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.CoolDownPhaseRunning",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17669
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "LaundryCare.Dryer.Event.DryerSelfCleaning.CleanLintFilter",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17671
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "LaundryCare.Dryer.Event.DryerSelfCleaning.CleanSelfCleaningModule",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17670
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.DryingProcessFinished",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17668
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "LaundryCare.Dryer.Event.EvaporatorFrozen",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17687
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "LaundryCare.Dryer.Event.LintFilterFull",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17666
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.Maintenance.DepthFillAgent",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17677
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "LaundryCare.Dryer.Event.Maintenance.DepthFillWater",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17679
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.Maintenance.DrainSet",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17676
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.Maintenance.QuickFillWater",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17678
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "warning",
+          "name": "LaundryCare.Dryer.Event.Maintenance.Remind",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17673
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ProgramFeedback.CupboardDry.Request",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17689
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ProgramFeedback.CupboardDryPlus.Request",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17690
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "LaundryCare.Dryer.Event.ProgramFeedback.IronDry.Request",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 17688
+        }
+      ],
+      "info": {
+        "brand": "BOSCH",
+        "customerIndex": "05",
+        "deviceInfo": "",
+        "deviceType": "Dryer",
+        "eNumber": "WQB246C7NL/05",
+        "fdString": "0504",
+        "haVersion": "1.31503",
+        "hwVersion": "3.0.0.6",
+        "model": "WQB246C7NL",
+        "revision": 3,
+        "swVersion": "3.13.0.3",
+        "type": "Dryer",
+        "version": 1,
+        "vib": "WQB246C7NL",
+        "deviceID": "fixture-wqb246c7nl"
+      },
+      "option": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "min": "0",
+          "name": "BSH.Common.Option.EstimatedTotalProgramTime",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "stepSize": "60",
+          "uid": 531
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "percent",
+          "initValue": "0.0",
+          "name": "BSH.Common.Option.ProgramProgress",
+          "notifyOnChange": true,
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "stepSize": "1.0",
+          "uid": 542
+        },
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "max": "21600",
+          "min": "0",
+          "name": "BSH.Common.Option.RemainingProgramTime",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "stepSize": "60",
+          "uid": 544
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "BSH.Common.Option.RemainingProgramTimeIsEstimated",
+          "notifyOnChange": true,
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 549
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "NoPhase",
+            "1": "Prewash",
+            "10": "RinsingAquaSensor",
+            "11": "RinseOnly",
+            "12": "WaterProofing",
+            "128": "AnyPhase",
+            "13": "RinsingSoftener",
+            "14": "HoldAfterRinse",
+            "15": "Pumping",
+            "16": "SpinningFinal",
+            "17": "LessIroning",
+            "18": "Fluffing",
+            "19": "Soaking",
+            "2": "IntermediateSpin",
+            "20": "HygienicSteamFogging",
+            "21": "GuardingOxy",
+            "22": "GeneratingOzone",
+            "23": "DegradingOzone",
+            "24": "Drying",
+            "25": "CoolingDown",
+            "26": "AdditionalCoolingDown",
+            "27": "GuardingWrinkle",
+            "28": "DetectingTextile",
+            "29": "DetectingSoil",
+            "3": "FillingDetergent",
+            "30": "Disinfecting",
+            "31": "LowTemperatureHygiene",
+            "32": "SteamingActive",
+            "33": "IronDryReached",
+            "34": "CupboardDryReached",
+            "35": "CupboardDryPlusReached",
+            "36": "CleaningHeatExchanger",
+            "37": "SlightlyDampReached",
+            "38": "ExtraDryReached",
+            "39": "GentlyDryReached",
+            "4": "DetectingLoad",
+            "40": "QuickCare",
+            "41": "DepthCarePhase1",
+            "42": "DepthCarePhase2",
+            "43": "ColdRefreshing",
+            "44": "Steaming",
+            "45": "Foam",
+            "46": "TestProgramDummyTextFinalSpeedReached",
+            "47": "RinsingFoamF21",
+            "48": "HandSoak",
+            "49": "Vacant",
+            "5": "Heating",
+            "50": "Spinning",
+            "51": "DisplaySpinAbortNoSpin",
+            "52": "MultipleSoak",
+            "53": "LaundryRefreshing",
+            "54": "Reload",
+            "55": "HotMoistHeatingWetting",
+            "56": "HotMoistHeatingHeating",
+            "57": "HotMoistHeatingWashing",
+            "58": "MoistureRemoval",
+            "59": "SelfCleaning",
+            "6": "Washing",
+            "60": "Hygiene",
+            "61": "SmartSoak",
+            "62": "SoakPause",
+            "63": "SoakFinished",
+            "7": "Cooldown",
+            "8": "RinsingFoam",
+            "9": "Rinsing"
+          },
+          "initValue": "0",
+          "max": "128",
+          "min": "0",
+          "name": "LaundryCare.Common.Option.ProcessPhase",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 27142
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Option.BaseProgram",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 32773
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "timeSpan",
+          "initValue": "1200",
+          "max": "7200",
+          "min": "1200",
+          "name": "BSH.Common.Option.Duration",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "stepSize": "600",
+          "uid": 548
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "max": "30",
+          "min": "0",
+          "name": "BSH.Common.Option.ProgramName",
+          "notifyOnChange": true,
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 32772
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "weight",
+          "initValue": "0",
+          "max": "25500",
+          "min": "0",
+          "name": "LaundryCare.Common.Option.LoadRecommendation",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 19,
+          "refDID": 129,
+          "stepSize": "100",
+          "uid": 27138
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "name": "LaundryCare.Common.Option.SilentMode",
+          "notifyOnChange": true,
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 27143
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "name": "LaundryCare.Common.Option.SpeedPerfect",
+          "notifyOnChange": true,
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 27146
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "IronDry",
+            "1": "GentleDry",
+            "2": "CupboardDry",
+            "3": "CupboardDryPlus",
+            "4": "ExtraDry"
+          },
+          "max": "4",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Option.DryingTarget",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 25857
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Dryer.Option.Gentle",
+          "notifyOnChange": true,
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 25860
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "name": "LaundryCare.Dryer.Option.HalfLoad",
+          "notifyOnChange": true,
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 25872
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "name": "LaundryCare.Dryer.Option.Hygiene",
+          "notifyOnChange": true,
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 25873
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "Shirt1",
+            "2": "Shirt5",
+            "3": "Business"
+          },
+          "max": "3",
+          "min": "1",
+          "name": "LaundryCare.Dryer.Option.Refresher",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 25875
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "integer",
+          "max": "1800",
+          "min": "600",
+          "name": "LaundryCare.Dryer.Option.SpinClass",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 130,
+          "stepSize": "100",
+          "uid": 25861
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "120": "Min120",
+            "180": "Min180",
+            "30": "Min30",
+            "60": "Min60",
+            "90": "Min90"
+          },
+          "max": "180",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Option.WrinkleGuard",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 25859
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "uidValue",
+          "initValue": "0",
+          "name": "LaundryCare.Common.Option.ReferToProgram",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 27141
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "timeSpan",
+          "name": "LaundryCare.Dryer.Option.ConnectedDry.OriginalProgramTime",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 25865
+        },
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "max": "86400",
+          "min": "0",
+          "name": "BSH.Common.Option.FinishInRelative",
+          "notifyOnChange": true,
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "stepSize": "60",
+          "uid": 551
+        }
+      ],
+      "program": [
+        {
+          "available": false,
+          "execution": "none",
+          "name": "BSH.Common.Program.Favorite.001",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 32773
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 32772
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32828
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.MaintenanceCare1.MaintenanceCare1.QuickCare",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32047
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.MaintenanceCare2.MaintenanceCare2.DepthCare",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32046
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Cotton.Cotton.Cotton",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32008
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.CottonEco.CottonEco.CottonEco",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32012
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Synthetic.Synthetic.Synthetic",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32029
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Mix.Mix.Mix",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32023
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Towels.Towels.Towels",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32044
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.BedLinens.BedLinens.BedLinens",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32001
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.TimeWarm.TimeWarm.TimeWarm",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32040
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Hygiene.Hygiene.Hygiene",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32016
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.SilentDry.SilentDry.SilentDry",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32068
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Outdoor.Outdoor.Sportswear",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32026
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Delicates.Delicates.Delicates",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32013
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.ShirtBlouses.ShirtBlouses.ShirtBlouses",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32067
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.ColdRefresh.ColdRefresh.ColdRefresh",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32066
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.ConnectedDry",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 30019
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.TimeCold.TimeCold.TimeCold",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32033
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.WoolFinish.WoolFinish.WoolFinish",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32045
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "LaundryCare.Dryer.Program.Super40.Super40.Super40",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "refUID": 551
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 531
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27141
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25865
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27138
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27143
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 27146
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25857
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25860
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25872
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25873
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25875
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25861
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 25859
+            }
+          ],
+          "uid": 32028
+        }
+      ],
+      "selectedProgram": {
+        "access": "readwrite",
+        "available": true,
+        "fullOptionSet": false,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "uid": 257
+      },
+      "setting": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "BSH.Common.Setting.AllowBackendConnection",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 3
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "dateTime",
+          "name": "BSH.Common.Setting.ApplianceDateTime",
+          "protocolType": "String",
+          "refCID": 6,
+          "refDID": 138,
+          "uid": 520
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "time",
+          "name": "BSH.Common.Setting.ApplianceTime",
+          "protocolType": "String",
+          "refCID": 23,
+          "refDID": 169,
+          "uid": 521
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Setting.ChildLock",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 524
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Program"
+          },
+          "max": "1",
+          "min": "0",
+          "name": "BSH.Common.Setting.Favorite.001.Functionality",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 32824
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "max": "30",
+          "min": "0",
+          "name": "BSH.Common.Setting.Favorite.001.Name",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 32825
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "programInstructionList",
+          "max": "1",
+          "min": "0",
+          "name": "BSH.Common.Setting.Favorite.001.Program",
+          "protocolType": "Object",
+          "refCID": 168,
+          "refDID": 16525,
+          "uid": 32826
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "Ar",
+            "10": "EnUs",
+            "11": "Es",
+            "12": "EsMx",
+            "13": "Et",
+            "14": "Fi",
+            "15": "Fr",
+            "16": "FrCa",
+            "17": "He",
+            "18": "Hi",
+            "19": "Hr",
+            "2": "Az",
+            "20": "Hu",
+            "21": "Id",
+            "22": "Is",
+            "23": "It",
+            "24": "Ja",
+            "25": "Kk",
+            "26": "Ko",
+            "27": "Lt",
+            "28": "Lv",
+            "29": "Mk",
+            "3": "Bg",
+            "30": "Mo",
+            "31": "Ms",
+            "32": "Nl",
+            "33": "No",
+            "34": "Pl",
+            "35": "Pt",
+            "36": "PtBr",
+            "37": "Ro",
+            "38": "Ru",
+            "39": "Sk",
+            "4": "Bs",
+            "40": "Sl",
+            "41": "Sq",
+            "42": "Sr",
+            "43": "Sv",
+            "44": "Th",
+            "45": "Tr",
+            "46": "Uk",
+            "47": "Vi",
+            "48": "Zh",
+            "49": "ZhHk",
+            "5": "Cs",
+            "50": "ZhTw",
+            "51": "Fa",
+            "6": "Da",
+            "7": "De",
+            "8": "El",
+            "9": "En"
+          },
+          "initValue": "7",
+          "max": "51",
+          "min": "1",
+          "name": "BSH.Common.Setting.Language",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 533
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "MainsOff",
+            "1": "Off",
+            "2": "On",
+            "3": "Standby"
+          },
+          "initValue": "2",
+          "max": "2",
+          "min": "1",
+          "name": "BSH.Common.Setting.PowerState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 539
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Setting.SynchronizeWithTimeServer",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 547
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Relative",
+            "1": "Absolute"
+          },
+          "max": "1",
+          "min": "0",
+          "name": "BSH.Common.Setting.Time.DisplayMode",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 41
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "24Hours",
+            "1": "12Hours"
+          },
+          "initValue": "0",
+          "max": "1",
+          "min": "0",
+          "name": "BSH.Common.Setting.TimeFormat",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 580
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "timezone",
+          "name": "BSH.Common.Setting.Timezone",
+          "protocolType": "Object",
+          "refCID": 49,
+          "refDID": 141,
+          "uid": 26
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "15": "15min",
+            "30": "30min",
+            "60": "60min"
+          },
+          "initValue": "15",
+          "max": "60",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.AutoPowerOff",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14851
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "percent",
+          "initValue": "0.0",
+          "max": "100.0",
+          "min": "0.0",
+          "name": "LaundryCare.Common.Setting.Brightness",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "uid": 14862
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Low",
+            "1": "Medium",
+            "2": "High",
+            "3": "VeryHigh"
+          },
+          "initValue": "0",
+          "max": "3",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.BrightnessLevel",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14854
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Common.Setting.DoorLightRing.Active",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 14857
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "On",
+            "2": "Auto"
+          },
+          "initValue": "0",
+          "max": "2",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.DoorLightRing.ActiveMode",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14852
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "percent",
+          "initValue": "0.0",
+          "max": "100.0",
+          "min": "0.0",
+          "name": "LaundryCare.Common.Setting.DoorLightRing.Brightness",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "uid": 14863
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Low",
+            "1": "Medium",
+            "2": "High",
+            "3": "VeryHigh"
+          },
+          "initValue": "0",
+          "max": "3",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.DoorLightRing.BrightnessLevel",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14858
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Common.Setting.DrumLight.Active",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 14856
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Common.Setting.EndSignal",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 14853
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Low",
+            "2": "Medium",
+            "3": "Loud",
+            "4": "VeryLoud"
+          },
+          "initValue": "0",
+          "max": "4",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.EndSignalVolume",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14849
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Low",
+            "2": "Medium",
+            "3": "Loud",
+            "4": "VeryLoud"
+          },
+          "initValue": "0",
+          "max": "4",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.KeySignalVolume",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14850
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Common.Setting.Sound.Mute",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 14860
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Volume1",
+            "2": "Volume2",
+            "3": "Volume3",
+            "4": "Volume4"
+          },
+          "initValue": "0",
+          "max": "4",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.Sound.Volume",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14859
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "10A",
+            "1": "16A"
+          },
+          "initValue": "0",
+          "max": "1",
+          "min": "0",
+          "name": "LaundryCare.Common.Setting.SupplyPower.PowerRating",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 14855
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Common.Setting.TimeLight.Active",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 14861
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "name": "LaundryCare.Common.Setting.WrinkleGuard",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 14875
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Plus1",
+            "2": "Plus2",
+            "3": "Plus3"
+          },
+          "max": "3",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Setting.CupboardDryFineAdjust",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 13572
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Plus1",
+            "2": "Plus2",
+            "3": "Plus3"
+          },
+          "max": "3",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Setting.CupboardDryPlusFineAdjust",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 13573
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Plus1",
+            "2": "Plus2",
+            "3": "Plus3"
+          },
+          "max": "3",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Setting.IronDryFineAdjust",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 13571
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "LaundryCare.Dryer.Setting.Maintenance.EnableMaintenanceModeReminder",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 13568
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "100": "RPM1000",
+            "120": "RPM1200",
+            "140": "RPM1400",
+            "150": "RPM1500",
+            "160": "RPM1600",
+            "254": "Auto",
+            "40": "RPM400",
+            "60": "RPM600",
+            "70": "RPM700",
+            "80": "RPM800",
+            "90": "RPM900"
+          },
+          "initValue": "0",
+          "max": "254",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Setting.SpinSpeedBeforeDrying",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 13569
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "uidValue",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.ProposedProgram",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 1049
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Unbound",
+            "1": "BoundNoData",
+            "2": "WasherProgramActive",
+            "3": "Calculating",
+            "4": "ProgramAvailable",
+            "5": "ProgramNotFound"
+          },
+          "max": "5",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.ServerOperationState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 1046
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.UserHint",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 20,
+          "uid": 1051
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "weight",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.WasherLaundryLoad",
+          "protocolType": "Integer",
+          "refCID": 19,
+          "refDID": 129,
+          "uid": 1050
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "rpm",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.WasherPeakFinalSpinSpeed",
+          "protocolType": "Integer",
+          "refCID": 31,
+          "refDID": 129,
+          "uid": 1048
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "max": "16",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.WasherProgramName",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 1047
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "rpm",
+          "name": "LaundryCare.Dryer.Setting.ConnectedDry.WasherSelectedSpinSpeed",
+          "protocolType": "Integer",
+          "refCID": 31,
+          "refDID": 129,
+          "uid": 1052
+        }
+      ],
+      "status": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.BackendConnected",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Open",
+            "1": "Closed",
+            "2": "Locked",
+            "3": "Ajar"
+          },
+          "initValue": "1",
+          "max": "3",
+          "min": "0",
+          "name": "BSH.Common.Status.DoorState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 527
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "AsList",
+            "1": "AsButtons"
+          },
+          "max": "1",
+          "min": "0",
+          "name": "BSH.Common.Status.Favorite.Handling",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 32771
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.LocalControlActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 535
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Inactive",
+            "1": "Ready",
+            "2": "DelayedStart",
+            "3": "Run",
+            "4": "Pause",
+            "5": "ActionRequired",
+            "6": "Finished",
+            "7": "Error",
+            "8": "Aborting"
+          },
+          "initValue": "0",
+          "max": "8",
+          "min": "0",
+          "name": "BSH.Common.Status.OperationState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 552
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.RemoteControlActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 523
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.RemoteControlStartAllowed",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 517
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "name": "BSH.Common.Status.RemoteControlStartAllowedSince",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 591
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "identifier",
+          "name": "BSH.Common.Status.SoftwareUpdateTransactionID",
+          "protocolType": "Integer",
+          "refCID": 38,
+          "refDID": 131,
+          "uid": 592
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Impossible",
+            "1": "PossiblePauseProgram",
+            "2": "PossibleOpenDoor"
+          },
+          "max": "2",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Laundry.Reload",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 10832
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "initValue": "2048",
+          "name": "LaundryCare.Common.Status.Laundry.ReloadVersion",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 10833
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "weight",
+          "initValue": "0",
+          "max": "25500",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.LoadInformation",
+          "protocolType": "Integer",
+          "refCID": 19,
+          "refDID": 129,
+          "stepSize": "100",
+          "uid": 10754
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "integer",
+          "initValue": "2048",
+          "name": "LaundryCare.Dryer.Status.ProgramFeedback.Version",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 9475
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Poor",
+            "1": "Filled"
+          },
+          "initValue": "0",
+          "max": "1",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Status.RefresherFillLevel",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 9472
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "1.1.5",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.E2e.RedBox",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10848
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "4.1.37",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.E2e.Scope",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10849
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.BusinessLogicFw",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10851
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.DomainFw",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10850
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.FcvCfg",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10857
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.FssCfg",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10856
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.FuiCfg",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10858
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.HcFw",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10853
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.IaboCfg",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10855
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "0",
+          "name": "LaundryCare.Common.Status.Version.Smm.UiLogicFw",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10852
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "string",
+          "initValue": "0.0.0",
+          "max": "50",
+          "min": "5",
+          "name": "LaundryCare.Common.Status.Version.Smm.VarCfg",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 10854
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "integer",
+          "name": "BSH.Common.Status.Program.All.Count.Completed",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 616
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "integer",
+          "name": "BSH.Common.Status.Program.All.Count.Started",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 130,
+          "uid": 615
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "timeSpan",
+          "name": "BSH.Common.Status.Program.All.Time.Effective",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 617
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program01",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10763
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program02",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10764
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program03",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10765
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program04",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10766
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program05",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10767
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program06",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10768
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program07",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10769
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program08",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10770
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program09",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10771
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program10",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10772
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program11",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10773
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program12",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10774
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program13",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10775
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program14",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10776
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program15",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10777
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program16",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10778
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program17",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10779
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program18",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10780
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program19",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10781
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program20",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10782
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program21",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10783
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program22",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10784
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program23",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10785
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program24",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10786
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program25",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10787
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program26",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10788
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program27",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10789
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program28",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10790
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program29",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10791
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.Details.Program30",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 11,
+          "uid": 10792
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.History.EffectiveTime",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 8,
+          "uid": 10761
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "hexBinary",
+          "name": "LaundryCare.Common.Status.Program.History.Uid",
+          "protocolType": "String",
+          "refCID": 10,
+          "refDID": 8,
+          "uid": 10762
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Disconnected",
+            "1": "Unbound",
+            "2": "Bound",
+            "3": "Washing",
+            "4": "Calculating",
+            "5": "NoProgramFound",
+            "6": "ProgramAvailable"
+          },
+          "max": "6",
+          "min": "0",
+          "name": "LaundryCare.Dryer.Status.ConnectedDry.OperationStatus",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 9474
+        },
+        {
+          "access": "none",
+          "available": false,
+          "contentType": "integer",
+          "initValue": "2048",
+          "name": "LaundryCare.Dryer.Status.ConnectedDry.Version",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 9473
+        }
+      ]
+    }
+  },
+  "appliance_state": {
+    "entities": [
+      {
+        "uid": 5,
+        "name": "BSH.Common.Status.BackendConnected",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 527,
+        "name": "BSH.Common.Status.DoorState",
+        "value": "Closed",
+        "value_raw": 1
+      },
+      {
+        "uid": 535,
+        "name": "BSH.Common.Status.LocalControlActive",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 552,
+        "name": "BSH.Common.Status.OperationState",
+        "value": "Inactive",
+        "value_raw": 0
+      },
+      {
+        "uid": 523,
+        "name": "BSH.Common.Status.RemoteControlActive",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 517,
+        "name": "BSH.Common.Status.RemoteControlStartAllowed",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 591,
+        "name": "BSH.Common.Status.RemoteControlStartAllowedSince",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 10833,
+        "name": "LaundryCare.Common.Status.Laundry.ReloadVersion",
+        "value": 2048,
+        "value_raw": 2048
+      },
+      {
+        "uid": 10754,
+        "name": "LaundryCare.Common.Status.LoadInformation",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 9475,
+        "name": "LaundryCare.Dryer.Status.ProgramFeedback.Version",
+        "value": 2048,
+        "value_raw": 2048
+      },
+      {
+        "uid": 9472,
+        "name": "LaundryCare.Dryer.Status.RefresherFillLevel",
+        "value": "Filled",
+        "value_raw": 1
+      },
+      {
+        "uid": 10848,
+        "name": "LaundryCare.Common.Status.Version.E2e.RedBox",
+        "value": "1.1.5",
+        "value_raw": "1.1.5"
+      },
+      {
+        "uid": 10849,
+        "name": "LaundryCare.Common.Status.Version.E2e.Scope",
+        "value": "4.1.37",
+        "value_raw": "4.1.37"
+      },
+      {
+        "uid": 10851,
+        "name": "LaundryCare.Common.Status.Version.Smm.BusinessLogicFw",
+        "value": "7.5.0",
+        "value_raw": "7.5.0"
+      },
+      {
+        "uid": 10850,
+        "name": "LaundryCare.Common.Status.Version.Smm.DomainFw",
+        "value": "2.13.1 02.04.2026 06:01:21",
+        "value_raw": "2.13.1 02.04.2026 06:01:21"
+      },
+      {
+        "uid": 10857,
+        "name": "LaundryCare.Common.Status.Version.Smm.FcvCfg",
+        "value": "1.1.8",
+        "value_raw": "1.1.8"
+      },
+      {
+        "uid": 10856,
+        "name": "LaundryCare.Common.Status.Version.Smm.FssCfg",
+        "value": "1.1.18",
+        "value_raw": "1.1.18"
+      },
+      {
+        "uid": 10858,
+        "name": "LaundryCare.Common.Status.Version.Smm.FuiCfg",
+        "value": "1.1.1",
+        "value_raw": "1.1.1"
+      },
+      {
+        "uid": 10853,
+        "name": "LaundryCare.Common.Status.Version.Smm.HcFw",
+        "value": "2.12.2",
+        "value_raw": "2.12.2"
+      },
+      {
+        "uid": 10855,
+        "name": "LaundryCare.Common.Status.Version.Smm.IaboCfg",
+        "value": "1.1.1",
+        "value_raw": "1.1.1"
+      },
+      {
+        "uid": 10852,
+        "name": "LaundryCare.Common.Status.Version.Smm.UiLogicFw",
+        "value": "1.11.1",
+        "value_raw": "1.11.1"
+      },
+      {
+        "uid": 10854,
+        "name": "LaundryCare.Common.Status.Version.Smm.VarCfg",
+        "value": "1.1.0",
+        "value_raw": "1.1.0"
+      },
+      {
+        "uid": 9474,
+        "name": "LaundryCare.Dryer.Status.ConnectedDry.OperationStatus",
+        "value": "ProgramAvailable",
+        "value_raw": 6
+      },
+      {
+        "uid": 9473,
+        "name": "LaundryCare.Dryer.Status.ConnectedDry.Version",
+        "value": 2048,
+        "value_raw": 2048
+      },
+      {
+        "uid": 3,
+        "name": "BSH.Common.Setting.AllowBackendConnection",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 524,
+        "name": "BSH.Common.Setting.ChildLock",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 533,
+        "name": "BSH.Common.Setting.Language",
+        "value": "De",
+        "value_raw": 7
+      },
+      {
+        "uid": 539,
+        "name": "BSH.Common.Setting.PowerState",
+        "value": "Off",
+        "value_raw": 1
+      },
+      {
+        "uid": 547,
+        "name": "BSH.Common.Setting.SynchronizeWithTimeServer",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 580,
+        "name": "BSH.Common.Setting.TimeFormat",
+        "value": "24Hours",
+        "value_raw": 0
+      },
+      {
+        "uid": 14851,
+        "name": "LaundryCare.Common.Setting.AutoPowerOff",
+        "value": "15min",
+        "value_raw": 15
+      },
+      {
+        "uid": 14862,
+        "name": "LaundryCare.Common.Setting.Brightness",
+        "value": 100,
+        "value_raw": 100
+      },
+      {
+        "uid": 14854,
+        "name": "LaundryCare.Common.Setting.BrightnessLevel",
+        "value": "Low",
+        "value_raw": 0
+      },
+      {
+        "uid": 14857,
+        "name": "LaundryCare.Common.Setting.DoorLightRing.Active",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 14852,
+        "name": "LaundryCare.Common.Setting.DoorLightRing.ActiveMode",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 14863,
+        "name": "LaundryCare.Common.Setting.DoorLightRing.Brightness",
+        "value": 0.0,
+        "value_raw": 0.0
+      },
+      {
+        "uid": 14858,
+        "name": "LaundryCare.Common.Setting.DoorLightRing.BrightnessLevel",
+        "value": "Low",
+        "value_raw": 0
+      },
+      {
+        "uid": 14856,
+        "name": "LaundryCare.Common.Setting.DrumLight.Active",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 14853,
+        "name": "LaundryCare.Common.Setting.EndSignal",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 14849,
+        "name": "LaundryCare.Common.Setting.EndSignalVolume",
+        "value": "Loud",
+        "value_raw": 3
+      },
+      {
+        "uid": 14850,
+        "name": "LaundryCare.Common.Setting.KeySignalVolume",
+        "value": "Loud",
+        "value_raw": 3
+      },
+      {
+        "uid": 14860,
+        "name": "LaundryCare.Common.Setting.Sound.Mute",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 14859,
+        "name": "LaundryCare.Common.Setting.Sound.Volume",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 14855,
+        "name": "LaundryCare.Common.Setting.SupplyPower.PowerRating",
+        "value": "10A",
+        "value_raw": 0
+      },
+      {
+        "uid": 14861,
+        "name": "LaundryCare.Common.Setting.TimeLight.Active",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 14875,
+        "name": "LaundryCare.Common.Setting.WrinkleGuard",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 13572,
+        "name": "LaundryCare.Dryer.Setting.CupboardDryFineAdjust",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 13573,
+        "name": "LaundryCare.Dryer.Setting.CupboardDryPlusFineAdjust",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 13571,
+        "name": "LaundryCare.Dryer.Setting.IronDryFineAdjust",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 13568,
+        "name": "LaundryCare.Dryer.Setting.Maintenance.EnableMaintenanceModeReminder",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 13569,
+        "name": "LaundryCare.Dryer.Setting.SpinSpeedBeforeDrying",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 1046,
+        "name": "LaundryCare.Dryer.Setting.ConnectedDry.ServerOperationState",
+        "value": "ProgramAvailable",
+        "value_raw": 4
+      },
+      {
+        "uid": 545,
+        "name": "BSH.Common.Event.ProgramAborted",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 540,
+        "name": "BSH.Common.Event.ProgramFinished",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 593,
+        "name": "BSH.Common.Event.SoftwareDownloadAvailable",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 21,
+        "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 595,
+        "name": "BSH.Common.Event.SoftwareUpdateSuccessful",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 18954,
+        "name": "LaundryCare.Common.Event.DelayedShutdown",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 18951,
+        "name": "LaundryCare.Common.Event.DoorOpen",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 18946,
+        "name": "LaundryCare.Common.Event.FatalErrorOccured",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 18957,
+        "name": "LaundryCare.Common.Event.SupplyPower.BlackedOut",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 18956,
+        "name": "LaundryCare.Common.Event.SupplyPower.SupplyVoltageTooLow",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17665,
+        "name": "LaundryCare.Dryer.Event.CondensateContainerFull",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17685,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.DontDry",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17680,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.DontDrySilk",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17684,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.LaundryTooMoist",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17682,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.NoDryingProgram",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17681,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.SingleDryLargeItems",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17686,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.UseBasket",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17683,
+        "name": "LaundryCare.Dryer.Event.ConnectedDry.WasherTooLoaded",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17669,
+        "name": "LaundryCare.Dryer.Event.CoolDownPhaseRunning",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17671,
+        "name": "LaundryCare.Dryer.Event.DryerSelfCleaning.CleanLintFilter",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17670,
+        "name": "LaundryCare.Dryer.Event.DryerSelfCleaning.CleanSelfCleaningModule",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17668,
+        "name": "LaundryCare.Dryer.Event.DryingProcessFinished",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17666,
+        "name": "LaundryCare.Dryer.Event.LintFilterFull",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17677,
+        "name": "LaundryCare.Dryer.Event.Maintenance.DepthFillAgent",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17679,
+        "name": "LaundryCare.Dryer.Event.Maintenance.DepthFillWater",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17676,
+        "name": "LaundryCare.Dryer.Event.Maintenance.DrainSet",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17678,
+        "name": "LaundryCare.Dryer.Event.Maintenance.QuickFillWater",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17673,
+        "name": "LaundryCare.Dryer.Event.Maintenance.Remind",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17689,
+        "name": "LaundryCare.Dryer.Event.ProgramFeedback.CupboardDry.Request",
+        "value": "Present",
+        "value_raw": 1
+      },
+      {
+        "uid": 17690,
+        "name": "LaundryCare.Dryer.Event.ProgramFeedback.CupboardDryPlus.Request",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 17688,
+        "name": "LaundryCare.Dryer.Event.ProgramFeedback.IronDry.Request",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 531,
+        "name": "BSH.Common.Option.EstimatedTotalProgramTime",
+        "value": 60,
+        "value_raw": 60
+      },
+      {
+        "uid": 542,
+        "name": "BSH.Common.Option.ProgramProgress",
+        "value": 0.0,
+        "value_raw": 0.0
+      },
+      {
+        "uid": 544,
+        "name": "BSH.Common.Option.RemainingProgramTime",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 549,
+        "name": "BSH.Common.Option.RemainingProgramTimeIsEstimated",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 27142,
+        "name": "LaundryCare.Common.Option.ProcessPhase",
+        "value": "NoPhase",
+        "value_raw": 0
+      },
+      {
+        "uid": 548,
+        "name": "BSH.Common.Option.Duration",
+        "value": 1200,
+        "value_raw": 1200
+      },
+      {
+        "uid": 27138,
+        "name": "LaundryCare.Common.Option.LoadRecommendation",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 27146,
+        "name": "LaundryCare.Common.Option.SpeedPerfect",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 25857,
+        "name": "LaundryCare.Dryer.Option.DryingTarget",
+        "value": "CupboardDry",
+        "value_raw": 2
+      },
+      {
+        "uid": 25860,
+        "name": "LaundryCare.Dryer.Option.Gentle",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 25872,
+        "name": "LaundryCare.Dryer.Option.HalfLoad",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 25859,
+        "name": "LaundryCare.Dryer.Option.WrinkleGuard",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 27141,
+        "name": "LaundryCare.Common.Option.ReferToProgram",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 551,
+        "name": "BSH.Common.Option.FinishInRelative",
+        "value": 16560,
+        "value_raw": 16560
+      },
+      {
+        "uid": 256,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 257,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "value": 0,
+        "value_raw": 0
+      }
+    ]
+  }
+}

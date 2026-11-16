@@ -183,6 +183,15 @@
       },
       "switch_refrigerator_fresh_mode": {
         "name": "Opfris modus"
+      },
+      "switch_dishwasher_eco_prognosis": {
+        "name": "Eco-prognose"
+      },
+      "switch_dishwasher_error_light": {
+        "name": "Storingslampje"
+      },
+      "switch_dishwasher_time_light": {
+        "name": "Tijdlicht"
       }
     },
     "binary_sensor": {
@@ -270,6 +279,15 @@
       },
       "binary_sensor_freezer_low_voltage": {
         "name": "Lage voedingsspanning"
+      },
+      "binary_sensor_dryer_cooldown_running": {
+        "name": "Afkoelfase"
+      },
+      "binary_sensor_dryer_clean_self_cleaning_module": {
+        "name": "Zelfreinigingsmodule reinigen"
+      },
+      "binary_sensor_dryer_evaporator_frozen": {
+        "name": "Verdamper bevroren"
       }
     },
     "sensor": {
@@ -1097,6 +1115,17 @@
           "emptypowdersources": "Leegmaken poederbronnen",
           "roundrobinflush": "Spoelsysteem",
           "initializenewcartridge": "Initiëren Cartridge"
+        }
+      },
+      "sensor_washer_laundry_load": {
+        "name": "Gemeten lading"
+      },
+      "sensor_washer_textile_type": {
+        "name": "Herkend wastype",
+        "state": {
+          "mixed": "Gemengd",
+          "cotton": "Katoen",
+          "synthetic": "Synthetisch"
         }
       }
     },
@@ -1987,6 +2016,23 @@
           "level17": "Niveau 9",
           "boostlevel1": "Boost 1",
           "boostlevel2": "Boost 2"
+        }
+      },
+      "select_coffee_illumination": {
+        "name": "Verlichting",
+        "state": {
+          "off": "Uit",
+          "wheninuse": "Tijdens gebruik",
+          "on": "Aan"
+        }
+      },
+      "select_dishwasher_door_opening_handling": {
+        "name": "Deuropening",
+        "state": {
+          "pushtoopendisabled": "Push-to-open uit",
+          "singlepushtoopen": "Eén keer duwen",
+          "doublepushtoopenandnodryingassistant": "Twee keer duwen",
+          "doublepushtoopenanddryingassistant": "Twee keer duwen, met droogassistent"
         }
       }
     },

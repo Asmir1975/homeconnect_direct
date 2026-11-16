@@ -1,0 +1,3585 @@
+{
+  "entry_data": {
+    "description": {
+      "activeProgram": {
+        "access": "read",
+        "fullOptionSet": true,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "uid": 256,
+        "validate": false
+      },
+      "command": [
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Command.AcknowledgeEvent",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 6
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Command.RejectEvent",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 16
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AbortProgram",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 512
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ApplyFactoryReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 553
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ApplyNetworkReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 554
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.DeactivateRemoteControlStart",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 555
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.DisallowCustomerServiceConnection",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 560
+        },
+        {
+          "access": "writeonly",
+          "available": false,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.PauseProgram",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 537
+        },
+        {
+          "access": "writeonly",
+          "available": false,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ResumeProgram",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 546
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "waterHardness",
+          "name": "BSH.Common.Command.SetWaterHardness",
+          "protocolType": "Integer",
+          "refCID": 24,
+          "refDID": 129,
+          "uid": 556
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Command.BeverageInfo",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 128,
+          "uid": 4866
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.DeactivateWiFi",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 1
+        },
+        {
+          "access": "writeonly",
+          "available": false,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AllowCustomerServiceConnectionLocalWiFi",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 576
+        }
+      ],
+      "event": [
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 21
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "BSH.Common.Event.CustomerServiceRequest",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 559
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.ProgramFinished",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 540
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.NotEnoughWaterForThisKindOfBeverage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4610
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DripTrayFull",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4615
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DripTrayNotInserted",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4616
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.BrewingUnitIsMissing",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4617
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.CleanBrewingUnit",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4618
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "ConsumerProducts.CoffeeMaker.Event.PowerSupplyError",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4621
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeviceIsToCold4C",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4622
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "ConsumerProducts.CoffeeMaker.Event.SystemHasRunDry",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4623
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeviceShouldBeDescaled",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4624
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeviceShouldBeCleaned",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4625
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeviceShouldBeCalcNCleaned",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4626
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.BeanContainerEmpty",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4628
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.CoffeeOutletMissing",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4633
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.CloseDoor",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4680
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.RefillEmptyBeanContainer",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4637
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.RefillEmptyWaterTank",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4636
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.UnderOverVoltage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4640
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.NotEnoughPomaceCapacityForThisKindOfBeverage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4642
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.Enjoy",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4644
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.MilkContainerRemoved",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4686
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeviceDescalingOverdue",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4711
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeviceDescalingBlockage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4713
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "ConsumerProducts.CoffeeMaker.Event.PressOnOff",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4667
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "ConsumerProducts.CoffeeMaker.Event.RestartAppliance",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4668
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "name": "ConsumerProducts.CoffeeMaker.Event.SwitchOffPower30sekBackOn",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4669
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.AdjustGrindSetting",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4661
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "ConsumerProducts.CoffeeMaker.Event.BeanContainerNearlyEmpty",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4627
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.BeanContainerIsNotPresent",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4629
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "warning",
+          "name": "ConsumerProducts.CoffeeMaker.Event.MilkTankIsNotPresent",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4630
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.MilkTubeRemoved",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4689
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.MilkContainerConnected",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4687
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.MilkStillOK",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4632
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.WaterTankNearlyEmpty",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4609
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.WaterTankEmpty",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4611
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "name": "ConsumerProducts.CoffeeMaker.Event.WaterTankNotInserted",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4612
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "decision",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.DeactivatePlaylist",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4635
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "ConsumerProducts.CoffeeMaker.Event.PowderDrawerIsOpen",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4619
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "name": "ConsumerProducts.CoffeeMaker.Event.PowderDrawerHasBeenClosed",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4620
+        }
+      ],
+      "info": {
+        "brand": "SIEMENS",
+        "customerIndex": "09",
+        "deviceInfo": "CoffeeMaker",
+        "deviceType": "CoffeeMaker",
+        "eNumber": "CT836LEB6/09",
+        "fdString": "0209",
+        "haVersion": "81.0",
+        "hwVersion": "5560056177",
+        "model": "CT836LEB6",
+        "revision": 0,
+        "swVersion": "1.11.4",
+        "type": "CoffeeMaker",
+        "version": 81,
+        "vib": "CT836LEB6",
+        "deviceID": "fixture-ct836leb6"
+      },
+      "option": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "default": "94",
+          "enumeration": {
+            "90": "90C",
+            "94": "94C",
+            "95": "95C"
+          },
+          "max": "95",
+          "min": "90",
+          "name": "ConsumerProducts.CoffeeMaker.Option.CoffeeTemperature",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 5120
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "default": "20",
+          "enumeration": {
+            "10": "VeryMild",
+            "110": "DoubleShot",
+            "120": "DoubleShotPlus",
+            "130": "DoubleShotPlusPlus",
+            "20": "Mild",
+            "40": "Normal",
+            "60": "Strong",
+            "80": "VeryStrong"
+          },
+          "max": "130",
+          "min": "10",
+          "name": "ConsumerProducts.CoffeeMaker.Option.BeanAmount",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 5121
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "liquidVolume",
+          "default": "100",
+          "max": "400",
+          "min": "20",
+          "name": "ConsumerProducts.CoffeeMaker.Option.FillQuantity",
+          "protocolType": "Integer",
+          "refCID": 20,
+          "refDID": 129,
+          "stepSize": "5",
+          "uid": 5122
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "10": "10Percent",
+            "20": "20Percent",
+            "25": "25Percent",
+            "30": "30Percent",
+            "40": "40Percent",
+            "50": "50Percent",
+            "60": "60Percent",
+            "70": "70Percent",
+            "80": "80Percent",
+            "90": "90Percent"
+          },
+          "max": "90",
+          "min": "25",
+          "name": "ConsumerProducts.CoffeeMaker.Option.CoffeeMilkRatio",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 5123
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "default": "false",
+          "name": "ConsumerProducts.CoffeeMaker.Option.MultipleBeverages",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5125
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "default": "90",
+          "enumeration": {
+            "70": "70C",
+            "80": "80C",
+            "90": "90C",
+            "98": "Max"
+          },
+          "max": "98",
+          "min": "70",
+          "name": "ConsumerProducts.CoffeeMaker.Option.HotWaterTemperature",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 5126
+        },
+        {
+          "access": "readwrite",
+          "available": false,
+          "contentType": "string",
+          "max": "30",
+          "min": "1",
+          "name": "ConsumerProducts.CoffeeMaker.Option.DisplayName",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 5131
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "string",
+          "max": "11",
+          "name": "ConsumerProducts.CoffeeMaker.Option.MyCoffeeName",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 5127
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Ristretto",
+            "1": "Espresso",
+            "10": "EspressoMacchiato",
+            "11": "Cappuccino",
+            "12": "LatteMacchiato",
+            "13": "CaffeLatte",
+            "2": "Coffee",
+            "20": "HotWater",
+            "21": "MilkFroth",
+            "22": "WarmMilk"
+          },
+          "name": "ConsumerProducts.CoffeeMaker.Option.BaseBeverage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 129,
+          "uid": 5128
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "default": "false",
+          "name": "ConsumerProducts.CoffeeMaker.Option.SlotUsed",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5129
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "default": "0",
+          "max": "100",
+          "min": "0",
+          "name": "BSH.Common.Option.ProgramProgress",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "uid": 542
+        }
+      ],
+      "program": [
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee1",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 1",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12304
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee2",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 2",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12305
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee3",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 3",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12306
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee4",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 4",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12307
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee5",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 5",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12308
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee6",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 6",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12309
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee7",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 7",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12310
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.MyCoffee.MyCoffee8",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "false",
+              "liveUpdate": true,
+              "refUID": 5129
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "liveUpdate": true,
+              "refUID": 5128
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "MyCoffee 8",
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5123
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 12311
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Ristretto",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "20",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8208
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8209
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "60",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8210
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Coffee",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "130",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8211
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.Cappuccino",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "180",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8212
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.LatteMacchiato",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "280",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8213
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeLatte",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "240",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8214
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.MilkFroth",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "240",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8215
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.WarmMilk",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "180",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8216
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.Beverage.HotWater",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "90",
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "240",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 8217
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.KleinerBrauner",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20496
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.GrosserBrauner",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "80",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20497
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Verlaengerter",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "60",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20498
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.VerlaengerterBraun",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "80",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20499
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.WienerMelange",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "120",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20500
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.FlatWhite",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "160",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20501
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Cortado",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "50",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20502
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.CafeCortado",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20503
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.CafeConLeche",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "160",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20504
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.CafeAuLait",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "300",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20505
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Doppio",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "60",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20506
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Kaapi",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "200",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20507
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.KoffieVerkeerd",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "160",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20508
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Galao",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "220",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20509
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Garoto",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "70",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20510
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.Americano",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "120",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20511
+        },
+        {
+          "available": true,
+          "name": "ConsumerProducts.CoffeeMaker.Program.CoffeeWorld.RedEye",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "94",
+              "liveUpdate": true,
+              "refUID": 5120
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "40",
+              "liveUpdate": true,
+              "refUID": 5121
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "220",
+              "liveUpdate": true,
+              "refUID": 5122
+            },
+            {
+              "access": "readwrite",
+              "available": false,
+              "liveUpdate": true,
+              "refUID": 5125
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5131
+            }
+          ],
+          "uid": 20512
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "ConsumerProducts.CoffeeMaker.Program.CleaningModes.ApplianceOffRinsing",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 542
+            }
+          ],
+          "uid": 16406
+        },
+        {
+          "available": false,
+          "execution": "none",
+          "name": "ConsumerProducts.CoffeeMaker.Program.CleaningModes.ApplianceOnRinsing",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 542
+            }
+          ],
+          "uid": 16409
+        }
+      ],
+      "selectedProgram": {
+        "access": "readwrite",
+        "fullOptionSet": false,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "uid": 257,
+        "validate": false
+      },
+      "setting": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "BSH.Common.Setting.AllowBackendConnection",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 3
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Setting.AllowConsumerInsights",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 514
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Setting.ChildLock",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 524
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "Ar",
+            "11": "Es",
+            "14": "Fi",
+            "15": "Fr",
+            "23": "It",
+            "32": "Nl",
+            "33": "No",
+            "34": "Pl",
+            "35": "Pt",
+            "38": "Ru",
+            "40": "Sl",
+            "43": "Sv",
+            "45": "Tr",
+            "46": "Uk",
+            "48": "Zh",
+            "49": "ZhHk",
+            "5": "Cs",
+            "6": "Da",
+            "7": "De",
+            "8": "El",
+            "9": "En"
+          },
+          "name": "BSH.Common.Setting.Language",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 533
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "2": "On",
+            "3": "Standby"
+          },
+          "name": "BSH.Common.Setting.PowerState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 539
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "00Hours05Minutes",
+            "1": "00Hours10Minutes",
+            "10": "00Hours55Minutes",
+            "11": "01Hours00Minutes",
+            "12": "01Hours15Minutes",
+            "13": "01Hours30Minutes",
+            "14": "01Hours45Minutes",
+            "15": "02Hours00Minutes",
+            "16": "02Hours15Minutes",
+            "17": "02Hours30Minutes",
+            "18": "02Hours45Minutes",
+            "19": "03Hours00Minutes",
+            "2": "00Hours15Minutes",
+            "20": "03Hours15Minutes",
+            "21": "03Hours30Minutes",
+            "22": "03Hours45Minutes",
+            "23": "04Hours00Minutes",
+            "24": "04Hours15Minutes",
+            "25": "04Hours30Minutes",
+            "26": "04Hours45Minutes",
+            "27": "05Hours00Minutes",
+            "28": "05Hours15Minutes",
+            "29": "05Hours30Minutes",
+            "3": "00Hours20Minutes",
+            "30": "05Hours45Minutes",
+            "31": "06Hours00Minutes",
+            "32": "06Hours15Minutes",
+            "33": "06Hours30Minutes",
+            "34": "06Hours45Minutes",
+            "35": "07Hours00Minutes",
+            "36": "07Hours15Minutes",
+            "37": "07Hours30Minutes",
+            "38": "07Hours45Minutes",
+            "39": "08Hours00Minutes",
+            "4": "00Hours25Minutes",
+            "5": "00Hours30Minutes",
+            "6": "00Hours35Minutes",
+            "7": "00Hours40Minutes",
+            "8": "00Hours45Minutes",
+            "9": "00Hours50Minutes"
+          },
+          "name": "ConsumerProducts.CoffeeMaker.Setting.SwitchOffAfter",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4354
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "integer",
+          "max": "10",
+          "min": "1",
+          "name": "ConsumerProducts.CoffeeMaker.Setting.BrightnessDisplay",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 128,
+          "uid": 4357
+        },
+        {
+          "access": "readwrite",
+          "available": false,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "ConsumerProducts.CoffeeMaker.Setting.WaterFilter",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4359
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "dateTime",
+          "name": "BSH.Common.Setting.ApplianceDateTime",
+          "protocolType": "String",
+          "refCID": 6,
+          "refDID": 138,
+          "uid": 520
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Setting.SynchronizeWithTimeServer",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 547
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Digital"
+          },
+          "name": "ConsumerProducts.CoffeeMaker.Setting.ClockDisplay",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4352
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "WhenInUse",
+            "2": "On"
+          },
+          "name": "ConsumerProducts.CoffeeMaker.Setting.Illumination",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4355
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "integer",
+          "max": "10",
+          "min": "1",
+          "name": "ConsumerProducts.CoffeeMaker.Setting.BrightnessIllumination",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 128,
+          "uid": 4356
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "ConsumerProducts.CoffeeMaker.Setting.KeyTones",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4358
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Soft",
+            "1": "Medium",
+            "2": "Hard",
+            "3": "VeryHard"
+          },
+          "name": "ConsumerProducts.CoffeeMaker.Setting.WaterHardness",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4353
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "ConsumerProducts.CoffeeMaker.Setting.PlaylistMode",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4360
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "ConsumerProducts.CoffeeMaker.Setting.PlaylistRunning",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4361
+        }
+      ],
+      "status": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "BSH.Common.Status.BackendConnected",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "dbm",
+          "name": "BSH.Common.Status.WiFiSignalStrength",
+          "protocolType": "Integer",
+          "refCID": 18,
+          "refDID": 132,
+          "uid": 27
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.CustomerServiceConnectionAllowed",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 557
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.InteriorIlluminationActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 532
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Inactive",
+            "1": "Ready",
+            "3": "Run",
+            "4": "Pause",
+            "5": "ActionRequired",
+            "6": "Finished",
+            "7": "Error",
+            "8": "Aborting"
+          },
+          "initValue": "1",
+          "name": "BSH.Common.Status.OperationState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 552
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Status.RemoteControlStartAllowed",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 517
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.LocalControlActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 535
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "None",
+            "1": "BeverageAborting",
+            "10": "DescalePhase",
+            "11": "RinsePhase",
+            "12": "CleanPhase",
+            "2": "Grinding",
+            "3": "BrewingUnitMovesUp",
+            "4": "CoffeeBrewing",
+            "5": "BrewingUnitMovesDown",
+            "6": "MilkFroth",
+            "7": "CleaningMilkSystem",
+            "8": "HotWaterDispensing",
+            "9": "CleaningMode"
+          },
+          "name": "ConsumerProducts.CoffeeMaker.Status.ProcessPhase",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4096
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterRistrettoEspresso",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4098
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterCoffee",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4099
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterCoffeeAndMilk",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4100
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterFrothyMilk",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4101
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterHotMilk",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4102
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "liquidVolume",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterHotWater",
+          "protocolType": "Integer",
+          "refCID": 20,
+          "refDID": 130,
+          "uid": 4103
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCountdownDescaling",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4112
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCountdownCleaning",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4113
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCountdownCalcNClean",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4114
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCountdownWaterfilter",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4115
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "ConsumerProducts.CoffeeMaker.Status.LastSelectedBeverage",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 4128
+        },
+        {
+          "access": "read",
+          "available": false,
+          "contentType": "boolean",
+          "name": "ConsumerProducts.CoffeeMaker.Status.DemoModeActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4144
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "ConsumerProducts.CoffeeMaker.Status.LastSelectedMyCoffee",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 4129
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "ConsumerProducts.CoffeeMaker.Status.LastSelectedCoffeeWorldBeverage",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 4130
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "name": "ConsumerProducts.CoffeeMaker.Status.PowderDrawerActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4097
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "name": "ConsumerProducts.CoffeeMaker.Status.BeverageCounterPowderCoffee",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4104
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Open",
+            "1": "Closed"
+          },
+          "initValue": "1",
+          "name": "BSH.Common.Status.DoorState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 527
+        }
+      ]
+    }
+  },
+  "appliance_state": {
+    "entities": [
+      {
+        "uid": 5,
+        "name": "BSH.Common.Status.BackendConnected",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 557,
+        "name": "BSH.Common.Status.CustomerServiceConnectionAllowed",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 532,
+        "name": "BSH.Common.Status.InteriorIlluminationActive",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 552,
+        "name": "BSH.Common.Status.OperationState",
+        "value": "Inactive",
+        "value_raw": 0
+      },
+      {
+        "uid": 517,
+        "name": "BSH.Common.Status.RemoteControlStartAllowed",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 535,
+        "name": "BSH.Common.Status.LocalControlActive",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 4096,
+        "name": "ConsumerProducts.CoffeeMaker.Status.ProcessPhase",
+        "value": "None",
+        "value_raw": 0
+      },
+      {
+        "uid": 4144,
+        "name": "ConsumerProducts.CoffeeMaker.Status.DemoModeActive",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 4097,
+        "name": "ConsumerProducts.CoffeeMaker.Status.PowderDrawerActive",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 527,
+        "name": "BSH.Common.Status.DoorState",
+        "value": "Closed",
+        "value_raw": 1
+      },
+      {
+        "uid": 3,
+        "name": "BSH.Common.Setting.AllowBackendConnection",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 514,
+        "name": "BSH.Common.Setting.AllowConsumerInsights",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 524,
+        "name": "BSH.Common.Setting.ChildLock",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 533,
+        "name": "BSH.Common.Setting.Language",
+        "value": "Nl",
+        "value_raw": 32
+      },
+      {
+        "uid": 539,
+        "name": "BSH.Common.Setting.PowerState",
+        "value": "Standby",
+        "value_raw": 3
+      },
+      {
+        "uid": 4354,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.SwitchOffAfter",
+        "value": "00Hours30Minutes",
+        "value_raw": 5
+      },
+      {
+        "uid": 4357,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.BrightnessDisplay",
+        "value": 3,
+        "value_raw": 3
+      },
+      {
+        "uid": 4359,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.WaterFilter",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 547,
+        "name": "BSH.Common.Setting.SynchronizeWithTimeServer",
+        "value": true,
+        "value_raw": true
+      },
+      {
+        "uid": 4352,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.ClockDisplay",
+        "value": "Digital",
+        "value_raw": 1
+      },
+      {
+        "uid": 4355,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.Illumination",
+        "value": "WhenInUse",
+        "value_raw": 1
+      },
+      {
+        "uid": 4356,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.BrightnessIllumination",
+        "value": 1,
+        "value_raw": 1
+      },
+      {
+        "uid": 4358,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.KeyTones",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 4353,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.WaterHardness",
+        "value": "Soft",
+        "value_raw": 0
+      },
+      {
+        "uid": 4360,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.PlaylistMode",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 4361,
+        "name": "ConsumerProducts.CoffeeMaker.Setting.PlaylistRunning",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 21,
+        "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 559,
+        "name": "BSH.Common.Event.CustomerServiceRequest",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4610,
+        "name": "ConsumerProducts.CoffeeMaker.Event.NotEnoughWaterForThisKindOfBeverage",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4615,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DripTrayFull",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4616,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DripTrayNotInserted",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4617,
+        "name": "ConsumerProducts.CoffeeMaker.Event.BrewingUnitIsMissing",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4618,
+        "name": "ConsumerProducts.CoffeeMaker.Event.CleanBrewingUnit",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4621,
+        "name": "ConsumerProducts.CoffeeMaker.Event.PowerSupplyError",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4622,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DeviceIsToCold4C",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4623,
+        "name": "ConsumerProducts.CoffeeMaker.Event.SystemHasRunDry",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4624,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DeviceShouldBeDescaled",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4625,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DeviceShouldBeCleaned",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4626,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DeviceShouldBeCalcNCleaned",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4628,
+        "name": "ConsumerProducts.CoffeeMaker.Event.BeanContainerEmpty",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4633,
+        "name": "ConsumerProducts.CoffeeMaker.Event.CoffeeOutletMissing",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4680,
+        "name": "ConsumerProducts.CoffeeMaker.Event.CloseDoor",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4637,
+        "name": "ConsumerProducts.CoffeeMaker.Event.RefillEmptyBeanContainer",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4636,
+        "name": "ConsumerProducts.CoffeeMaker.Event.RefillEmptyWaterTank",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4640,
+        "name": "ConsumerProducts.CoffeeMaker.Event.UnderOverVoltage",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4642,
+        "name": "ConsumerProducts.CoffeeMaker.Event.NotEnoughPomaceCapacityForThisKindOfBeverage",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4644,
+        "name": "ConsumerProducts.CoffeeMaker.Event.Enjoy",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4686,
+        "name": "ConsumerProducts.CoffeeMaker.Event.MilkContainerRemoved",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4711,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DeviceDescalingOverdue",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4713,
+        "name": "ConsumerProducts.CoffeeMaker.Event.DeviceDescalingBlockage",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4669,
+        "name": "ConsumerProducts.CoffeeMaker.Event.SwitchOffPower30sekBackOn",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4661,
+        "name": "ConsumerProducts.CoffeeMaker.Event.AdjustGrindSetting",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4627,
+        "name": "ConsumerProducts.CoffeeMaker.Event.BeanContainerNearlyEmpty",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4629,
+        "name": "ConsumerProducts.CoffeeMaker.Event.BeanContainerIsNotPresent",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4630,
+        "name": "ConsumerProducts.CoffeeMaker.Event.MilkTankIsNotPresent",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4689,
+        "name": "ConsumerProducts.CoffeeMaker.Event.MilkTubeRemoved",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4687,
+        "name": "ConsumerProducts.CoffeeMaker.Event.MilkContainerConnected",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4632,
+        "name": "ConsumerProducts.CoffeeMaker.Event.MilkStillOK",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4609,
+        "name": "ConsumerProducts.CoffeeMaker.Event.WaterTankNearlyEmpty",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4611,
+        "name": "ConsumerProducts.CoffeeMaker.Event.WaterTankEmpty",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4612,
+        "name": "ConsumerProducts.CoffeeMaker.Event.WaterTankNotInserted",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 4619,
+        "name": "ConsumerProducts.CoffeeMaker.Event.PowderDrawerIsOpen",
+        "value": "Off",
+        "value_raw": 0
+      },
+      {
+        "uid": 5120,
+        "name": "ConsumerProducts.CoffeeMaker.Option.CoffeeTemperature",
+        "value": "94C",
+        "value_raw": 94
+      },
+      {
+        "uid": 5121,
+        "name": "ConsumerProducts.CoffeeMaker.Option.BeanAmount",
+        "value": "Mild",
+        "value_raw": 20
+      },
+      {
+        "uid": 5122,
+        "name": "ConsumerProducts.CoffeeMaker.Option.FillQuantity",
+        "value": 100,
+        "value_raw": 100
+      },
+      {
+        "uid": 5125,
+        "name": "ConsumerProducts.CoffeeMaker.Option.MultipleBeverages",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 5126,
+        "name": "ConsumerProducts.CoffeeMaker.Option.HotWaterTemperature",
+        "value": "90C",
+        "value_raw": 90
+      },
+      {
+        "uid": 5129,
+        "name": "ConsumerProducts.CoffeeMaker.Option.SlotUsed",
+        "value": false,
+        "value_raw": false
+      },
+      {
+        "uid": 542,
+        "name": "BSH.Common.Option.ProgramProgress",
+        "value": 0.0,
+        "value_raw": 0.0
+      },
+      {
+        "uid": 256,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "value": 0,
+        "value_raw": 0
+      },
+      {
+        "uid": 257,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "value": 0,
+        "value_raw": 0
+      }
+    ]
+  }
+}

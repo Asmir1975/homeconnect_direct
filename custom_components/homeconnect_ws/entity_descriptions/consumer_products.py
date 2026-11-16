@@ -147,6 +147,13 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity_category=EntityCategory.CONFIG,
             has_state_translation=True,
         ),
+        HCSelectEntityDescription(
+            key="select_coffee_illumination",
+            entity="ConsumerProducts.CoffeeMaker.Setting.Illumination",
+            has_state_translation=True,
+            entity_category=EntityCategory.CONFIG,
+            entity_registry_enabled_default=False,
+        ),
     ],
     "switch": [
         HCSwitchEntityDescription(
