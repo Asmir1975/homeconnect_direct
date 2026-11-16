@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.number import NumberMode
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import (
     PERCENTAGE,
@@ -27,8 +27,19 @@ from .descriptions_definitions import (
 
 if TYPE_CHECKING:
     from homeconnect_websocket import HomeAppliance
+    from homeconnect_websocket.entities import Entity as HcEntity
 
     from .descriptions_definitions import _EntityDescriptionsDefinitionsType
+
+
+LAUNDRY_LOAD_UNKNOWN = 0xFFFF
+
+
+def _laundry_load(entity: HcEntity) -> int | None:
+    """Return the measured load in grams, None when the washer reports no value."""
+    if entity.value_raw == LAUNDRY_LOAD_UNKNOWN:
+        return None
+    return entity.value
 
 
 def generate_washer_speed_perfect(appliance: HomeAppliance) -> HCSwitchEntityDescription | None:
@@ -97,6 +108,21 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
             entity_registry_enabled_default=False,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_washer_laundry_load",
+            entity="LaundryCare.Washer.Status.ProcessingData.LaundryLoad",
+            device_class=SensorDeviceClass.WEIGHT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            suggested_unit_of_measurement=UnitOfMass.KILOGRAMS,
+            state_class=SensorStateClass.MEASUREMENT,
+            value_fn=_laundry_load,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_washer_textile_type",
+            entity="LaundryCare.Washer.Status.ProcessingData.TextileType",
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
         ),
     ],
     "binary_sensor": [
@@ -257,6 +283,29 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCBinarySensorEntityDescription(
             key="binary_sensor_idos_open_tray",
             entity="LaundryCare.Washer.Event.IDos.IDosOpenTray",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_dryer_cooldown_running",
+            entity="LaundryCare.Dryer.Event.CoolDownPhaseRunning",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_dryer_clean_self_cleaning_module",
+            entity="LaundryCare.Dryer.Event.DryerSelfCleaning.CleanSelfCleaningModule",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_dryer_evaporator_frozen",
+            entity="LaundryCare.Dryer.Event.EvaporatorFrozen",
             entity_category=EntityCategory.DIAGNOSTIC,
             device_class=BinarySensorDeviceClass.PROBLEM,
             value_on={"Present", "Confirmed"},

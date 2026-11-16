@@ -304,6 +304,15 @@
       },
       "switch_eq700_key_tones": {
         "name": "Key tones"
+      },
+      "switch_dishwasher_eco_prognosis": {
+        "name": "Eco prognosis"
+      },
+      "switch_dishwasher_error_light": {
+        "name": "Error light"
+      },
+      "switch_dishwasher_time_light": {
+        "name": "Time light"
       }
     },
     "binary_sensor": {
@@ -561,6 +570,15 @@
       },
       "binary_sensor_alarm_clock_elapsed": {
         "name": "Alarm Clock Elapsed"
+      },
+      "binary_sensor_dryer_cooldown_running": {
+        "name": "Cool-down phase"
+      },
+      "binary_sensor_dryer_clean_self_cleaning_module": {
+        "name": "Clean self-cleaning module"
+      },
+      "binary_sensor_dryer_evaporator_frozen": {
+        "name": "Evaporator frozen"
       }
     },
     "sensor": {
@@ -2632,6 +2650,17 @@
       "sensor_eq700_beverage_counter_milk": {
         "name": "Milk drinks",
         "unit_of_measurement": "cups"
+      },
+      "sensor_washer_laundry_load": {
+        "name": "Measured load"
+      },
+      "sensor_washer_textile_type": {
+        "name": "Detected textile type",
+        "state": {
+          "mixed": "Mixed",
+          "cotton": "Cotton",
+          "synthetic": "Synthetic"
+        }
       }
     },
     "select": {
@@ -5024,6 +5053,23 @@
           "normal": "Normal",
           "high": "High",
           "max": "Maximum"
+        }
+      },
+      "select_coffee_illumination": {
+        "name": "Illumination",
+        "state": {
+          "off": "Off",
+          "wheninuse": "When in use",
+          "on": "On"
+        }
+      },
+      "select_dishwasher_door_opening_handling": {
+        "name": "Door opening",
+        "state": {
+          "pushtoopendisabled": "Push to open off",
+          "singlepushtoopen": "Push once to open",
+          "doublepushtoopenandnodryingassistant": "Push twice to open",
+          "doublepushtoopenanddryingassistant": "Push twice to open, with drying assistant"
         }
       }
     },

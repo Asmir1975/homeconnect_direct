@@ -247,6 +247,12 @@ DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity_registry_enabled_default=False,
             has_state_translation=True,
         ),
+        HCSelectEntityDescription(
+            key="select_dishwasher_door_opening_handling",
+            entity="Dishcare.Dishwasher.Setting.DoorOpeningHandling",
+            has_state_translation=True,
+            entity_category=EntityCategory.CONFIG,
+        ),
     ],
     "sensor": [
         HCSensorEntityDescription(
@@ -358,6 +364,27 @@ DISHCARE_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="switch_eco_dry",
             entity="Dishcare.Dishwasher.Option.EcoDry",
             device_class=SwitchDeviceClass.SWITCH,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_dishwasher_eco_prognosis",
+            entity="Dishcare.Dishwasher.Setting.EcoPrognosis",
+            device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_dishwasher_error_light",
+            entity="Dishcare.Dishwasher.Setting.ErrorLightEnabled",
+            device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
+            entity_registry_enabled_default=False,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_dishwasher_time_light",
+            entity="Dishcare.Dishwasher.Setting.TimeLight",
+            device_class=SwitchDeviceClass.SWITCH,
+            entity_category=EntityCategory.CONFIG,
+            entity_registry_enabled_default=False,
+            value_mapping=("On", "Off"),
         ),
     ],
     "number": [
