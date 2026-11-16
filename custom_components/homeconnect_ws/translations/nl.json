@@ -288,9 +288,6 @@
       },
       "binary_sensor_dryer_evaporator_frozen": {
         "name": "Verdamper bevroren"
-      },
-      "binary_sensor_backend_connected": {
-        "name": "Home Connect-cloud"
       }
     },
     "sensor": {
@@ -1120,9 +1117,6 @@
           "initializenewcartridge": "Initiëren Cartridge"
         }
       },
-      "sensor_error_codes": {
-        "name": "Foutcodes"
-      },
       "sensor_washer_laundry_load": {
         "name": "Gemeten lading"
       },
@@ -1133,24 +1127,6 @@
           "cotton": "Katoen",
           "synthetic": "Synthetisch"
         }
-      },
-      "sensor_washer_peak_final_spin_speed": {
-        "name": "Hoogste centrifugetoerental"
-      },
-      "sensor_fw_business_logic": {
-        "name": "Firmware bedrijfslogica"
-      },
-      "sensor_fw_domain": {
-        "name": "Firmware domein"
-      },
-      "sensor_fw_hc": {
-        "name": "Firmware Home Connect-module"
-      },
-      "sensor_fw_ui_logic": {
-        "name": "Firmware bediening"
-      },
-      "sensor_fw_os": {
-        "name": "Firmware besturingssysteem"
       }
     },
     "select": {

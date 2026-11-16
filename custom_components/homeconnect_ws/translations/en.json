@@ -576,9 +576,6 @@
       },
       "binary_sensor_dryer_evaporator_frozen": {
         "name": "Evaporator frozen"
-      },
-      "binary_sensor_backend_connected": {
-        "name": "Home Connect cloud"
       }
     },
     "sensor": {
@@ -2651,9 +2648,6 @@
         "name": "Milk drinks",
         "unit_of_measurement": "cups"
       },
-      "sensor_error_codes": {
-        "name": "Error codes"
-      },
       "sensor_washer_laundry_load": {
         "name": "Measured load"
       },
@@ -2664,24 +2658,6 @@
           "cotton": "Cotton",
           "synthetic": "Synthetic"
         }
-      },
-      "sensor_washer_peak_final_spin_speed": {
-        "name": "Peak final spin speed"
-      },
-      "sensor_fw_business_logic": {
-        "name": "Firmware business logic"
-      },
-      "sensor_fw_domain": {
-        "name": "Firmware domain"
-      },
-      "sensor_fw_hc": {
-        "name": "Firmware Home Connect module"
-      },
-      "sensor_fw_ui_logic": {
-        "name": "Firmware user interface"
-      },
-      "sensor_fw_os": {
-        "name": "Firmware operating system"
       }
     },
     "select": {

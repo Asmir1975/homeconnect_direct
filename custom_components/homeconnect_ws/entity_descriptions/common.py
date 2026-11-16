@@ -38,7 +38,6 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
     from homeconnect_websocket import HomeAppliance
-    from homeconnect_websocket.entities import Entity as HcEntity
 
 
 POWER_SWITCH_VALUE_MAPINGS = (
@@ -514,16 +513,6 @@ def _generate_favorite_trigger(
     return generate
 
 
-def _error_code_list(entity: HcEntity) -> list:
-    """Return the active error codes, empty when there are none."""
-    return list(entity.value) if isinstance(entity.value, list | tuple) else []
-
-
-def _error_code_count(entity: HcEntity) -> int:
-    """Count the active error codes."""
-    return len(_error_code_list(entity))
-
-
 COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "button": [
         generate_acknowledge_event_button,
@@ -594,12 +583,6 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
         _generate_favorite_trigger("001"),
         _generate_favorite_trigger("002"),
-        HCBinarySensorEntityDescription(
-            key="binary_sensor_backend_connected",
-            entity="BSH.Common.Status.BackendConnected",
-            device_class=BinarySensorDeviceClass.CONNECTIVITY,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
     ],
     "select": [
         HCSelectEntityDescription(
@@ -711,19 +694,6 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         generate_estimated_program_time_sensor,
         generate_wifi_status_sensor,
         generate_door_state,
-        HCSensorEntityDescription(
-            key="sensor_error_codes",
-            entity="BSH.Common.Status.ErrorCodesList",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            value_fn=_error_code_count,
-            extra_attributes=[
-                {
-                    "name": "codes",
-                    "entity": "BSH.Common.Status.ErrorCodesList",
-                    "value_fn": _error_code_list,
-                }
-            ],
-        ),
     ],
     "start_button": [generate_start_button],
     "switch": [

@@ -27,8 +27,19 @@ from .descriptions_definitions import (
 
 if TYPE_CHECKING:
     from homeconnect_websocket import HomeAppliance
+    from homeconnect_websocket.entities import Entity as HcEntity
 
     from .descriptions_definitions import _EntityDescriptionsDefinitionsType
+
+
+LAUNDRY_LOAD_UNKNOWN = 0xFFFF
+
+
+def _laundry_load(entity: HcEntity) -> int | None:
+    """Return the measured load in grams, None when the washer reports no value."""
+    if entity.value_raw == LAUNDRY_LOAD_UNKNOWN:
+        return None
+    return entity.value
 
 
 def generate_washer_speed_perfect(appliance: HomeAppliance) -> HCSwitchEntityDescription | None:
@@ -105,47 +116,13 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             suggested_unit_of_measurement=UnitOfMass.KILOGRAMS,
             state_class=SensorStateClass.MEASUREMENT,
+            value_fn=_laundry_load,
         ),
         HCSensorEntityDescription(
             key="sensor_washer_textile_type",
             entity="LaundryCare.Washer.Status.ProcessingData.TextileType",
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_washer_peak_final_spin_speed",
-            entity="LaundryCare.Washer.Status.ProcessingData.PeakFinalSpinSpeed",
-            native_unit_of_measurement=REVOLUTIONS_PER_MINUTE,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_fw_business_logic",
-            entity="LaundryCare.Common.Status.Version.Smm.BusinessLogicFw",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_fw_domain",
-            entity="LaundryCare.Common.Status.Version.Smm.DomainFw",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_fw_hc",
-            entity="LaundryCare.Common.Status.Version.Smm.HcFw",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_fw_ui_logic",
-            entity="LaundryCare.Common.Status.Version.Smm.UiLogicFw",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        HCSensorEntityDescription(
-            key="sensor_fw_os",
-            entity="LaundryCare.Common.Status.Version.Smm.OperatingSystem",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
         ),
     ],
     "binary_sensor": [

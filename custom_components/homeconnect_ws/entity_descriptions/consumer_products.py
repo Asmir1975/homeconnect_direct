@@ -152,6 +152,7 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="ConsumerProducts.CoffeeMaker.Setting.Illumination",
             has_state_translation=True,
             entity_category=EntityCategory.CONFIG,
+            entity_registry_enabled_default=False,
         ),
     ],
     "switch": [
