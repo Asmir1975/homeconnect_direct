@@ -9,7 +9,7 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeconnect_websocket.entities import Access
 
-from .helpers import entity_is_available, is_locked_option, is_option
+from .helpers import entity_is_available, is_access_only_command, is_locked_option, is_option
 
 if TYPE_CHECKING:
     from homeassistant.helpers.device_registry import DeviceInfo
@@ -88,7 +88,12 @@ class HCEntity(CoordinatorEntity, Entity):
             # than hiding it; Access.READ means "still readable", so widen the
             # check instead of going unavailable and hiding the current value.
             available_access = (*available_access, Access.READ)
-        return conn and entity_is_available(self._entity, available_access)
+        ignore_available = is_access_only_command(
+            self._runtime_data.appliance, self.entity_description.entity
+        )
+        return conn and entity_is_available(
+            self._entity, available_access, ignore_available=ignore_available
+        )
 
     @property
     def extra_state_attributes(self) -> dict:

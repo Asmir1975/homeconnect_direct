@@ -128,10 +128,27 @@ def pending_acknowledge_event_uid(runtime_data: HCData) -> int | None:
     return None
 
 
-def entity_is_available(entity: HcEntity, available_access: tuple[Access]) -> bool:
+# Seen on Bosch washers and dryers: Pause, Resume and Abort only change their access in
+# a program, the available flag stays as it was.
+_LAUNDRY_TYPES = ("Washer", "Dryer", "WasherDryer")
+_ACCESS_ONLY_COMMANDS = (
+    "BSH.Common.Command.AbortProgram",
+    "BSH.Common.Command.PauseProgram",
+    "BSH.Common.Command.ResumeProgram",
+)
+
+
+def is_access_only_command(appliance: HomeAppliance, entity_name: str | None) -> bool:
+    """Whether the entity is a program command of a laundry appliance, switched by access."""
+    return entity_name in _ACCESS_ONLY_COMMANDS and appliance.info.get("type") in _LAUNDRY_TYPES
+
+
+def entity_is_available(
+    entity: HcEntity, available_access: tuple[Access], *, ignore_available: bool = False
+) -> bool:
     """Check is HC entity is available."""
     available = True
-    if hasattr(entity, "available"):
+    if hasattr(entity, "available") and not ignore_available:
         available &= entity.available
 
     if hasattr(entity, "access"):

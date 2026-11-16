@@ -6,13 +6,15 @@ from typing import TYPE_CHECKING
 
 from homeassistant.components.button import ButtonEntity
 from homeassistant.exceptions import HomeAssistantError
-from homeconnect_websocket.entities import Execution
+from homeconnect_websocket.entities import Entity, Execution
+from homeconnect_websocket.errors import AccessError
 
 from .const import DOMAIN
 from .entity import HCEntity
 from .helpers import (
     create_entities,
     error_decorator,
+    is_access_only_command,
     pending_acknowledge_event_uid,
     start_coffee_favorite_with_fallback,
 )
@@ -59,6 +61,12 @@ class HCButton(HCEntity, ButtonEntity):
                     translation_domain=DOMAIN,
                     translation_key="no_pending_event",
                 )
+        if is_access_only_command(self._runtime_data.appliance, self.entity_description.entity):
+            if self._entity.access not in self.entity_description.available_access:
+                raise AccessError
+            # The command class refuses a press while available is false.
+            await Entity.set_value_raw(self._entity, press_value)
+            return
         await self._entity.set_value(press_value)
 
 
