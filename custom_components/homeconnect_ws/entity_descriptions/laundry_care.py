@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.number import NumberMode
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import (
     PERCENTAGE,
@@ -96,6 +96,55 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             entity="LaundryCare.Washer.Status.IDos2FillLevel",
             device_class=SensorDeviceClass.ENUM,
             has_state_translation=True,
+            entity_registry_enabled_default=False,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_washer_laundry_load",
+            entity="LaundryCare.Washer.Status.ProcessingData.LaundryLoad",
+            device_class=SensorDeviceClass.WEIGHT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            suggested_unit_of_measurement=UnitOfMass.KILOGRAMS,
+            state_class=SensorStateClass.MEASUREMENT,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_washer_textile_type",
+            entity="LaundryCare.Washer.Status.ProcessingData.TextileType",
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_washer_peak_final_spin_speed",
+            entity="LaundryCare.Washer.Status.ProcessingData.PeakFinalSpinSpeed",
+            native_unit_of_measurement=REVOLUTIONS_PER_MINUTE,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_fw_business_logic",
+            entity="LaundryCare.Common.Status.Version.Smm.BusinessLogicFw",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_fw_domain",
+            entity="LaundryCare.Common.Status.Version.Smm.DomainFw",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_fw_hc",
+            entity="LaundryCare.Common.Status.Version.Smm.HcFw",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_fw_ui_logic",
+            entity="LaundryCare.Common.Status.Version.Smm.UiLogicFw",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        HCSensorEntityDescription(
+            key="sensor_fw_os",
+            entity="LaundryCare.Common.Status.Version.Smm.OperatingSystem",
+            entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
     ],
@@ -257,6 +306,29 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCBinarySensorEntityDescription(
             key="binary_sensor_idos_open_tray",
             entity="LaundryCare.Washer.Event.IDos.IDosOpenTray",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_dryer_cooldown_running",
+            entity="LaundryCare.Dryer.Event.CoolDownPhaseRunning",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_dryer_clean_self_cleaning_module",
+            entity="LaundryCare.Dryer.Event.DryerSelfCleaning.CleanSelfCleaningModule",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            device_class=BinarySensorDeviceClass.PROBLEM,
+            value_on={"Present", "Confirmed"},
+            value_off={"Off"},
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_sensor_dryer_evaporator_frozen",
+            entity="LaundryCare.Dryer.Event.EvaporatorFrozen",
             entity_category=EntityCategory.DIAGNOSTIC,
             device_class=BinarySensorDeviceClass.PROBLEM,
             value_on={"Present", "Confirmed"},

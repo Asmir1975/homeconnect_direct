@@ -301,6 +301,15 @@
       },
       "switch_eq700_key_tones": {
         "name": "Key tones"
+      },
+      "switch_dishwasher_eco_prognosis": {
+        "name": "Eco prognosis"
+      },
+      "switch_dishwasher_error_light": {
+        "name": "Error light"
+      },
+      "switch_dishwasher_time_light": {
+        "name": "Time light"
       }
     },
     "binary_sensor": {
@@ -558,6 +567,18 @@
       },
       "binary_sensor_alarm_clock_elapsed": {
         "name": "Alarm Clock Elapsed"
+      },
+      "binary_sensor_dryer_cooldown_running": {
+        "name": "Cool-down phase"
+      },
+      "binary_sensor_dryer_clean_self_cleaning_module": {
+        "name": "Clean self-cleaning module"
+      },
+      "binary_sensor_dryer_evaporator_frozen": {
+        "name": "Evaporator frozen"
+      },
+      "binary_sensor_backend_connected": {
+        "name": "Home Connect cloud"
       }
     },
     "sensor": {
@@ -2629,6 +2650,38 @@
       "sensor_eq700_beverage_counter_milk": {
         "name": "Milk drinks",
         "unit_of_measurement": "cups"
+      },
+      "sensor_error_codes": {
+        "name": "Error codes"
+      },
+      "sensor_washer_laundry_load": {
+        "name": "Measured load"
+      },
+      "sensor_washer_textile_type": {
+        "name": "Detected textile type",
+        "state": {
+          "mixed": "Mixed",
+          "cotton": "Cotton",
+          "synthetic": "Synthetic"
+        }
+      },
+      "sensor_washer_peak_final_spin_speed": {
+        "name": "Peak final spin speed"
+      },
+      "sensor_fw_business_logic": {
+        "name": "Firmware business logic"
+      },
+      "sensor_fw_domain": {
+        "name": "Firmware domain"
+      },
+      "sensor_fw_hc": {
+        "name": "Firmware Home Connect module"
+      },
+      "sensor_fw_ui_logic": {
+        "name": "Firmware user interface"
+      },
+      "sensor_fw_os": {
+        "name": "Firmware operating system"
       }
     },
     "select": {
@@ -5012,6 +5065,23 @@
           "normal": "Normal",
           "high": "High",
           "max": "Maximum"
+        }
+      },
+      "select_coffee_illumination": {
+        "name": "Illumination",
+        "state": {
+          "off": "Off",
+          "wheninuse": "When in use",
+          "on": "On"
+        }
+      },
+      "select_dishwasher_door_opening_handling": {
+        "name": "Door opening",
+        "state": {
+          "pushtoopendisabled": "Push to open off",
+          "singlepushtoopen": "Push once to open",
+          "doublepushtoopenandnodryingassistant": "Push twice to open",
+          "doublepushtoopenanddryingassistant": "Push twice to open, with drying assistant"
         }
       }
     },
