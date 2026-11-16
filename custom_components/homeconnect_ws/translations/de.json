@@ -304,6 +304,15 @@
       },
       "switch_eq700_key_tones": {
         "name": "Tastentöne"
+      },
+      "switch_dishwasher_eco_prognosis": {
+        "name": "Eco-Prognose"
+      },
+      "switch_dishwasher_error_light": {
+        "name": "Fehlerlicht"
+      },
+      "switch_dishwasher_time_light": {
+        "name": "Zeitlicht"
       }
     },
     "binary_sensor": {
@@ -561,6 +570,15 @@
       },
       "binary_sensor_alarm_clock_elapsed": {
         "name": "Alarm abgelaufen"
+      },
+      "binary_sensor_dryer_cooldown_running": {
+        "name": "Abkühlphase"
+      },
+      "binary_sensor_dryer_clean_self_cleaning_module": {
+        "name": "Selbstreinigungsmodul reinigen"
+      },
+      "binary_sensor_dryer_evaporator_frozen": {
+        "name": "Verdampfer vereist"
       }
     },
     "sensor": {
@@ -2632,6 +2650,17 @@
       "sensor_eq700_beverage_counter_milk": {
         "name": "Milchgetränke",
         "unit_of_measurement": "Tassen"
+      },
+      "sensor_washer_laundry_load": {
+        "name": "Gemessene Beladung"
+      },
+      "sensor_washer_textile_type": {
+        "name": "Erkannte Textilart",
+        "state": {
+          "mixed": "Gemischt",
+          "cotton": "Baumwolle",
+          "synthetic": "Synthetik"
+        }
       }
     },
     "select": {
@@ -5024,6 +5053,23 @@
           "normal": "Normal",
           "high": "Hoch",
           "max": "Maximum"
+        }
+      },
+      "select_coffee_illumination": {
+        "name": "Beleuchtung",
+        "state": {
+          "off": "Aus",
+          "wheninuse": "Bei Benutzung",
+          "on": "An"
+        }
+      },
+      "select_dishwasher_door_opening_handling": {
+        "name": "Türöffnung",
+        "state": {
+          "pushtoopendisabled": "Auf Druck öffnen aus",
+          "singlepushtoopen": "Einmal drücken zum Öffnen",
+          "doublepushtoopenandnodryingassistant": "Zweimal drücken zum Öffnen",
+          "doublepushtoopenanddryingassistant": "Zweimal drücken zum Öffnen, mit Trocknungsassistent"
         }
       }
     },
