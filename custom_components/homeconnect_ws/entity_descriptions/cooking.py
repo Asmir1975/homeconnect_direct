@@ -208,6 +208,7 @@ OVEN_MESSAGES = (
     ("InsertFoodNow", "insert_food_now"),
     ("TurnFoodNow", "turn_food_now"),
     ("TurnJointNow", "turn_joint_now"),
+    ("ApplySteamShot", "apply_steam_shot"),
     ("RegularPreheatFinished", "regular_preheat_finished"),
     ("FastPreheatFinished", "fast_preheat_finished"),
     ("AlarmClockElapsed", "alarm_clock_elapsed"),

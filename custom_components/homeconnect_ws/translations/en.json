@@ -2112,6 +2112,7 @@
           "insert_food_now": "Insert food now",
           "turn_food_now": "Turn food now",
           "turn_joint_now": "Turn joint now",
+          "apply_steam_shot": "Apply steam burst",
           "regular_preheat_finished": "Preheating finished",
           "fast_preheat_finished": "Rapid heating finished",
           "alarm_clock_elapsed": "Alarm clock elapsed",
@@ -5321,7 +5322,7 @@
   },
   "exceptions": {
     "no_pending_event": {
-      "message": "No pending message to acknowledge"
+      "message": "Nothing to acknowledge. Please select on the appliance."
     },
     "start_in_not_available": {
       "message": "'Start in' is not available on this Appliance"

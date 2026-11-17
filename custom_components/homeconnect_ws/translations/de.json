@@ -2103,6 +2103,7 @@
           "insert_food_now": "Speise jetzt einschieben",
           "turn_food_now": "Speise jetzt wenden",
           "turn_joint_now": "Braten jetzt wenden",
+          "apply_steam_shot": "Dampfstoß auslösen",
           "regular_preheat_finished": "Vorheizen beendet",
           "fast_preheat_finished": "Schnellaufheizen beendet",
           "alarm_clock_elapsed": "Alarm abgelaufen",
@@ -5321,7 +5322,7 @@
   },
   "exceptions": {
     "no_pending_event": {
-      "message": "Keine offene Meldung zum Bestätigen"
+      "message": "Nichts zu bestätigen. Auswahl bitte am Gerät treffen."
     },
     "start_in_not_available": {
       "message": "'Start in' ist an diesem Gerät nicht verfügbar"
