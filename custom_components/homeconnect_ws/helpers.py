@@ -10,7 +10,13 @@ from typing import TYPE_CHECKING, Any, Never
 from homeassistant.const import CONF_DESCRIPTION
 from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers.service import async_extract_config_entry_ids
-from homeconnect_websocket.entities import Access, EventHandling, Option, SelectedProgram
+from homeconnect_websocket.entities import (
+    Access,
+    EventHandling,
+    Option,
+    SelectedProgram,
+    Setting,
+)
 from homeconnect_websocket.errors import AccessError, CodeResponsError, NotConnectedError
 from homeconnect_websocket.helpers import TYPE_MAPPING
 
@@ -173,9 +179,33 @@ def is_locked_option(entity: HcEntity | None) -> bool:
     return isinstance(entity, Option | SelectedProgram) and entity.access == Access.READ
 
 
+_WRITABLE_ACCESS = frozenset({Access.READ_WRITE, Access.WRITE_ONLY})
+
+
+def writable_in_profile(description: DeviceDescription | dict, name: str | None) -> bool:
+    """Whether the appliance profile describes the Setting `name` as writable."""
+    for setting in description.get("setting", ()):
+        if setting.get("name") == name:
+            return str(setting.get("access", "")).lower() in _WRITABLE_ACCESS
+    return False
+
+
+def is_locked_setting(entity: HcEntity | None) -> bool:
+    """
+    Whether entity is a Setting currently read-only.
+
+    Ovens such as the HS658GXS7 switch PowerState, ChildLock and other Settings to
+    Access.READ for 15 to 20 seconds on every operation state change (door opened,
+    paused, started, switched off) and back to READWRITE afterwards. Whether that is
+    a temporary lock is decided by the caller against the profile, see
+    writable_in_profile().
+    """
+    return isinstance(entity, Setting) and entity.access == Access.READ
+
+
 def ensure_writable(entity: HcEntity | None) -> None:
-    """Raise a clear error instead of attempting a write a locked Option will reject."""
-    if is_locked_option(entity):
+    """Raise a clear error instead of attempting a write a read-only entity will reject."""
+    if is_locked_option(entity) or is_locked_setting(entity):
         raise ServiceValidationError(
             translation_domain=DOMAIN,
             translation_key="read_only",
