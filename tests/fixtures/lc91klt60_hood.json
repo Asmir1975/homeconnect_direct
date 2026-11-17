@@ -1,0 +1,1797 @@
+{
+  "entry_data": {
+    "description": {
+      "activeProgram": {
+        "access": "readwrite",
+        "fullOptionSet": true,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "uid": 256,
+        "validate": true
+      },
+      "command": [
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Command.AcknowledgeEvent",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 6
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "name": "BSH.Common.Command.RejectEvent",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 16
+        },
+        {
+          "access": "writeonly",
+          "available": false,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AllowSoftwareDownload",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 594
+        },
+        {
+          "access": "writeonly",
+          "available": false,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.AllowSoftwareUpdate",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 611
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ApplyFactoryReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 553
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "BSH.Common.Command.ApplyNetworkReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 554
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "Cooking.Common.Command.Hood.GreaseFilterReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 55304
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "Cooking.Common.Command.Hood.CarbonFilterReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 55300
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "name": "Cooking.Common.Command.Hood.RegenerativeCarbonFilterReset",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 55313
+        }
+      ],
+      "event": [
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareDownloadAvailable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 593
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 21
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "BSH.Common.Event.SoftwareUpdateSuccessful",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 595
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationNearlyReached",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55302
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55303
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationNearlyReached",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55298
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55299
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "name": "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationNearlyReached",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55311
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "warning",
+          "name": "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationReached",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55312
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "BSH.Common.Event.Favorite.001.ExternalTrigger",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 58403
+        },
+        {
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "info",
+          "name": "BSH.Common.Event.Favorite.002.ExternalTrigger",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 58404
+        }
+      ],
+      "info": {
+        "brand": "SIEMENS",
+        "customerIndex": "06",
+        "deviceID": "fixture-lc91klt60",
+        "deviceInfo": "",
+        "deviceType": "Hood",
+        "eNumber": "LC91KLT60/06",
+        "fdString": "0608",
+        "haVersion": "8.1",
+        "hwVersion": "1.0.0.1",
+        "model": "LC91KLT60",
+        "revision": 2,
+        "swVersion": "5.21.0.4",
+        "type": "Hood",
+        "version": 8,
+        "vib": "LC91KLT60"
+      },
+      "option": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "name": "BSH.Common.Option.Duration",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 548
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "name": "BSH.Common.Option.ElapsedProgramTime",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 528
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "0",
+          "name": "BSH.Common.Option.RemainingProgramTime",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 544
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "initValue": "0",
+          "name": "BSH.Common.Option.ProgramProgress",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 137,
+          "uid": 542
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "FanOff",
+            "1": "FanStage01",
+            "2": "FanStage02",
+            "3": "FanStage03",
+            "4": "FanStage04",
+            "5": "FanStage05"
+          },
+          "initValue": "0",
+          "max": "5",
+          "min": "0",
+          "name": "Cooking.Common.Option.Hood.VentingLevel",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55308
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "IntensiveStageOff"
+          },
+          "initValue": "0",
+          "max": "0",
+          "min": "0",
+          "name": "Cooking.Common.Option.Hood.IntensiveLevel",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 55305
+        }
+      ],
+      "program": [
+        {
+          "available": true,
+          "execution": "startonly",
+          "name": "Cooking.Common.Program.Hood.Venting",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "2",
+              "refUID": 55308
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "default": "0",
+              "refUID": 55305
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 528
+            }
+          ],
+          "uid": 55307
+        },
+        {
+          "available": true,
+          "execution": "startonly",
+          "name": "Cooking.Common.Program.Hood.Automatic",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 55308
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 55305
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 528
+            }
+          ],
+          "uid": 55296
+        },
+        {
+          "available": true,
+          "execution": "startonly",
+          "name": "Cooking.Common.Program.Hood.DelayedShutOff",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 55308
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 55305
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 548
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 528
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 544
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 542
+            }
+          ],
+          "uid": 55301
+        },
+        {
+          "available": true,
+          "execution": "startonly",
+          "name": "Cooking.Common.Program.Hood.Interval",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 55308
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 55305
+            },
+            {
+              "access": "read",
+              "available": true,
+              "refUID": 528
+            }
+          ],
+          "uid": 55306
+        }
+      ],
+      "selectedProgram": {
+        "access": "read",
+        "fullOptionSet": true,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "uid": 257,
+        "validate": true
+      },
+      "setting": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "2": "PermanentRemoteStart"
+          },
+          "initValue": "2",
+          "name": "BSH.Common.Setting.RemoteControlLevel",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 15
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1": "WiFi"
+          },
+          "initValue": "1",
+          "name": "BSH.Common.Setting.NetworkInterface",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 596
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "Off",
+            "2": "On"
+          },
+          "initValue": "1",
+          "name": "BSH.Common.Setting.PowerState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 539
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "LessFrequent",
+            "2": "Regular",
+            "3": "MoreFrequent"
+          },
+          "initValue": "2",
+          "name": "Cooking.Hood.Setting.FilterSaturationNotificationInterval",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4411
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "None",
+            "1": "BasicCarbonFilter",
+            "2": "RegenerativeCarbonFilter",
+            "255": "NotSelected"
+          },
+          "initValue": "255",
+          "name": "Cooking.Hood.Setting.CarbonFilterType",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4352
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "integer",
+          "initValue": "3",
+          "max": "5",
+          "min": "1",
+          "name": "Cooking.Hood.Setting.AutomaticSensitivity",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 128,
+          "uid": 4412
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "FanStage01",
+            "2": "FanStage02",
+            "3": "FanStage03"
+          },
+          "initValue": "1",
+          "max": "3",
+          "min": "1",
+          "name": "Cooking.Hood.Setting.DelayedShutOffStage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4361
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "600",
+          "max": "3540",
+          "min": "60",
+          "name": "Cooking.Hood.Setting.DelayedShutOffTime",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 129,
+          "stepSize": "60",
+          "uid": 4363
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "FanStage01",
+            "2": "FanStage02",
+            "3": "FanStage03"
+          },
+          "initValue": "1",
+          "max": "3",
+          "min": "1",
+          "name": "Cooking.Hood.Setting.IntervalStage",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4356
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "300",
+          "max": "3540",
+          "min": "60",
+          "name": "Cooking.Hood.Setting.IntervalTimeOn",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 129,
+          "stepSize": "60",
+          "uid": 4358
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "3300",
+          "max": "3540",
+          "min": "60",
+          "name": "Cooking.Hood.Setting.IntervalTimeOff",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 129,
+          "stepSize": "60",
+          "uid": 4359
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "timeSpan",
+          "initValue": "3600",
+          "max": "86400",
+          "min": "3600",
+          "name": "Cooking.Hood.Setting.IntervalTotalExecutionTime",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 128,
+          "stepSize": "3600",
+          "uid": 4400
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "Cooking.Hood.Setting.IntervalTotalExecutionTimeLimitation",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4399
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "TurnOnLight",
+            "2": "KeepLightOff"
+          },
+          "initValue": "1",
+          "name": "Cooking.Hood.Setting.WorkingLightStartupSetting",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4397
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "TurnOffLight",
+            "2": "KeepLightOn"
+          },
+          "initValue": "1",
+          "name": "Cooking.Hood.Setting.WorkingLightShutdownSetting",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4398
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "ManualVenting",
+            "2": "AutomaticVenting"
+          },
+          "initValue": "1",
+          "name": "Cooking.Hood.Setting.VentilationStartupSetting",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4406
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "Off",
+            "2": "DelayedShutOff"
+          },
+          "initValue": "1",
+          "name": "Cooking.Hood.Setting.VentilationShutdownSetting",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4407
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "1": "DefaultProfile",
+            "2": "SilentProfile",
+            "3": "PowerProfile"
+          },
+          "initValue": "1",
+          "name": "Cooking.Hood.Setting.VentilationProfileOperating",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4401
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "Cooking.Common.Setting.Lighting",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 53253
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "percent",
+          "initValue": "0",
+          "max": "100",
+          "min": "1",
+          "name": "Cooking.Common.Setting.LightingBrightness",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 128,
+          "stepSize": "1",
+          "uid": 53254
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "custom",
+            "1": "warm",
+            "2": "warmToNeutral",
+            "3": "neutral",
+            "4": "neutralToCold",
+            "5": "cold"
+          },
+          "initValue": "3",
+          "name": "Cooking.Hood.Setting.ColorTemperature",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4408
+        },
+        {
+          "access": "readwrite",
+          "available": false,
+          "contentType": "percent",
+          "initValue": "50",
+          "max": "100",
+          "min": "0",
+          "name": "Cooking.Hood.Setting.ColorTemperaturePercent",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 137,
+          "uid": 4369
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1000": "ExternalTrigger",
+            "23": "WorkingLightBrightnessLevel1",
+            "24": "WorkingLightBrightnessLevel2",
+            "25": "WorkingLightBrightnessLevel3",
+            "26": "ResetGreaseFilterSaturation"
+          },
+          "initValue": "0",
+          "name": "BSH.Common.Setting.Favorite.001.Functionality",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 57400
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Off",
+            "1000": "ExternalTrigger",
+            "23": "WorkingLightBrightnessLevel1",
+            "24": "WorkingLightBrightnessLevel2",
+            "25": "WorkingLightBrightnessLevel3",
+            "26": "ResetGreaseFilterSaturation"
+          },
+          "initValue": "0",
+          "name": "BSH.Common.Setting.Favorite.002.Functionality",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 57405
+        }
+      ],
+      "status": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "false",
+          "name": "BSH.Common.Status.BackendConnected",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5
+        },
+        {
+          "access": "readstatic",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "BSH.Common.Status.RemoteControlActive",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 523
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "initValue": "true",
+          "name": "BSH.Common.Status.RemoteControlStartAllowed",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 517
+        },
+        {
+          "access": "read",
+          "available": false,
+          "contentType": "identifier",
+          "initValue": "0",
+          "name": "BSH.Common.Status.SoftwareUpdateTransactionID",
+          "protocolType": "Integer",
+          "refCID": 38,
+          "refDID": 131,
+          "uid": 592
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "Inactive",
+            "3": "Run"
+          },
+          "initValue": "0",
+          "name": "BSH.Common.Status.OperationState",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 552
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "initValue": "0",
+          "name": "Cooking.Hood.Status.GreaseFilterSaturation",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 137,
+          "uid": 4100
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "initValue": "0",
+          "name": "Cooking.Hood.Status.CarbonFilterSaturation",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 137,
+          "uid": 4101
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "initValue": "0",
+          "name": "Cooking.Hood.Status.RegenerativeCarbonFilterSaturation",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 137,
+          "uid": 4105
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "enumeration",
+          "enumeration": {
+            "0": "AsList",
+            "1": "AsButtons"
+          },
+          "initValue": "1",
+          "name": "BSH.Common.Status.Favorite.Handling",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 57347
+        }
+      ]
+    }
+  },
+  "appliance_state": {
+    "entities": [
+      {
+        "uid": 5,
+        "name": "BSH.Common.Status.BackendConnected",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 523,
+        "name": "BSH.Common.Status.RemoteControlActive",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readstatic"
+      },
+      {
+        "uid": 517,
+        "name": "BSH.Common.Status.RemoteControlStartAllowed",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 592,
+        "name": "BSH.Common.Status.SoftwareUpdateTransactionID",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 552,
+        "name": "BSH.Common.Status.OperationState",
+        "value": "Run",
+        "value_raw": 3,
+        "enum": {
+          "0": "Inactive",
+          "3": "Run"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 4100,
+        "name": "Cooking.Hood.Status.GreaseFilterSaturation",
+        "value": 30.0,
+        "value_raw": 30.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 4101,
+        "name": "Cooking.Hood.Status.CarbonFilterSaturation",
+        "value": 0.0,
+        "value_raw": 0.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 4105,
+        "name": "Cooking.Hood.Status.RegenerativeCarbonFilterSaturation",
+        "value": 0.0,
+        "value_raw": 0.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 57347,
+        "name": "BSH.Common.Status.Favorite.Handling",
+        "value": "AsButtons",
+        "value_raw": 1,
+        "enum": {
+          "0": "AsList",
+          "1": "AsButtons"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 15,
+        "name": "BSH.Common.Setting.RemoteControlLevel",
+        "value": "PermanentRemoteStart",
+        "value_raw": 2,
+        "enum": {
+          "2": "PermanentRemoteStart"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 596,
+        "name": "BSH.Common.Setting.NetworkInterface",
+        "value": "WiFi",
+        "value_raw": 1,
+        "enum": {
+          "0": "Off",
+          "1": "WiFi"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 539,
+        "name": "BSH.Common.Setting.PowerState",
+        "value": "On",
+        "value_raw": 2,
+        "enum": {
+          "1": "Off",
+          "2": "On"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4411,
+        "name": "Cooking.Hood.Setting.FilterSaturationNotificationInterval",
+        "value": "Regular",
+        "value_raw": 2,
+        "enum": {
+          "1": "LessFrequent",
+          "2": "Regular",
+          "3": "MoreFrequent"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4352,
+        "name": "Cooking.Hood.Setting.CarbonFilterType",
+        "value": "BasicCarbonFilter",
+        "value_raw": 1,
+        "enum": {
+          "0": "None",
+          "1": "BasicCarbonFilter",
+          "2": "RegenerativeCarbonFilter",
+          "255": "NotSelected"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4412,
+        "name": "Cooking.Hood.Setting.AutomaticSensitivity",
+        "value": 3,
+        "value_raw": 3,
+        "enum": null,
+        "min": 1.0,
+        "max": 5.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4361,
+        "name": "Cooking.Hood.Setting.DelayedShutOffStage",
+        "value": "FanStage01",
+        "value_raw": 1,
+        "enum": {
+          "1": "FanStage01",
+          "2": "FanStage02",
+          "3": "FanStage03"
+        },
+        "min": 1.0,
+        "max": 3.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4363,
+        "name": "Cooking.Hood.Setting.DelayedShutOffTime",
+        "value": 120,
+        "value_raw": 120,
+        "enum": null,
+        "min": 60.0,
+        "max": 3540.0,
+        "step": 60.0,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4356,
+        "name": "Cooking.Hood.Setting.IntervalStage",
+        "value": "FanStage01",
+        "value_raw": 1,
+        "enum": {
+          "1": "FanStage01",
+          "2": "FanStage02",
+          "3": "FanStage03"
+        },
+        "min": 1.0,
+        "max": 3.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4358,
+        "name": "Cooking.Hood.Setting.IntervalTimeOn",
+        "value": 300,
+        "value_raw": 300,
+        "enum": null,
+        "min": 60.0,
+        "max": 3540.0,
+        "step": 60.0,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4359,
+        "name": "Cooking.Hood.Setting.IntervalTimeOff",
+        "value": 3300,
+        "value_raw": 3300,
+        "enum": null,
+        "min": 60.0,
+        "max": 3540.0,
+        "step": 60.0,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4400,
+        "name": "Cooking.Hood.Setting.IntervalTotalExecutionTime",
+        "value": 3600,
+        "value_raw": 3600,
+        "enum": null,
+        "min": 3600.0,
+        "max": 86400.0,
+        "step": 3600.0,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4399,
+        "name": "Cooking.Hood.Setting.IntervalTotalExecutionTimeLimitation",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4397,
+        "name": "Cooking.Hood.Setting.WorkingLightStartupSetting",
+        "value": "TurnOnLight",
+        "value_raw": 1,
+        "enum": {
+          "1": "TurnOnLight",
+          "2": "KeepLightOff"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4398,
+        "name": "Cooking.Hood.Setting.WorkingLightShutdownSetting",
+        "value": "TurnOffLight",
+        "value_raw": 1,
+        "enum": {
+          "1": "TurnOffLight",
+          "2": "KeepLightOn"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4406,
+        "name": "Cooking.Hood.Setting.VentilationStartupSetting",
+        "value": "AutomaticVenting",
+        "value_raw": 2,
+        "enum": {
+          "1": "ManualVenting",
+          "2": "AutomaticVenting"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4407,
+        "name": "Cooking.Hood.Setting.VentilationShutdownSetting",
+        "value": "DelayedShutOff",
+        "value_raw": 2,
+        "enum": {
+          "1": "Off",
+          "2": "DelayedShutOff"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4401,
+        "name": "Cooking.Hood.Setting.VentilationProfileOperating",
+        "value": "DefaultProfile",
+        "value_raw": 1,
+        "enum": {
+          "1": "DefaultProfile",
+          "2": "SilentProfile",
+          "3": "PowerProfile"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 53253,
+        "name": "Cooking.Common.Setting.Lighting",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 53254,
+        "name": "Cooking.Common.Setting.LightingBrightness",
+        "value": 100.0,
+        "value_raw": 100.0,
+        "enum": null,
+        "min": 1.0,
+        "max": 100.0,
+        "step": 1.0,
+        "available": false,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4408,
+        "name": "Cooking.Hood.Setting.ColorTemperature",
+        "value": "custom",
+        "value_raw": 0,
+        "enum": {
+          "0": "custom",
+          "1": "warm",
+          "2": "warmToNeutral",
+          "3": "neutral",
+          "4": "neutralToCold",
+          "5": "cold"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4369,
+        "name": "Cooking.Hood.Setting.ColorTemperaturePercent",
+        "value": 75.0,
+        "value_raw": 75.0,
+        "enum": null,
+        "min": 0.0,
+        "max": 100.0,
+        "step": null,
+        "available": false,
+        "access": "readwrite"
+      },
+      {
+        "uid": 57400,
+        "name": "BSH.Common.Setting.Favorite.001.Functionality",
+        "value": "WorkingLightBrightnessLevel3",
+        "value_raw": 25,
+        "enum": {
+          "0": "Off",
+          "1000": "ExternalTrigger",
+          "23": "WorkingLightBrightnessLevel1",
+          "24": "WorkingLightBrightnessLevel2",
+          "25": "WorkingLightBrightnessLevel3",
+          "26": "ResetGreaseFilterSaturation"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 57405,
+        "name": "BSH.Common.Setting.Favorite.002.Functionality",
+        "value": "WorkingLightBrightnessLevel1",
+        "value_raw": 23,
+        "enum": {
+          "0": "Off",
+          "1000": "ExternalTrigger",
+          "23": "WorkingLightBrightnessLevel1",
+          "24": "WorkingLightBrightnessLevel2",
+          "25": "WorkingLightBrightnessLevel3",
+          "26": "ResetGreaseFilterSaturation"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 593,
+        "name": "BSH.Common.Event.SoftwareDownloadAvailable",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 21,
+        "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 595,
+        "name": "BSH.Common.Event.SoftwareUpdateSuccessful",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 55302,
+        "name": "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationNearlyReached",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 55303,
+        "name": "Cooking.Common.Event.Hood.GreaseFilterMaxSaturationReached",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 55298,
+        "name": "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationNearlyReached",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 55299,
+        "name": "Cooking.Common.Event.Hood.CarbonFilterMaxSaturationReached",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 55311,
+        "name": "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationNearlyReached",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 55312,
+        "name": "Cooking.Common.Event.Hood.RegenerativeCarbonFilterMaxSaturationReached",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 58403,
+        "name": "BSH.Common.Event.Favorite.001.ExternalTrigger",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 58404,
+        "name": "BSH.Common.Event.Favorite.002.ExternalTrigger",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 6,
+        "name": "BSH.Common.Command.AcknowledgeEvent",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 16,
+        "name": "BSH.Common.Command.RejectEvent",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 594,
+        "name": "BSH.Common.Command.AllowSoftwareDownload",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "writeonly"
+      },
+      {
+        "uid": 611,
+        "name": "BSH.Common.Command.AllowSoftwareUpdate",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "writeonly"
+      },
+      {
+        "uid": 553,
+        "name": "BSH.Common.Command.ApplyFactoryReset",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 554,
+        "name": "BSH.Common.Command.ApplyNetworkReset",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 55304,
+        "name": "Cooking.Common.Command.Hood.GreaseFilterReset",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 55300,
+        "name": "Cooking.Common.Command.Hood.CarbonFilterReset",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 55313,
+        "name": "Cooking.Common.Command.Hood.RegenerativeCarbonFilterReset",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "writeonly"
+      },
+      {
+        "uid": 548,
+        "name": "BSH.Common.Option.Duration",
+        "value": 120,
+        "value_raw": 120,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 528,
+        "name": "BSH.Common.Option.ElapsedProgramTime",
+        "value": 242,
+        "value_raw": 242,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 544,
+        "name": "BSH.Common.Option.RemainingProgramTime",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 542,
+        "name": "BSH.Common.Option.ProgramProgress",
+        "value": 100.0,
+        "value_raw": 100.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 55308,
+        "name": "Cooking.Common.Option.Hood.VentingLevel",
+        "value": "FanStage01",
+        "value_raw": 1,
+        "enum": {
+          "0": "FanOff",
+          "1": "FanStage01",
+          "2": "FanStage02",
+          "3": "FanStage03",
+          "4": "FanStage04",
+          "5": "FanStage05"
+        },
+        "min": 0.0,
+        "max": 5.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 55305,
+        "name": "Cooking.Common.Option.Hood.IntensiveLevel",
+        "value": "IntensiveStageOff",
+        "value_raw": 0,
+        "enum": {
+          "0": "IntensiveStageOff"
+        },
+        "min": 0.0,
+        "max": 0.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 55307,
+        "name": "Cooking.Common.Program.Hood.Venting",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "startonly"
+      },
+      {
+        "uid": 55296,
+        "name": "Cooking.Common.Program.Hood.Automatic",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "startonly"
+      },
+      {
+        "uid": 55301,
+        "name": "Cooking.Common.Program.Hood.DelayedShutOff",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "startonly"
+      },
+      {
+        "uid": 55306,
+        "name": "Cooking.Common.Program.Hood.Interval",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "startonly"
+      },
+      {
+        "uid": 256,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "value": 55296,
+        "value_raw": 55296,
+        "enum": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 257,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "available": true,
+        "access": "read"
+      }
+    ]
+  }
+}

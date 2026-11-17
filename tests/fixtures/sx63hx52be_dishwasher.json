@@ -1,0 +1,2849 @@
+{
+  "entry_data": {
+    "description": {
+      "status": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5,
+          "name": "BSH.Common.Status.BackendConnected"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 517,
+          "name": "BSH.Common.Status.RemoteControlStartAllowed"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 523,
+          "name": "BSH.Common.Status.RemoteControlActive"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "enumeration": {
+            "0": "Open",
+            "1": "Closed"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 527,
+          "name": "BSH.Common.Status.DoorState"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "enumeration": {
+            "0": "Inactive",
+            "1": "Ready",
+            "2": "DelayedStart",
+            "3": "Run",
+            "4": "Pause",
+            "5": "ActionRequired",
+            "6": "Finished",
+            "7": "Error",
+            "8": "Aborting"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 552,
+          "name": "BSH.Common.Status.OperationState"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "identifier",
+          "protocolType": "Integer",
+          "refCID": 38,
+          "refDID": 131,
+          "uid": 592,
+          "name": "BSH.Common.Status.SoftwareUpdateTransactionID"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "stringList",
+          "protocolType": "Object",
+          "refCID": 133,
+          "refDID": 16523,
+          "uid": 614,
+          "name": "BSH.Common.Status.ErrorCodesList"
+        },
+        {
+          "access": "read",
+          "available": false,
+          "contentType": "integer",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 615,
+          "name": "BSH.Common.Status.Program.All.Count.Started"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "programSessionSummary",
+          "protocolType": "Object",
+          "refCID": 63,
+          "refDID": 141,
+          "uid": 625,
+          "name": "BSH.Common.Status.ProgramSessionSummary.Latest"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "enumeration": {
+            "0": "ProgramFinished",
+            "1": "ProgramAbortedByUser",
+            "2": "ProgramAbortedByAppliance",
+            "3": "ProgramAbortedByApplianceCriticalError"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 626,
+          "name": "BSH.Common.Status.ProgramRunDetail.EndTrigger"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "enumeration": {
+            "0": "None",
+            "1": "PreRinse",
+            "2": "MainWash",
+            "3": "FinalRinse",
+            "4": "Drying"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4096,
+          "name": "Dishcare.Dishwasher.Status.ProgramPhase"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "timeSpan",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 4101,
+          "name": "Dishcare.Dishwasher.Status.SilenceOnDemandRemainingTime"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "integer",
+          "protocolType": "Integer",
+          "refCID": 2,
+          "refDID": 129,
+          "uid": 4145,
+          "name": "Dishcare.Dishwasher.Status.MachineCareReminder.RemainingProgramRuns"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "enumeration": {
+            "0": "AsList",
+            "1": "AsButtons"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 32771,
+          "name": "BSH.Common.Status.Favorite.Handling"
+        }
+      ],
+      "option": [
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "uid": 542,
+          "name": "BSH.Common.Option.ProgramProgress"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "timeSpan",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 544,
+          "name": "BSH.Common.Option.RemainingProgramTime"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "initValue": "1",
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 549,
+          "name": "BSH.Common.Option.RemainingProgramTimeIsEstimated"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "max": "86400",
+          "min": "0",
+          "contentType": "timeSpan",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "uid": 558,
+          "name": "BSH.Common.Option.StartInRelative"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "uid": 561,
+          "name": "BSH.Common.Option.EnergyForecast"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "percent",
+          "protocolType": "Float",
+          "refCID": 17,
+          "refDID": 160,
+          "uid": 562,
+          "name": "BSH.Common.Option.WaterForecast"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "false",
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5136,
+          "name": "Dishcare.Dishwasher.Option.SilenceOnDemand"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "false",
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 632,
+          "name": "BSH.Common.Option.SmartEnergyService.SmartStartEnabled"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "false",
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5124,
+          "name": "Dishcare.Dishwasher.Option.HalfLoad"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "false",
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5126,
+          "name": "Dishcare.Dishwasher.Option.IntensivZone"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "false",
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 5127,
+          "name": "Dishcare.Dishwasher.Option.VarioSpeedPlus"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "string",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 32772,
+          "name": "BSH.Common.Option.ProgramName"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "uidValue",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 32773,
+          "name": "BSH.Common.Option.BaseProgram"
+        }
+      ],
+      "setting": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 3,
+          "name": "BSH.Common.Setting.AllowBackendConnection"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "1": "Off",
+            "2": "On"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 539,
+          "name": "BSH.Common.Setting.PowerState"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "Monitoring",
+            "1": "ManualRemoteStart",
+            "2": "PermanentRemoteStart"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 15,
+          "name": "BSH.Common.Setting.RemoteControlLevel"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "Off",
+            "1": "R01",
+            "2": "R02",
+            "3": "R03",
+            "4": "R04",
+            "5": "R05",
+            "6": "R06"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4354,
+          "name": "Dishcare.Dishwasher.Setting.RinseAid"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4356,
+          "name": "Dishcare.Dishwasher.Setting.ExtraDry"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "max": "1800",
+          "min": "60",
+          "contentType": "timeSpan",
+          "protocolType": "Integer",
+          "refCID": 16,
+          "refDID": 130,
+          "stepSize": "60",
+          "uid": 4382,
+          "name": "Dishcare.Dishwasher.Setting.SilenceOnDemandDefaultTime"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "Standard",
+            "1": "Sensitive",
+            "2": "VerySensitive"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4355,
+          "name": "Dishcare.Dishwasher.Setting.SensitivityTurbidity"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "ColdWater",
+            "1": "HotWater"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4357,
+          "name": "Dishcare.Dishwasher.Setting.HotWater"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "LastProgram",
+            "1": "EcoAsDefault"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4363,
+          "name": "Dishcare.Dishwasher.Setting.EcoAsDefault"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "Off",
+            "1": "Low",
+            "2": "Medium",
+            "3": "High"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4364,
+          "name": "Dishcare.Dishwasher.Setting.SoundLevelSignal"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "H00",
+            "1": "H01",
+            "2": "H02",
+            "3": "H03",
+            "4": "H04",
+            "5": "H05",
+            "6": "H06",
+            "7": "H07"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4367,
+          "name": "Dishcare.Dishwasher.Setting.WaterHardness"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4378,
+          "name": "Dishcare.Dishwasher.Setting.InfoLight"
+        },
+        {
+          "access": "read",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 4384,
+          "name": "Dishcare.Dishwasher.Setting.SpeedOnDemand"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 631,
+          "name": "BSH.Common.Setting.SmartEnergyService.AutoSmartStartEnabled"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "enumeration": {
+            "0": "Off",
+            "1": "Program"
+          },
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 32824,
+          "name": "BSH.Common.Setting.Favorite.001.Functionality"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "max": "30",
+          "min": "0",
+          "contentType": "string",
+          "protocolType": "String",
+          "refCID": 5,
+          "refDID": 139,
+          "uid": 32825,
+          "name": "BSH.Common.Setting.Favorite.001.Name"
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "max": "1",
+          "min": "0",
+          "contentType": "programInstructionList",
+          "protocolType": "Object",
+          "refCID": 168,
+          "refDID": 16525,
+          "uid": 32826,
+          "name": "BSH.Common.Setting.Favorite.001.Program"
+        }
+      ],
+      "event": [
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 21,
+          "name": "BSH.Common.Event.SoftwareUpdateAvailable"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 46,
+          "name": "BSH.Common.Event.ConfirmPermanentRemoteStart"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "critical",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 525,
+          "name": "BSH.Common.Event.AquaStopOccured"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 540,
+          "name": "BSH.Common.Event.ProgramFinished"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 543,
+          "name": "BSH.Common.Event.LowWaterPressure"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 545,
+          "name": "BSH.Common.Event.ProgramAborted"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "warning",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 577,
+          "name": "BSH.Common.Event.ConnectLocalWiFi"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 593,
+          "name": "BSH.Common.Event.SoftwareDownloadAvailable"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 595,
+          "name": "BSH.Common.Event.SoftwareUpdateSuccessful"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4608,
+          "name": "Dishcare.Dishwasher.Event.InternalError"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4609,
+          "name": "Dishcare.Dishwasher.Event.CheckFilterSystem"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4610,
+          "name": "Dishcare.Dishwasher.Event.DrainingNotPossible"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4611,
+          "name": "Dishcare.Dishwasher.Event.DrainPumpBlocked"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4612,
+          "name": "Dishcare.Dishwasher.Event.WaterheaterCalcified"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "alert",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4613,
+          "name": "Dishcare.Dishwasher.Event.LowVoltage"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4625,
+          "name": "Dishcare.Dishwasher.Event.RinseAidLack"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4627,
+          "name": "Dishcare.Dishwasher.Event.RinseAidNearlyEmpty"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4660,
+          "name": "Dishcare.Dishwasher.Event.SmartFilterCleaningReminder"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4624,
+          "name": "Dishcare.Dishwasher.Event.SaltLack"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "none",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4626,
+          "name": "Dishcare.Dishwasher.Event.SaltNearlyEmpty"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4628,
+          "name": "Dishcare.Dishwasher.Event.MachineCareReminder"
+        },
+        {
+          "enumeration": {
+            "0": "Off",
+            "1": "Present",
+            "2": "Confirmed"
+          },
+          "handling": "acknowledge",
+          "level": "hint",
+          "contentType": "enumeration",
+          "protocolType": "Integer",
+          "refCID": 3,
+          "refDID": 128,
+          "uid": 4655,
+          "name": "Dishcare.Dishwasher.Event.MachineCareAndFilterCleaningReminder"
+        }
+      ],
+      "command": [
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 1,
+          "name": "BSH.Common.Command.DeactivateWiFi"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 6,
+          "name": "BSH.Common.Command.AcknowledgeEvent"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "uidValue",
+          "protocolType": "Integer",
+          "refCID": 21,
+          "refDID": 129,
+          "uid": 16,
+          "name": "BSH.Common.Command.RejectEvent"
+        },
+        {
+          "access": "none",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 512,
+          "name": "BSH.Common.Command.AbortProgram"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 553,
+          "name": "BSH.Common.Command.ApplyFactoryReset"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 555,
+          "name": "BSH.Common.Command.DeactivateRemoteControlStart"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 611,
+          "name": "BSH.Common.Command.AllowSoftwareUpdate"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "boolean",
+          "protocolType": "Boolean",
+          "refCID": 1,
+          "refDID": 0,
+          "uid": 594,
+          "name": "BSH.Common.Command.AllowSoftwareDownload"
+        },
+        {
+          "access": "writeonly",
+          "available": true,
+          "contentType": "waterHardness",
+          "protocolType": "Integer",
+          "refCID": 24,
+          "refDID": 129,
+          "uid": 556,
+          "name": "BSH.Common.Command.SetWaterHardness"
+        }
+      ],
+      "program": [
+        {
+          "available": true,
+          "uid": 8192,
+          "name": "Dishcare.Dishwasher.Program.Intensiv70",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8195,
+          "name": "Dishcare.Dishwasher.Program.Auto2",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8196,
+          "name": "Dishcare.Dishwasher.Program.Eco50",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8199,
+          "name": "Dishcare.Dishwasher.Program.Quick45",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8200,
+          "name": "Dishcare.Dishwasher.Program.PreRinse",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8203,
+          "name": "Dishcare.Dishwasher.Program.Quick65",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8215,
+          "name": "Dishcare.Dishwasher.Program.MachineCare",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 32828,
+          "name": "BSH.Common.Program.Favorite.001",
+          "options": [
+            {
+              "access": "read",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 32772,
+              "default": "\"\""
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 32773,
+              "default": "0"
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8227,
+          "name": "Dishcare.Dishwasher.Program.MaxEfficient",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8218,
+          "name": "Dishcare.Dishwasher.Program.MixedLoad",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8210,
+          "name": "Dishcare.Dishwasher.Program.IntensivPower",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8197,
+          "name": "Dishcare.Dishwasher.Program.Glas40",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8222,
+          "name": "Dishcare.Dishwasher.Program.QuickD",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8202,
+          "name": "Dishcare.Dishwasher.Program.NightWash",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8212,
+          "name": "Dishcare.Dishwasher.Program.Super60",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        },
+        {
+          "available": true,
+          "uid": 8213,
+          "name": "Dishcare.Dishwasher.Program.Kurz60",
+          "options": [
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5124
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5126
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5127
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 5136
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 632
+            },
+            {
+              "access": "readwrite",
+              "available": true,
+              "liveUpdate": true,
+              "refUID": 558
+            }
+          ]
+        }
+      ],
+      "info": {
+        "brand": "SIEMENS",
+        "type": "Dishwasher",
+        "model": "SX63HX52BE",
+        "version": 6,
+        "revision": 0,
+        "deviceID": "fixture-sx63hx52be",
+        "eNumber": "SX63HX52BE/13",
+        "vib": "SX63HX52BE",
+        "haVersion": "6.4",
+        "swVersion": "3.12.1.0",
+        "hwVersion": "2.0.0.2",
+        "deviceType": "Dishwasher",
+        "deviceInfo": "",
+        "customerIndex": "13",
+        "fdString": "0105"
+      },
+      "activeProgram": {
+        "access": "readwrite",
+        "uid": 256,
+        "name": "BSH.Common.Root.ActiveProgram"
+      },
+      "selectedProgram": {
+        "access": "readwrite",
+        "fullOptionSet": false,
+        "uid": 257,
+        "name": "BSH.Common.Root.SelectedProgram"
+      }
+    }
+  },
+  "appliance_state": {
+    "entities": [
+      {
+        "uid": 5,
+        "name": "BSH.Common.Status.BackendConnected",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 517,
+        "name": "BSH.Common.Status.RemoteControlStartAllowed",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 523,
+        "name": "BSH.Common.Status.RemoteControlActive",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 527,
+        "name": "BSH.Common.Status.DoorState",
+        "value": "Closed",
+        "value_raw": 1,
+        "enum": {
+          "0": "Open",
+          "1": "Closed"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 552,
+        "name": "BSH.Common.Status.OperationState",
+        "value": "Ready",
+        "value_raw": 1,
+        "enum": {
+          "0": "Inactive",
+          "1": "Ready",
+          "2": "DelayedStart",
+          "3": "Run",
+          "4": "Pause",
+          "5": "ActionRequired",
+          "6": "Finished",
+          "7": "Error",
+          "8": "Aborting"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 592,
+        "name": "BSH.Common.Status.SoftwareUpdateTransactionID",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 614,
+        "name": "BSH.Common.Status.ErrorCodesList",
+        "value": {
+          "length": 0,
+          "list": []
+        },
+        "value_raw": {
+          "length": 0,
+          "list": []
+        },
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 615,
+        "name": "BSH.Common.Status.Program.All.Count.Started",
+        "value": 2234,
+        "value_raw": 2234,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 625,
+        "name": "BSH.Common.Status.ProgramSessionSummary.Latest",
+        "value": {
+          "start": "2026-09-27T04:49:15+00:00",
+          "end": "2026-09-27T05:38:18+00:00",
+          "counter": 2233,
+          "sequence": [
+            {
+              "configuration": {
+                "program": 8222,
+                "options": [
+                  {
+                    "uid": 5136,
+                    "value": false
+                  },
+                  {
+                    "uid": 632,
+                    "value": false
+                  }
+                ]
+              },
+              "details": [
+                {
+                  "uid": 626,
+                  "value": 0
+                },
+                {
+                  "uid": 4356,
+                  "value": true
+                },
+                {
+                  "uid": 4357,
+                  "value": 0
+                },
+                {
+                  "uid": 4354,
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "value_raw": {
+          "start": "2026-09-27T04:49:15+00:00",
+          "end": "2026-09-27T05:38:18+00:00",
+          "counter": 2233,
+          "sequence": [
+            {
+              "configuration": {
+                "program": 8222,
+                "options": [
+                  {
+                    "uid": 5136,
+                    "value": false
+                  },
+                  {
+                    "uid": 632,
+                    "value": false
+                  }
+                ]
+              },
+              "details": [
+                {
+                  "uid": 626,
+                  "value": 0
+                },
+                {
+                  "uid": 4356,
+                  "value": true
+                },
+                {
+                  "uid": 4357,
+                  "value": 0
+                },
+                {
+                  "uid": 4354,
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 626,
+        "name": "BSH.Common.Status.ProgramRunDetail.EndTrigger",
+        "value": "ProgramFinished",
+        "value_raw": 0,
+        "enum": {
+          "0": "ProgramFinished",
+          "1": "ProgramAbortedByUser",
+          "2": "ProgramAbortedByAppliance",
+          "3": "ProgramAbortedByApplianceCriticalError"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 4096,
+        "name": "Dishcare.Dishwasher.Status.ProgramPhase",
+        "value": null,
+        "value_raw": null,
+        "enum": {
+          "0": "None",
+          "1": "PreRinse",
+          "2": "MainWash",
+          "3": "FinalRinse",
+          "4": "Drying"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 4101,
+        "name": "Dishcare.Dishwasher.Status.SilenceOnDemandRemainingTime",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 4145,
+        "name": "Dishcare.Dishwasher.Status.MachineCareReminder.RemainingProgramRuns",
+        "value": 24,
+        "value_raw": 24,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 32771,
+        "name": "BSH.Common.Status.Favorite.Handling",
+        "value": "AsButtons",
+        "value_raw": 1,
+        "enum": {
+          "0": "AsList",
+          "1": "AsButtons"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 3,
+        "name": "BSH.Common.Setting.AllowBackendConnection",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 539,
+        "name": "BSH.Common.Setting.PowerState",
+        "value": "Off",
+        "value_raw": 1,
+        "enum": {
+          "1": "Off",
+          "2": "On"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 15,
+        "name": "BSH.Common.Setting.RemoteControlLevel",
+        "value": "PermanentRemoteStart",
+        "value_raw": 2,
+        "enum": {
+          "0": "Monitoring",
+          "1": "ManualRemoteStart",
+          "2": "PermanentRemoteStart"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4354,
+        "name": "Dishcare.Dishwasher.Setting.RinseAid",
+        "value": "R05",
+        "value_raw": 5,
+        "enum": {
+          "0": "Off",
+          "1": "R01",
+          "2": "R02",
+          "3": "R03",
+          "4": "R04",
+          "5": "R05",
+          "6": "R06"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4356,
+        "name": "Dishcare.Dishwasher.Setting.ExtraDry",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4382,
+        "name": "Dishcare.Dishwasher.Setting.SilenceOnDemandDefaultTime",
+        "value": 480,
+        "value_raw": 480,
+        "enum": null,
+        "min": 60.0,
+        "max": 1800.0,
+        "step": 60.0,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4355,
+        "name": "Dishcare.Dishwasher.Setting.SensitivityTurbidity",
+        "value": "VerySensitive",
+        "value_raw": 2,
+        "enum": {
+          "0": "Standard",
+          "1": "Sensitive",
+          "2": "VerySensitive"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4357,
+        "name": "Dishcare.Dishwasher.Setting.HotWater",
+        "value": "ColdWater",
+        "value_raw": 0,
+        "enum": {
+          "0": "ColdWater",
+          "1": "HotWater"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4363,
+        "name": "Dishcare.Dishwasher.Setting.EcoAsDefault",
+        "value": "LastProgram",
+        "value_raw": 0,
+        "enum": {
+          "0": "LastProgram",
+          "1": "EcoAsDefault"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4364,
+        "name": "Dishcare.Dishwasher.Setting.SoundLevelSignal",
+        "value": "Medium",
+        "value_raw": 2,
+        "enum": {
+          "0": "Off",
+          "1": "Low",
+          "2": "Medium",
+          "3": "High"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4367,
+        "name": "Dishcare.Dishwasher.Setting.WaterHardness",
+        "value": "H02",
+        "value_raw": 2,
+        "enum": {
+          "0": "H00",
+          "1": "H01",
+          "2": "H02",
+          "3": "H03",
+          "4": "H04",
+          "5": "H05",
+          "6": "H06",
+          "7": "H07"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4378,
+        "name": "Dishcare.Dishwasher.Setting.InfoLight",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 4384,
+        "name": "Dishcare.Dishwasher.Setting.SpeedOnDemand",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 631,
+        "name": "BSH.Common.Setting.SmartEnergyService.AutoSmartStartEnabled",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 32824,
+        "name": "BSH.Common.Setting.Favorite.001.Functionality",
+        "value": "Program",
+        "value_raw": 1,
+        "enum": {
+          "0": "Off",
+          "1": "Program"
+        },
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 32825,
+        "name": "BSH.Common.Setting.Favorite.001.Name",
+        "value": "Speedy",
+        "value_raw": "Speedy",
+        "enum": null,
+        "min": 0.0,
+        "max": 30.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 32826,
+        "name": "BSH.Common.Setting.Favorite.001.Program",
+        "value": {
+          "length": 1,
+          "list": [
+            {
+              "program": 8203,
+              "options": [
+                {
+                  "uid": 5136,
+                  "value": false
+                },
+                {
+                  "uid": 632,
+                  "value": false
+                },
+                {
+                  "uid": 558,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "value_raw": {
+          "length": 1,
+          "list": [
+            {
+              "program": 8203,
+              "options": [
+                {
+                  "uid": 5136,
+                  "value": false
+                },
+                {
+                  "uid": 632,
+                  "value": false
+                },
+                {
+                  "uid": 558,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "enum": null,
+        "min": 0.0,
+        "max": 1.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 21,
+        "name": "BSH.Common.Event.SoftwareUpdateAvailable",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 46,
+        "name": "BSH.Common.Event.ConfirmPermanentRemoteStart",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 525,
+        "name": "BSH.Common.Event.AquaStopOccured",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 540,
+        "name": "BSH.Common.Event.ProgramFinished",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 543,
+        "name": "BSH.Common.Event.LowWaterPressure",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 545,
+        "name": "BSH.Common.Event.ProgramAborted",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 577,
+        "name": "BSH.Common.Event.ConnectLocalWiFi",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 593,
+        "name": "BSH.Common.Event.SoftwareDownloadAvailable",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 595,
+        "name": "BSH.Common.Event.SoftwareUpdateSuccessful",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4608,
+        "name": "Dishcare.Dishwasher.Event.InternalError",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4609,
+        "name": "Dishcare.Dishwasher.Event.CheckFilterSystem",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4610,
+        "name": "Dishcare.Dishwasher.Event.DrainingNotPossible",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4611,
+        "name": "Dishcare.Dishwasher.Event.DrainPumpBlocked",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4612,
+        "name": "Dishcare.Dishwasher.Event.WaterheaterCalcified",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4613,
+        "name": "Dishcare.Dishwasher.Event.LowVoltage",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4625,
+        "name": "Dishcare.Dishwasher.Event.RinseAidLack",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4627,
+        "name": "Dishcare.Dishwasher.Event.RinseAidNearlyEmpty",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4660,
+        "name": "Dishcare.Dishwasher.Event.SmartFilterCleaningReminder",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4624,
+        "name": "Dishcare.Dishwasher.Event.SaltLack",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4626,
+        "name": "Dishcare.Dishwasher.Event.SaltNearlyEmpty",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4628,
+        "name": "Dishcare.Dishwasher.Event.MachineCareReminder",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 4655,
+        "name": "Dishcare.Dishwasher.Event.MachineCareAndFilterCleaningReminder",
+        "value": "Off",
+        "value_raw": 0,
+        "enum": {
+          "0": "Off",
+          "1": "Present",
+          "2": "Confirmed"
+        }
+      },
+      {
+        "uid": 1,
+        "name": "BSH.Common.Command.DeactivateWiFi",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 6,
+        "name": "BSH.Common.Command.AcknowledgeEvent",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 16,
+        "name": "BSH.Common.Command.RejectEvent",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 512,
+        "name": "BSH.Common.Command.AbortProgram",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "none"
+      },
+      {
+        "uid": 553,
+        "name": "BSH.Common.Command.ApplyFactoryReset",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 555,
+        "name": "BSH.Common.Command.DeactivateRemoteControlStart",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "none"
+      },
+      {
+        "uid": 611,
+        "name": "BSH.Common.Command.AllowSoftwareUpdate",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 594,
+        "name": "BSH.Common.Command.AllowSoftwareDownload",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 556,
+        "name": "BSH.Common.Command.SetWaterHardness",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "writeonly"
+      },
+      {
+        "uid": 542,
+        "name": "BSH.Common.Option.ProgramProgress",
+        "value": 0.0,
+        "value_raw": 0.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 544,
+        "name": "BSH.Common.Option.RemainingProgramTime",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 549,
+        "name": "BSH.Common.Option.RemainingProgramTimeIsEstimated",
+        "value": true,
+        "value_raw": true,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 558,
+        "name": "BSH.Common.Option.StartInRelative",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "min": 0.0,
+        "max": 86400.0,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 561,
+        "name": "BSH.Common.Option.EnergyForecast",
+        "value": 52.0,
+        "value_raw": 52.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 562,
+        "name": "BSH.Common.Option.WaterForecast",
+        "value": 49.0,
+        "value_raw": 49.0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 5136,
+        "name": "Dishcare.Dishwasher.Option.SilenceOnDemand",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 632,
+        "name": "BSH.Common.Option.SmartEnergyService.SmartStartEnabled",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 5124,
+        "name": "Dishcare.Dishwasher.Option.HalfLoad",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 5126,
+        "name": "Dishcare.Dishwasher.Option.IntensivZone",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 5127,
+        "name": "Dishcare.Dishwasher.Option.VarioSpeedPlus",
+        "value": false,
+        "value_raw": false,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": false,
+        "access": "read"
+      },
+      {
+        "uid": 32772,
+        "name": "BSH.Common.Option.ProgramName",
+        "value": "",
+        "value_raw": "",
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 32773,
+        "name": "BSH.Common.Option.BaseProgram",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "min": null,
+        "max": null,
+        "step": null,
+        "available": true,
+        "access": "read"
+      },
+      {
+        "uid": 8192,
+        "name": "Dishcare.Dishwasher.Program.Intensiv70",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8195,
+        "name": "Dishcare.Dishwasher.Program.Auto2",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8196,
+        "name": "Dishcare.Dishwasher.Program.Eco50",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8199,
+        "name": "Dishcare.Dishwasher.Program.Quick45",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8200,
+        "name": "Dishcare.Dishwasher.Program.PreRinse",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8203,
+        "name": "Dishcare.Dishwasher.Program.Quick65",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8215,
+        "name": "Dishcare.Dishwasher.Program.MachineCare",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 32828,
+        "name": "BSH.Common.Program.Favorite.001",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8227,
+        "name": "Dishcare.Dishwasher.Program.MaxEfficient",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8218,
+        "name": "Dishcare.Dishwasher.Program.MixedLoad",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8210,
+        "name": "Dishcare.Dishwasher.Program.IntensivPower",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8197,
+        "name": "Dishcare.Dishwasher.Program.Glas40",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8222,
+        "name": "Dishcare.Dishwasher.Program.QuickD",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8202,
+        "name": "Dishcare.Dishwasher.Program.NightWash",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8212,
+        "name": "Dishcare.Dishwasher.Program.Super60",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 8213,
+        "name": "Dishcare.Dishwasher.Program.Kurz60",
+        "value": null,
+        "value_raw": null,
+        "enum": null,
+        "available": true,
+        "execution": "selectandstart"
+      },
+      {
+        "uid": 256,
+        "name": "BSH.Common.Root.ActiveProgram",
+        "value": 0,
+        "value_raw": 0,
+        "enum": null,
+        "available": true,
+        "access": "readwrite"
+      },
+      {
+        "uid": 257,
+        "name": "BSH.Common.Root.SelectedProgram",
+        "value": 8222,
+        "value_raw": 8222,
+        "enum": null,
+        "available": true,
+        "access": "readwrite"
+      }
+    ]
+  }
+}
