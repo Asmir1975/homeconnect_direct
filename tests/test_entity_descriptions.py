@@ -2200,3 +2200,63 @@ def test_laundry_light_settings_only_create_lights() -> None:
 
     assert {"switch_door_light_ring", "switch_drum_light"}.isdisjoint(switches)
     assert {"light_door_ring", "light_drum_light"} <= lights
+
+
+async def test_pause_resume_buttons_off_by_default_on_coffeemaker(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Coffee makers never enable Pause and Resume, so the buttons start disabled."""
+    description = DeviceDescription(
+        info={"type": "CoffeeMaker"},
+        command=[
+            EntityDescription(
+                uid=537,
+                name="BSH.Common.Command.PauseProgram",
+                available=False,
+                access=Access.WRITE_ONLY,
+            ),
+            EntityDescription(
+                uid=546,
+                name="BSH.Common.Command.ResumeProgram",
+                available=False,
+                access=Access.WRITE_ONLY,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    buttons = {
+        item.key: item for item in entity_descriptions.get_available_entities(appliance)["button"]
+    }
+
+    assert buttons["button_pause_program"].force_disabled_default
+    assert buttons["button_resume_program"].force_disabled_default
+
+
+async def test_pause_resume_buttons_enabled_by_default_on_dishwasher(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Other appliance types keep Pause and Resume enabled."""
+    description = DeviceDescription(
+        info={"type": "Dishwasher"},
+        command=[
+            EntityDescription(
+                uid=537,
+                name="BSH.Common.Command.PauseProgram",
+                available=True,
+                access=Access.WRITE_ONLY,
+            ),
+            EntityDescription(
+                uid=546,
+                name="BSH.Common.Command.ResumeProgram",
+                available=True,
+                access=Access.WRITE_ONLY,
+            ),
+        ],
+    )
+    appliance = await mock_homeconnect_appliance(description=description)
+    buttons = {
+        item.key: item for item in entity_descriptions.get_available_entities(appliance)["button"]
+    }
+
+    assert not buttons["button_pause_program"].force_disabled_default
+    assert not buttons["button_resume_program"].force_disabled_default
