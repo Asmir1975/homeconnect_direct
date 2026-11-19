@@ -459,6 +459,10 @@ def _is_hob_extension_zone(zone: str, zones: set[str]) -> bool:
     to the main zones 100, 200 and 300 and never report a value for any of their
     16 UIDs. Hobs without zone 100 use 120 as a normal zone (PID775HC1E: zones 120,
     300 and 400, where 120 is the 32 cm zone on the left).
+
+    Seen on EX975KXW1E: zones 120 and 340 next to 100 and 300 report their values and
+    have a JoinZone status, which the EX851LYV5E zones lack. These are kept, see
+    generate_hob_zones.
     """
     base = f"{zone[:1]}00"
     return zone != base and base in zones
@@ -497,13 +501,26 @@ def generate_hob_zones(appliance: HomeAppliance) -> HCFanEntityDescription:
     pattern = re.compile(r"^Cooking\.Hob\.Status\.Zone\.([0-9]*)\..*$")
     all_groups = get_groups_from_regex(appliance, pattern)
     zones = {g[0] for g in all_groups}
-    # Extension zones never reported a value, see _is_hob_extension_zone.
-    groups = {g for g in all_groups if not _is_hob_extension_zone(g[0], zones)}
+    # Extension zones without a JoinZone status never reported a value, see
+    # _is_hob_extension_zone. Those with one are kept but disabled by default.
+    joined_extensions = {
+        g[0]
+        for g in all_groups
+        if _is_hob_extension_zone(g[0], zones)
+        and f"Cooking.Hob.Status.Zone.{g[0]}.JoinZone" in appliance.entities
+    }
+    groups = {
+        g
+        for g in all_groups
+        if not _is_hob_extension_zone(g[0], zones) or g[0] in joined_extensions
+    }
     descriptions = EntityDescriptions(sensor=[])
     for group in groups:
         group_name = f" {int(group[0])}"
         zone_state = appliance.entities.get(f"Cooking.Hob.Status.Zone.{group[0]}.State")
-        force_disabled_default = zone_state is not None and zone_state.value == "NotSelectable"
+        force_disabled_default = (
+            zone_state is not None and zone_state.value == "NotSelectable"
+        ) or group[0] in joined_extensions
 
         _append_hob_zone_program_status(descriptions, appliance, group, group_name)
 

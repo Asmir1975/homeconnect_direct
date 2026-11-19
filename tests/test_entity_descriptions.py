@@ -175,6 +175,44 @@ async def test_hob_zone_120_kept_without_zone_100(
     assert {item.key.split("_")[3] for item in descriptions} == {"120", "300", "400"}
 
 
+async def test_hob_joined_extension_zones_kept_disabled(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test that zones 120 and 340 of the EX975KXW1E get sensors, disabled by default."""
+    description = json.loads((Path(__file__).parent / "fixtures/ex975kxw1e_zones.json").read_text())
+    appliance = await mock_homeconnect_appliance(description=description)
+
+    descriptions = generate_hob_zones(appliance)["sensor"]
+
+    assert {item.key.split("_")[3] for item in descriptions} == {
+        "100",
+        "120",
+        "200",
+        "300",
+        "340",
+        "400",
+        "500",
+    }
+    for item in descriptions:
+        zone = item.key.split("_")[3]
+        if zone in ("120", "340"):
+            assert item.force_disabled_default, item.key
+
+
+async def test_hob_extension_zones_of_ex851lyv5e_not_created(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Test that the real EX851LYV5E profile still gets sensors for its main zones only."""
+    description = json.loads((Path(__file__).parent / "fixtures/ex851lyv5e_hob.json").read_text())
+    appliance = await mock_homeconnect_appliance(
+        description=description["entry_data"]["description"]
+    )
+
+    descriptions = generate_hob_zones(appliance)["sensor"]
+
+    assert {item.key.split("_")[3] for item in descriptions} == {"100", "200", "300", "400"}
+
+
 def test_force_disabled_default_overrides_fork_default() -> None:
     """Test the narrow exception to the fork's enabled-by-default policy."""
     appliance = MagicMock()
