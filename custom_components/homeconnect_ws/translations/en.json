@@ -1786,7 +1786,7 @@
           "carbon_filter_nearly_saturated": "Carbon filter nearly saturated",
           "grease_filter_nearly_saturated": "Grease filter nearly saturated",
           "regenerative_carbon_filter_nearly_saturated": "Regenerative carbon filter nearly saturated",
-          "none": "No error"
+          "none": "No message"
         }
       },
       "sensor_hob_message": {
@@ -1831,7 +1831,7 @@
           "low_water_pressure": "Low water pressure",
           "program_aborted": "Program aborted",
           "internal_error": "Internal error",
-          "none": "No error"
+          "none": "No message"
         }
       },
       "sensor_rinse_aid": {

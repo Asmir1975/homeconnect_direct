@@ -1786,7 +1786,7 @@
           "carbon_filter_nearly_saturated": "Aktivkohlefilter-Sättigung fast erreicht",
           "grease_filter_nearly_saturated": "Fettfilter-Sättigung fast erreicht",
           "regenerative_carbon_filter_nearly_saturated": "Regenerierbarer Kohlefilter Sättigung fast erreicht",
-          "none": "Kein Fehler"
+          "none": "Keine Meldung"
         }
       },
       "sensor_hob_message": {
@@ -1831,7 +1831,7 @@
           "low_water_pressure": "Niedriger Wasserdruck",
           "program_aborted": "Programm abgebrochen",
           "internal_error": "Interner Fehler",
-          "none": "Kein Fehler"
+          "none": "Keine Meldung"
         }
       },
       "sensor_rinse_aid": {
