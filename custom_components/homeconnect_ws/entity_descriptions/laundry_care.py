@@ -62,6 +62,36 @@ def generate_washer_speed_perfect(appliance: HomeAppliance) -> HCSwitchEntityDes
     )
 
 
+# Errors first, then everyday events, then reminders; the sensor shows the first one that
+# is active, else "none".
+LAUNDRY_MESSAGES = (
+    # Errors first, then everyday events, then reminders.
+    ("LaundryCare.Washer.Event.Circulation.Pump.ErrorLockedRotor", "circulation_pump_locked_rotor"),
+    ("LaundryCare.Washer.Event.Circulation.Pump.ErrorMaxTorque", "circulation_pump_max_torque"),
+    ("LaundryCare.Common.Event.SupplyPower.BlackedOut", "power_blackout"),
+    ("LaundryCare.Dryer.Event.DryingProcessFinished", "drying_process_finished"),
+    ("LaundryCare.Common.Event.DelayedShutdown", "delayed_shutdown"),
+    ("LaundryCare.Common.Event.DelayedShutdownCanceled", "delayed_shutdown_canceled"),
+    ("LaundryCare.Washer.Event.WaterSupply.WarmWaterAbsent", "warm_water_absent"),
+    ("LaundryCare.Dryer.Event.RefresherContainerEmpty", "refresher_container_empty"),
+    ("LaundryCare.Dryer.Event.DryerSelfCleaning.CleanLintFilter", "clean_lint_filter"),
+    ("LaundryCare.Dryer.Event.EasyClean.Filter.RemindCleaning", "filter_cleaning_reminder"),
+)
+
+
+def generate_laundry_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the most urgent active washer or dryer message, else "none"."""
+    messages = [(entity, key) for entity, key in LAUNDRY_MESSAGES if entity in appliance.entities]
+    if not messages:
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_laundry_message",
+        entities=tuple(entity for entity, _ in messages),
+        device_class=SensorDeviceClass.ENUM,
+        options=[key for _, key in messages] + ["none"],
+    )
+
+
 LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "sensor": [
         HCSensorEntityDescription(
@@ -629,6 +659,7 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             device_class=SwitchDeviceClass.SWITCH,
         ),
     ],
+    "event_sensor": [generate_laundry_message],
     "light": [
         HCLightEntityDescription(
             key="light_door_ring",

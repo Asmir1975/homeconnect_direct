@@ -28,6 +28,7 @@ if TYPE_CHECKING:
 # (drain-blocking errors before FlexSpray errors before maintenance reminders).
 DISHWASHER_MESSAGES = (
     ("Dishcare.Dishwasher.Event.DrainPumpBlocked", "drain_pump_blocked"),
+    ("Dishcare.Dishwasher.Event.InternalError", "internal_error"),
     ("Dishcare.Dishwasher.Event.DrainingNotPossible", "draining_not_possible"),
     ("Dishcare.Dishwasher.Event.FlexSpray.Error.Blocked", "flexspray_error_blocked"),
     ("Dishcare.Dishwasher.Event.FlexSpray.Error.General", "flexspray_error_general"),

@@ -192,33 +192,47 @@ def generate_oven_status(appliance: HomeAppliance) -> EntityDescriptions:
     return descriptions
 
 
-# Cavity events of HB774G1B1 and their state keys, most urgent first:
-# the message sensor shows the first active one, like the app.
+# Cavity events of HB774G1B1 and their state keys: errors first, everyday events in the
+# order they come up, reminders last. The message sensor shows the first active one.
 OVEN_MESSAGES = (
+    # Errors first, then everyday events in the order they come up, then reminders.
     ("CavityTemperatureTooHigh", "cavity_temperature_too_high"),
     ("OvenLockWhileCoolingDown", "oven_lock_while_cooling_down"),
     ("OperatingTimeLimitReached", "operating_time_limit_reached"),
     ("ForceFlushing", "force_flushing"),
     ("ErrorCodeE0502", "error_code_e0502"),
     ("ErrorDoorLatch", "error_door_latch"),
+    ("ErrorSteamSystem", "error_steam_system"),
     ("ApplianceModuleError", "appliance_module_error"),
     ("ErrorPermanentButtonPressing", "error_permanent_button_pressing"),
-    ("OpenDoor", "open_door"),
+    ("MaxMeatprobeTemperatureExceeded", "max_meatprobe_temperature_exceeded"),
+    ("RegularPreheatFinished", "regular_preheat_finished"),
+    ("FastPreheatFinished", "fast_preheat_finished"),
     ("SubsequentCookingRequest", "subsequent_cooking_request"),
     ("InsertFoodNow", "insert_food_now"),
     ("TurnFoodNow", "turn_food_now"),
     ("TurnJointNow", "turn_joint_now"),
+    ("TurnFoodNowMeatprobe", "turn_food_now_meatprobe"),
     ("ApplySteamShot", "apply_steam_shot"),
-    ("RegularPreheatFinished", "regular_preheat_finished"),
-    ("FastPreheatFinished", "fast_preheat_finished"),
+    ("FillWaterContainer", "fill_water_container"),
+    ("MeatprobeNecessary", "meatprobe_necessary"),
+    ("MeatprobeTemperatureReached", "meatprobe_temperature_reached"),
     ("AlarmClockElapsed", "alarm_clock_elapsed"),
     ("ProgramFinished", "program_finished"),
     ("ProgramAborted", "program_aborted"),
+    ("OpenDoor", "open_door"),
     ("CloseDoor", "close_door"),
+    ("ToColdForSteamBoost", "too_cold_for_steam_boost"),
     ("InsertFoodLater", "insert_food_later"),
     ("TurnFoodLater", "turn_food_later"),
-    ("CavityTemperatureTooHighInfo", "cavity_temperature_too_high_info"),
+    ("UnplugMeatprobe", "unplug_meatprobe"),
     ("LeaveDoorOpen", "leave_door_open"),
+    ("DescalingReminder", "descaling_reminder"),
+    ("PrepareDescaling", "prepare_descaling"),
+    ("DescaleBeforeSteam", "descale_before_steam"),
+    ("RinseWaterTank", "rinse_water_tank"),
+    ("DescalingCompleted", "descaling_completed"),
+    ("CavityTemperatureTooHighInfo", "cavity_temperature_too_high_info"),
     ("OpenDoorInfrequently", "open_door_infrequently"),
     ("PyroRemoveAccessory", "pyro_remove_accessory"),
     ("PyrolysisRemoveTank", "pyrolysis_remove_tank"),
@@ -766,6 +780,27 @@ def _generate_hood_favorite_functionality(
     return generate
 
 
+# Most urgent first; the sensor shows the first one that is active, else "none".
+HOB_MESSAGES = (
+    ("Cooking.Common.Event.ApplianceOverheated", "appliance_overheated"),
+    ("Cooking.Common.Event.ApplianceModuleError", "appliance_module_error"),
+    ("Cooking.Common.Event.ConfirmActionAtAppliance", "confirm_action_at_appliance"),
+)
+
+
+def generate_hob_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the most urgent active hob message, else "none"."""
+    messages = [(entity, key) for entity, key in HOB_MESSAGES if entity in appliance.entities]
+    if not messages:
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_hob_message",
+        entities=tuple(entity for entity, _ in messages),
+        device_class=SensorDeviceClass.ENUM,
+        options=[key for _, key in messages] + ["none"],
+    )
+
+
 COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "sensor": [
         HCSensorEntityDescription(
@@ -842,6 +877,7 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     ],
     "event_sensor": [
         generate_hood_filter_message,
+        generate_hob_message,
         HCSensorEntityDescription(
             key="sensor_oven_water_tank",
             translation_placeholders={"group_name": ""},

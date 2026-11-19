@@ -421,6 +421,18 @@
             "sensor_finish_in": {
                 "default": "mdi:clock-end"
             },
+            "sensor_hob_message": {
+                "default": "mdi:message-alert-outline",
+                "state": {
+                    "none": "mdi:message-outline"
+                }
+            },
+            "sensor_laundry_message": {
+                "default": "mdi:message-alert-outline",
+                "state": {
+                    "none": "mdi:message-outline"
+                }
+            },
             "sensor_dishwasher_message": {
                 "default": "mdi:message-alert-outline",
                 "state": {

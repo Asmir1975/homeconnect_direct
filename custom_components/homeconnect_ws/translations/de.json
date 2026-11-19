@@ -1789,6 +1789,31 @@
           "none": "Kein Fehler"
         }
       },
+      "sensor_hob_message": {
+        "name": "Meldung",
+        "state": {
+          "appliance_overheated": "Gerät überhitzt",
+          "appliance_module_error": "Fehler Gerätemodul",
+          "confirm_action_at_appliance": "Aktion am Gerät bestätigen",
+          "none": "Keine Meldung"
+        }
+      },
+      "sensor_laundry_message": {
+        "name": "Meldung",
+        "state": {
+          "circulation_pump_locked_rotor": "Umwälzpumpe blockiert",
+          "circulation_pump_max_torque": "Umwälzpumpe: Drehmoment zu hoch",
+          "power_blackout": "Stromausfall",
+          "warm_water_absent": "Warmwasser fehlt",
+          "refresher_container_empty": "Auffrischer-Behälter leer",
+          "clean_lint_filter": "Flusenfilter reinigen",
+          "filter_cleaning_reminder": "Erinnerung Filterreinigung",
+          "delayed_shutdown": "Verzögertes Abschalten",
+          "delayed_shutdown_canceled": "Verzögertes Abschalten abgebrochen",
+          "drying_process_finished": "Trocknen beendet",
+          "none": "Keine Meldung"
+        }
+      },
       "sensor_dishwasher_message": {
         "name": "Meldung",
         "state": {
@@ -1805,6 +1830,7 @@
           "low_voltage": "Niederspannung",
           "low_water_pressure": "Niedriger Wasserdruck",
           "program_aborted": "Programm abgebrochen",
+          "internal_error": "Interner Fehler",
           "none": "Kein Fehler"
         }
       },
@@ -2140,6 +2166,19 @@
           "water_container_nearly_empty": "Wassertank fast leer",
           "descaling_request": "Entkalken notwendig",
           "ecolysis_required": "Reinigung notwendig (Ecolyse)",
+          "error_steam_system": "Fehler im Dampfsystem",
+          "max_meatprobe_temperature_exceeded": "Temperatur des Bratenthermometers zu hoch",
+          "fill_water_container": "Wasserbehälter füllen",
+          "too_cold_for_steam_boost": "Zu kalt für Dampfstoß",
+          "descaling_reminder": "Erinnerung Entkalken",
+          "prepare_descaling": "Entkalken vorbereiten",
+          "descale_before_steam": "Vor dem Dampfgaren entkalken",
+          "rinse_water_tank": "Wassertank spülen",
+          "meatprobe_necessary": "Bratenthermometer erforderlich",
+          "turn_food_now_meatprobe": "Speise jetzt wenden (Bratenthermometer)",
+          "unplug_meatprobe": "Bratenthermometer herausziehen",
+          "meatprobe_temperature_reached": "Bratenthermometer: Temperatur erreicht",
+          "descaling_completed": "Entkalken abgeschlossen",
           "none": "Keine Meldung"
         }
       },
