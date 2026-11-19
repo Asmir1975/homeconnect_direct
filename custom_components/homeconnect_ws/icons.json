@@ -249,6 +249,18 @@
                     "off": "mdi:remote-off"
                 }
             },
+            "binary_local_control_active": {
+                "state": {
+                    "on": "mdi:hand-back-right",
+                    "off": "mdi:hand-back-right-off"
+                }
+            },
+            "binary_remote_control_active": {
+                "state": {
+                    "on": "mdi:remote",
+                    "off": "mdi:remote-off"
+                }
+            },
             "binary_sensor_interior_illumination": {
                 "state": {
                     "on": "mdi:lightbulb-on",

@@ -416,6 +416,12 @@
       "binary_remote_start_allowed": {
         "name": "Remote start allowed"
       },
+      "binary_local_control_active": {
+        "name": "Local control active"
+      },
+      "binary_remote_control_active": {
+        "name": "Remote control active"
+      },
       "binary_sensor_hob_join_zone": {
         "name": "Join zone"
       },

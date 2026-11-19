@@ -416,6 +416,12 @@
       "binary_remote_start_allowed": {
         "name": "Fernstart erlaubt"
       },
+      "binary_local_control_active": {
+        "name": "Lokale Bedienung aktiv"
+      },
+      "binary_remote_control_active": {
+        "name": "Fernsteuerung aktiv"
+      },
       "binary_sensor_hob_join_zone": {
         "name": "Zonen verbunden"
       },

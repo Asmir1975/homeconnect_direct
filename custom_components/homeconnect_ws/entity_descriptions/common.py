@@ -589,6 +589,18 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             force_disabled_default=True,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
+        HCBinarySensorEntityDescription(
+            key="binary_local_control_active",
+            entity="BSH.Common.Status.LocalControlActive",
+            force_disabled_default=True,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_remote_control_active",
+            entity="BSH.Common.Status.RemoteControlActive",
+            force_disabled_default=True,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
         generate_program_aborted_binary_sensor,
         HCBinarySensorEntityDescription(
             key="binary_sensor_program_finished",
