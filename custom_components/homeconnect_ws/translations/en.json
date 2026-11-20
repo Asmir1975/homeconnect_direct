@@ -242,6 +242,9 @@
       "switch_oven_fast_pre_heat": {
         "name": "Fast Preheat"
       },
+      "switch_oven_steam_boost": {
+        "name": "Steam boost"
+      },
       "switch_oven_button_tones": {
         "name": "Button tone"
       },
@@ -412,6 +415,12 @@
       },
       "binary_remote_start_allowed": {
         "name": "Remote start allowed"
+      },
+      "binary_local_control_active": {
+        "name": "Local control active"
+      },
+      "binary_remote_control_active": {
+        "name": "Remote control active"
       },
       "binary_sensor_hob_join_zone": {
         "name": "Join zone"
@@ -1777,7 +1786,33 @@
           "carbon_filter_nearly_saturated": "Carbon filter nearly saturated",
           "grease_filter_nearly_saturated": "Grease filter nearly saturated",
           "regenerative_carbon_filter_nearly_saturated": "Regenerative carbon filter nearly saturated",
-          "none": "No error"
+          "none": "No message"
+        }
+      },
+      "sensor_hob_message": {
+        "name": "Message",
+        "state": {
+          "appliance_overheated": "Appliance overheated",
+          "appliance_module_error": "Appliance module error",
+          "confirm_action_at_appliance": "Confirm action at the appliance",
+          "preheat_finished": "Preheating finished",
+          "none": "No message"
+        }
+      },
+      "sensor_laundry_message": {
+        "name": "Message",
+        "state": {
+          "circulation_pump_locked_rotor": "Circulation pump blocked",
+          "circulation_pump_max_torque": "Circulation pump torque too high",
+          "power_blackout": "Power outage",
+          "warm_water_absent": "Warm water missing",
+          "refresher_container_empty": "Refresher container empty",
+          "clean_lint_filter": "Clean lint filter",
+          "filter_cleaning_reminder": "Filter cleaning reminder",
+          "delayed_shutdown": "Delayed shutdown",
+          "delayed_shutdown_canceled": "Delayed shutdown canceled",
+          "drying_process_finished": "Drying finished",
+          "none": "No message"
         }
       },
       "sensor_dishwasher_message": {
@@ -1796,7 +1831,8 @@
           "low_voltage": "Low voltage",
           "low_water_pressure": "Low water pressure",
           "program_aborted": "Program aborted",
-          "none": "No error"
+          "internal_error": "Internal error",
+          "none": "No message"
         }
       },
       "sensor_rinse_aid": {
@@ -2109,6 +2145,7 @@
           "insert_food_now": "Insert food now",
           "turn_food_now": "Turn food now",
           "turn_joint_now": "Turn joint now",
+          "apply_steam_shot": "Apply steam burst",
           "regular_preheat_finished": "Preheating finished",
           "fast_preheat_finished": "Rapid heating finished",
           "alarm_clock_elapsed": "Alarm clock elapsed",
@@ -2139,6 +2176,19 @@
           "water_container_nearly_empty": "Water tank nearly empty",
           "descaling_request": "Descaling required",
           "ecolysis_required": "Cleaning required (ecolysis)",
+          "error_steam_system": "Steam system error",
+          "max_meatprobe_temperature_exceeded": "Meat probe temperature too high",
+          "fill_water_container": "Fill water container",
+          "too_cold_for_steam_boost": "Too cold for steam burst",
+          "descaling_reminder": "Descaling reminder",
+          "prepare_descaling": "Prepare descaling",
+          "descale_before_steam": "Descale before steaming",
+          "rinse_water_tank": "Rinse water tank",
+          "meatprobe_necessary": "Meat probe required",
+          "turn_food_now_meatprobe": "Turn food now (meat probe)",
+          "unplug_meatprobe": "Unplug meat probe",
+          "meatprobe_temperature_reached": "Meat probe temperature reached",
+          "descaling_completed": "Descaling completed",
           "none": "No message"
         }
       },
@@ -4472,6 +4522,15 @@
           "level03": "Level 3"
         }
       },
+      "select_oven_steam_assist_level": {
+        "name": "Add steam",
+        "state": {
+          "off": "Off",
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        }
+      },
       "select_oven_used_heating_mode": {
         "name": "Used Heating mode",
         "state": {
@@ -5309,7 +5368,7 @@
   },
   "exceptions": {
     "no_pending_event": {
-      "message": "No pending message to acknowledge"
+      "message": "Nothing to acknowledge. Please select on the appliance."
     },
     "start_in_not_available": {
       "message": "'Start in' is not available on this Appliance"

@@ -1,0 +1,163 @@
+{
+  "info": {
+    "type": "Oven",
+    "brand": "SIEMENS",
+    "vib": "HR776G1B1"
+  },
+  "activeProgram": {
+    "access": "read",
+    "fullOptionSet": false,
+    "name": "BSH.Common.Root.ActiveProgram",
+    "uid": 256,
+    "validate": false
+  },
+  "selectedProgram": {
+    "access": "readwrite",
+    "fullOptionSet": false,
+    "name": "BSH.Common.Root.SelectedProgram",
+    "uid": 257,
+    "validate": false
+  },
+  "status": [
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "2": "DelayedStart",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "name": "BSH.Common.Status.OperationState",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 552
+    }
+  ],
+  "option": [
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "timeSpan",
+      "default": "1800",
+      "liveUpdate": true,
+      "max": "266400",
+      "min": "1",
+      "name": "BSH.Common.Option.Duration",
+      "protocolType": "Integer",
+      "refCID": 16,
+      "refDID": 130,
+      "uid": 548
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "temperatureCelsius",
+      "liveUpdate": true,
+      "max": "300",
+      "min": "30",
+      "name": "Cooking.Oven.Option.SetpointTemperature",
+      "protocolType": "Float",
+      "refCID": 7,
+      "refDID": 161,
+      "uid": 5120
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "boolean",
+      "liveUpdate": true,
+      "name": "Cooking.Oven.Option.SteamBoost",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 5151
+    },
+    {
+      "access": "readwrite",
+      "available": true,
+      "contentType": "enumeration",
+      "default": "0",
+      "enumeration": {
+        "0": "Off",
+        "1": "Low",
+        "2": "Medium",
+        "3": "High"
+      },
+      "liveUpdate": true,
+      "max": "3",
+      "min": "0",
+      "name": "Cooking.Oven.Option.SteamAssistLevel",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 5125
+    }
+  ],
+  "program": [
+    {
+      "available": true,
+      "execution": "selectandstart",
+      "name": "Cooking.Oven.Program.HeatingMode.HotAir",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "180",
+          "refUID": 5120
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "1",
+          "refUID": 548
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "0",
+          "refUID": 5125
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "refUID": 5151
+        }
+      ],
+      "uid": 8208
+    },
+    {
+      "available": true,
+      "execution": "selectandstart",
+      "name": "Cooking.Oven.Program.HeatingMode.KeepWarm",
+      "options": [
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "65",
+          "refUID": 5120
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "1",
+          "refUID": 548
+        },
+        {
+          "access": "readwrite",
+          "available": true,
+          "default": "0",
+          "refUID": 5125
+        }
+      ],
+      "uid": 8229
+    }
+  ]
+}

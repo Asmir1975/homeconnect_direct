@@ -1,0 +1,83 @@
+{
+  "activeProgram": {
+    "access": "read",
+    "fullOptionSet": false,
+    "name": "BSH.Common.Root.ActiveProgram",
+    "uid": 256
+  },
+  "command": [
+    {
+      "access": "none",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Command.AbortProgram",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 512
+    },
+    {
+      "access": "none",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Command.PauseProgram",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 537
+    },
+    {
+      "access": "none",
+      "available": true,
+      "contentType": "boolean",
+      "name": "BSH.Common.Command.ResumeProgram",
+      "protocolType": "Boolean",
+      "refCID": 1,
+      "refDID": 0,
+      "uid": 546
+    }
+  ],
+  "event": [],
+  "info": {
+    "brand": "BOSCH",
+    "deviceID": "wgb24409fg-test",
+    "model": "WGB24409FG",
+    "type": "Washer",
+    "vib": "WGB24409FG"
+  },
+  "option": [],
+  "program": [],
+  "selectedProgram": {
+    "access": "readwrite",
+    "fullOptionSet": false,
+    "name": "BSH.Common.Root.SelectedProgram",
+    "uid": 257
+  },
+  "setting": [],
+  "status": [
+    {
+      "access": "read",
+      "available": true,
+      "contentType": "enumeration",
+      "enumeration": {
+        "0": "Inactive",
+        "1": "Ready",
+        "2": "DelayedStart",
+        "3": "Run",
+        "4": "Pause",
+        "5": "ActionRequired",
+        "6": "Finished",
+        "7": "Error",
+        "8": "Aborting"
+      },
+      "initValue": "0",
+      "max": "8",
+      "min": "0",
+      "name": "BSH.Common.Status.OperationState",
+      "protocolType": "Integer",
+      "refCID": 3,
+      "refDID": 128,
+      "uid": 552
+    }
+  ]
+}

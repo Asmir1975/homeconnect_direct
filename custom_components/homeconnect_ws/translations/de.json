@@ -197,6 +197,9 @@
       "switch_oven_fast_pre_heat": {
         "name": "Schnelles Vorheizen"
       },
+      "switch_oven_steam_boost": {
+        "name": "Dampfstoß"
+      },
       "switch_oven_button_tones": {
         "name": "Tastenton"
       },
@@ -412,6 +415,12 @@
       },
       "binary_remote_start_allowed": {
         "name": "Fernstart erlaubt"
+      },
+      "binary_local_control_active": {
+        "name": "Lokale Bedienung aktiv"
+      },
+      "binary_remote_control_active": {
+        "name": "Fernsteuerung aktiv"
       },
       "binary_sensor_hob_join_zone": {
         "name": "Zonen verbunden"
@@ -1777,7 +1786,33 @@
           "carbon_filter_nearly_saturated": "Aktivkohlefilter-Sättigung fast erreicht",
           "grease_filter_nearly_saturated": "Fettfilter-Sättigung fast erreicht",
           "regenerative_carbon_filter_nearly_saturated": "Regenerierbarer Kohlefilter Sättigung fast erreicht",
-          "none": "Kein Fehler"
+          "none": "Keine Meldung"
+        }
+      },
+      "sensor_hob_message": {
+        "name": "Meldung",
+        "state": {
+          "appliance_overheated": "Gerät überhitzt",
+          "appliance_module_error": "Fehler Gerätemodul",
+          "confirm_action_at_appliance": "Aktion am Gerät bestätigen",
+          "preheat_finished": "Vorheizen beendet",
+          "none": "Keine Meldung"
+        }
+      },
+      "sensor_laundry_message": {
+        "name": "Meldung",
+        "state": {
+          "circulation_pump_locked_rotor": "Umwälzpumpe blockiert",
+          "circulation_pump_max_torque": "Umwälzpumpe: Drehmoment zu hoch",
+          "power_blackout": "Stromausfall",
+          "warm_water_absent": "Warmwasser fehlt",
+          "refresher_container_empty": "Auffrischer-Behälter leer",
+          "clean_lint_filter": "Flusenfilter reinigen",
+          "filter_cleaning_reminder": "Erinnerung Filterreinigung",
+          "delayed_shutdown": "Verzögertes Abschalten",
+          "delayed_shutdown_canceled": "Verzögertes Abschalten abgebrochen",
+          "drying_process_finished": "Trocknen beendet",
+          "none": "Keine Meldung"
         }
       },
       "sensor_dishwasher_message": {
@@ -1796,7 +1831,8 @@
           "low_voltage": "Niederspannung",
           "low_water_pressure": "Niedriger Wasserdruck",
           "program_aborted": "Programm abgebrochen",
-          "none": "Kein Fehler"
+          "internal_error": "Interner Fehler",
+          "none": "Keine Meldung"
         }
       },
       "sensor_rinse_aid": {
@@ -2100,6 +2136,7 @@
           "insert_food_now": "Speise jetzt einschieben",
           "turn_food_now": "Speise jetzt wenden",
           "turn_joint_now": "Braten jetzt wenden",
+          "apply_steam_shot": "Dampfstoß auslösen",
           "regular_preheat_finished": "Vorheizen beendet",
           "fast_preheat_finished": "Schnellaufheizen beendet",
           "alarm_clock_elapsed": "Alarm abgelaufen",
@@ -2130,6 +2167,19 @@
           "water_container_nearly_empty": "Wassertank fast leer",
           "descaling_request": "Entkalken notwendig",
           "ecolysis_required": "Reinigung notwendig (Ecolyse)",
+          "error_steam_system": "Fehler im Dampfsystem",
+          "max_meatprobe_temperature_exceeded": "Temperatur des Bratenthermometers zu hoch",
+          "fill_water_container": "Wasserbehälter füllen",
+          "too_cold_for_steam_boost": "Zu kalt für Dampfstoß",
+          "descaling_reminder": "Erinnerung Entkalken",
+          "prepare_descaling": "Entkalken vorbereiten",
+          "descale_before_steam": "Vor dem Dampfgaren entkalken",
+          "rinse_water_tank": "Wassertank spülen",
+          "meatprobe_necessary": "Bratenthermometer erforderlich",
+          "turn_food_now_meatprobe": "Speise jetzt wenden (Bratenthermometer)",
+          "unplug_meatprobe": "Bratenthermometer herausziehen",
+          "meatprobe_temperature_reached": "Bratenthermometer: Temperatur erreicht",
+          "descaling_completed": "Entkalken abgeschlossen",
           "none": "Keine Meldung"
         }
       },
@@ -4232,6 +4282,15 @@
           "level03": "Stufe 3"
         }
       },
+      "select_oven_steam_assist_level": {
+        "name": "Dampfzugabe",
+        "state": {
+          "off": "Aus",
+          "low": "Gering",
+          "medium": "Mittel",
+          "high": "Stark"
+        }
+      },
       "select_oven_used_heating_mode": {
         "name": "Aktiver Heizmodus",
         "state": {
@@ -5309,7 +5368,7 @@
   },
   "exceptions": {
     "no_pending_event": {
-      "message": "Keine offene Meldung zum Bestätigen"
+      "message": "Nichts zu bestätigen. Auswahl bitte am Gerät treffen."
     },
     "start_in_not_available": {
       "message": "'Start in' ist an diesem Gerät nicht verfügbar"

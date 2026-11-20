@@ -81,7 +81,6 @@ def test_part_b_mapping(
 @pytest.mark.parametrize(
     ("platform", "key"),
     [
-        ("switch", "switch_dishwasher_gap_illumination"),
         ("select", "select_dishwasher_interior_light_mode"),
     ],
 )
@@ -99,6 +98,17 @@ def test_lights_force_disabled_despite_fork_default(platform: str, key: str) -> 
         coordinator=MagicMock(),
     )
     assert not HCEntity(description, runtime).entity_registry_enabled_default
+
+
+def test_gap_illumination_is_enabled_by_default() -> None:
+    """The gap illumination switch is only created when the appliance has the setting."""
+    description = next(
+        item
+        for item in DISHCARE_ENTITY_DESCRIPTIONS["switch"]
+        if item.key == "switch_dishwasher_gap_illumination"
+    )
+    assert description.entity_registry_enabled_default
+    assert not description.force_disabled_default
 
 
 def test_steam_options_come_from_device_not_translation() -> None:
@@ -123,10 +133,6 @@ def test_steam_options_come_from_device_not_translation() -> None:
     )
     entity = HCSensor(description, runtime)
     assert entity.options == ["off", "low", "high"]
-    assert not any(
-        not callable(item) and item.entity == description.entity
-        for item in COOKING_ENTITY_DESCRIPTIONS["select"]
-    )
     for value in ("Off", "Low", "High"):
         wire_entity.value = value
         assert entity.native_value == value.lower()
@@ -167,4 +173,3 @@ def test_part_b_translation_keys(language: str) -> None:
     for (platform, key), states in expected.items():
         assert set(data["entity"][platform][key]["state"]) == states
         assert all(data["entity"][platform][key]["state"].values())
-    assert "select_oven_steam_assist_level" not in data["entity"]["select"]

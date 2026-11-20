@@ -181,6 +181,35 @@ def generate_acknowledge_event_button(appliance: HomeAppliance) -> HCButtonEntit
     )
 
 
+# Coffee makers never enable Pause and Resume, not even while paused.
+_PROGRAM_CONTROL_DISABLED_TYPES = frozenset({"CoffeeMaker"})
+
+
+def _program_control_button(
+    key: str, entity: str
+) -> Callable[[HomeAppliance], HCButtonEntityDescription | None]:
+    """Get a button factory that is off by default on types that never enable it."""
+
+    def generate(appliance: HomeAppliance) -> HCButtonEntityDescription | None:
+        if entity not in appliance.entities:
+            return None
+        return HCButtonEntityDescription(
+            key=key,
+            entity=entity,
+            force_disabled_default=appliance.info.get("type") in _PROGRAM_CONTROL_DISABLED_TYPES,
+        )
+
+    return generate
+
+
+generate_pause_program_button = _program_control_button(
+    "button_pause_program", "BSH.Common.Command.PauseProgram"
+)
+generate_resume_program_button = _program_control_button(
+    "button_resume_program", "BSH.Common.Command.ResumeProgram"
+)
+
+
 def _has_own_fridge_doors(appliance: HomeAppliance) -> bool:
     """
     Whether a fridge freezer reports a state for each of its doors.
@@ -520,14 +549,8 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="button_abort_program",
             entity="BSH.Common.Command.AbortProgram",
         ),
-        HCButtonEntityDescription(
-            key="button_pause_program",
-            entity="BSH.Common.Command.PauseProgram",
-        ),
-        HCButtonEntityDescription(
-            key="button_resume_program",
-            entity="BSH.Common.Command.ResumeProgram",
-        ),
+        generate_pause_program_button,
+        generate_resume_program_button,
         HCButtonEntityDescription(
             key="button_mains_power_off",
             entity="BSH.Common.Command.MainsPowerOff",
@@ -563,6 +586,18 @@ COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         HCBinarySensorEntityDescription(
             key="binary_remote_start_allowed",
             entity="BSH.Common.Status.RemoteControlStartAllowed",
+            force_disabled_default=True,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_local_control_active",
+            entity="BSH.Common.Status.LocalControlActive",
+            force_disabled_default=True,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        HCBinarySensorEntityDescription(
+            key="binary_remote_control_active",
+            entity="BSH.Common.Status.RemoteControlActive",
             force_disabled_default=True,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),

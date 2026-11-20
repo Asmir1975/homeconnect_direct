@@ -10,7 +10,13 @@ from typing import TYPE_CHECKING, Any, Never
 from homeassistant.const import CONF_DESCRIPTION
 from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers.service import async_extract_config_entry_ids
-from homeconnect_websocket.entities import Access, EventHandling, Option, SelectedProgram
+from homeconnect_websocket.entities import (
+    Access,
+    EventHandling,
+    Option,
+    SelectedProgram,
+    Setting,
+)
 from homeconnect_websocket.errors import AccessError, CodeResponsError, NotConnectedError
 from homeconnect_websocket.helpers import TYPE_MAPPING
 
@@ -32,6 +38,16 @@ _LOGGER = logging.getLogger(__name__)
 
 HTTP_BAD_REQUEST = 400
 _START_RESOURCE = "/ro/activeProgram"
+_OPERATION_STATE = "BSH.Common.Status.OperationState"
+_STEAM_LEVEL = "Cooking.Oven.Option.SteamAssistLevel"
+_STEAM_BOOST = "Cooking.Oven.Option.SteamBoost"
+# Seen on HR776G1B1: a start with these options changes them in a running program too.
+_SENT_WITH_START = (
+    "Cooking.Oven.Option.SetpointTemperature",
+    "BSH.Common.Option.Duration",
+    _STEAM_LEVEL,
+    _STEAM_BOOST,
+)
 
 
 def create_entities(
@@ -118,10 +134,27 @@ def pending_acknowledge_event_uid(runtime_data: HCData) -> int | None:
     return None
 
 
-def entity_is_available(entity: HcEntity, available_access: tuple[Access]) -> bool:
+# Seen on Bosch washers and dryers: Pause, Resume and Abort only change their access in
+# a program, the available flag stays as it was.
+_LAUNDRY_TYPES = ("Washer", "Dryer", "WasherDryer")
+_ACCESS_ONLY_COMMANDS = (
+    "BSH.Common.Command.AbortProgram",
+    "BSH.Common.Command.PauseProgram",
+    "BSH.Common.Command.ResumeProgram",
+)
+
+
+def is_access_only_command(appliance: HomeAppliance, entity_name: str | None) -> bool:
+    """Whether the entity is a program command of a laundry appliance, switched by access."""
+    return entity_name in _ACCESS_ONLY_COMMANDS and appliance.info.get("type") in _LAUNDRY_TYPES
+
+
+def entity_is_available(
+    entity: HcEntity, available_access: tuple[Access], *, ignore_available: bool = False
+) -> bool:
     """Check is HC entity is available."""
     available = True
-    if hasattr(entity, "available"):
+    if hasattr(entity, "available") and not ignore_available:
         available &= entity.available
 
     if hasattr(entity, "access"):
@@ -146,9 +179,33 @@ def is_locked_option(entity: HcEntity | None) -> bool:
     return isinstance(entity, Option | SelectedProgram) and entity.access == Access.READ
 
 
+_WRITABLE_ACCESS = frozenset({Access.READ_WRITE, Access.WRITE_ONLY})
+
+
+def writable_in_profile(description: DeviceDescription | dict, name: str | None) -> bool:
+    """Whether the appliance profile describes the Setting `name` as writable."""
+    for setting in description.get("setting", ()):
+        if setting.get("name") == name:
+            return str(setting.get("access", "")).lower() in _WRITABLE_ACCESS
+    return False
+
+
+def is_locked_setting(entity: HcEntity | None) -> bool:
+    """
+    Whether entity is a Setting currently read-only.
+
+    Ovens such as the HS658GXS7 switch PowerState, ChildLock and other Settings to
+    Access.READ for 15 to 20 seconds on every operation state change (door opened,
+    paused, started, switched off) and back to READWRITE afterwards. Whether that is
+    a temporary lock is decided by the caller against the profile, see
+    writable_in_profile().
+    """
+    return isinstance(entity, Setting) and entity.access == Access.READ
+
+
 def ensure_writable(entity: HcEntity | None) -> None:
-    """Raise a clear error instead of attempting a write a locked Option will reject."""
-    if is_locked_option(entity):
+    """Raise a clear error instead of attempting a write a read-only entity will reject."""
+    if is_locked_option(entity) or is_locked_setting(entity):
         raise ServiceValidationError(
             translation_domain=DOMAIN,
             translation_key="read_only",
@@ -229,6 +286,64 @@ async def write_through_selected_program(
     )
     await program.select(options, override_options=True)
     return True
+
+
+def start_option_entities(appliance: HomeAppliance, entity: HcEntity) -> list[HcEntity]:
+    """Get the entities an option sent with the start has to follow."""
+    names = (_OPERATION_STATE, _STEAM_LEVEL, _STEAM_BOOST)
+    return [
+        appliance.entities[name]
+        for name in names
+        if name in appliance.entities and appliance.entities[name] is not entity
+    ]
+
+
+def start_option_running(appliance: HomeAppliance) -> bool | None:
+    """Tell if a program runs (True), the oven is idle (False) or neither (None)."""
+    operation_state = appliance.entities.get(_OPERATION_STATE)
+    if operation_state is None or operation_state.value is None:
+        return False
+    state = str(operation_state.value).lower()
+    if state == "run":
+        return True
+    if state in ("inactive", "ready"):
+        return False
+    return None
+
+
+async def write_with_start(runtime_data: HCData, entity: HcEntity, value: Any) -> None:
+    """
+    Keep an option for the next start, or send the start again while a program runs.
+
+    Seen on HR776G1B1: the oven takes the steam level and the steam boost with the
+    program start, also in a running program, and runs either a level or the boost.
+    """
+    appliance = runtime_data.appliance
+    values = {entity.name: value}
+    if entity.name == _STEAM_LEVEL and value:
+        values[_STEAM_BOOST] = False
+    elif entity.name == _STEAM_BOOST and value:
+        values[_STEAM_LEVEL] = 0
+
+    if start_option_running(appliance):
+        program = appliance.active_program
+        members = {option.name: option for option in program.options} if program else {}
+        if entity.name not in members:
+            raise ServiceValidationError(translation_domain=DOMAIN, translation_key="read_only")
+        options = {}
+        for name in _SENT_WITH_START:
+            if name in members:
+                current = values.get(name, members[name].value_shadow)
+                if current is not None:
+                    options[members[name].uid] = _whole_number(current)
+        await program.start(options, override_options=True)
+        return
+
+    for name, kept in values.items():
+        option = appliance.entities.get(name)
+        if option is not None:
+            option._value_shadow = kept  # noqa: SLF001
+            await option.update({})
 
 
 async def start_coffee_favorite_with_fallback(program: Program) -> None:

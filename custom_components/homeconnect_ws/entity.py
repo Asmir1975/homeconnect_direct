@@ -5,11 +5,19 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+from homeassistant.const import CONF_DESCRIPTION
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeconnect_websocket.entities import Access
+from homeconnect_websocket.entities import Access, Setting
 
-from .helpers import entity_is_available, is_locked_option, is_option
+from .helpers import (
+    entity_is_available,
+    is_access_only_command,
+    is_locked_option,
+    is_locked_setting,
+    is_option,
+    writable_in_profile,
+)
 
 if TYPE_CHECKING:
     from homeassistant.helpers.device_registry import DeviceInfo
@@ -36,6 +44,7 @@ class HCEntity(CoordinatorEntity, Entity):
     _entities: list[HcEntity]
     _extra_attributes: list[ExtraAttributeDict]
     _has_callback: bool = False
+    _lockable_setting: bool = False
 
     def __init__(
         self,
@@ -60,6 +69,18 @@ class HCEntity(CoordinatorEntity, Entity):
         if entity_description.entities:
             for entity_name in entity_description.entities:
                 self._entities.append(self._runtime_data.appliance.entities[entity_name])
+        available_access = entity_description.available_access
+        if (
+            available_access is not None
+            and Access.READ not in available_access
+            and isinstance(self._entity, Setting)
+            and writable_in_profile(
+                runtime_data.coordinator.config_entry.data.get(CONF_DESCRIPTION, {}),
+                entity_description.entity,
+            )
+        ):
+            # A writable Setting the appliance may lock read-only for a moment.
+            self._lockable_setting = True
         if entity_description.extra_attributes:
             for extra_attribute in entity_description.extra_attributes:
                 if extra_attribute["entity"] in self._runtime_data.appliance.entities:
@@ -83,12 +104,18 @@ class HCEntity(CoordinatorEntity, Entity):
             or self._runtime_data.appliance.session.connected
         )
         available_access = self.entity_description.available_access
-        if available_access is not None and is_locked_option(self._entity):
+        if available_access is not None and self._is_locked():
             # Home Connect shows a locked Option as visible-but-disabled rather
             # than hiding it; Access.READ means "still readable", so widen the
             # check instead of going unavailable and hiding the current value.
+            # The same holds for a writable Setting the appliance locks for a moment.
             available_access = (*available_access, Access.READ)
-        return conn and entity_is_available(self._entity, available_access)
+        ignore_available = is_access_only_command(
+            self._runtime_data.appliance, self.entity_description.entity
+        )
+        return conn and entity_is_available(
+            self._entity, available_access, ignore_available=ignore_available
+        )
 
     @property
     def extra_state_attributes(self) -> dict:
@@ -97,6 +124,8 @@ class HCEntity(CoordinatorEntity, Entity):
             # Always present (not just when locked) so a template/custom card
             # can rely on it existing rather than treating "missing" as false.
             extra_state_attributes["readonly"] = is_locked_option(self._entity)
+        elif self._lockable_setting:
+            extra_state_attributes["readonly"] = is_locked_setting(self._entity)
         for description in self._extra_attributes:
             entity = self._runtime_data.appliance.entities[description["entity"]]
             if "value_fn" in description:
@@ -114,6 +143,12 @@ class HCEntity(CoordinatorEntity, Entity):
             else:
                 extra_state_attributes[description["name"]] = entity.value
         return extra_state_attributes
+
+    def _is_locked(self) -> bool:
+        """Whether the entity is a locked Option or a temporarily locked writable Setting."""
+        if is_locked_option(self._entity):
+            return True
+        return self._lockable_setting and is_locked_setting(self._entity)
 
     async def callback(self, _: HcEntity) -> None:
         if not self._has_callback:

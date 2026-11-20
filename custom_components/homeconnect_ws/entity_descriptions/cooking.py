@@ -50,6 +50,7 @@ def _append_oven_cavity_extra_status(
                 translation_key="sensor_oven_cavity_selector",
                 translation_placeholders={"group_name": group_name},
                 entity=entity,
+                device_class=SensorDeviceClass.ENUM,
                 force_disabled_default=True,
             )
         )
@@ -62,6 +63,7 @@ def _append_oven_cavity_extra_status(
                 translation_key="sensor_oven_cavity_level",
                 translation_placeholders={"group_name": group_name},
                 entity=entity,
+                device_class=SensorDeviceClass.ENUM,
                 force_disabled_default=True,
             )
         )
@@ -190,32 +192,47 @@ def generate_oven_status(appliance: HomeAppliance) -> EntityDescriptions:
     return descriptions
 
 
-# Cavity events of HB774G1B1 and their state keys, most urgent first:
-# the message sensor shows the first active one, like the app.
+# Cavity events of HB774G1B1 and their state keys: errors first, everyday events in the
+# order they come up, reminders last. The message sensor shows the first active one.
 OVEN_MESSAGES = (
+    # Errors first, then everyday events in the order they come up, then reminders.
     ("CavityTemperatureTooHigh", "cavity_temperature_too_high"),
     ("OvenLockWhileCoolingDown", "oven_lock_while_cooling_down"),
     ("OperatingTimeLimitReached", "operating_time_limit_reached"),
     ("ForceFlushing", "force_flushing"),
     ("ErrorCodeE0502", "error_code_e0502"),
     ("ErrorDoorLatch", "error_door_latch"),
+    ("ErrorSteamSystem", "error_steam_system"),
     ("ApplianceModuleError", "appliance_module_error"),
     ("ErrorPermanentButtonPressing", "error_permanent_button_pressing"),
-    ("OpenDoor", "open_door"),
+    ("MaxMeatprobeTemperatureExceeded", "max_meatprobe_temperature_exceeded"),
+    ("RegularPreheatFinished", "regular_preheat_finished"),
+    ("FastPreheatFinished", "fast_preheat_finished"),
     ("SubsequentCookingRequest", "subsequent_cooking_request"),
     ("InsertFoodNow", "insert_food_now"),
     ("TurnFoodNow", "turn_food_now"),
     ("TurnJointNow", "turn_joint_now"),
-    ("RegularPreheatFinished", "regular_preheat_finished"),
-    ("FastPreheatFinished", "fast_preheat_finished"),
+    ("TurnFoodNowMeatprobe", "turn_food_now_meatprobe"),
+    ("ApplySteamShot", "apply_steam_shot"),
+    ("FillWaterContainer", "fill_water_container"),
+    ("MeatprobeNecessary", "meatprobe_necessary"),
+    ("MeatprobeTemperatureReached", "meatprobe_temperature_reached"),
     ("AlarmClockElapsed", "alarm_clock_elapsed"),
     ("ProgramFinished", "program_finished"),
     ("ProgramAborted", "program_aborted"),
+    ("OpenDoor", "open_door"),
     ("CloseDoor", "close_door"),
+    ("ToColdForSteamBoost", "too_cold_for_steam_boost"),
     ("InsertFoodLater", "insert_food_later"),
     ("TurnFoodLater", "turn_food_later"),
-    ("CavityTemperatureTooHighInfo", "cavity_temperature_too_high_info"),
+    ("UnplugMeatprobe", "unplug_meatprobe"),
     ("LeaveDoorOpen", "leave_door_open"),
+    ("DescalingReminder", "descaling_reminder"),
+    ("PrepareDescaling", "prepare_descaling"),
+    ("DescaleBeforeSteam", "descale_before_steam"),
+    ("RinseWaterTank", "rinse_water_tank"),
+    ("DescalingCompleted", "descaling_completed"),
+    ("CavityTemperatureTooHighInfo", "cavity_temperature_too_high_info"),
     ("OpenDoorInfrequently", "open_door_infrequently"),
     ("PyroRemoveAccessory", "pyro_remove_accessory"),
     ("PyrolysisRemoveTank", "pyrolysis_remove_tank"),
@@ -442,6 +459,10 @@ def _is_hob_extension_zone(zone: str, zones: set[str]) -> bool:
     to the main zones 100, 200 and 300 and never report a value for any of their
     16 UIDs. Hobs without zone 100 use 120 as a normal zone (PID775HC1E: zones 120,
     300 and 400, where 120 is the 32 cm zone on the left).
+
+    Seen on EX975KXW1E: zones 120 and 340 next to 100 and 300 report their values and
+    have a JoinZone status, which the EX851LYV5E zones lack. These are kept, see
+    generate_hob_zones.
     """
     base = f"{zone[:1]}00"
     return zone != base and base in zones
@@ -480,13 +501,26 @@ def generate_hob_zones(appliance: HomeAppliance) -> HCFanEntityDescription:
     pattern = re.compile(r"^Cooking\.Hob\.Status\.Zone\.([0-9]*)\..*$")
     all_groups = get_groups_from_regex(appliance, pattern)
     zones = {g[0] for g in all_groups}
-    # Extension zones never reported a value, see _is_hob_extension_zone.
-    groups = {g for g in all_groups if not _is_hob_extension_zone(g[0], zones)}
+    # Extension zones without a JoinZone status never reported a value, see
+    # _is_hob_extension_zone. Those with one are kept but disabled by default.
+    joined_extensions = {
+        g[0]
+        for g in all_groups
+        if _is_hob_extension_zone(g[0], zones)
+        and f"Cooking.Hob.Status.Zone.{g[0]}.JoinZone" in appliance.entities
+    }
+    groups = {
+        g
+        for g in all_groups
+        if not _is_hob_extension_zone(g[0], zones) or g[0] in joined_extensions
+    }
     descriptions = EntityDescriptions(sensor=[])
     for group in groups:
         group_name = f" {int(group[0])}"
         zone_state = appliance.entities.get(f"Cooking.Hob.Status.Zone.{group[0]}.State")
-        force_disabled_default = zone_state is not None and zone_state.value == "NotSelectable"
+        force_disabled_default = (
+            zone_state is not None and zone_state.value == "NotSelectable"
+        ) or group[0] in joined_extensions
 
         _append_hob_zone_program_status(descriptions, appliance, group, group_name)
 
@@ -763,6 +797,28 @@ def _generate_hood_favorite_functionality(
     return generate
 
 
+# Most urgent first; the sensor shows the first one that is active, else "none".
+HOB_MESSAGES = (
+    ("Cooking.Common.Event.ApplianceOverheated", "appliance_overheated"),
+    ("Cooking.Common.Event.ApplianceModuleError", "appliance_module_error"),
+    ("Cooking.Common.Event.ConfirmActionAtAppliance", "confirm_action_at_appliance"),
+    ("Cooking.Common.Event.PreheatFinished", "preheat_finished"),
+)
+
+
+def generate_hob_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
+    """Get the most urgent active hob message, else "none"."""
+    messages = [(entity, key) for entity, key in HOB_MESSAGES if entity in appliance.entities]
+    if not messages:
+        return None
+    return HCSensorEntityDescription(
+        key="sensor_hob_message",
+        entities=tuple(entity for entity, _ in messages),
+        device_class=SensorDeviceClass.ENUM,
+        options=[key for _, key in messages] + ["none"],
+    )
+
+
 COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "sensor": [
         HCSensorEntityDescription(
@@ -839,6 +895,7 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     ],
     "event_sensor": [
         generate_hood_filter_message,
+        generate_hob_message,
         HCSensorEntityDescription(
             key="sensor_oven_water_tank",
             translation_placeholders={"group_name": ""},
@@ -965,6 +1022,12 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="select_oven_level",
             entity="Cooking.Oven.Option.Level",
             has_state_translation=True,
+        ),
+        HCSelectEntityDescription(
+            key="select_oven_steam_assist_level",
+            entity="Cooking.Oven.Option.SteamAssistLevel",
+            has_state_translation=True,
+            sent_with_start=True,
         ),
         HCSelectEntityDescription(
             key="select_oven_used_heating_mode",
@@ -1227,6 +1290,12 @@ COOKING_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
             key="switch_oven_fast_pre_heat",
             entity="Cooking.Oven.Option.FastPreHeat",
             device_class=SwitchDeviceClass.SWITCH,
+        ),
+        HCSwitchEntityDescription(
+            key="switch_oven_steam_boost",
+            entity="Cooking.Oven.Option.SteamBoost",
+            device_class=SwitchDeviceClass.SWITCH,
+            sent_with_start=True,
         ),
         HCSwitchEntityDescription(
             key="switch_oven_button_tones",

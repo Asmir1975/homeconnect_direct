@@ -13,7 +13,9 @@ from custom_components.homeconnect_ws.helpers import (
     get_entities_from_regex,
     get_groups_from_regex,
     is_locked_option,
+    is_locked_setting,
     is_option,
+    writable_in_profile,
 )
 from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 
@@ -100,3 +102,49 @@ async def test_ensure_writable(mock_homeconnect_appliance: MockApplianceType) ->
     await option.update({"access": "read"})
     with pytest.raises(ServiceValidationError):
         ensure_writable(option)
+
+
+async def test_is_locked_setting(mock_homeconnect_appliance: MockApplianceType) -> None:
+    """Only a Setting with Access.READ counts as locked read-only."""
+    appliance = await mock_homeconnect_appliance(description=DEVICE_DESCRIPTION)
+    setting = appliance.entities["Test.Switch"]
+    option = appliance.entities["Test.Option1"]
+
+    await setting.update({"access": "read"})
+    assert is_locked_setting(setting) is True
+
+    await setting.update({"access": "readwrite"})
+    assert is_locked_setting(setting) is False
+
+    await option.update({"access": "read"})
+    assert is_locked_setting(option) is False
+
+
+def test_writable_in_profile() -> None:
+    """The profile decides whether a Setting is writable, whatever the spelling of access."""
+    assert writable_in_profile(DEVICE_DESCRIPTION, "Test.Switch") is True
+    description = {
+        "setting": [
+            {"name": "Stored.ReadWrite", "access": "readWrite"},
+            {"name": "Stored.WriteOnly", "access": "WRITEONLY"},
+            {"name": "Stored.Read", "access": "read"},
+        ]
+    }
+    assert writable_in_profile(description, "Stored.ReadWrite") is True
+    assert writable_in_profile(description, "Stored.WriteOnly") is True
+    assert writable_in_profile(description, "Stored.Read") is False
+    assert writable_in_profile(description, "Not.In.Profile") is False
+    assert writable_in_profile({}, "Test.Switch") is False
+
+
+async def test_ensure_writable_setting(mock_homeconnect_appliance: MockApplianceType) -> None:
+    """ensure_writable raises for a Setting the appliance reports as read-only."""
+    appliance = await mock_homeconnect_appliance(description=DEVICE_DESCRIPTION)
+    setting = appliance.entities["Test.Switch"]
+
+    await setting.update({"access": "readwrite"})
+    ensure_writable(setting)
+
+    await setting.update({"access": "read"})
+    with pytest.raises(ServiceValidationError):
+        ensure_writable(setting)

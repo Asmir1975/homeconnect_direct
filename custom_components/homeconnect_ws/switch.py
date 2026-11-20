@@ -7,7 +7,14 @@ from typing import TYPE_CHECKING, Any
 from homeassistant.components.switch import SwitchEntity
 
 from .entity import HCEntity
-from .helpers import create_entities, ensure_writable, error_decorator
+from .helpers import (
+    create_entities,
+    ensure_writable,
+    error_decorator,
+    start_option_entities,
+    start_option_running,
+    write_with_start,
+)
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
@@ -41,9 +48,23 @@ class HCSwitch(HCEntity, SwitchEntity):
     ) -> None:
         super().__init__(entity_description, runtime_data)
         self._value_mapping: tuple[str, str] = entity_description.value_mapping
+        if entity_description.sent_with_start:
+            self._entities.extend(start_option_entities(runtime_data.appliance, self._entity))
+
+    @property
+    def available(self) -> bool:
+        if (
+            self.entity_description.sent_with_start
+            and start_option_running(self._runtime_data.appliance) is None
+        ):
+            return False
+        return super().available
 
     @property
     def is_on(self) -> bool:
+        if self.entity_description.sent_with_start:
+            # The value kept for the next start, the oven's own value once it reports one.
+            return bool(self._entity.value_shadow)
         if self._value_mapping:
             if self._value_mapping[0] == self._entity.value:
                 return True
@@ -55,6 +76,9 @@ class HCSwitch(HCEntity, SwitchEntity):
     @error_decorator
     async def async_turn_on(self, **kwargs: Any) -> None:
         ensure_writable(self._entity)
+        if self.entity_description.sent_with_start:
+            await write_with_start(self._runtime_data, self._entity, value=True)
+            return
         if self._value_mapping:
             await self._entity.set_value(self._value_mapping[0])
         else:
@@ -63,6 +87,9 @@ class HCSwitch(HCEntity, SwitchEntity):
     @error_decorator
     async def async_turn_off(self, **kwargs: Any) -> None:
         ensure_writable(self._entity)
+        if self.entity_description.sent_with_start:
+            await write_with_start(self._runtime_data, self._entity, value=False)
+            return
         if self._value_mapping:
             await self._entity.set_value(self._value_mapping[1])
         else:
