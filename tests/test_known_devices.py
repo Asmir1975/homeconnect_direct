@@ -19,6 +19,7 @@ KNOWN_DEVICES = [
     "ex851lyv5e_hob",
     "lc91klt60_hood",
     "tq703d07_coffeemaker",
+    "wnc244070_washerdryer",
 ]
 
 
