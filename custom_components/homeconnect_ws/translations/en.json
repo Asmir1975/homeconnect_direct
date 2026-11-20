@@ -1795,6 +1795,7 @@
           "appliance_overheated": "Appliance overheated",
           "appliance_module_error": "Appliance module error",
           "confirm_action_at_appliance": "Confirm action at the appliance",
+          "preheat_finished": "Preheating finished",
           "none": "No message"
         }
       },

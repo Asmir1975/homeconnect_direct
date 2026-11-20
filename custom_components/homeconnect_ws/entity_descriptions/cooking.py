@@ -802,6 +802,7 @@ HOB_MESSAGES = (
     ("Cooking.Common.Event.ApplianceOverheated", "appliance_overheated"),
     ("Cooking.Common.Event.ApplianceModuleError", "appliance_module_error"),
     ("Cooking.Common.Event.ConfirmActionAtAppliance", "confirm_action_at_appliance"),
+    ("Cooking.Common.Event.PreheatFinished", "preheat_finished"),
 )
 
 

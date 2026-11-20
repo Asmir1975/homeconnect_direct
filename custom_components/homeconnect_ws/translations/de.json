@@ -1795,6 +1795,7 @@
           "appliance_overheated": "Gerät überhitzt",
           "appliance_module_error": "Fehler Gerätemodul",
           "confirm_action_at_appliance": "Aktion am Gerät bestätigen",
+          "preheat_finished": "Vorheizen beendet",
           "none": "Keine Meldung"
         }
       },

@@ -71,6 +71,22 @@ async def test_hob_message_shows_most_urgent_event(
     assert sensor.native_value == "confirm_action_at_appliance"
 
 
+async def test_hob_message_shows_preheat_finished(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Preheat finished (uid 53260 in the profile of a T69FUV4L0) is a hob message."""
+    preheat = "Cooking.Common.Event.PreheatFinished"
+    confirm = "Cooking.Common.Event.ConfirmActionAtAppliance"
+    sensor, entities = await _sensor(
+        mock_homeconnect_appliance, "sensor_hob_message", preheat, confirm
+    )
+    assert sensor.native_value == "none"
+    await entities[preheat].update({"value": 1})
+    assert sensor.native_value == "preheat_finished"
+    await entities[confirm].update({"value": 1})
+    assert sensor.native_value == "confirm_action_at_appliance"
+
+
 async def test_dryer_message_shows_drying_finished(
     mock_homeconnect_appliance: MockApplianceType,
 ) -> None:
