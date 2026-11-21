@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import logging
+import random
 import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
@@ -23,9 +25,11 @@ from homeconnect_websocket import (
 from .const import (
     CONF_AES_IV,
     CONF_PSK,
+    CONNECT_JITTER,
     INITIAL_CONNECT_BACKOFF,
     MAX_CONNECT_BACKOFF,
     MAX_RECONECT_TIME,
+    MIN_NUDGE_INTERVAL,
 )
 
 if TYPE_CHECKING:
@@ -45,6 +49,8 @@ class HomeConnectCoordinator(DataUpdateCoordinator):
     _reconnecting: bool = False
     _reconnect_timer: asyncio.TimerHandle | None = None
     connected: bool = False
+    _wake_connect: asyncio.Event | None = None
+    _last_connect_attempt: float = 0.0
 
     def __init__(
         self,
@@ -76,6 +82,8 @@ class HomeConnectCoordinator(DataUpdateCoordinator):
 
     async def close(self) -> None:
         self._connecting = False
+        if self._wake_connect is not None:
+            self._wake_connect.set()
         self._cancel_reconnect_timer()
         await self.appliance.close()
 
@@ -90,16 +98,18 @@ class HomeConnectCoordinator(DataUpdateCoordinator):
         )
         first_failure = True
         backoff = INITIAL_CONNECT_BACKOFF
+        self._wake_connect = asyncio.Event()
         while self._connecting:
+            self._last_connect_attempt = time.monotonic()
             try:
                 await self.appliance.connect()
                 if self.appliance.session.connected:
                     self.connected = True
                     self.async_set_updated_data(None)
                     return
-            except ConnectionFailedError, HCHandshakeError, WSServerHandshakeError:
+            except (ConnectionFailedError, HCHandshakeError, WSServerHandshakeError) as err:
                 await self.appliance.close()
-                msg = f"Can't connect to {self.config_entry.data[CONF_HOST]}, retrying"
+                msg = f"Can't connect to {self.config_entry.data[CONF_HOST]}, retrying ({err!r})"
                 if first_failure:
                     msg = f"{msg}. A short power cycle of the appliance can help."
                     self.logger.error(msg)  # noqa: TRY400
@@ -118,8 +128,26 @@ class HomeConnectCoordinator(DataUpdateCoordinator):
             # Wait before the next attempt so an unreachable device does not cause a
             # tight connect/close loop. Skip the wait if close() ended the loop.
             if self._connecting:
-                await asyncio.sleep(backoff)
+                await self._wait_before_retry(backoff + random.uniform(0, CONNECT_JITTER))  # noqa: S311
                 backoff = min(backoff * 2, MAX_CONNECT_BACKOFF)
+
+    async def _wait_before_retry(self, delay: float) -> None:
+        """Wait for the next connect attempt, ends early when the appliance announces itself."""
+        if self._wake_connect is None:
+            await asyncio.sleep(delay)
+            return
+        with contextlib.suppress(TimeoutError):
+            await asyncio.wait_for(self._wake_connect.wait(), delay)
+        self._wake_connect.clear()
+
+    def nudge_connect(self) -> None:
+        """Retry the connect now, called when the appliance shows up in mDNS again."""
+        if (
+            self._wake_connect is not None
+            and not self.connected
+            and time.monotonic() - self._last_connect_attempt >= MIN_NUDGE_INTERVAL
+        ):
+            self._wake_connect.set()
 
     async def _async_update_data(self) -> None:
         return None

@@ -295,3 +295,26 @@ async def test_zeroconf_invalid_discovery_info(
     assert result["type"] is FlowResultType.ABORT
     assert result["reason"] == "invalid_discovery_info"
     mock_setup_entry.assert_not_awaited()
+
+
+async def test_zeroconf_nudges_the_coordinator_of_a_known_appliance(
+    hass: HomeAssistant,
+    mock_setup_entry: AsyncMock,
+) -> None:
+    """An announcement of a configured appliance asks its coordinator to retry now."""
+    mock_config = MockConfigEntry(
+        domain=DOMAIN,
+        data=MOCK_CONFIG_DATA,
+        unique_id=MOCK_TLS_DEVICE_ID,
+    )
+    mock_config.add_to_hass(hass)
+    coordinator = Mock()
+    mock_config.runtime_data = Mock(coordinator=coordinator)
+
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": SOURCE_ZEROCONF}, data=MOCK_ZEROCONF_DATA
+    )
+
+    assert result["reason"] == "already_configured"
+    coordinator.nudge_connect.assert_called_once_with()
+    mock_setup_entry.assert_not_awaited()

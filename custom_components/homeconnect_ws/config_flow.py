@@ -550,6 +550,8 @@ class HomeConnectConfigFlow(ConfigFlow, domain=DOMAIN):
                 and (is_ipv4(host) or not is_ipv4(config_entry.data.get(CONF_HOST)))
             ):
                 updates = {CONF_HOST: host}
+            if config_entry and (runtime_data := getattr(config_entry, "runtime_data", None)):
+                runtime_data.coordinator.nudge_connect()
             self._abort_if_unique_id_configured(updates=updates)
             self.data[CONF_HOST] = host
             self.data[CONF_NAME] = (
