@@ -301,6 +301,14 @@ CONSUMER_PRODUCTS_ENTITY_DESCRIPTIONS.setdefault("select", []).extend(
             has_state_translation=True,
         ),
         HCSelectEntityDescription(
+            key="select_eq700_water_hardness",
+            entity="ConsumerProducts.CoffeeMaker.Setting.WaterHardness",
+            entity_category=EntityCategory.CONFIG,
+            force_disabled_default=True,
+            device_class=SensorDeviceClass.ENUM,
+            has_state_translation=True,
+        ),
+        HCSelectEntityDescription(
             key="select_eq700_coffee_milk_order",
             entity="ConsumerProducts.CoffeeMaker.Setting.CoffeeMilkOrder",
             entity_category=EntityCategory.CONFIG,

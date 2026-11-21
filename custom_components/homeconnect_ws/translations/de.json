@@ -5120,6 +5120,15 @@
           "5sec": "5 Sekunden"
         }
       },
+      "select_eq700_water_hardness": {
+        "name": "Wasserhärte einstellen",
+        "state": {
+          "soft": "Weich",
+          "medium": "Mittel",
+          "hard": "Hart",
+          "veryhard": "Sehr hart"
+        }
+      },
       "select_eq700_switch_off_after": {
         "name": "Automatisches Ausschalten nach",
         "state": {
