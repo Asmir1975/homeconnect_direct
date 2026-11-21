@@ -31,3 +31,17 @@ def test_every_washerdryer_program_is_translated(lang: str) -> None:
         label = _label(program["name"])
         assert label in select_states, (lang, program["name"])
         assert label in sensor_states, (lang, program["name"])
+
+
+@pytest.mark.parametrize("lang", ["en", "de"])
+def test_every_wd14u513_program_option_is_translated(lang: str) -> None:
+    """Seen on a Siemens WD14U513: the washer, dryer and washer-dryer programs have texts."""
+    texts = json.loads((TRANSLATIONS / f"{lang}.json").read_text(encoding="utf-8"))
+    fixture = json.loads(
+        (Path(__file__).parent / "fixtures" / "wd14u513_program_options.json").read_text()
+    )
+    select_states = texts["entity"]["select"]["select_program"]["state"]
+    sensor_states = texts["entity"]["sensor"]["sensor_active_program"]["state"]
+    for option in fixture["options"]:
+        assert option in select_states, (lang, option)
+        assert option in sensor_states, (lang, option)
