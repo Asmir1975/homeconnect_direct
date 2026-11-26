@@ -5528,6 +5528,9 @@
       "button_acknowledge_event": {
         "name": "Acknowledge"
       },
+      "button_reject_event": {
+        "name": "Reject message"
+      },
       "button_abort_program": {
         "name": "Abort"
       },
@@ -5765,6 +5768,9 @@
     }
   },
   "exceptions": {
+    "no_pending_decision": {
+      "message": "Nothing to reject. The oven is not asking about further cooking."
+    },
     "no_pending_event": {
       "message": "Nothing to acknowledge. Please select on the appliance."
     },

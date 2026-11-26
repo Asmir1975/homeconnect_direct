@@ -16,6 +16,7 @@ from .helpers import (
     error_decorator,
     is_access_only_command,
     pending_acknowledge_event_uid,
+    pending_subsequent_cooking_uid,
     start_coffee_favorite_with_fallback,
 )
 
@@ -31,6 +32,7 @@ PARALLEL_UPDATES = 0
 
 COFFEE_MAKER_TYPE = "CoffeeMaker"
 COFFEE_FAVORITE_PREFIX = "BSH.Common.Program.Favorite."
+REJECT_EVENT = "BSH.Common.Command.RejectEvent"
 
 
 async def async_setup_entry(
@@ -55,12 +57,14 @@ class HCButton(HCEntity, ButtonEntity):
     async def async_press(self) -> None:
         press_value = self.entity_description.press_value
         if press_value is None:
-            press_value = pending_acknowledge_event_uid(self._runtime_data)
+            if self.entity_description.entity == REJECT_EVENT:
+                press_value = pending_subsequent_cooking_uid(self._runtime_data)
+                error = "no_pending_decision"
+            else:
+                press_value = pending_acknowledge_event_uid(self._runtime_data)
+                error = "no_pending_event"
             if press_value is None:
-                raise HomeAssistantError(
-                    translation_domain=DOMAIN,
-                    translation_key="no_pending_event",
-                )
+                raise HomeAssistantError(translation_domain=DOMAIN, translation_key=error)
         if is_access_only_command(self._runtime_data.appliance, self.entity_description.entity):
             if self._entity.access not in self.entity_description.available_access:
                 raise AccessError

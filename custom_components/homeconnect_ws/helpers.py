@@ -120,6 +120,18 @@ async def get_config_entry_from_call(
     raise ServiceValidationError(translation_domain=DOMAIN, translation_key="not_appliance")
 
 
+def pending_subsequent_cooking_uid(runtime_data: HCData) -> int | None:
+    """Get the uid of the question for subsequent cooking, if the oven asks it."""
+    for name, event in runtime_data.appliance.events.items():
+        if (
+            name.startswith("Cooking.Oven.Event.")
+            and name.endswith(".SubsequentCookingRequest")
+            and event.value == "Present"
+        ):
+            return event.uid
+    return None
+
+
 def pending_acknowledge_event_uid(runtime_data: HCData) -> int | None:
     """Get the uid of the first event that waits for an acknowledge, if any."""
     description = runtime_data.coordinator.config_entry.data.get(CONF_DESCRIPTION, {})
