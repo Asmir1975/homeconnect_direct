@@ -55,6 +55,19 @@ POWER_OFF_STATE_NAMES = ("Off", "MainsOff")
 _COFFEE_CARE_PREFIX = "ConsumerProducts.CoffeeMaker.Program.CleaningModes."
 
 
+# Software update events, named the same on every appliance.
+SOFTWARE_MESSAGES = (
+    ("BSH.Common.Event.SoftwareUpdateAvailable", "software_update_available"),
+    ("BSH.Common.Event.SoftwareDownloadAvailable", "software_download_available"),
+    ("BSH.Common.Event.SoftwareUpdateSuccessful", "software_update_successful"),
+)
+
+
+def software_messages(appliance: HomeAppliance) -> list[tuple[str, str]]:
+    """Get the software update messages the appliance describes."""
+    return [(entity, key) for entity, key in SOFTWARE_MESSAGES if entity in appliance.entities]
+
+
 def generate_start_button(appliance: HomeAppliance) -> EntityDescriptions:
     """Get Start Button description."""
     programs = list(

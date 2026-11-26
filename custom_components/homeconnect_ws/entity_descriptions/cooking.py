@@ -19,6 +19,7 @@ from homeassistant.const import (
 
 from custom_components.homeconnect_ws.helpers import get_groups_from_regex
 
+from .common import software_messages
 from .descriptions_definitions import (
     EntityDescriptions,
     HCBinarySensorEntityDescription,
@@ -291,12 +292,13 @@ HOOD_FILTER_MESSAGES = (
 
 
 def generate_hood_filter_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
-    """Get the most saturated filter, else "none"."""
+    """Get the most saturated filter or a pending software update, else "none"."""
     messages = [
         (entity, key) for entity, key in HOOD_FILTER_MESSAGES if entity in appliance.entities
     ]
     if not messages:
         return None
+    messages += software_messages(appliance)
     return HCSensorEntityDescription(
         key="sensor_hood_filter_message",
         entities=tuple(entity for entity, _ in messages),
@@ -335,6 +337,8 @@ def generate_oven_event(appliance: HomeAppliance) -> EntityDescriptions:
             if f"Cooking.Oven.Event.Cavity.{group[0]}.{event}" in appliance.entities
         ]
         if messages:
+            if group == min(groups):
+                messages += software_messages(appliance)
             descriptions["event_sensor"].append(
                 HCSensorEntityDescription(
                     key=f"sensor_oven_message_{group[0]}",
@@ -354,6 +358,7 @@ def generate_oven_event(appliance: HomeAppliance) -> EntityDescriptions:
             if f"Cooking.Oven.Event.{event}" in appliance.entities
         ]
         if messages:
+            messages += software_messages(appliance)
             descriptions["event_sensor"].append(
                 HCSensorEntityDescription(
                     key="sensor_oven_message",
@@ -811,6 +816,7 @@ def generate_hob_message(appliance: HomeAppliance) -> HCSensorEntityDescription 
     messages = [(entity, key) for entity, key in HOB_MESSAGES if entity in appliance.entities]
     if not messages:
         return None
+    messages += software_messages(appliance)
     return HCSensorEntityDescription(
         key="sensor_hob_message",
         entities=tuple(entity for entity, _ in messages),

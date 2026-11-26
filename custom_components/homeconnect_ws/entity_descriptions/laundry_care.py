@@ -16,6 +16,7 @@ from homeassistant.const import (
     UnitOfVolume,
 )
 
+from .common import software_messages
 from .descriptions_definitions import (
     HCBinarySensorEntityDescription,
     HCLightEntityDescription,
@@ -84,6 +85,7 @@ def generate_laundry_message(appliance: HomeAppliance) -> HCSensorEntityDescript
     messages = [(entity, key) for entity, key in LAUNDRY_MESSAGES if entity in appliance.entities]
     if not messages:
         return None
+    messages += software_messages(appliance)
     return HCSensorEntityDescription(
         key="sensor_laundry_message",
         entities=tuple(entity for entity, _ in messages),

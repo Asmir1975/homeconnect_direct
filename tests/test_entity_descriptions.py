@@ -20,6 +20,7 @@ from custom_components.homeconnect_ws.entity_descriptions import (
 )
 from custom_components.homeconnect_ws.entity_descriptions.common import (
     COMMON_ENTITY_DESCRIPTIONS,
+    SOFTWARE_MESSAGES,
     generate_door_state,
     generate_door_state_binary_sensor,
     generate_elapsed_program_time,
@@ -1297,7 +1298,7 @@ async def test_hood_filter_message_shows_most_saturated_filter(
 def test_hood_filter_message_states_translated() -> None:
     """Test every hood filter message state has an English and German text."""
     root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
-    keys = [key for _, key in HOOD_FILTER_MESSAGES] + ["none"]
+    keys = [key for _, key in (*HOOD_FILTER_MESSAGES, *SOFTWARE_MESSAGES)] + ["none"]
     for language in ("en", "de"):
         translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
         states = translation["entity"]["sensor"]["sensor_hood_filter_message"]["state"]
@@ -1623,7 +1624,7 @@ async def test_oven_message_shows_most_urgent_event(
 def test_oven_message_states_translated() -> None:
     """Test every oven message state and new name has an English and German text."""
     root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
-    keys = [key for _, key in (*OVEN_MESSAGES, *OVEN_FLAT_MESSAGES)] + ["none"]
+    keys = [key for _, key in (*OVEN_MESSAGES, *OVEN_FLAT_MESSAGES, *SOFTWARE_MESSAGES)] + ["none"]
     for language in ("en", "de"):
         translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
         states = translation["entity"]["sensor"]["sensor_oven_message"]["state"]
@@ -1714,7 +1715,7 @@ async def test_low_water_pressure_binary_sensor_only_outside_dishwashers(
 def test_dishwasher_message_states_translated() -> None:
     """Test every dishwasher message state has an English and German text."""
     root = Path(__file__).parent.parent / "custom_components" / "homeconnect_ws" / "translations"
-    keys = [key for _, key in DISHWASHER_MESSAGES] + ["none"]
+    keys = [key for _, key in (*DISHWASHER_MESSAGES, *SOFTWARE_MESSAGES)] + ["none"]
     for language in ("en", "de"):
         translation = json.loads((root / f"{language}.json").read_text(encoding="utf-8"))
         states = translation["entity"]["sensor"]["sensor_dishwasher_message"]["state"]

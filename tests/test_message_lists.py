@@ -7,8 +7,10 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 from unittest.mock import MagicMock
 
+import pytest
 from custom_components.homeconnect_ws import HCData
 from custom_components.homeconnect_ws.entity_descriptions import get_available_entities
+from custom_components.homeconnect_ws.entity_descriptions.common import SOFTWARE_MESSAGES
 from custom_components.homeconnect_ws.entity_descriptions.cooking import (
     HOB_MESSAGES,
     OVEN_MESSAGES,
@@ -118,8 +120,8 @@ async def test_no_message_sensor_without_its_events(
 def test_message_states_translated() -> None:
     """Every state of the hob and laundry message sensors has an English and German text."""
     expected = {
-        "sensor_hob_message": [key for _, key in HOB_MESSAGES],
-        "sensor_laundry_message": [key for _, key in LAUNDRY_MESSAGES],
+        "sensor_hob_message": [key for _, key in (*HOB_MESSAGES, *SOFTWARE_MESSAGES)],
+        "sensor_laundry_message": [key for _, key in (*LAUNDRY_MESSAGES, *SOFTWARE_MESSAGES)],
     }
     for language in ("en", "de"):
         translation = json.loads((TRANSLATIONS / f"{language}.json").read_text(encoding="utf-8"))
@@ -136,3 +138,53 @@ def test_preheat_finished_comes_before_door_and_food_prompts() -> None:
     assert order.index("FastPreheatFinished") == preheat + 1
     assert preheat < order.index("OpenDoor")
     assert preheat < order.index("InsertFoodNow")
+
+
+@pytest.mark.parametrize(
+    ("fixture", "sensor_key"),
+    [
+        ("hb774g1b1_oven", "sensor_oven_message_001"),
+        ("ex851lyv5e_hob", "sensor_hob_message"),
+        ("lc91klt60_hood", "sensor_hood_filter_message"),
+        ("sx63hx52be_dishwasher", "sensor_dishwasher_message"),
+        ("wgb244a7nl_washer", "sensor_laundry_message"),
+        ("wnc244070_washerdryer", "sensor_laundry_message"),
+        ("wqb246c7nl_dryer", "sensor_laundry_message"),
+    ],
+)
+async def test_software_update_ends_one_message_sensor(
+    mock_homeconnect_appliance: MockApplianceType, fixture: str, sensor_key: str
+) -> None:
+    """The software update events close the list of exactly one message sensor."""
+    path = Path(__file__).parent / "fixtures" / f"{fixture}.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    appliance = await mock_homeconnect_appliance(
+        description=DeviceDescription(data["entry_data"]["description"])
+    )
+    appliance.info = {"deviceID": "test_device_id"}
+    software = [name for name, _ in SOFTWARE_MESSAGES]
+    with_software = [
+        item
+        for item in get_available_entities(appliance)["event_sensor"]
+        if set(software) & set(item.entities)
+    ]
+    assert [item.key for item in with_software] == [sensor_key]
+    assert list(with_software[0].entities[-3:]) == software
+
+
+async def test_software_update_reaches_washer_without_laundry_events(
+    mock_homeconnect_appliance: MockApplianceType,
+) -> None:
+    """Without own message events the general message sensor shows the software update."""
+    software = [name for name, _ in SOFTWARE_MESSAGES]
+    sensor, entities = await _sensor(
+        mock_homeconnect_appliance,
+        "sensor_dishwasher_message",
+        "BSH.Common.Event.LowWaterPressure",
+        "BSH.Common.Event.ProgramAborted",
+        *software,
+    )
+    await entities[software[0]].update({"value": 1})
+    assert sensor.native_value == "software_update_available"
+    await entities["BSH.Common.Event.ProgramAborted"].update({"value": 1})
+    assert sensor.native_value == "program_aborted"
