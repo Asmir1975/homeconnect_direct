@@ -825,6 +825,9 @@
             "button_acknowledge_event": {
                 "default": "mdi:check-circle-outline"
             },
+            "button_reject_event": {
+                "default": "mdi:close-circle-outline"
+            },
             "button_abort_program": {
                 "default": "mdi:stop"
             },

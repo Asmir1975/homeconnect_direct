@@ -194,6 +194,25 @@ def generate_acknowledge_event_button(appliance: HomeAppliance) -> HCButtonEntit
     )
 
 
+def generate_reject_event_button(appliance: HomeAppliance) -> HCButtonEntityDescription | None:
+    """Get the button that declines the oven's question for subsequent cooking."""
+    if (
+        appliance.info.get("type") != "Oven"
+        or "BSH.Common.Command.RejectEvent" not in appliance.entities
+        or not any(
+            name.startswith("Cooking.Oven.Event.") and name.endswith(".SubsequentCookingRequest")
+            for name in appliance.entities
+        )
+    ):
+        return None
+    return HCButtonEntityDescription(
+        key="button_reject_event",
+        entity="BSH.Common.Command.RejectEvent",
+        press_value=None,
+        force_disabled_default=True,
+    )
+
+
 # Coffee makers never enable Pause and Resume, not even while paused.
 _PROGRAM_CONTROL_DISABLED_TYPES = frozenset({"CoffeeMaker"})
 
@@ -558,6 +577,7 @@ def _generate_favorite_trigger(
 COMMON_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
     "button": [
         generate_acknowledge_event_button,
+        generate_reject_event_button,
         HCButtonEntityDescription(
             key="button_abort_program",
             entity="BSH.Common.Command.AbortProgram",

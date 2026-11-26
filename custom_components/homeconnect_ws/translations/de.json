@@ -5528,6 +5528,9 @@
       "button_acknowledge_event": {
         "name": "Meldung bestätigen"
       },
+      "button_reject_event": {
+        "name": "Meldung ablehnen"
+      },
       "button_abort_program": {
         "name": "Abbrechen"
       },
@@ -5765,6 +5768,9 @@
     }
   },
   "exceptions": {
+    "no_pending_decision": {
+      "message": "Nichts abzulehnen. Der Ofen fragt gerade nicht nach dem Nachgaren."
+    },
     "no_pending_event": {
       "message": "Nichts zu bestätigen. Auswahl bitte am Gerät treffen."
     },
