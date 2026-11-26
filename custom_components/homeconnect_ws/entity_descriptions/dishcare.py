@@ -12,6 +12,8 @@ from homeassistant.components.sensor import (
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import EntityCategory, UnitOfTime
 
+from .common import software_messages
+from .cooking import HOB_MESSAGES, OVEN_FLAT_MESSAGES, OVEN_MESSAGES
 from .descriptions_definitions import (
     HCBinarySensorEntityDescription,
     HCNumberEntityDescription,
@@ -20,6 +22,7 @@ from .descriptions_definitions import (
     HCSwitchEntityDescription,
     _EntityDescriptionsDefinitionsType,
 )
+from .laundry_care import LAUNDRY_MESSAGES
 
 if TYPE_CHECKING:
     from homeconnect_websocket import HomeAppliance
@@ -50,6 +53,17 @@ DISHWASHER_MESSAGES = (
 )
 
 
+def _has_own_message_sensor(appliance: HomeAppliance) -> bool:
+    """Laundry appliances, ovens and hobs show software updates in their own sensor."""
+    oven_events = {key for key, _ in (*OVEN_MESSAGES, *OVEN_FLAT_MESSAGES)}
+    return any(
+        entity in appliance.entities for entity, _ in (*LAUNDRY_MESSAGES, *HOB_MESSAGES)
+    ) or any(
+        name.startswith("Cooking.Oven.Event.") and name.rsplit(".", 1)[-1] in oven_events
+        for name in appliance.entities
+    )
+
+
 def generate_dishwasher_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
     """Get the most urgent active maintenance/error message, else "none"."""
     messages = [
@@ -57,6 +71,8 @@ def generate_dishwasher_message(appliance: HomeAppliance) -> HCSensorEntityDescr
     ]
     if not messages:
         return None
+    if not _has_own_message_sensor(appliance):
+        messages += software_messages(appliance)
     return HCSensorEntityDescription(
         key="sensor_dishwasher_message",
         entities=tuple(entity for entity, _ in messages),

@@ -1964,7 +1964,7 @@
         }
       },
       "sensor_hood_filter_message": {
-        "name": "Filtermeldung",
+        "name": "Meldung",
         "state": {
           "carbon_filter_saturated": "Aktivkohlefilter-Sättigung erreicht",
           "grease_filter_saturated": "Fettfilter-Sättigung erreicht",
@@ -1972,6 +1972,9 @@
           "carbon_filter_nearly_saturated": "Aktivkohlefilter-Sättigung fast erreicht",
           "grease_filter_nearly_saturated": "Fettfilter-Sättigung fast erreicht",
           "regenerative_carbon_filter_nearly_saturated": "Regenerierbarer Kohlefilter Sättigung fast erreicht",
+          "software_update_available": "Software-Update verfügbar",
+          "software_download_available": "Software-Download verfügbar",
+          "software_update_successful": "Software-Update erfolgreich",
           "none": "Keine Meldung"
         }
       },
@@ -1982,6 +1985,9 @@
           "appliance_module_error": "Fehler Gerätemodul",
           "confirm_action_at_appliance": "Aktion am Gerät bestätigen",
           "preheat_finished": "Vorheizen beendet",
+          "software_update_available": "Software-Update verfügbar",
+          "software_download_available": "Software-Download verfügbar",
+          "software_update_successful": "Software-Update erfolgreich",
           "none": "Keine Meldung"
         }
       },
@@ -1998,6 +2004,9 @@
           "delayed_shutdown": "Verzögertes Abschalten",
           "delayed_shutdown_canceled": "Verzögertes Abschalten abgebrochen",
           "drying_process_finished": "Trocknen beendet",
+          "software_update_available": "Software-Update verfügbar",
+          "software_download_available": "Software-Download verfügbar",
+          "software_update_successful": "Software-Update erfolgreich",
           "none": "Keine Meldung"
         }
       },
@@ -2018,6 +2027,9 @@
           "low_water_pressure": "Niedriger Wasserdruck",
           "program_aborted": "Programm abgebrochen",
           "internal_error": "Interner Fehler",
+          "software_update_available": "Software-Update verfügbar",
+          "software_download_available": "Software-Download verfügbar",
+          "software_update_successful": "Software-Update erfolgreich",
           "none": "Keine Meldung"
         }
       },
@@ -2366,6 +2378,9 @@
           "unplug_meatprobe": "Bratenthermometer herausziehen",
           "meatprobe_temperature_reached": "Bratenthermometer: Temperatur erreicht",
           "descaling_completed": "Entkalken abgeschlossen",
+          "software_update_available": "Software-Update verfügbar",
+          "software_download_available": "Software-Download verfügbar",
+          "software_update_successful": "Software-Update erfolgreich",
           "none": "Keine Meldung"
         }
       },
