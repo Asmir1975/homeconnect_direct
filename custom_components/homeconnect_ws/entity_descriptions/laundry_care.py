@@ -70,7 +70,9 @@ LAUNDRY_MESSAGES = (
     ("LaundryCare.Washer.Event.Circulation.Pump.ErrorLockedRotor", "circulation_pump_locked_rotor"),
     ("LaundryCare.Washer.Event.Circulation.Pump.ErrorMaxTorque", "circulation_pump_max_torque"),
     ("LaundryCare.Common.Event.SupplyPower.BlackedOut", "power_blackout"),
+    ("BSH.Common.Event.LowWaterPressure", "low_water_pressure"),
     ("LaundryCare.Dryer.Event.DryingProcessFinished", "drying_process_finished"),
+    ("BSH.Common.Event.ProgramAborted", "program_aborted"),
     ("LaundryCare.Common.Event.DelayedShutdown", "delayed_shutdown"),
     ("LaundryCare.Common.Event.DelayedShutdownCanceled", "delayed_shutdown_canceled"),
     ("LaundryCare.Washer.Event.WaterSupply.WarmWaterAbsent", "warm_water_absent"),
@@ -83,7 +85,7 @@ LAUNDRY_MESSAGES = (
 def generate_laundry_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
     """Get the most urgent active washer or dryer message, else "none"."""
     messages = [(entity, key) for entity, key in LAUNDRY_MESSAGES if entity in appliance.entities]
-    if not messages:
+    if not any(entity.startswith("LaundryCare.") for entity, _ in messages):
         return None
     messages += software_messages(appliance)
     return HCSensorEntityDescription(

@@ -188,3 +188,26 @@ async def test_software_update_reaches_washer_without_laundry_events(
     assert sensor.native_value == "software_update_available"
     await entities["BSH.Common.Event.ProgramAborted"].update({"value": 1})
     assert sensor.native_value == "program_aborted"
+
+
+@pytest.mark.parametrize(
+    "fixture", ["wgb244a7nl_washer", "wnc244070_washerdryer", "wqb246c7nl_dryer"]
+)
+async def test_laundry_appliance_has_one_message_sensor(
+    mock_homeconnect_appliance: MockApplianceType, fixture: str
+) -> None:
+    """The general events of a laundry appliance are part of the laundry message sensor."""
+    path = Path(__file__).parent / "fixtures" / f"{fixture}.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    appliance = await mock_homeconnect_appliance(
+        description=DeviceDescription(data["entry_data"]["description"])
+    )
+    appliance.info = {"deviceID": "test_device_id"}
+    sensors = {
+        item.key: item
+        for item in get_available_entities(appliance)["event_sensor"]
+        if "message" in item.key
+    }
+    assert list(sensors) == ["sensor_laundry_message"]
+    general = {"BSH.Common.Event.LowWaterPressure", "BSH.Common.Event.ProgramAborted"}
+    assert general & set(appliance.entities) <= set(sensors["sensor_laundry_message"].entities)
