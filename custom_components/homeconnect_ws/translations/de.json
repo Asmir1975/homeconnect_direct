@@ -2004,6 +2004,8 @@
           "delayed_shutdown": "Verzögertes Abschalten",
           "delayed_shutdown_canceled": "Verzögertes Abschalten abgebrochen",
           "drying_process_finished": "Trocknen beendet",
+          "low_water_pressure": "Niedriger Wasserdruck",
+          "program_aborted": "Programm abgebrochen",
           "software_update_available": "Software-Update verfügbar",
           "software_download_available": "Software-Download verfügbar",
           "software_update_successful": "Software-Update erfolgreich",

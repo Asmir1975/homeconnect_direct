@@ -53,21 +53,45 @@ DISHWASHER_MESSAGES = (
 )
 
 
+def _has_laundry_message_sensor(appliance: HomeAppliance) -> bool:
+    return any(
+        entity.startswith("LaundryCare.") and entity in appliance.entities
+        for entity, _ in LAUNDRY_MESSAGES
+    )
+
+
+def _shown_elsewhere(appliance: HomeAppliance) -> set[str]:
+    """General events that the laundry or oven message sensor already lists."""
+    if _has_laundry_message_sensor(appliance):
+        return {entity for entity, _ in LAUNDRY_MESSAGES}
+    flat_oven = not any(
+        name.startswith("Cooking.Oven.Event.Cavity.") for name in appliance.entities
+    ) and any(
+        f"Cooking.Oven.Event.{event}" in appliance.entities for event, _ in OVEN_FLAT_MESSAGES
+    )
+    return {"BSH.Common.Event.ProgramAborted"} if flat_oven else set()
+
+
 def _has_own_message_sensor(appliance: HomeAppliance) -> bool:
     """Laundry appliances, ovens and hobs show software updates in their own sensor."""
     oven_events = {key for key, _ in (*OVEN_MESSAGES, *OVEN_FLAT_MESSAGES)}
-    return any(
-        entity in appliance.entities for entity, _ in (*LAUNDRY_MESSAGES, *HOB_MESSAGES)
-    ) or any(
-        name.startswith("Cooking.Oven.Event.") and name.rsplit(".", 1)[-1] in oven_events
-        for name in appliance.entities
+    return (
+        _has_laundry_message_sensor(appliance)
+        or any(entity in appliance.entities for entity, _ in HOB_MESSAGES)
+        or any(
+            name.startswith("Cooking.Oven.Event.") and name.rsplit(".", 1)[-1] in oven_events
+            for name in appliance.entities
+        )
     )
 
 
 def generate_dishwasher_message(appliance: HomeAppliance) -> HCSensorEntityDescription | None:
     """Get the most urgent active maintenance/error message, else "none"."""
+    elsewhere = _shown_elsewhere(appliance)
     messages = [
-        (entity, key) for entity, key in DISHWASHER_MESSAGES if entity in appliance.entities
+        (entity, key)
+        for entity, key in DISHWASHER_MESSAGES
+        if entity in appliance.entities and entity not in elsewhere
     ]
     if not messages:
         return None

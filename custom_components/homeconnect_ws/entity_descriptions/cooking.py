@@ -358,6 +358,8 @@ def generate_oven_event(appliance: HomeAppliance) -> EntityDescriptions:
             if f"Cooking.Oven.Event.{event}" in appliance.entities
         ]
         if messages:
+            if "BSH.Common.Event.ProgramAborted" in appliance.entities:
+                messages.append(("BSH.Common.Event.ProgramAborted", "program_aborted"))
             messages += software_messages(appliance)
             descriptions["event_sensor"].append(
                 HCSensorEntityDescription(

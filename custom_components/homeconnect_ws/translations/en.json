@@ -2004,6 +2004,8 @@
           "delayed_shutdown": "Delayed shutdown",
           "delayed_shutdown_canceled": "Delayed shutdown canceled",
           "drying_process_finished": "Drying finished",
+          "low_water_pressure": "Low water pressure",
+          "program_aborted": "Program aborted",
           "software_update_available": "Software update available",
           "software_download_available": "Software download available",
           "software_update_successful": "Software update successful",
