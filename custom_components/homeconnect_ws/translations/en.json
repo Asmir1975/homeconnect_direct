@@ -5670,12 +5670,6 @@
       }
     },
     "light": {
-      "light_door_ring": {
-        "name": "Door Ring light"
-      },
-      "light_drum_light": {
-        "name": "Drum light"
-      },
       "light_internal": {
         "name": "Internal Light"
       },

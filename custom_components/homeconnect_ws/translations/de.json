@@ -5670,12 +5670,6 @@
       }
     },
     "light": {
-      "light_door_ring": {
-        "name": "Tür Ringlicht"
-      },
-      "light_drum_light": {
-        "name": "Trommellicht"
-      },
       "light_internal": {
         "name": "Innenbeleuchtung"
       },

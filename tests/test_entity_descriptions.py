@@ -2232,13 +2232,19 @@ def test_hob_ventilation_sensor_states_are_translated() -> None:
         assert set(states) == keys, language
 
 
-def test_laundry_light_settings_only_create_lights() -> None:
-    """Test the drum and door ring light settings have a light and no duplicate switch."""
-    switches = {item.key for item in LAUNDRY_ENTITY_DESCRIPTIONS["switch"] if not callable(item)}
-    lights = {item.key for item in LAUNDRY_ENTITY_DESCRIPTIONS["light"] if not callable(item)}
+def test_laundry_light_settings_create_no_entity() -> None:
+    """Test the drum and door ring light settings have neither a light nor a switch."""
+    entities = {
+        item.entity
+        for items in LAUNDRY_ENTITY_DESCRIPTIONS.values()
+        for item in items
+        if not callable(item)
+    }
 
-    assert {"switch_door_light_ring", "switch_drum_light"}.isdisjoint(switches)
-    assert {"light_door_ring", "light_drum_light"} <= lights
+    assert {
+        "LaundryCare.Common.Setting.DoorLightRing.Active",
+        "LaundryCare.Common.Setting.DrumLight.Active",
+    }.isdisjoint(entities)
 
 
 async def test_pause_resume_buttons_off_by_default_on_coffeemaker(

@@ -19,7 +19,6 @@ from homeassistant.const import (
 from .common import software_messages
 from .descriptions_definitions import (
     HCBinarySensorEntityDescription,
-    HCLightEntityDescription,
     HCNumberEntityDescription,
     HCSelectEntityDescription,
     HCSensorEntityDescription,
@@ -664,14 +663,4 @@ LAUNDRY_ENTITY_DESCRIPTIONS: _EntityDescriptionsDefinitionsType = {
         ),
     ],
     "event_sensor": [generate_laundry_message],
-    "light": [
-        HCLightEntityDescription(
-            key="light_door_ring",
-            entity="LaundryCare.Common.Setting.DoorLightRing.Active",
-        ),
-        HCLightEntityDescription(
-            key="light_drum_light",
-            entity="LaundryCare.Common.Setting.DrumLight.Active",
-        ),
-    ],
 }
