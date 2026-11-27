@@ -297,22 +297,26 @@ async def async_setup_entry(
     _LOGGER.debug("Setting up %s", config_entry.data[CONF_DESCRIPTION]["info"].get("model"))
     coordinator = HomeConnectCoordinator(hass, config_entry)
     appliance = coordinator.appliance
+    # Passed to the constructor, DeviceInfo is a dict before 2026.12 and a dataclass since
+    optional_info = {}
+
+    if mac := appliance.info.get("mac"):
+        optional_info["connections"] = {(CONNECTION_NETWORK_MAC, format_mac(mac))}
+
+    if brand := appliance.info.get("brand"):
+        optional_info["manufacturer"] = brand.capitalize()
+
+    if (type_ := appliance.info.get("type")) and brand:
+        optional_info["name"] = f"{brand.capitalize()} {type_}"
+
     device_info = DeviceInfo(
         hw_version=appliance.info.get("hwVersion"),
         identifiers={(DOMAIN, config_entry.unique_id)},
         model=f"{appliance.info.get('type')}",
         model_id=appliance.info.get("vib"),
         sw_version=appliance.info.get("swVersion"),
+        **optional_info,
     )
-
-    if mac := appliance.info.get("mac"):
-        device_info["connections"] = {(CONNECTION_NETWORK_MAC, format_mac(mac))}
-
-    if brand := appliance.info.get("brand"):
-        device_info["manufacturer"] = brand.capitalize()
-
-    if (type_ := appliance.info.get("type")) and brand:
-        device_info["name"] = f"{brand.capitalize()} {type_}"
 
     available_entities = get_available_entities(appliance)
 

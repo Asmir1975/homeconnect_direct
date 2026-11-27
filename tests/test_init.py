@@ -168,6 +168,19 @@ async def test_device_model(
     assert device.model_id == DEVICE_DESCRIPTION["info"]["vib"]
 
 
+async def test_device_name_manufacturer_and_mac(
+    hass: HomeAssistant,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Test the device name, manufacturer and network connection."""
+    _, device_id = await _setup_entry_with_device(hass, monkeypatch)
+    device = dr.async_get(hass).async_get(device_id)
+
+    assert device.manufacturer == "Fake_brand"
+    assert device.name == f"Fake_brand {DEVICE_DESCRIPTION['info']['type']}"
+    assert device.connections == {(dr.CONNECTION_NETWORK_MAC, "78:43:f2:23:c8:d7")}
+
+
 async def test_set_start_in_calls_set_value(
     hass: HomeAssistant,
     monkeypatch: pytest.MonkeyPatch,
